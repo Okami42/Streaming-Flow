@@ -1,32 +1,31 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   images: {
     domains: ['ext.same-assets.com', 'storage-anime.com', 'video.sibnet.ru', 'sibnet.ru', 'embed.sibnet.ru'],
-    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'ext.same-assets.com',
-        pathname: '/**',
       },
       {
         protocol: 'https',
         hostname: 'storage-anime.com',
-        pathname: '/**',
       },
       {
         protocol: 'https',
         hostname: 'video.sibnet.ru',
-        pathname: '/**',
       },
       {
         protocol: 'https',
         hostname: 'sibnet.ru',
-        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'embed.sibnet.ru',
       }
     ],
+    unoptimized: true,
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
@@ -39,10 +38,6 @@ const nextConfig = {
   eslint: {
     // ⚠️ Ignorer les erreurs ESLint lors du build pour Vercel
     ignoreDuringBuilds: true
-  },
-  experimental: {
-    // Prise en charge des anciennes syntaxes de Next.js si nécessaire
-    esmExternals: 'loose',
   },
   async headers() {
     return [
