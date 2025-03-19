@@ -10,6 +10,7 @@ import { ChevronLeft, ChevronRight, Heart, Info, List, Play, Share2, Star } from
 import { useHistory } from "@/context/history-context";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import React from "react";
 
 // Type pour l'anime passé en prop
 interface Anime {
@@ -39,23 +40,169 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
   const [isFollowing, setIsFollowing] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
+  
+  // Utiliser UNIQUEMENT des refs pour le timing pour éviter les boucles de rendu
+  const currentTimeRef = React.useRef(0);
+  const lastSavedTimeRef = React.useRef(0);
+  const isPlayingRef = React.useRef(false);
+  const intervalRef = React.useRef<NodeJS.Timeout | null>(null);
+  const timeDisplayRef = React.useRef("00:00");
+  
+  // État UI pour forcer le rendu uniquement quand nécessaire
+  const [renderKey, setRenderKey] = useState(0);
+  const sibnetOverlayRef = React.useRef<HTMLDivElement>(null);
 
-  const { addToWatchHistory } = useHistory();
+  const { addToWatchHistory, updateWatchProgress, watchHistory } = useHistory();
   const pathname = usePathname();
 
   const episode = anime?.episodes?.find(ep => ep.number === selectedEpisode);
 
-  // Simuler le visionnage en ajoutant l'entrée à l'historique
+  // Fonction pour mettre à jour l'affichage du temps sans affecter la logique
+  const updateTimeDisplay = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    timeDisplayRef.current = `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+    
+    // Forcer un rendu uniquement toutes les 5 secondes
+    if (seconds % 5 === 0) {
+      setRenderKey(prev => prev + 1);
+    }
+  };
+
+  // Fonction pour sauvegarder le temps dans l'historique
+  const saveTime = (forceUpdate = false) => {
+    if (!anime || !episode) return;
+    
+    const currentTime = currentTimeRef.current;
+    const lastSaved = lastSavedTimeRef.current;
+    
+    // Ne sauvegarder que si le temps a changé significativement ou si forcé
+    if (forceUpdate || (currentTime > 0 && Math.abs(currentTime - lastSaved) >= 5)) {
+      updateWatchProgress(`${anime.id}-s1e${episode.number}`, currentTime);
+      lastSavedTimeRef.current = currentTime;
+      console.log("Temps sauvegardé:", currentTime);
+    }
+  };
+  
+  // Fonction pour démarrer/arrêter le timer pour l'iframe
+  const startTrackingTime = (playing: boolean) => {
+    // Toujours nettoyer l'intervalle existant
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+    
+    // Mettre à jour l'état de lecture
+    isPlayingRef.current = playing;
+    
+    // Si on met en pause, sauvegarder immédiatement
+    if (!playing) {
+      saveTime(true);
+      return;
+    }
+    
+    // Uniquement si on démarre la lecture et que c'est l'épisode 1 en VOSTFR
+    if (selectedEpisode === 1 && selectedLanguage === "vostfr") {
+      // Débuter l'intervalle pour suivre le temps
+      intervalRef.current = setInterval(() => {
+        // Vérifier que l'on est toujours en lecture
+        if (!isPlayingRef.current) {
+          if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+          }
+          return;
+        }
+        
+        // Incrémenter le temps
+        currentTimeRef.current += 1;
+        
+        // Sauvegarder dans l'historique toutes les 15 secondes
+        if (currentTimeRef.current % 15 === 0) {
+          saveTime(true);
+        }
+      }, 1000);
+    }
+  };
+  
+  // Nettoyer l'intervalle lorsque l'épisode ou la langue change
   useEffect(() => {
+    // Au changement d'épisode/langue, réinitialiser le suivi
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+    
+    // Réinitialiser les compteurs pour le nouvel épisode
+    currentTimeRef.current = 0;
+    lastSavedTimeRef.current = 0;
+    isPlayingRef.current = false;
+    timeDisplayRef.current = "00:00";
+    setRenderKey(prev => prev + 1);
+    
+    // Uniquement pour les vidéos Sibnet (iframe)
+    if (selectedEpisode === 1 && selectedLanguage === "vostfr") {
+      // Écouteur simplifié pour détecter les interactions qui pourraient indiquer une pause
+      const detectPause = () => {
+        // Si on pense être en lecture, vérifier si le temps progresse correctement
+        if (isPlayingRef.current) {
+          const lastTime = currentTimeRef.current;
+          
+          // Vérifier dans 2 secondes si le temps a changé
+          setTimeout(() => {
+            if (isPlayingRef.current && lastTime === currentTimeRef.current) {
+              // Le temps n'a pas avancé alors que l'on est censé être en lecture
+              // Probablement en pause
+              isPlayingRef.current = false;
+              
+              // Arrêter l'intervalle de temps
+              if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+                intervalRef.current = null;
+              }
+              
+              // Sauvegarder le temps actuel
+              saveTime(true);
+            }
+          }, 2000);
+        }
+      };
+      
+      // Ajouter les écouteurs pour les événements qui pourraient indiquer une pause
+      window.addEventListener('click', detectPause);
+      window.addEventListener('keydown', detectPause);
+      
+      return () => {
+        // Nettoyer les écouteurs au démontage
+        window.removeEventListener('click', detectPause);
+        window.removeEventListener('keydown', detectPause);
+        
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+          intervalRef.current = null;
+        }
+      };
+    }
+    
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, [selectedEpisode, selectedLanguage]);
+
+  // Effet séparé pour ajouter à l'historique - pas de dépendance à startTrackingTime
+  useEffect(() => {
+    // Ajouter l'entrée à l'historique pour le nouvel épisode sélectionné
     if (anime && episode) {
-      // On ne le fait qu'une fois au chargement
       const timer = setTimeout(() => {
         addToWatchHistory({
           id: `${anime.id}-s1e${episode.number}`,
           title: anime.title,
           imageUrl: anime.imageUrl,
           lastWatchedAt: new Date().toISOString(),
-          progress: Math.floor(episode.duration * 0.3), // Simuler 30% de progression
+          progress: currentTimeRef.current,
           duration: episode.duration,
           episodeInfo: {
             season: 1,
@@ -64,11 +211,136 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
           },
           type: "Anime"
         });
-      }, 5000);
-
+      }, 2000);
+      
       return () => clearTimeout(timer);
     }
   }, [anime, episode, selectedEpisode, addToWatchHistory]);
+
+  // Nettoyer l'intervalle et sauvegarder au démontage du composant
+  useEffect(() => {
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+      saveTime(true);
+    };
+  }, []);
+  
+  // Gestionnaires d'événements pour les éléments vidéo
+  const handleTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement>) => {
+    if (!e.target) return;
+    
+    const videoElement = e.target as HTMLVideoElement;
+    const newTime = Math.floor(videoElement.currentTime);
+    
+    currentTimeRef.current = newTime;
+    updateTimeDisplay(newTime);
+    
+    // Sauvegarder moins fréquemment pour éviter les mises à jour excessives
+    if (newTime % 5 === 0) {
+      saveTime();
+    }
+  };
+
+  const handlePause = (e: React.SyntheticEvent<HTMLVideoElement>) => {
+    if (!e.target) return;
+    
+    const videoElement = e.target as HTMLVideoElement;
+    const time = Math.floor(videoElement.currentTime);
+    
+    currentTimeRef.current = time;
+    updateTimeDisplay(time);
+    isPlayingRef.current = false;
+    setRenderKey(prev => prev + 1);
+    
+    // Toujours sauvegarder lors d'une pause
+    saveTime(true);
+    
+    // S'assurer que l'intervalle est arrêté
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  };
+
+  const handlePlay = (e: React.SyntheticEvent<HTMLVideoElement>) => {
+    isPlayingRef.current = true;
+    setRenderKey(prev => prev + 1);
+  };
+
+  // Fonction pour forcer la mise à jour de la progression
+  const forceUpdateProgress = () => {
+    saveTime(true);
+  };
+
+  // Fonction pour basculer la lecture pour l'iframe
+  const togglePlayState = () => {
+    const newPlayingState = !isPlayingRef.current;
+    
+    // Si on passe en pause, s'assurer que l'intervalle est arrêté
+    if (!newPlayingState && intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+      
+      // Sauvegarder l'état actuel lors de la mise en pause
+      saveTime(true);
+      console.log("Mise en pause manuelle : temps arrêté à", currentTimeRef.current);
+    }
+    
+    // Mettre à jour l'état de lecture
+    isPlayingRef.current = newPlayingState;
+    
+    // Si on démarre la lecture, commencer le suivi du temps
+    if (newPlayingState) {
+      // Démarrer le suivi du temps avec le timer
+      startTrackingTime(true);
+      console.log("Lecture démarrée par l'utilisateur à", currentTimeRef.current);
+      
+      try {
+        // Pour l'épisode 1, on doit forcer la lecture de l'iframe
+        if (selectedEpisode === 1 && selectedLanguage === "vostfr") {
+          console.log("Démarrage de la vidéo");
+          
+          // Force le focus sur l'iframe pour faciliter l'interaction
+          const iframe = document.querySelector('iframe');
+          if (iframe) {
+            iframe.focus();
+          }
+        }
+      } catch (error) {
+        console.error("Erreur lors de la tentative de démarrage de la vidéo:", error);
+      }
+    } else {
+      // Stopper le suivi du temps
+      startTrackingTime(false);
+      console.log("Lecture arrêtée par l'utilisateur à", currentTimeRef.current);
+    }
+    
+    // Forcer un rendu pour mettre à jour l'UI
+    setRenderKey(prev => prev + 1);
+  };
+
+  // Fonction pour récupérer la progression d'un épisode
+  const getEpisodeProgress = (episodeNumber: number) => {
+    if (!anime) return null;
+    
+    const historyItem = watchHistory.find(
+      item => item.id === `${anime.id}-s1e${episodeNumber}`
+    );
+    
+    if (!historyItem) return null;
+    
+    const episode = anime.episodes.find(ep => ep.number === episodeNumber);
+    if (!episode) return null;
+    
+    return {
+      progress: historyItem.progress,
+      duration: episode.duration,
+      percentage: Math.min(100, Math.round((historyItem.progress / episode.duration) * 100))
+    };
+  };
 
   if (!anime) {
     return (
@@ -238,22 +510,35 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                 <div className="bg-black rounded-md overflow-hidden aspect-video w-full">
                   <div className="relative w-full h-0" style={{ paddingBottom: '56.25%' }}>
                     {selectedEpisode === 1 ? (
-                      <iframe 
-                        src="https://video.sibnet.ru/shell.php?videoid=5742388"
-                        width="100%" 
-                        height="100%" 
-                        frameBorder="0" 
-                        scrolling="no" 
-                        allow="autoplay; fullscreen" 
-                        allowFullScreen 
-                        className="absolute inset-0 w-full h-full"
-                      ></iframe>
+                      <div className="absolute inset-0 w-full h-full">
+                        <iframe 
+                          src="https://video.sibnet.ru/shell.php?videoid=5742388"
+                          width="100%" 
+                          height="100%" 
+                          frameBorder="0" 
+                          scrolling="no" 
+                          allow="autoplay; fullscreen" 
+                          allowFullScreen 
+                          className="w-full h-full"
+                          onLoad={() => {
+                            console.log("Iframe chargée");
+                            // Démarrer automatiquement le suivi quand l'iframe est chargée
+                            isPlayingRef.current = true;
+                            startTrackingTime(true);
+                            setRenderKey(prev => prev + 1);
+                          }}
+                        ></iframe>
+                      </div>
                     ) : (
                       <video 
                         src={mp4Source} 
                         controls 
                         className="absolute inset-0 w-full h-full"
                         poster={anime.bannerUrl}
+                        onTimeUpdate={handleTimeUpdate}
+                        onPlay={handlePlay}
+                        onPause={handlePause}
+                        onEnded={handlePause}
                       ></video>
                     )}
                   </div>
@@ -308,6 +593,10 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       controls 
                       className="absolute inset-0 w-full h-full"
                       poster={anime.bannerUrl}
+                      onTimeUpdate={handleTimeUpdate}
+                      onPlay={handlePlay}
+                      onPause={handlePause}
+                      onEnded={handlePause}
                     ></video>
                   </div>
                 </div>
@@ -393,23 +682,43 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {anime.episodes.map((ep) => (
-                <button
-                  key={ep.number}
-                  className={`p-4 rounded-md border text-left transition-all ${
-                    selectedEpisode === ep.number
-                      ? "border-pink-500 bg-pink-500/10"
-                      : "border-white/10 bg-[#151a2a] hover:bg-[#1a1f35]"
-                  }`}
-                  onClick={() => setSelectedEpisode(ep.number)}
-                >
-                  <div className="flex items-start justify-between">
-                    <div className="font-semibold text-white">Épisode {ep.number}</div>
-                    <div className="text-xs text-gray-400">24:00</div>
-                  </div>
-                  <div className="mt-1 text-sm text-gray-300 truncate">{ep.title}</div>
-                </button>
-              ))}
+              {anime.episodes.map((ep) => {
+                const progress = getEpisodeProgress(ep.number);
+                
+                return (
+                  <button
+                    key={ep.number}
+                    className={`p-4 rounded-md border text-left transition-all ${
+                      selectedEpisode === ep.number
+                        ? "border-pink-500 bg-pink-500/10"
+                        : "border-white/10 bg-[#151a2a] hover:bg-[#1a1f35]"
+                    }`}
+                    onClick={() => setSelectedEpisode(ep.number)}
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className="font-semibold text-white">Épisode {ep.number}</div>
+                      <div className="text-xs text-gray-400">{Math.floor(ep.duration / 60)}:{(ep.duration % 60).toString().padStart(2, '0')}</div>
+                    </div>
+                    <div className="mt-1 text-sm text-gray-300 truncate">{ep.title}</div>
+                    
+                    {/* Barre de progression */}
+                    {progress && (
+                      <div className="mt-2">
+                        <div className="w-full h-1 bg-gray-700 rounded-full overflow-hidden">
+                          <div 
+                            className="h-full bg-pink-500" 
+                            style={{ width: `${progress.percentage}%` }} 
+                          />
+                        </div>
+                        <div className="text-xs text-gray-400 mt-1">
+                          {Math.floor(progress.progress / 60)}:{(progress.progress % 60).toString().padStart(2, '0')} / 
+                          {Math.floor(progress.duration / 60)}:{(progress.duration % 60).toString().padStart(2, '0')}
+                        </div>
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </div>
 

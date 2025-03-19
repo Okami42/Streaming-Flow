@@ -88,6 +88,8 @@ export default function Home() {
                       alt="Welcome, Demon-School Teacher!"
                       fill={true}
                       className="object-cover"
+                      priority
+                      sizes="(max-width: 768px) 100vw, 33vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-60 transition-opacity duration-300"></div>
                   </div>

@@ -26,13 +26,23 @@ export interface ReadHistoryItem {
 
 export type HistoryItem = WatchHistoryItem | ReadHistoryItem;
 
-// Helper to calculate the percentage of progress
-export function calculateProgress(item: HistoryItem): number {
-  if ('progress' in item) {
-    return Math.min(100, Math.round((item.progress / item.duration) * 100));
-  } else {
-    return Math.min(100, Math.round((item.page / item.totalPages) * 100));
+// Surcharge de la fonction de calcul du pourcentage de progression
+export function calculateProgress(current: number, total: number): number;
+export function calculateProgress(item: HistoryItem): number;
+export function calculateProgress(itemOrCurrent: HistoryItem | number, total?: number): number {
+  if (typeof itemOrCurrent === 'number' && typeof total === 'number') {
+    // Si on reçoit deux nombres, c'est current et total
+    return Math.min(100, Math.round((itemOrCurrent / total) * 100));
+  } else if (typeof itemOrCurrent === 'object') {
+    // Si on reçoit un objet item
+    const item = itemOrCurrent as HistoryItem;
+    if ('progress' in item) {
+      return Math.min(100, Math.round((item.progress / item.duration) * 100));
+    } else {
+      return Math.min(100, Math.round((item.page / item.totalPages) * 100));
+    }
   }
+  return 0;
 }
 
 // Format time from seconds to MM:SS
