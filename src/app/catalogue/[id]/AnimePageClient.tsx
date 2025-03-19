@@ -98,20 +98,55 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
     // Si on met en pause, sauvegarder immédiatement
     if (!playing) {
       saveTime(true);
+      console.log("Timer arrêté manuellement");
       return;
     }
     
     // Uniquement si on démarre la lecture et que c'est l'épisode 1 en VOSTFR
     if (selectedEpisode === 1 && selectedLanguage === "vostfr") {
+      console.log("Démarrage du timer");
+      
+      // Variable pour suivre le dernier temps connu
+      let lastTrackedTime = currentTimeRef.current;
+      let stagnantCount = 0;
+      
       // Débuter l'intervalle pour suivre le temps
       intervalRef.current = setInterval(() => {
         // Vérifier que l'on est toujours en lecture
         if (!isPlayingRef.current) {
+          console.log("Arrêt du timer car l'état de lecture est faux");
           if (intervalRef.current) {
             clearInterval(intervalRef.current);
             intervalRef.current = null;
           }
           return;
+        }
+        
+        // Vérifier si le temps stagne (signe possible que la vidéo est en pause)
+        if (lastTrackedTime === currentTimeRef.current) {
+          stagnantCount++;
+          
+          // Si le temps n'a pas changé pendant 3 secondes consécutives alors que nous sommes en lecture
+          if (stagnantCount >= 3) {
+            console.log("Le timer détecte que le temps stagne, probable pause");
+            
+            // Mettre à jour l'état
+            isPlayingRef.current = false;
+            
+            // Arrêter l'intervalle
+            if (intervalRef.current) {
+              clearInterval(intervalRef.current);
+              intervalRef.current = null;
+            }
+            
+            // Sauvegarder le temps
+            saveTime(true);
+            return;
+          }
+        } else {
+          // Réinitialiser le compteur si le temps change
+          stagnantCount = 0;
+          lastTrackedTime = currentTimeRef.current;
         }
         
         // Incrémenter le temps
@@ -123,6 +158,9 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
         }
       }, 1000);
     }
+    
+    // Forcer un rendu pour mettre à jour l'UI
+    setRenderKey(prev => prev + 1);
   };
   
   // Nettoyer l'intervalle lorsque l'épisode ou la langue change
@@ -144,38 +182,113 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
     if (selectedEpisode === 1 && selectedLanguage === "vostfr") {
       // Écouteur simplifié pour détecter les interactions qui pourraient indiquer une pause
       const detectPause = () => {
-        // Si on pense être en lecture, vérifier si le temps progresse correctement
+        // Attendre un court instant pour laisser le temps à la vidéo de se mettre en pause
+        setTimeout(() => {
+          // Si on pense être en lecture, vérifier si le temps progresse correctement
+          if (isPlayingRef.current) {
+            const lastTime = currentTimeRef.current;
+            
+            // Vérifier dans 1 seconde si le temps a changé
+            setTimeout(() => {
+              // Si on est toujours en mode lecture mais que le temps n'a pas changé, c'est que la vidéo est en pause
+              if (isPlayingRef.current && lastTime === currentTimeRef.current) {
+                console.log("Pause détectée: le temps n'avance plus");
+                
+                // Arrêter le timer
+                if (intervalRef.current) {
+                  clearInterval(intervalRef.current);
+                  intervalRef.current = null;
+                }
+                
+                // Mettre à jour l'état de lecture
+                isPlayingRef.current = false;
+                
+                // Sauvegarder le temps actuel
+                saveTime(true);
+              }
+            }, 1000);
+          }
+        }, 100);
+      };
+      
+      // Fonction pour détecter quand l'utilisateur change d'onglet/fenêtre
+      const handleVisibilityChange = () => {
+        if (document.hidden && isPlayingRef.current) {
+          console.log("Onglet/fenêtre non visible, pause probable");
+          
+          // On considère que la vidéo est en pause si l'utilisateur change d'onglet
+          if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+          }
+          
+          // Mettre à jour l'état de lecture
+          isPlayingRef.current = false;
+          
+          // Sauvegarder le temps actuel
+          saveTime(true);
+        }
+      };
+      
+      // Fonction pour détecter quand la fenêtre perd le focus
+      const handleBlur = () => {
         if (isPlayingRef.current) {
-          const lastTime = currentTimeRef.current;
+          console.log("Fenêtre a perdu le focus, pause probable");
+          
+          // On considère que la vidéo est en pause si la fenêtre perd le focus
+          if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+          }
+          
+          // Mettre à jour l'état de lecture
+          isPlayingRef.current = false;
+          
+          // Sauvegarder le temps actuel
+          saveTime(true);
+        }
+      };
+      
+      // Ajouter un écouteur plus agressif qui vérifie régulièrement si le temps avance
+      const pauseDetectionInterval = setInterval(() => {
+        if (isPlayingRef.current) {
+          const currentTime = currentTimeRef.current;
           
           // Vérifier dans 2 secondes si le temps a changé
           setTimeout(() => {
-            if (isPlayingRef.current && lastTime === currentTimeRef.current) {
-              // Le temps n'a pas avancé alors que l'on est censé être en lecture
-              // Probablement en pause
-              isPlayingRef.current = false;
+            // Si nous sommes toujours en mode lecture mais que le temps n'a pas changé
+            if (isPlayingRef.current && currentTime === currentTimeRef.current) {
+              console.log("Pause auto-détectée par intervalle de vérification");
               
-              // Arrêter l'intervalle de temps
+              // Arrêter le timer
               if (intervalRef.current) {
                 clearInterval(intervalRef.current);
                 intervalRef.current = null;
               }
+              
+              // Mettre à jour l'état de lecture
+              isPlayingRef.current = false;
               
               // Sauvegarder le temps actuel
               saveTime(true);
             }
           }, 2000);
         }
-      };
+      }, 5000);
       
-      // Ajouter les écouteurs pour les événements qui pourraient indiquer une pause
+      // Ajouter des écouteurs pour les interactions utilisateur qui pourraient indiquer une pause
       window.addEventListener('click', detectPause);
       window.addEventListener('keydown', detectPause);
+      document.addEventListener('visibilitychange', handleVisibilityChange);
+      window.addEventListener('blur', handleBlur);
       
       return () => {
         // Nettoyer les écouteurs au démontage
         window.removeEventListener('click', detectPause);
         window.removeEventListener('keydown', detectPause);
+        document.removeEventListener('visibilitychange', handleVisibilityChange);
+        window.removeEventListener('blur', handleBlur);
+        clearInterval(pauseDetectionInterval);
         
         if (intervalRef.current) {
           clearInterval(intervalRef.current);
@@ -306,7 +419,44 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
           // Force le focus sur l'iframe pour faciliter l'interaction
           const iframe = document.querySelector('iframe');
           if (iframe) {
-            iframe.focus();
+            // Au lieu d'utiliser un détecteur de clics qui bloque l'interaction,
+            // on va surveiller les événements de l'iframe directement
+            
+            // Ajouter un écouteur sur la fenêtre pour détecter les clics
+            const clickHandler = () => {
+              // Après un clic, vérifier si le temps progresse après un court délai
+              setTimeout(() => {
+                const timeBeforeCheck = currentTimeRef.current;
+                
+                setTimeout(() => {
+                  // Si le temps n'a pas changé mais qu'on est censé être en lecture
+                  if (isPlayingRef.current && timeBeforeCheck === currentTimeRef.current) {
+                    // Probable pause
+                    console.log("Pause détectée après clic");
+                    
+                    // Arrêter le timer
+                    if (intervalRef.current) {
+                      clearInterval(intervalRef.current);
+                      intervalRef.current = null;
+                    }
+                    
+                    // Mettre à jour l'état
+                    isPlayingRef.current = false;
+                    
+                    // Sauvegarder le temps
+                    saveTime(true);
+                  }
+                }, 2000);
+              }, 200);
+            };
+            
+            // Ajouter l'écouteur à la fenêtre
+            window.addEventListener('click', clickHandler);
+            
+            // Nettoyer l'écouteur quand l'iframe est déchargée
+            return () => {
+              window.removeEventListener('click', clickHandler);
+            };
           }
         }
       } catch (error) {
@@ -522,6 +672,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                           className="w-full h-full"
                           onLoad={() => {
                             console.log("Iframe chargée");
+                            
                             // Démarrer automatiquement le suivi quand l'iframe est chargée
                             isPlayingRef.current = true;
                             startTrackingTime(true);
