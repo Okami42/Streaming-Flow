@@ -122,6 +122,13 @@ export const classics = [
     type: "Anime",
     language: "VOSTFR",
   },
+  {
+    id: "kuroko-no-basket",
+    title: "Kuroko no Basket",
+    imageUrl: "https://images.justwatch.com/poster/181383869/s166/kuroko-no-basket.avif",
+    type: "Anime",
+    language: "VOSTFR",
+  },
 ];
 
 export const hidden = [
@@ -136,13 +143,6 @@ export const hidden = [
     id: "vinland-saga",
     title: "Vinland Saga",
     imageUrl: "https://ext.same-assets.com/4165707166/2193428669.jpeg",
-    type: "Anime",
-    language: "VOSTFR",
-  },
-  {
-    id: "kuroko-no-basket",
-    title: "Kuroko no Basket",
-    imageUrl: "https://images.justwatch.com/poster/181383869/s166/kuroko-no-basket.avif",
     type: "Anime",
     language: "VOSTFR",
   },
