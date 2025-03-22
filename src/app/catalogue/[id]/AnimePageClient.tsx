@@ -11,31 +11,12 @@ import { useHistory } from "@/context/history-context";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
-
-// Type pour l'anime passé en prop
-interface Anime {
-  id: string;
-  title: string;
-  originalTitle: string;
-  description: string;
-  imageUrl: string;
-  bannerUrl: string;
-  year: number;
-  type: string;
-  status: string;
-  genres: string[];
-  rating: number;
-  episodes: Array<{
-    number: number;
-    title: string;
-    duration: number;
-    sibnetVostfrId: string;
-    sibnetVfId: string;
-  }>;
-}
+import { Anime, AnimeEpisode } from "@/lib/animeData";
+import VideoPlayer from "@/components/ui/video-player";
 
 export default function AnimePageClient({ anime }: { anime: Anime | undefined }) {
   const [selectedEpisode, setSelectedEpisode] = useState(1);
+  const [selectedSeason, setSelectedSeason] = useState(1);
   const [selectedLanguage, setSelectedLanguage] = useState<"vostfr" | "vf">("vostfr");
   const [isFollowing, setIsFollowing] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -55,7 +36,26 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
   const { addToWatchHistory, updateWatchProgress, watchHistory } = useHistory();
   const pathname = usePathname();
 
-  const episode = anime?.episodes?.find(ep => ep.number === selectedEpisode);
+  // Déterminer si on utilise la nouvelle structure (saisons) ou l'ancienne (episodes)
+  // Pour éviter les changements de dépendances dans useEffect, cette valeur ne doit pas changer
+  const useSeasonsStructure = React.useMemo(() => {
+    return !!anime?.seasons && anime.seasons.length > 0;
+  }, [anime]);
+  
+  // Récupérer la saison actuelle si disponible
+  const currentSeason = useSeasonsStructure 
+    ? anime?.seasons?.find(s => s.seasonNumber === selectedSeason)
+    : null;
+    
+  // Récupérer l'épisode actuel selon la structure utilisée
+  const episode = useSeasonsStructure
+    ? currentSeason?.episodes?.find(ep => ep.number === selectedEpisode)
+    : anime?.episodes?.find(ep => ep.number === selectedEpisode);
+
+  // Récupérer le nombre total d'épisodes selon la structure utilisée  
+  const totalEpisodes = useSeasonsStructure
+    ? currentSeason?.episodes?.length
+    : anime?.episodes?.length;
 
   // Fonction pour mettre à jour l'affichage du temps sans affecter la logique
   const updateTimeDisplay = (seconds: number) => {
@@ -78,7 +78,12 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
     
     // Ne sauvegarder que si le temps a changé significativement ou si forcé
     if (forceUpdate || (currentTime > 0 && Math.abs(currentTime - lastSaved) >= 5)) {
-      updateWatchProgress(`${anime.id}-s1e${episode.number}`, currentTime);
+      // Identifiant avec ou sans saison
+      const episodeId = useSeasonsStructure
+        ? `${anime.id}-s${selectedSeason}e${episode.number}`
+        : `${anime.id}-e${episode.number}`;
+        
+      updateWatchProgress(episodeId, currentTime);
       lastSavedTimeRef.current = currentTime;
       console.log("Temps sauvegardé:", currentTime);
     }
@@ -310,15 +315,20 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
     // Ajouter l'entrée à l'historique pour le nouvel épisode sélectionné
     if (anime && episode) {
       const timer = setTimeout(() => {
+        // Identifiant avec ou sans saison
+        const episodeId = useSeasonsStructure
+          ? `${anime.id}-s${selectedSeason}e${episode.number}`
+          : `${anime.id}-e${episode.number}`;
+          
         addToWatchHistory({
-          id: `${anime.id}-s1e${episode.number}`,
+          id: episodeId,
           title: anime.title,
           imageUrl: anime.imageUrl,
           lastWatchedAt: new Date().toISOString(),
           progress: currentTimeRef.current,
           duration: episode.duration,
           episodeInfo: {
-            season: 1,
+            season: useSeasonsStructure ? selectedSeason : 1,
             episode: episode.number,
             title: episode.title,
           },
@@ -328,7 +338,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
       
       return () => clearTimeout(timer);
     }
-  }, [anime, episode, selectedEpisode, addToWatchHistory]);
+  }, [anime, episode, selectedEpisode, selectedSeason, addToWatchHistory, useSeasonsStructure]);
 
   // Nettoyer l'intervalle et sauvegarder au démontage du composant
   useEffect(() => {
@@ -473,22 +483,35 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
   };
 
   // Fonction pour récupérer la progression d'un épisode
-  const getEpisodeProgress = (episodeNumber: number) => {
+  const getEpisodeProgress = (seasonNumber: number, episodeNumber: number) => {
     if (!anime) return null;
     
-    const historyItem = watchHistory.find(
-      item => item.id === `${anime.id}-s1e${episodeNumber}`
-    );
+    // Identifiant avec ou sans saison
+    const episodeId = useSeasonsStructure
+      ? `${anime.id}-s${seasonNumber}e${episodeNumber}`
+      : `${anime.id}-e${episodeNumber}`;
+    
+    const historyItem = watchHistory.find(item => item.id === episodeId);
     
     if (!historyItem) return null;
     
-    const episode = anime.episodes.find(ep => ep.number === episodeNumber);
-    if (!episode) return null;
+    // Trouver l'épisode selon la structure utilisée
+    let foundEpisode: AnimeEpisode | undefined;
+    
+    if (useSeasonsStructure) {
+      const season = anime.seasons?.find(s => s.seasonNumber === seasonNumber);
+      if (!season) return null;
+      foundEpisode = season.episodes.find(ep => ep.number === episodeNumber);
+    } else {
+      foundEpisode = anime.episodes?.find(ep => ep.number === episodeNumber);
+    }
+    
+    if (!foundEpisode) return null;
     
     return {
       progress: historyItem.progress,
-      duration: episode.duration,
-      percentage: Math.min(100, Math.round((historyItem.progress / episode.duration) * 100))
+      duration: foundEpisode.duration,
+      percentage: Math.min(100, Math.round((historyItem.progress / foundEpisode.duration) * 100))
     };
   };
 
@@ -516,8 +539,12 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
     
   // Définir des sources mp4 fictives pour l'exemple
   const mp4Source = selectedLanguage === "vostfr"
-    ? `https://storage-anime.com/welcome-demon-school-teacher/s1e${selectedEpisode}-vostfr.mp4`
-    : `https://storage-anime.com/welcome-demon-school-teacher/s1e${selectedEpisode}-vf.mp4`;
+    ? useSeasonsStructure
+      ? `https://storage-anime.com/${anime?.id}/s${selectedSeason}e${selectedEpisode}-vostfr.mp4`
+      : `https://storage-anime.com/${anime?.id}/e${selectedEpisode}-vostfr.mp4`
+    : useSeasonsStructure
+      ? `https://storage-anime.com/${anime?.id}/s${selectedSeason}e${selectedEpisode}-vf.mp4`
+      : `https://storage-anime.com/${anime?.id}/e${selectedEpisode}-vf.mp4`;
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -639,7 +666,37 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
               className="mb-4"
             >
               <div className="flex items-center justify-between mb-2">
-                <h2 className="text-xl font-bold text-white">Épisode {selectedEpisode}: {episode?.title}</h2>
+                <div>
+                  <h2 className="text-xl font-bold text-white">
+                    {useSeasonsStructure ? `${currentSeason?.title} - ` : ""}
+                    Épisode {selectedEpisode}: {episode?.title}
+                  </h2>
+                  
+                  {/* Sélecteur de saison pour les animes avec plusieurs saisons */}
+                  {useSeasonsStructure && anime?.seasons && anime.seasons.length > 1 && (
+                    <div className="flex items-center mt-2 gap-2">
+                      <span className="text-sm text-gray-400">Saison:</span>
+                      <div className="flex space-x-1">
+                        {anime.seasons.map((season) => (
+                          <button
+                            key={season.seasonNumber}
+                            onClick={() => {
+                              setSelectedSeason(season.seasonNumber);
+                              setSelectedEpisode(1); // Réinitialiser l'épisode quand on change de saison
+                            }}
+                            className={`px-3 py-1 text-sm rounded ${
+                              selectedSeason === season.seasonNumber
+                                ? "bg-pink-600 text-white"
+                                : "bg-[#151a2a] text-gray-300 hover:bg-[#1a1f35]"
+                            }`}
+                          >
+                            {season.seasonNumber}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
                 <TabsList className="bg-[#151a2a] border border-white/10">
                   <TabsTrigger
                     value="vostfr"
@@ -657,42 +714,95 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
               </div>
 
               <TabsContent value="vostfr" className="mt-2">
-                <div className="bg-black rounded-md overflow-hidden aspect-video w-full">
-                  <div className="relative w-full h-0" style={{ paddingBottom: '56.25%' }}>
-                    {selectedEpisode === 1 ? (
-                      <div className="absolute inset-0 w-full h-full">
-                        <iframe 
-                          src="https://video.sibnet.ru/shell.php?videoid=5742388"
-                          width="100%" 
-                          height="100%" 
-                          frameBorder="0" 
-                          scrolling="no" 
-                          allow="autoplay; fullscreen" 
-                          allowFullScreen 
-                          className="w-full h-full"
-                          onLoad={() => {
-                            console.log("Iframe chargée");
-                            
-                            // Démarrer automatiquement le suivi quand l'iframe est chargée
-                            isPlayingRef.current = true;
-                            startTrackingTime(true);
-                            setRenderKey(prev => prev + 1);
-                          }}
-                        ></iframe>
-                      </div>
-                    ) : (
-                      <video 
-                        src={mp4Source} 
-                        controls 
-                        className="absolute inset-0 w-full h-full"
+                {/* Tabs pour choisir le lecteur */}
+                <div className="mb-4">
+                  <Tabs defaultValue="lecteur1" className="w-full">
+                    <TabsList className="grid w-full grid-cols-2 bg-[#151a2a] mb-2">
+                      <TabsTrigger value="lecteur1" className="data-[state=active]:bg-[#1a1f35]">Lecteur 1</TabsTrigger>
+                      <TabsTrigger value="lecteur2" className="data-[state=active]:bg-[#1a1f35]">Lecteur 2</TabsTrigger>
+                    </TabsList>
+                    
+                    <TabsContent value="lecteur1" className="mt-0">
+                      {/* Lecteur personnalisé avec prévisualisation */}
+                      <VideoPlayer 
+                        sibnetId={videoId}
                         poster={anime.bannerUrl}
-                        onTimeUpdate={handleTimeUpdate}
-                        onPlay={handlePlay}
-                        onPause={handlePause}
-                        onEnded={handlePause}
-                      ></video>
-                    )}
-                  </div>
+                        onTimeUpdate={(time) => {
+                          currentTimeRef.current = time;
+                          updateTimeDisplay(time);
+                          if (Math.floor(time) % 5 === 0) {
+                            saveTime();
+                          }
+                        }}
+                        onPlay={() => {
+                          isPlayingRef.current = true;
+                          startTrackingTime(true);
+                        }}
+                        onPause={() => {
+                          isPlayingRef.current = false;
+                          saveTime(true);
+                          if (intervalRef.current) {
+                            clearInterval(intervalRef.current);
+                            intervalRef.current = null;
+                          }
+                        }}
+                        initialTime={currentTimeRef.current}
+                        onNextEpisode={() => {
+                          if (currentSeason && selectedEpisode < currentSeason.episodes.length) {
+                            setSelectedEpisode(prev => Math.min(currentSeason.episodes.length, prev + 1));
+                          }
+                        }}
+                        onPreviousEpisode={() => {
+                          if (selectedEpisode > 1) {
+                            setSelectedEpisode(prev => Math.max(1, prev - 1));
+                          }
+                        }}
+                        hasNextEpisode={currentSeason ? selectedEpisode < currentSeason.episodes.length : false}
+                        hasPreviousEpisode={selectedEpisode > 1}
+                      />
+                    </TabsContent>
+                    
+                    <TabsContent value="lecteur2" className="mt-0">
+                      {/* Lecteur Sibnet standard (ancien lecteur) */}
+                      <div className="bg-black rounded-md overflow-hidden aspect-video w-full">
+                        <div className="relative w-full h-0" style={{ paddingBottom: '56.25%' }}>
+                          {videoId ? (
+                            <div className="absolute inset-0 w-full h-full">
+                              <iframe 
+                                src={`https://video.sibnet.ru/shell.php?videoid=${videoId}`}
+                                width="100%" 
+                                height="100%" 
+                                frameBorder="0" 
+                                scrolling="no" 
+                                allow="autoplay; fullscreen" 
+                                allowFullScreen 
+                                className="w-full h-full"
+                                onLoad={() => {
+                                  console.log("Iframe chargée");
+                                  
+                                  // Démarrer automatiquement le suivi quand l'iframe est chargée
+                                  isPlayingRef.current = true;
+                                  startTrackingTime(true);
+                                  setRenderKey(prev => prev + 1);
+                                }}
+                              ></iframe>
+                            </div>
+                          ) : (
+                            <video 
+                              src={mp4Source} 
+                              controls 
+                              className="absolute inset-0 w-full h-full"
+                              poster={anime.bannerUrl}
+                              onTimeUpdate={handleTimeUpdate}
+                              onPlay={handlePlay}
+                              onPause={handlePause}
+                              onEnded={handlePause}
+                            ></video>
+                          )}
+                        </div>
+                      </div>
+                    </TabsContent>
+                  </Tabs>
                 </div>
                 
                 {/* Liens directs et alternatives */}
@@ -716,7 +826,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                     Voir sur Crunchyroll
                   </a>
                   <a 
-                    href={`https://video.sibnet.ru/video${videoId}`}
+                    href={videoId ? `https://video.sibnet.ru/video${videoId}` : "#"}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center px-4 py-2 bg-gray-600/20 hover:bg-gray-600/30 text-white rounded-md transition-colors"
@@ -725,7 +835,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                     Ouvrir sur Sibnet
                   </a>
                   <a 
-                    href="https://ok.ru/video/welcome-demon-school-teacher-ep1"
+                    href={`https://ok.ru/video/${anime.id}-ep${selectedEpisode}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center px-4 py-2 bg-yellow-600/20 hover:bg-yellow-600/30 text-white rounded-md transition-colors"
@@ -737,21 +847,96 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
               </TabsContent>
 
               <TabsContent value="vf" className="mt-2">
-                <div className="bg-black rounded-md overflow-hidden aspect-video w-full">
-                  <div className="relative w-full h-0" style={{ paddingBottom: '56.25%' }}>
-                    <video 
-                      src={mp4Source} 
-                      controls 
-                      className="absolute inset-0 w-full h-full"
-                      poster={anime.bannerUrl}
-                      onTimeUpdate={handleTimeUpdate}
-                      onPlay={handlePlay}
-                      onPause={handlePause}
-                      onEnded={handlePause}
-                    ></video>
-                  </div>
+                {/* Tabs pour choisir le lecteur */}
+                <div className="mb-4">
+                  <Tabs defaultValue="lecteur1" className="w-full">
+                    <TabsList className="grid w-full grid-cols-2 bg-[#151a2a] mb-2">
+                      <TabsTrigger value="lecteur1" className="data-[state=active]:bg-[#1a1f35]">Lecteur 1</TabsTrigger>
+                      <TabsTrigger value="lecteur2" className="data-[state=active]:bg-[#1a1f35]">Lecteur 2</TabsTrigger>
+                    </TabsList>
+                    
+                    <TabsContent value="lecteur1" className="mt-0">
+                      {/* Lecteur personnalisé avec prévisualisation */}
+                      <VideoPlayer 
+                        sibnetId={videoId}
+                        poster={anime.bannerUrl}
+                        onTimeUpdate={(time) => {
+                          currentTimeRef.current = time;
+                          updateTimeDisplay(time);
+                          if (Math.floor(time) % 5 === 0) {
+                            saveTime();
+                          }
+                        }}
+                        onPlay={() => {
+                          isPlayingRef.current = true;
+                          startTrackingTime(true);
+                        }}
+                        onPause={() => {
+                          isPlayingRef.current = false;
+                          saveTime(true);
+                          if (intervalRef.current) {
+                            clearInterval(intervalRef.current);
+                            intervalRef.current = null;
+                          }
+                        }}
+                        initialTime={currentTimeRef.current}
+                        onNextEpisode={() => {
+                          if (currentSeason && selectedEpisode < currentSeason.episodes.length) {
+                            setSelectedEpisode(prev => Math.min(currentSeason.episodes.length, prev + 1));
+                          }
+                        }}
+                        onPreviousEpisode={() => {
+                          if (selectedEpisode > 1) {
+                            setSelectedEpisode(prev => Math.max(1, prev - 1));
+                          }
+                        }}
+                        hasNextEpisode={currentSeason ? selectedEpisode < currentSeason.episodes.length : false}
+                        hasPreviousEpisode={selectedEpisode > 1}
+                      />
+                    </TabsContent>
+                    
+                    <TabsContent value="lecteur2" className="mt-0">
+                      {/* Lecteur Sibnet standard (ancien lecteur) */}
+                      <div className="bg-black rounded-md overflow-hidden aspect-video w-full">
+                        <div className="relative w-full h-0" style={{ paddingBottom: '56.25%' }}>
+                          {videoId ? (
+                            <div className="absolute inset-0 w-full h-full">
+                              <iframe 
+                                src={`https://video.sibnet.ru/shell.php?videoid=${videoId}`}
+                                width="100%" 
+                                height="100%" 
+                                frameBorder="0" 
+                                scrolling="no" 
+                                allow="autoplay; fullscreen" 
+                                allowFullScreen 
+                                className="w-full h-full"
+                                onLoad={() => {
+                                  console.log("Iframe chargée");
+                                  // Démarrer automatiquement le suivi quand l'iframe est chargée
+                                  isPlayingRef.current = true;
+                                  startTrackingTime(true);
+                                  setRenderKey(prev => prev + 1);
+                                }}
+                              ></iframe>
+                            </div>
+                          ) : (
+                            <video 
+                              src={mp4Source} 
+                              controls 
+                              className="absolute inset-0 w-full h-full"
+                              poster={anime.bannerUrl}
+                              onTimeUpdate={handleTimeUpdate}
+                              onPlay={handlePlay}
+                              onPause={handlePause}
+                              onEnded={handlePause}
+                            ></video>
+                          )}
+                        </div>
+                      </div>
+                    </TabsContent>
+                  </Tabs>
                 </div>
-                
+
                 {/* Liens directs et alternatives */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#151a2a] p-4 rounded-md mt-4">
                   <a 
@@ -773,7 +958,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                     Voir sur Crunchyroll
                   </a>
                   <a 
-                    href={`https://video.sibnet.ru/video${videoId}`}
+                    href={videoId ? `https://video.sibnet.ru/video${videoId}` : "#"}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center px-4 py-2 bg-gray-600/20 hover:bg-gray-600/30 text-white rounded-md transition-colors"
@@ -782,7 +967,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                     Ouvrir sur Sibnet
                   </a>
                   <a 
-                    href="https://ok.ru/video/welcome-demon-school-teacher-ep1"
+                    href={`https://ok.ru/video/${anime.id}-ep${selectedEpisode}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center px-4 py-2 bg-yellow-600/20 hover:bg-yellow-600/30 text-white rounded-md transition-colors"
@@ -807,15 +992,19 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
 
               <div className="flex items-center">
                 <div className="px-4 py-2 bg-[#151a2a] rounded-md text-white">
-                  {selectedEpisode} / {anime.episodes.length}
+                  {selectedEpisode} / {totalEpisodes}
                 </div>
               </div>
 
               <Button
                 variant="outline"
                 className="border-white/10 hover:bg-white/5"
-                disabled={selectedEpisode >= anime.episodes.length}
-                onClick={() => setSelectedEpisode(prev => Math.min(anime.episodes.length, prev + 1))}
+                disabled={selectedEpisode >= (totalEpisodes || 1)}
+                onClick={() => {
+                  if (totalEpisodes) {
+                    setSelectedEpisode(prev => Math.min(totalEpisodes, prev + 1));
+                  }
+                }}
               >
                 Épisode suivant
                 <ChevronRight className="ml-2 h-4 w-4" />
@@ -830,46 +1019,106 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                 <List className="inline-block mr-2 h-5 w-5" />
                 Liste des épisodes
               </h2>
+                
+              {/* Sélecteur de saison dans la liste des épisodes */}
+              {useSeasonsStructure && anime?.seasons && anime.seasons.length > 1 && (
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-gray-400">Saison:</span>
+                  <select 
+                    value={selectedSeason}
+                    onChange={(e) => {
+                      setSelectedSeason(Number(e.target.value));
+                      setSelectedEpisode(1);
+                    }}
+                    className="bg-[#151a2a] text-white border border-white/10 rounded-md px-2 py-1"
+                  >
+                    {anime.seasons.map((season) => (
+                      <option key={season.seasonNumber} value={season.seasonNumber}>
+                        {season.title} ({season.year})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {anime.episodes.map((ep) => {
-                const progress = getEpisodeProgress(ep.number);
-                
-                return (
-                  <button
-                    key={ep.number}
-                    className={`p-4 rounded-md border text-left transition-all ${
-                      selectedEpisode === ep.number
-                        ? "border-pink-500 bg-pink-500/10"
-                        : "border-white/10 bg-[#151a2a] hover:bg-[#1a1f35]"
-                    }`}
-                    onClick={() => setSelectedEpisode(ep.number)}
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="font-semibold text-white">Épisode {ep.number}</div>
-                      <div className="text-xs text-gray-400">{Math.floor(ep.duration / 60)}:{(ep.duration % 60).toString().padStart(2, '0')}</div>
-                    </div>
-                    <div className="mt-1 text-sm text-gray-300 truncate">{ep.title}</div>
+              {useSeasonsStructure 
+                ? (currentSeason?.episodes || []).map((ep) => {
+                    const progress = getEpisodeProgress(selectedSeason, ep.number);
                     
-                    {/* Barre de progression */}
-                    {progress && (
-                      <div className="mt-2">
-                        <div className="w-full h-1 bg-gray-700 rounded-full overflow-hidden">
-                          <div 
-                            className="h-full bg-pink-500" 
-                            style={{ width: `${progress.percentage}%` }} 
-                          />
+                    return (
+                      <button
+                        key={ep.number}
+                        className={`p-4 rounded-md border text-left transition-all ${
+                          selectedEpisode === ep.number
+                            ? "border-pink-500 bg-pink-500/10"
+                            : "border-white/10 bg-[#151a2a] hover:bg-[#1a1f35]"
+                        }`}
+                        onClick={() => setSelectedEpisode(ep.number)}
+                      >
+                        <div className="flex items-start justify-between">
+                          <div className="font-semibold text-white">Épisode {ep.number}</div>
+                          <div className="text-xs text-gray-400">{Math.floor(ep.duration / 60)}:{(ep.duration % 60).toString().padStart(2, '0')}</div>
                         </div>
-                        <div className="text-xs text-gray-400 mt-1">
-                          {Math.floor(progress.progress / 60)}:{(progress.progress % 60).toString().padStart(2, '0')} / 
-                          {Math.floor(progress.duration / 60)}:{(progress.duration % 60).toString().padStart(2, '0')}
+                        <div className="mt-1 text-sm text-gray-300 truncate">{ep.title}</div>
+                        
+                        {/* Barre de progression */}
+                        {progress && (
+                          <div className="mt-2">
+                            <div className="w-full h-1 bg-gray-700 rounded-full overflow-hidden">
+                              <div 
+                                className="h-full bg-pink-500" 
+                                style={{ width: `${progress.percentage}%` }} 
+                              />
+                            </div>
+                            <div className="text-xs text-gray-400 mt-1">
+                              {Math.floor(progress.progress / 60)}:{(progress.progress % 60).toString().padStart(2, '0')} / 
+                              {Math.floor(progress.duration / 60)}:{(progress.duration % 60).toString().padStart(2, '0')}
+                            </div>
+                          </div>
+                        )}
+                      </button>
+                    );
+                  })
+                : (anime?.episodes || []).map((ep) => {
+                    const progress = getEpisodeProgress(1, ep.number);
+                    
+                    return (
+                      <button
+                        key={ep.number}
+                        className={`p-4 rounded-md border text-left transition-all ${
+                          selectedEpisode === ep.number
+                            ? "border-pink-500 bg-pink-500/10"
+                            : "border-white/10 bg-[#151a2a] hover:bg-[#1a1f35]"
+                        }`}
+                        onClick={() => setSelectedEpisode(ep.number)}
+                      >
+                        <div className="flex items-start justify-between">
+                          <div className="font-semibold text-white">Épisode {ep.number}</div>
+                          <div className="text-xs text-gray-400">{Math.floor(ep.duration / 60)}:{(ep.duration % 60).toString().padStart(2, '0')}</div>
                         </div>
-                      </div>
-                    )}
-                  </button>
-                );
-              })}
+                        <div className="mt-1 text-sm text-gray-300 truncate">{ep.title}</div>
+                        
+                        {/* Barre de progression */}
+                        {progress && (
+                          <div className="mt-2">
+                            <div className="w-full h-1 bg-gray-700 rounded-full overflow-hidden">
+                              <div 
+                                className="h-full bg-pink-500" 
+                                style={{ width: `${progress.percentage}%` }} 
+                              />
+                            </div>
+                            <div className="text-xs text-gray-400 mt-1">
+                              {Math.floor(progress.progress / 60)}:{(progress.progress % 60).toString().padStart(2, '0')} / 
+                              {Math.floor(progress.duration / 60)}:{(progress.duration % 60).toString().padStart(2, '0')}
+                            </div>
+                          </div>
+                        )}
+                      </button>
+                    );
+                  })
+              }
             </div>
           </div>
 
