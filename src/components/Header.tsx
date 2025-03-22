@@ -42,16 +42,16 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="bg-[#030711]/80 backdrop-blur-md border-b border-white/5 py-4 sticky top-0 z-50">
+    <header className="bg-[#030711]/80 backdrop-blur-md border-b border-white/5 py-5 sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between px-4">
         {/* Logo */}
-        <Link href="/" className="flex items-center group primary-glow">
+        <Link href="/" className="flex items-center group primary-glow mr-6">
           <CustomImage
             src="https://media.discordapp.net/attachments/1159954836595421275/1353016792762548305/logookaviolet.png?ex=67e01e95&is=67decd15&hm=f279d6d843057d526999be9eef999adc8342d93e0dc2702f95f97611ed6f444a&=&format=webp&quality=lossless"
             alt="Anime Flow Logo"
-            width={120}
-            height={40}
-            className="h-8 w-auto transition-transform duration-300 group-hover:scale-105"
+            width={180}
+            height={60}
+            className="h-12 w-auto transition-transform duration-300 group-hover:scale-105"
           />
         </Link>
 
