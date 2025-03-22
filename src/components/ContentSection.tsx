@@ -28,13 +28,13 @@ export default function ContentSection({
   className
 }: ContentSectionProps) {
   return (
-    <section className={cn("py-8 relative", className)}>
+    <section className={cn("py-7 relative", className)}>
       {/* Glass effect background for better visual separation */}
       <div className="absolute inset-0 bg-gradient-to-r from-[#0c1222]/40 to-transparent opacity-50 rounded-lg -z-10"></div>
 
       <SectionTitle title={title} icon={icon} />
 
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
         {items.map((item) => (
           <AnimeCard
             key={item.id}

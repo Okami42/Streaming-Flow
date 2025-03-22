@@ -1,5 +1,13 @@
 export const recentEpisodes = [
   {
+    id: "solo-leveling",
+    title: "Solo Leveling",
+    imageUrl: "https://img-cdn.thepublive.com/wion/media/post_attachments/files/web-story/900_1600/2024/3/26/1711469910345_sololeveling.jpg",
+    time: "Il y a 1h",
+    type: "Anime",
+    language: "VOSTFR",
+  },
+  {
     id: "welcome-demon-school-teacher",
     title: "Welcome, Demon-School Teacher!",
     imageUrl: "https://ext.same-assets.com/3692778002/4215009052.jpeg",
@@ -108,6 +116,13 @@ export const tuesdayReleases = [
 ];
 
 export const classics = [
+  {
+    id: "solo-leveling",
+    title: "Solo Leveling",
+    imageUrl: "https://img-cdn.thepublive.com/wion/media/post_attachments/files/web-story/900_1600/2024/3/26/1711469910345_sololeveling.jpg",
+    type: "Anime",
+    language: "VOSTFR",
+  },
   {
     id: "demon-slayer",
     title: "Demon Slayer",

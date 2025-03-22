@@ -28,7 +28,7 @@ export function AnimeCard({
   return (
     <Link
       href={linkUrl}
-      className="group animate-card block max-w-[250px] relative h-full"
+      className="group animate-card block max-w-[230px] relative h-full"
     >
       <div className="anime-card h-full flex flex-col">
         <div className="anime-hover-card relative aspect-[3/4] w-full overflow-hidden">

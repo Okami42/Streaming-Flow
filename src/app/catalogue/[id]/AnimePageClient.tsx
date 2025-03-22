@@ -554,7 +554,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
         {/* Banner */}
         <div className="relative h-[200px] md:h-[300px] w-full overflow-hidden">
           <CustomImage
-            src={anime.bannerUrl}
+            src={anime.bannerUrl || "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp"}
             alt={anime.title}
             fill
             className="object-cover blur-sm"
@@ -726,7 +726,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       {/* Lecteur personnalisé avec prévisualisation */}
                       <VideoPlayer 
                         sibnetId={videoId}
-                        poster={anime.bannerUrl}
+                        poster={anime.bannerUrl || "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp"}
                         onTimeUpdate={(time) => {
                           currentTimeRef.current = time;
                           updateTimeDisplay(time);
@@ -792,7 +792,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                               src={mp4Source} 
                               controls 
                               className="absolute inset-0 w-full h-full"
-                              poster={anime.bannerUrl}
+                              poster={anime.bannerUrl || "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp"}
                               onTimeUpdate={handleTimeUpdate}
                               onPlay={handlePlay}
                               onPause={handlePause}
@@ -834,7 +834,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                         src={mp4Source} 
                         controls 
                         className="absolute inset-0 w-full h-full"
-                        poster={anime.bannerUrl}
+                        poster={anime.bannerUrl || "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp"}
                         onTimeUpdate={handleTimeUpdate}
                         onPlay={handlePlay}
                         onPause={handlePause}

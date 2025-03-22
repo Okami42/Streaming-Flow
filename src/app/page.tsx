@@ -80,12 +80,12 @@ export default function Home() {
               <h2 className="text-xl font-bold text-white">Anime à la une</h2>
             </div>
             <div className="flex flex-col md:flex-row gap-6 items-center">
-              <div className="w-full md:w-1/3 lg:w-1/4">
-                <Link href="/catalogue/welcome-demon-school-teacher" className="block">
+              <div className="w-full md:w-1/4 lg:w-1/5">
+                <Link href="/catalogue/solo-leveling" className="block">
                   <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg border-2 border-pink-500/20 hover:border-pink-500/50 transition-all shadow-lg hover:shadow-pink-500/20">
                     <CustomImage
-                      src="https://ext.same-assets.com/3692778002/4215009052.jpeg"
-                      alt="Welcome, Demon-School Teacher!"
+                      src="https://img-cdn.thepublive.com/wion/media/post_attachments/files/web-story/900_1600/2024/3/26/1711469910345_sololeveling.jpg"
+                      alt="Solo Leveling"
                       fill={true}
                       className="object-cover"
                       priority
@@ -96,19 +96,19 @@ export default function Home() {
                 </Link>
               </div>
               <div className="flex-1">
-                <h3 className="text-2xl font-bold text-white mb-2">Welcome, Demon-School Teacher!</h3>
+                <h3 className="text-2xl font-bold text-white mb-2">Solo Leveling</h3>
                 <p className="text-gray-300 mb-4">
-                  Suzuki Iruma a été vendu à un démon par ses parents. Surprenant, ce démon, qui est le principal d'une école de démons, l'adopte comme son petit-fils. Il l'inscrit au "Babyls", une école pour démons où Iruma va découvrir un univers nouveau à lui.
+                  Dix ans auparavant, des portails ont commencé à apparaître dans le monde. Sung Jin Woo est considéré comme le plus faible des Chasseurs de rang E. Lors d'une mission dans un donjon de rang D, il acquiert une capacité étrange qui pourrait lui permettre de devenir le plus puissant des Chasseurs.
                 </p>
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {["Comédie", "Démons", "Fantasy", "École"].map((tag) => (
+                  {["Action", "Fantasy", "Aventure", "Surnaturel"].map((tag) => (
                     <span key={tag} className="inline-block px-2 py-1 text-xs bg-[#151a2a] text-gray-300 rounded-md">
                       {tag}
                     </span>
                   ))}
                 </div>
                 <div className="flex gap-4">
-                  <Link href="/catalogue/welcome-demon-school-teacher">
+                  <Link href="/catalogue/solo-leveling">
                     <Button className="theme-button">
                       <Play className="mr-2 h-4 w-4" />
                       Regarder

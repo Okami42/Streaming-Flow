@@ -48,12 +48,76 @@ export function getAnimesByGenre(genre: string): Anime[] {
 // Liste des animes
 export const animes: Anime[] = [
   {
+    id: "solo-leveling",
+    title: "Solo Leveling",
+    originalTitle: "나 혼자만 레벨업",
+    description: "Dix ans auparavant, des portails ont commencé à apparaître un peu partout dans le monde. Ces portails ont la particularité de connecter le monde à d'autres dimensions, donjons ou mondes parallèles. En même temps, certaines personnes ont développé des capacités afin de pouvoir chasser ces portails. On appelle ceux qui reçoivent un Éveil, des Chasseurs. Sung Jin Woo est considéré comme le plus faible des Chasseurs de rang E... Autrement dit le plus faible parmi les faibles. Il est tellement faible qu'il est surnommé par ses confrères, le « Faible ». Avec une équipe de Chasseurs, il se rend dans un donjon de rang D. Malheureusement, l'équipe se retrouve piégée dans une salle avec des monstres qui ne sont pas du tout du niveau du donjon... S'en suit un massacre... Et Sung Jin Woo, aux portes de la mort arrive à acquérir une capacité pour le moins étrange... Sung Jin Woo va-t-il réussir à devenir le plus puissant des Chasseurs tout en surmontant les épreuves et conspirations ?",
+    imageUrl: "https://img-cdn.thepublive.com/wion/media/post_attachments/files/web-story/900_1600/2024/3/26/1711469910345_sololeveling.jpg",
+    bannerUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
+    year: 2024,
+    type: "TV",
+    status: "En cours",
+    genres: ["Action", "Fantasy", "Aventure", "Surnaturel"],
+    rating: 9.0,
+    seasons: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        year: 2024,
+        episodes: [
+          {
+            number: 1,
+            title: "Je suis un chasseur de rang E",
+            duration: 1440,
+            sibnetVostfrId: "sl1ep1",
+            sibnetVfId: "sl1ep1fr"
+          },
+          {
+            number: 2,
+            title: "Une porte rouge apparaît",
+            duration: 1440,
+            sibnetVostfrId: "sl1ep2",
+            sibnetVfId: "sl1ep2fr"
+          },
+          {
+            number: 3,
+            title: "Donjon double",
+            duration: 1440,
+            sibnetVostfrId: "sl1ep3",
+            sibnetVfId: "sl1ep3fr"
+          },
+          {
+            number: 4,
+            title: "Le système",
+            duration: 1440,
+            sibnetVostfrId: "sl1ep4",
+            sibnetVfId: "sl1ep4fr"
+          },
+          {
+            number: 5,
+            title: "Niveau supérieur",
+            duration: 1440,
+            sibnetVostfrId: "sl1ep5",
+            sibnetVfId: "sl1ep5fr"
+          },
+          {
+            number: 6,
+            title: "Chasses nocturnes",
+            duration: 1440,
+            sibnetVostfrId: "sl1ep6",
+            sibnetVfId: "sl1ep6fr"
+          }
+        ]
+      }
+    ]
+  },
+  {
     id: "demon-slayer",
     title: "Demon Slayer",
     originalTitle: "鬼滅の刃",
     description: "Dans un Japon de l'ère Taishō, Tanjirō Kamado est le fils aîné d'une famille de marchands de charbon dont le père est décédé. Pour subvenir aux besoins de celle-ci, il vend du charbon au village en contrebas de la montagne où ils habitent. Malgré les difficultés de la vie, ils réussissent à trouver le bonheur dans leur quotidien. Un jour, Tanjirō se rend au village et, à cause d'une rumeur à propos d'un démon mangeur d'hommes qui rôderait la nuit dans les montagnes, il est forcé de passer la nuit chez un habitant du village. À son retour le lendemain, il découvre sa famille massacrée par un démon. Seule sa sœur Nezuko a survécu à l'attaque, mais elle a été transformée en démon. Cependant, elle parvient à résister à son instinct et à ne pas attaquer son frère.",
     imageUrl: "https://ext.same-assets.com/3039906599/884967313.jpeg",
-    bannerUrl: "https://ext.same-assets.com/3039906599/884967313-banner.jpeg",
+    bannerUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
     year: 2019,
     type: "TV",
     status: "Terminé",
@@ -189,7 +253,7 @@ export const animes: Anime[] = [
     originalTitle: "呪術廻戦",
     description: "Yuji Itadori, un lycéen doué en sport, rejoint le club de spiritisme de son école pour éviter l'équipe sportive. Malgré ses talents athlétiques naturels, il veut simplement une vie tranquille. Quand de véritables esprits apparaissent à l'école, Yuji avale une relique maudite pour protéger ses amis – un doigt appartenant au démon Ryomen Sukuna. Désormais possédé, il est condamné à mort par les exorcistes, mais un puissant exorciste lui propose de mourir uniquement après avoir consommé tous les doigts de Sukuna, lui permettant de l'éliminer définitivement.",
     imageUrl: "https://ext.same-assets.com/2879165773/327560351.jpeg",
-    bannerUrl: "https://ext.same-assets.com/2879165773/327560351-banner.jpeg",
+    bannerUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
     year: 2020,
     type: "TV",
     status: "En cours",
@@ -459,7 +523,7 @@ export const animes: Anime[] = [
     originalTitle: "アクダマドライブ",
     description: "Dans une ville cyberpunk de Kansai, suite à une guerre entre Kansai et Kantō, Kansai est devenu dépendant économiquement de Kantō. Dans cette société, des criminels connus sous le nom d'Akudama commettent toutes sortes de crimes. L'histoire suit une fille ordinaire qui se retrouve impliquée avec un groupe d'Akudama, après avoir été confondue avec l'un d'entre eux.",
     imageUrl: "https://ext.same-assets.com/3410839635/1638134647.jpeg",
-    bannerUrl: "https://ext.same-assets.com/3410839635/1638134647-banner.jpeg",
+    bannerUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
     year: 2020,
     type: "TV",
     status: "Terminé",
@@ -561,7 +625,7 @@ export const animes: Anime[] = [
     originalTitle: "黒子のバスケ",
     description: "Kuroko est un joueur de basket-ball qui a fait partie de l'équipe du collège Teikô, une équipe qui a remporté tous les championnats depuis trois ans. Les cinq meilleurs joueurs de cette équipe étaient connus sous le nom de 'Génération des Miracles'. Kuroko était le sixième joueur fantôme de cette équipe. Personne ne le remarque sur le terrain à cause de son manque de présence. Kuroko a intégré le lycée Seirin et fait désormais équipe avec Kagami Taiga, un joueur très prometteur qui a vécu aux États-Unis, pour faire de Seirin la meilleure équipe du Japon.",
     imageUrl: "https://images.justwatch.com/poster/181383869/s166/kuroko-no-basket.avif",
-    bannerUrl: "https://ext.same-assets.com/1539621748/kuroko-no-basket-banner.jpeg",
+    bannerUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
     year: 2012,
     type: "TV",
     status: "Terminé",
@@ -645,7 +709,7 @@ export const animes: Anime[] = [
     originalTitle: "ヴィンランド・サガ",
     description: "Thorfinn est le fils d'un des plus grands guerriers vikings, mais lorsque son père est tué par Askeladd, un chef mercenaire, il jure de se venger. Il rejoint l'équipage d'Askeladd pour le défier en duel et le tuer, mais il se retrouve entraîné dans la guerre politique pour la couronne d'Angleterre. Pendant tout ce temps, Thorfinn doit se retrouver et comprendre ce que signifie être un vrai guerrier.",
     imageUrl: "https://ext.same-assets.com/4165707166/2193428669.jpeg",
-    bannerUrl: "https://ext.same-assets.com/4165707166/2193428669-banner.jpeg",
+    bannerUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
     year: 2019,
     type: "TV",
     status: "En cours",
