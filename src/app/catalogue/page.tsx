@@ -9,7 +9,16 @@ import { Input } from "@/components/ui/input";
 import { Search, Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const animes = [
+// Définir l'interface pour les animes du catalogue
+interface CatalogueAnime {
+  id: string;
+  title: string;
+  imageUrl: string;
+  type: "Anime" | "Scans";
+  language: "VOSTFR" | "VF";
+}
+
+const animes: CatalogueAnime[] = [
   {
     id: "welcome-demon-school-teacher",
     title: "Welcome, Demon-School Teacher!",
@@ -65,6 +74,20 @@ const animes = [
     imageUrl: "https://ext.same-assets.com/3410839635/1638134647.jpeg",
     type: "Anime",
     language: "VOSTFR",
+  },
+  {
+    id: "kuroko-no-basket",
+    title: "Kuroko no Basket",
+    imageUrl: "https://images.justwatch.com/poster/181383869/s166/kuroko-no-basket.avif",
+    type: "Anime" as const,
+    language: "VOSTFR" as const,
+  },
+  {
+    id: "vinland-saga",
+    title: "Vinland Saga",
+    imageUrl: "https://ext.same-assets.com/4165707166/2193428669.jpeg",
+    type: "Anime" as const,
+    language: "VOSTFR" as const,
   },
 ];
 

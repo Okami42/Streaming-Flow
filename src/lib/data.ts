@@ -139,4 +139,11 @@ export const hidden = [
     type: "Anime",
     language: "VOSTFR",
   },
+  {
+    id: "kuroko-no-basket",
+    title: "Kuroko no Basket",
+    imageUrl: "https://images.justwatch.com/poster/181383869/s166/kuroko-no-basket.avif",
+    type: "Anime",
+    language: "VOSTFR",
+  },
 ];

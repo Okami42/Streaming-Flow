@@ -804,177 +804,44 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                     </TabsContent>
                   </Tabs>
                 </div>
-                
-                {/* Liens directs et alternatives */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#151a2a] p-4 rounded-md mt-4">
-                  <a 
-                    href={`https://animationdigitalnetwork.fr/video/welcome-demon-school-teacher/episode-${selectedEpisode}-vostf`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center px-4 py-2 bg-blue-600/20 hover:bg-blue-600/30 text-white rounded-md transition-colors"
-                  >
-                    <span className="bg-blue-600 px-2 py-0.5 rounded text-xs mr-2">ADN</span>
-                    Voir sur ADN (Officiel)
-                  </a>
-                  <a 
-                    href="https://www.crunchyroll.com/series/welcome-to-demon-school-iruma-kun"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center px-4 py-2 bg-orange-600/20 hover:bg-orange-600/30 text-white rounded-md transition-colors"
-                  >
-                    <span className="bg-orange-600 px-2 py-0.5 rounded text-xs mr-2">CR</span>
-                    Voir sur Crunchyroll
-                  </a>
-                  <a 
-                    href={videoId ? `https://video.sibnet.ru/video${videoId}` : "#"}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center px-4 py-2 bg-gray-600/20 hover:bg-gray-600/30 text-white rounded-md transition-colors"
-                  >
-                    <span className="bg-gray-600 px-2 py-0.5 rounded text-xs mr-2">SB</span>
-                    Ouvrir sur Sibnet
-                  </a>
-                  <a 
-                    href={`https://ok.ru/video/${anime.id}-ep${selectedEpisode}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center px-4 py-2 bg-yellow-600/20 hover:bg-yellow-600/30 text-white rounded-md transition-colors"
-                  >
-                    <span className="bg-yellow-600 px-2 py-0.5 rounded text-xs mr-2">OK</span>
-                    Voir sur OK.ru
-                  </a>
-                </div>
               </TabsContent>
 
               <TabsContent value="vf" className="mt-2">
-                {/* Tabs pour choisir le lecteur */}
-                <div className="mb-4">
-                  <Tabs defaultValue="lecteur1" className="w-full">
-                    <TabsList className="grid w-full grid-cols-2 bg-[#151a2a] mb-2">
-                      <TabsTrigger value="lecteur1" className="data-[state=active]:bg-[#1a1f35]">Lecteur 1</TabsTrigger>
-                      <TabsTrigger value="lecteur2" className="data-[state=active]:bg-[#1a1f35]">Lecteur 2</TabsTrigger>
-                    </TabsList>
-                    
-                    <TabsContent value="lecteur1" className="mt-0">
-                      {/* Lecteur personnalisé avec prévisualisation */}
-                      <VideoPlayer 
-                        sibnetId={videoId}
-                        poster={anime.bannerUrl}
-                        onTimeUpdate={(time) => {
-                          currentTimeRef.current = time;
-                          updateTimeDisplay(time);
-                          if (Math.floor(time) % 5 === 0) {
-                            saveTime();
-                          }
-                        }}
-                        onPlay={() => {
-                          isPlayingRef.current = true;
-                          startTrackingTime(true);
-                        }}
-                        onPause={() => {
-                          isPlayingRef.current = false;
-                          saveTime(true);
-                          if (intervalRef.current) {
-                            clearInterval(intervalRef.current);
-                            intervalRef.current = null;
-                          }
-                        }}
-                        initialTime={currentTimeRef.current}
-                        onNextEpisode={() => {
-                          if (currentSeason && selectedEpisode < currentSeason.episodes.length) {
-                            setSelectedEpisode(prev => Math.min(currentSeason.episodes.length, prev + 1));
-                          }
-                        }}
-                        onPreviousEpisode={() => {
-                          if (selectedEpisode > 1) {
-                            setSelectedEpisode(prev => Math.max(1, prev - 1));
-                          }
-                        }}
-                        hasNextEpisode={currentSeason ? selectedEpisode < currentSeason.episodes.length : false}
-                        hasPreviousEpisode={selectedEpisode > 1}
-                      />
-                    </TabsContent>
-                    
-                    <TabsContent value="lecteur2" className="mt-0">
-                      {/* Lecteur Sibnet standard (ancien lecteur) */}
-                      <div className="bg-black rounded-md overflow-hidden aspect-video w-full">
-                        <div className="relative w-full h-0" style={{ paddingBottom: '56.25%' }}>
-                          {videoId ? (
-                            <div className="absolute inset-0 w-full h-full">
-                              <iframe 
-                                src={`https://video.sibnet.ru/shell.php?videoid=${videoId}`}
-                                width="100%" 
-                                height="100%" 
-                                frameBorder="0" 
-                                scrolling="no" 
-                                allow="autoplay; fullscreen" 
-                                allowFullScreen 
-                                className="w-full h-full"
-                                onLoad={() => {
-                                  console.log("Iframe chargée");
-                                  // Démarrer automatiquement le suivi quand l'iframe est chargée
-                                  isPlayingRef.current = true;
-                                  startTrackingTime(true);
-                                  setRenderKey(prev => prev + 1);
-                                }}
-                              ></iframe>
-                            </div>
-                          ) : (
-                            <video 
-                              src={mp4Source} 
-                              controls 
-                              className="absolute inset-0 w-full h-full"
-                              poster={anime.bannerUrl}
-                              onTimeUpdate={handleTimeUpdate}
-                              onPlay={handlePlay}
-                              onPause={handlePause}
-                              onEnded={handlePause}
-                            ></video>
-                          )}
-                        </div>
+                <div className="bg-black rounded-md overflow-hidden aspect-video w-full">
+                  <div className="relative w-full h-0" style={{ paddingBottom: '56.25%' }}>
+                    {videoId ? (
+                      <div className="absolute inset-0 w-full h-full">
+                        <iframe 
+                          src={`https://video.sibnet.ru/shell.php?videoid=${videoId}`}
+                          width="100%" 
+                          height="100%" 
+                          frameBorder="0" 
+                          scrolling="no" 
+                          allow="autoplay; fullscreen" 
+                          allowFullScreen 
+                          className="w-full h-full"
+                          onLoad={() => {
+                            console.log("Iframe chargée");
+                            // Démarrer automatiquement le suivi quand l'iframe est chargée
+                            isPlayingRef.current = true;
+                            startTrackingTime(true);
+                            setRenderKey(prev => prev + 1);
+                          }}
+                        ></iframe>
                       </div>
-                    </TabsContent>
-                  </Tabs>
-                </div>
-
-                {/* Liens directs et alternatives */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-[#151a2a] p-4 rounded-md mt-4">
-                  <a 
-                    href={`https://animationdigitalnetwork.fr/video/welcome-demon-school-teacher/episode-${selectedEpisode}-vf`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center px-4 py-2 bg-blue-600/20 hover:bg-blue-600/30 text-white rounded-md transition-colors"
-                  >
-                    <span className="bg-blue-600 px-2 py-0.5 rounded text-xs mr-2">ADN</span>
-                    Voir sur ADN (Officiel)
-                  </a>
-                  <a 
-                    href="https://www.crunchyroll.com/series/welcome-to-demon-school-iruma-kun"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center px-4 py-2 bg-orange-600/20 hover:bg-orange-600/30 text-white rounded-md transition-colors"
-                  >
-                    <span className="bg-orange-600 px-2 py-0.5 rounded text-xs mr-2">CR</span>
-                    Voir sur Crunchyroll
-                  </a>
-                  <a 
-                    href={videoId ? `https://video.sibnet.ru/video${videoId}` : "#"}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center px-4 py-2 bg-gray-600/20 hover:bg-gray-600/30 text-white rounded-md transition-colors"
-                  >
-                    <span className="bg-gray-600 px-2 py-0.5 rounded text-xs mr-2">SB</span>
-                    Ouvrir sur Sibnet
-                  </a>
-                  <a 
-                    href={`https://ok.ru/video/${anime.id}-ep${selectedEpisode}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center px-4 py-2 bg-yellow-600/20 hover:bg-yellow-600/30 text-white rounded-md transition-colors"
-                  >
-                    <span className="bg-yellow-600 px-2 py-0.5 rounded text-xs mr-2">OK</span>
-                    Voir sur OK.ru
-                  </a>
+                    ) : (
+                      <video 
+                        src={mp4Source} 
+                        controls 
+                        className="absolute inset-0 w-full h-full"
+                        poster={anime.bannerUrl}
+                        onTimeUpdate={handleTimeUpdate}
+                        onPlay={handlePlay}
+                        onPause={handlePause}
+                        onEnded={handlePause}
+                      ></video>
+                    )}
+                  </div>
                 </div>
               </TabsContent>
             </Tabs>

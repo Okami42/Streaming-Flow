@@ -554,5 +554,143 @@ export const animes: Anime[] = [
         ]
       }
     ]
+  },
+  {
+    id: "kuroko-no-basket",
+    title: "Kuroko no Basket",
+    originalTitle: "黒子のバスケ",
+    description: "Kuroko est un joueur de basket-ball qui a fait partie de l'équipe du collège Teikô, une équipe qui a remporté tous les championnats depuis trois ans. Les cinq meilleurs joueurs de cette équipe étaient connus sous le nom de 'Génération des Miracles'. Kuroko était le sixième joueur fantôme de cette équipe. Personne ne le remarque sur le terrain à cause de son manque de présence. Kuroko a intégré le lycée Seirin et fait désormais équipe avec Kagami Taiga, un joueur très prometteur qui a vécu aux États-Unis, pour faire de Seirin la meilleure équipe du Japon.",
+    imageUrl: "https://images.justwatch.com/poster/181383869/s166/kuroko-no-basket.avif",
+    bannerUrl: "https://ext.same-assets.com/1539621748/kuroko-no-basket-banner.jpeg",
+    year: 2012,
+    type: "TV",
+    status: "Terminé",
+    genres: ["Sports", "Comédie", "Drame", "École"],
+    rating: 8.7,
+    episodes: [
+      {
+        number: 1,
+        title: "Je suis Kuroko",
+        duration: 1440,
+        sibnetVostfrId: "4737805",
+        sibnetVfId: "knb1ep1fr"
+      },
+      {
+        number: 2,
+        title: "Je suis sérieux",
+        duration: 1440,
+        sibnetVostfrId: "4737812",
+        sibnetVfId: "knb1ep2fr"
+      }
+    ],
+    seasons: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        year: 2012,
+        episodes: [
+          { number: 1, title: "Je suis Kuroko", duration: 1440, sibnetVostfrId: "4737805", sibnetVfId: "knb1ep1fr" },
+          { number: 2, title: "Je suis sérieux", duration: 1440, sibnetVostfrId: "4737812", sibnetVfId: "knb1ep2fr" },
+          { number: 3, title: "La victoire est toujours importante", duration: 1440, sibnetVostfrId: "4737817", sibnetVfId: "knb1ep3fr" },
+          { number: 4, title: "Rien n'est impossible", duration: 1440, sibnetVostfrId: "4737823", sibnetVfId: "knb1ep4fr" },
+          { number: 5, title: "Ta basket est trop vieille", duration: 1440, sibnetVostfrId: "4737830", sibnetVfId: "knb1ep5fr" },
+          { number: 6, title: "Faisons-le", duration: 1440, sibnetVostfrId: "4737836", sibnetVfId: "knb1ep6fr" },
+          { number: 7, title: "Tu as beaucoup de jugeote", duration: 1440, sibnetVostfrId: "4737843", sibnetVfId: "knb1ep7fr" },
+          { number: 8, title: "Je suis vraiment jaloux", duration: 1440, sibnetVostfrId: "4737848", sibnetVfId: "knb1ep8fr" },
+          { number: 9, title: "Tu ferais bien de gagner", duration: 1440, sibnetVostfrId: "4737852", sibnetVfId: "knb1ep9fr" },
+          { number: 10, title: "Je lui montrerai", duration: 1440, sibnetVostfrId: "4737857", sibnetVfId: "knb1ep10fr" },
+          { number: 11, title: "Commençons", duration: 1440, sibnetVostfrId: "4737865", sibnetVfId: "knb1ep11fr" },
+          { number: 12, title: "Franchement, je déteste ça", duration: 1440, sibnetVostfrId: "4737888", sibnetVfId: "knb1ep12fr" },
+          { number: 13, title: "Je ne peux pas lire son mental", duration: 1440, sibnetVostfrId: "4737905", sibnetVfId: "knb1ep13fr" },
+          { number: 14, title: "Vous avez eu tort de m'en vouloir", duration: 1440, sibnetVostfrId: "4737923", sibnetVfId: "knb1ep14fr" },
+          { number: 15, title: "Nous n'avons pas fini", duration: 1440, sibnetVostfrId: "4737938", sibnetVfId: "knb1ep15fr" },
+          { number: 16, title: "Laissez-moi vous raconter", duration: 1440, sibnetVostfrId: "4737947", sibnetVfId: "knb1ep16fr" },
+          { number: 17, title: "Tu m'as battu", duration: 1440, sibnetVostfrId: "4737952", sibnetVfId: "knb1ep17fr" },
+          { number: 18, title: "Vous allez comprendre pourquoi", duration: 1440, sibnetVostfrId: "4737955", sibnetVfId: "knb1ep18fr" },
+          { number: 19, title: "C'est pas pour des prunes", duration: 1440, sibnetVostfrId: "4737957", sibnetVfId: "knb1ep19fr" },
+          { number: 20, title: "Je ne peux pas le croire", duration: 1440, sibnetVostfrId: "4737960", sibnetVfId: "knb1ep20fr" },
+          { number: 21, title: "Essaie de me dépasser", duration: 1440, sibnetVostfrId: "4737964", sibnetVfId: "knb1ep21fr" },
+          { number: 22, title: "Je suis pas un gamin", duration: 1440, sibnetVostfrId: "4737966", sibnetVfId: "knb1ep22fr" },
+          { number: 23, title: "Je suis le meilleur joueur", duration: 1440, sibnetVostfrId: "4737969", sibnetVfId: "knb1ep23fr" },
+          { number: 24, title: "Ne me fais pas rire", duration: 1440, sibnetVostfrId: "4737970", sibnetVfId: "knb1ep24fr" },
+          { number: 25, title: "C'est le moment de bondir", duration: 1440, sibnetVostfrId: "4737973", sibnetVfId: "knb1ep25fr" },
+          { number: 26, title: "Rendez-vous l'hiver prochain", duration: 1440, sibnetVostfrId: "4737979", sibnetVfId: "knb1ep26fr" }
+        ]
+      },
+      {
+        seasonNumber: 2,
+        title: "Saison 2",
+        year: 2013,
+        episodes: [
+          { number: 1, title: "Je suis de retour", duration: 1440, sibnetVostfrId: "knb2ep1", sibnetVfId: "knb2ep1fr" },
+          { number: 2, title: "On recommence", duration: 1440, sibnetVostfrId: "knb2ep2", sibnetVfId: "knb2ep2fr" },
+          { number: 3, title: "Nouveaux défis", duration: 1440, sibnetVostfrId: "knb2ep3", sibnetVfId: "knb2ep3fr" }
+        ]
+      },
+      {
+        seasonNumber: 3,
+        title: "Saison 3",
+        year: 2015,
+        episodes: [
+          { number: 1, title: "La Winter Cup commence", duration: 1440, sibnetVostfrId: "knb3ep1", sibnetVfId: "knb3ep1fr" },
+          { number: 2, title: "La finale approche", duration: 1440, sibnetVostfrId: "knb3ep2", sibnetVfId: "knb3ep2fr" },
+          { number: 3, title: "Le dernier match", duration: 1440, sibnetVostfrId: "knb3ep3", sibnetVfId: "knb3ep3fr" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "vinland-saga",
+    title: "Vinland Saga",
+    originalTitle: "ヴィンランド・サガ",
+    description: "Thorfinn est le fils d'un des plus grands guerriers vikings, mais lorsque son père est tué par Askeladd, un chef mercenaire, il jure de se venger. Il rejoint l'équipage d'Askeladd pour le défier en duel et le tuer, mais il se retrouve entraîné dans la guerre politique pour la couronne d'Angleterre. Pendant tout ce temps, Thorfinn doit se retrouver et comprendre ce que signifie être un vrai guerrier.",
+    imageUrl: "https://ext.same-assets.com/4165707166/2193428669.jpeg",
+    bannerUrl: "https://ext.same-assets.com/4165707166/2193428669-banner.jpeg",
+    year: 2019,
+    type: "TV",
+    status: "En cours",
+    genres: ["Action", "Aventure", "Drame", "Historique"],
+    rating: 8.9,
+    episodes: [
+      {
+        number: 1,
+        title: "Quelque part, pas ici",
+        duration: 1440,
+        sibnetVostfrId: "vs1ep1",
+        sibnetVfId: "vs1ep1fr"
+      },
+      {
+        number: 2,
+        title: "L'épée",
+        duration: 1440,
+        sibnetVostfrId: "vs1ep2",
+        sibnetVfId: "vs1ep2fr"
+      }
+    ],
+    seasons: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        year: 2019,
+        episodes: [
+          { number: 1, title: "Quelque part, pas ici", duration: 1440, sibnetVostfrId: "vs1ep1", sibnetVfId: "vs1ep1fr" },
+          { number: 2, title: "L'épée", duration: 1440, sibnetVostfrId: "vs1ep2", sibnetVfId: "vs1ep2fr" },
+          { number: 3, title: "Le troll", duration: 1440, sibnetVostfrId: "vs1ep3", sibnetVfId: "vs1ep3fr" },
+          { number: 4, title: "Une véritable guerrière", duration: 1440, sibnetVostfrId: "vs1ep4", sibnetVfId: "vs1ep4fr" },
+          { number: 5, title: "La mission", duration: 1440, sibnetVostfrId: "vs1ep5", sibnetVfId: "vs1ep5fr" },
+          { number: 6, title: "L'expédition commence", duration: 1440, sibnetVostfrId: "vs1ep6", sibnetVfId: "vs1ep6fr" }
+        ]
+      },
+      {
+        seasonNumber: 2,
+        title: "Saison 2 - L'ère esclave",
+        year: 2023,
+        episodes: [
+          { number: 1, title: "Esclave", duration: 1440, sibnetVostfrId: "vs2ep1", sibnetVfId: "vs2ep1fr" },
+          { number: 2, title: "Une nouvelle vie", duration: 1440, sibnetVostfrId: "vs2ep2", sibnetVfId: "vs2ep2fr" },
+          { number: 3, title: "La ferme", duration: 1440, sibnetVostfrId: "vs2ep3", sibnetVfId: "vs2ep3fr" }
+        ]
+      }
+    ]
   }
 ]; 
