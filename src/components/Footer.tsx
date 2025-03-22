@@ -19,13 +19,13 @@ export default function Footer() {
               <span className="absolute -bottom-1 left-0 w-12 h-[2px] bg-gradient-to-r from-pink-500 to-blue-500" />
             </h3>
             <p className="text-gray-400 text-sm leading-relaxed">
-              Anime Flow est un site de référencement et de visionnage de contenus
+              Okanime est un site de référencement et de visionnage de contenus
               de l'animation japonaise les moins accessibles possibles, créé par des
               passionnés, de l'animation et du divertissement sans but lucratif.
             </p>
             <CustomImage
               src="https://media.discordapp.net/attachments/1159954836595421275/1353016792762548305/logookaviolet.png?ex=67e01e95&is=67decd15&hm=f279d6d843057d526999be9eef999adc8342d93e0dc2702f95f97611ed6f444a&=&format=webp&quality=lossless"
-              alt="Anime Flow Logo"
+              alt="Okanime Logo"
               width={120}
               height={30}
               className="h-8 w-auto mt-4"
@@ -69,7 +69,7 @@ export default function Footer() {
               </a>
             </div>
             <p className="text-gray-400 text-sm mt-4">
-              Anime Flow n'héberge aucune vidéo sur son site, nous ne faisons que
+              Okanime n'héberge aucune vidéo sur son site, nous ne faisons que
               référencer des contenus disponibles sur différentes plateformes.
             </p>
           </div>
@@ -77,7 +77,7 @@ export default function Footer() {
 
         <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between">
           <p className="text-sm text-gray-400 mb-4 md:mb-0">
-            © 2025 Anime Flow - Tous droits réservés.
+            © 2025 Okanime - Tous droits réservés.
           </p>
           <div className="flex items-center space-x-4">
             <span className="text-xs text-gray-500">

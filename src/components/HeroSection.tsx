@@ -41,7 +41,7 @@ export default function HeroSection() {
       <div className="container mx-auto h-full flex items-center px-4 relative z-10">
         <div className="max-w-md">
           <div className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-blue-500">
-            <h2 className="text-sm font-semibold tracking-wider mb-2">EXCLUSIVITÉ ANIME FLOW</h2>
+            <h2 className="text-sm font-semibold tracking-wider mb-2">EXCLUSIVITÉ OKANIME</h2>
           </div>
 
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 drop-shadow-lg">

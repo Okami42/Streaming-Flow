@@ -142,7 +142,7 @@ export default function CataloguePage() {
 
           {/* Special Focus for Welcome Demon-School Teacher */}
           <div className="mb-10 p-6 rounded-xl bg-gradient-to-r from-[#151a2a] to-[#0c1222] border border-white/5">
-            <h2 className="text-xl font-bold text-white mb-4">En ce moment sur Anime Flow</h2>
+            <h2 className="text-xl font-bold text-white mb-4">En ce moment sur Okanime</h2>
             <div className="flex flex-col md:flex-row gap-6 items-center">
               <div className="w-full md:w-1/3 lg:w-1/4">
                 <Link href="/catalogue/welcome-demon-school-teacher" className="block">
