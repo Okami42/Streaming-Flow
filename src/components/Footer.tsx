@@ -24,7 +24,7 @@ export default function Footer() {
               passionnés, de l'animation et du divertissement sans but lucratif.
             </p>
             <CustomImage
-              src="https://ext.same-assets.com/3594695544/130113366.png"
+              src="https://media.discordapp.net/attachments/1159954836595421275/1353016792762548305/logookaviolet.png?ex=67e01e95&is=67decd15&hm=f279d6d843057d526999be9eef999adc8342d93e0dc2702f95f97611ed6f444a&=&format=webp&quality=lossless"
               alt="Anime Flow Logo"
               width={120}
               height={30}
