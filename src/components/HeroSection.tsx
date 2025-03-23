@@ -11,7 +11,7 @@ export default function HeroSection() {
       {/* Background with anime characters */}
       <div className="absolute inset-0">
         <CustomImage
-          src="https://media.discordapp.net/attachments/1159954836595421275/1353087523462578266/bassembanniere.png?ex=67e06074&is=67df0ef4&hm=bec2a1c30ed183e3de1a985825e783e2fe8bfc559b2d3768468af033d59b1bb2&=&format=webp&quality=lossless"
+          src="/picture/bassembanniere.png"
           alt="Anime characters"
           fill
           priority
