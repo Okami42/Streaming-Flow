@@ -69,43 +69,92 @@ export const animes: Anime[] = [
             number: 1,
             title: "Je suis un chasseur de rang E",
             duration: 1440,
-            sibnetVostfrId: "sl1ep1",
+            sibnetVostfrId: "5389406",
             sibnetVfId: "sl1ep1fr"
           },
           {
             number: 2,
             title: "Une porte rouge apparaît",
             duration: 1440,
-            sibnetVostfrId: "sl1ep2",
+            sibnetVostfrId: "5397577",
             sibnetVfId: "sl1ep2fr"
           },
           {
             number: 3,
             title: "Donjon double",
             duration: 1440,
-            sibnetVostfrId: "sl1ep3",
+            sibnetVostfrId: "5406329",
             sibnetVfId: "sl1ep3fr"
           },
           {
             number: 4,
             title: "Le système",
             duration: 1440,
-            sibnetVostfrId: "sl1ep4",
+            sibnetVostfrId: "5414604",
             sibnetVfId: "sl1ep4fr"
           },
           {
             number: 5,
             title: "Niveau supérieur",
             duration: 1440,
-            sibnetVostfrId: "sl1ep5",
+            sibnetVostfrId: "5421264",
             sibnetVfId: "sl1ep5fr"
           },
           {
             number: 6,
             title: "Chasses nocturnes",
             duration: 1440,
-            sibnetVostfrId: "sl1ep6",
+            sibnetVostfrId: "5428101",
             sibnetVfId: "sl1ep6fr"
+          },
+          {
+            number: 7,
+            title: "Appel de l'aventure",
+            duration: 1440,
+            sibnetVostfrId: "5435724",
+            sibnetVfId: "sl1ep7fr"
+          },
+          {
+            number: 8,
+            title: "Le rang C",
+            duration: 1440,
+            sibnetVostfrId: "5444576",
+            sibnetVfId: "sl1ep8fr"
+          },
+          {
+            number: 9,
+            title: "La tanière des loups",
+            duration: 1440,
+            sibnetVostfrId: "5453063",
+            sibnetVfId: "sl1ep9fr"
+          },
+          {
+            number: 10,
+            title: "Progression de compétence",
+            duration: 1440,
+            sibnetVostfrId: "5461770",
+            sibnetVfId: "sl1ep10fr"
+          },
+          {
+            number: 11,
+            title: "Raid de haut rang",
+            duration: 1440,
+            sibnetVostfrId: "5470382",
+            sibnetVfId: "sl1ep11fr"
+          },
+          {
+            number: 12,
+            title: "La tour de puissance",
+            duration: 1440,
+            sibnetVostfrId: "5479260",
+            sibnetVfId: "sl1ep12fr"
+          },
+          {
+            number: 13,
+            title: "Le vrai chasseur",
+            duration: 1440,
+            sibnetVostfrId: "5487838",
+            sibnetVfId: "sl1ep13fr"
           }
         ]
       }
