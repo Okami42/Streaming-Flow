@@ -11,7 +11,7 @@ export default function HeroSection() {
       {/* Background with anime characters */}
       <div className="absolute inset-0">
         <CustomImage
-          src="https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp"
+          src="https://media.discordapp.net/attachments/1159954836595421275/1353087523462578266/bassembanniere.png?ex=67e06074&is=67df0ef4&hm=bec2a1c30ed183e3de1a985825e783e2fe8bfc559b2d3768468af033d59b1bb2&=&format=webp&quality=lossless"
           alt="Anime characters"
           fill
           priority
@@ -52,7 +52,7 @@ export default function HeroSection() {
           </h1>
 
           <p className="text-gray-300 text-sm md:text-base mb-6 max-w-xs">
-            Welcome, Demon-School Teacher! Saison 4 disponible maintenant. Ne manquez rien des aventures d'Iruma à l'école des démons !
+            Solo Leveling Saison 2 est enfin disponible. Ne manquez rien de cette nouvelle saison.
           </p>
 
           <div className="flex gap-4">
