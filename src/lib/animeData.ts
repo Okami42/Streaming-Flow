@@ -122,43 +122,36 @@ export const animes: Anime[] = [
             number: 8,
             title: "Le rang C",
             duration: 1440,
-            sibnetVostfrId: "5444576",
+            sibnetVostfrId: "5453063",
             sibnetVfId: "5470652"
           },
           {
             number: 9,
             title: "La tanière des loups",
             duration: 1440,
-            sibnetVostfrId: "5453063",
+            sibnetVostfrId: "5461770",
             sibnetVfId: "5479612"
           },
           {
             number: 10,
             title: "Progression de compétence",
             duration: 1440,
-            sibnetVostfrId: "5461770",
+            sibnetVostfrId: "5470382",
             sibnetVfId: "5496084"
           },
           {
             number: 11,
             title: "Raid de haut rang",
             duration: 1440,
-            sibnetVostfrId: "5470382",
+            sibnetVostfrId: "5479260",
             sibnetVfId: "5504016"
           },
           {
             number: 12,
             title: "La tour de puissance",
             duration: 1440,
-            sibnetVostfrId: "5479260",
-            sibnetVfId: "5511308"
-          },
-          {
-            number: 13,
-            title: "Le vrai chasseur",
-            duration: 1440,
             sibnetVostfrId: "5487838",
-            sibnetVfId: "sl1ep13fr"
+            sibnetVfId: "5511308"
           }
         ]
       },

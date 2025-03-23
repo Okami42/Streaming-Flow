@@ -21,6 +21,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
   const [isFollowing, setIsFollowing] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
+  const [totalEpisodes, setTotalEpisodes] = useState(0);
   
   // Utiliser UNIQUEMENT des refs pour le timing pour éviter les boucles de rendu
   const currentTimeRef = React.useRef(0);
@@ -47,15 +48,38 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
     ? anime?.seasons?.find(s => s.seasonNumber === selectedSeason)
     : null;
     
+  // Fonction pour récupérer les épisodes selon la structure
+  const getEpisodes = (seasonNumber: number) => {
+    if (!anime || !anime.seasons) return [];
+    
+    const season = anime.seasons.find(s => s.seasonNumber === seasonNumber);
+    if (!season) return [];
+    
+    // Filter episodes for VF tab
+    if (selectedLanguage === 'vf') {
+      // Solo Leveling saison 2 : seulement les 9 premiers épisodes
+      if (anime.id === 'solo-leveling-2') {
+        return season.episodes.filter(ep => ep.number <= 9);
+      }
+      // Solo Leveling saison 1 : tous les épisodes (jusqu'à 12)
+      if (anime.id === 'solo-leveling' && seasonNumber === 1) {
+        return season.episodes.filter(ep => ep.number <= 12);
+      }
+    }
+    
+    // VOSTFR ou autres animes: tous les épisodes
+    return season.episodes;
+  };
+    
   // Récupérer l'épisode actuel selon la structure utilisée
   const episode = useSeasonsStructure
-    ? currentSeason?.episodes?.find(ep => ep.number === selectedEpisode)
+    ? anime?.seasons?.find(s => s.seasonNumber === selectedSeason)?.episodes.find(ep => ep.number === selectedEpisode)
     : anime?.episodes?.find(ep => ep.number === selectedEpisode);
 
-  // Récupérer le nombre total d'épisodes selon la structure utilisée  
-  const totalEpisodes = useSeasonsStructure
-    ? currentSeason?.episodes?.length
-    : anime?.episodes?.length;
+  // Obtenir la liste des épisodes à afficher
+  const episodesToShow = useSeasonsStructure
+    ? getEpisodes(selectedSeason)
+    : (anime?.episodes || []);
 
   // Fonction pour mettre à jour l'affichage du temps sans affecter la logique
   const updateTimeDisplay = (seconds: number) => {
@@ -515,6 +539,26 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
     };
   };
 
+  // Récupérer les épisodes disponibles
+  useEffect(() => {
+    if (anime) {
+      let episodes: AnimeEpisode[] = [];
+      
+      if (useSeasonsStructure) {
+        episodes = getEpisodes(selectedSeason);
+      } else {
+        // Pour les autres animes sans saisons
+        episodes = anime.episodes || [];
+      }
+      
+      if (episodes.length > 0) {
+        setTotalEpisodes(episodes.length);
+      } else {
+        setTotalEpisodes(0);
+      }
+    }
+  }, [anime, selectedSeason, useSeasonsStructure, selectedLanguage]);
+
   if (!anime) {
     return (
       <div className="flex flex-col min-h-screen">
@@ -838,82 +882,43 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {useSeasonsStructure 
-                ? (currentSeason?.episodes || []).map((ep) => {
-                    const progress = getEpisodeProgress(selectedSeason, ep.number);
+              {episodesToShow.map((ep) => {
+                const progress = getEpisodeProgress(selectedSeason, ep.number);
+                
+                return (
+                  <button
+                    key={ep.number}
+                    className={`p-4 rounded-md border text-left transition-all ${
+                      selectedEpisode === ep.number
+                        ? "border-pink-500 bg-pink-500/10"
+                        : "border-white/10 bg-[#151a2a] hover:bg-[#1a1f35]"
+                    }`}
+                    onClick={() => setSelectedEpisode(ep.number)}
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className="font-semibold text-white">Épisode {ep.number}</div>
+                      <div className="text-xs text-gray-400">{Math.floor(ep.duration / 60)}:{(ep.duration % 60).toString().padStart(2, '0')}</div>
+                    </div>
+                    <div className="mt-1 text-sm text-gray-300 truncate">{ep.title}</div>
                     
-                    return (
-                      <button
-                        key={ep.number}
-                        className={`p-4 rounded-md border text-left transition-all ${
-                          selectedEpisode === ep.number
-                            ? "border-pink-500 bg-pink-500/10"
-                            : "border-white/10 bg-[#151a2a] hover:bg-[#1a1f35]"
-                        }`}
-                        onClick={() => setSelectedEpisode(ep.number)}
-                      >
-                        <div className="flex items-start justify-between">
-                          <div className="font-semibold text-white">Épisode {ep.number}</div>
-                          <div className="text-xs text-gray-400">{Math.floor(ep.duration / 60)}:{(ep.duration % 60).toString().padStart(2, '0')}</div>
+                    {/* Barre de progression */}
+                    {progress && (
+                      <div className="mt-2">
+                        <div className="w-full h-1 bg-gray-700 rounded-full overflow-hidden">
+                          <div 
+                            className="h-full bg-pink-500" 
+                            style={{ width: `${progress.percentage}%` }} 
+                          />
                         </div>
-                        <div className="mt-1 text-sm text-gray-300 truncate">{ep.title}</div>
-                        
-                        {/* Barre de progression */}
-                        {progress && (
-                          <div className="mt-2">
-                            <div className="w-full h-1 bg-gray-700 rounded-full overflow-hidden">
-                              <div 
-                                className="h-full bg-pink-500" 
-                                style={{ width: `${progress.percentage}%` }} 
-                              />
-                            </div>
-                            <div className="text-xs text-gray-400 mt-1">
-                              {Math.floor(progress.progress / 60)}:{(progress.progress % 60).toString().padStart(2, '0')} / 
-                              {Math.floor(progress.duration / 60)}:{(progress.duration % 60).toString().padStart(2, '0')}
-                            </div>
-                          </div>
-                        )}
-                      </button>
-                    );
-                  })
-                : (anime?.episodes || []).map((ep) => {
-                    const progress = getEpisodeProgress(1, ep.number);
-                    
-                    return (
-                      <button
-                        key={ep.number}
-                        className={`p-4 rounded-md border text-left transition-all ${
-                          selectedEpisode === ep.number
-                            ? "border-pink-500 bg-pink-500/10"
-                            : "border-white/10 bg-[#151a2a] hover:bg-[#1a1f35]"
-                        }`}
-                        onClick={() => setSelectedEpisode(ep.number)}
-                      >
-                        <div className="flex items-start justify-between">
-                          <div className="font-semibold text-white">Épisode {ep.number}</div>
-                          <div className="text-xs text-gray-400">{Math.floor(ep.duration / 60)}:{(ep.duration % 60).toString().padStart(2, '0')}</div>
+                        <div className="text-xs text-gray-400 mt-1">
+                          {Math.floor(progress.progress / 60)}:{(progress.progress % 60).toString().padStart(2, '0')} / 
+                          {Math.floor(progress.duration / 60)}:{(progress.duration % 60).toString().padStart(2, '0')}
                         </div>
-                        <div className="mt-1 text-sm text-gray-300 truncate">{ep.title}</div>
-                        
-                        {/* Barre de progression */}
-                        {progress && (
-                          <div className="mt-2">
-                            <div className="w-full h-1 bg-gray-700 rounded-full overflow-hidden">
-                              <div 
-                                className="h-full bg-pink-500" 
-                                style={{ width: `${progress.percentage}%` }} 
-                              />
-                            </div>
-                            <div className="text-xs text-gray-400 mt-1">
-                              {Math.floor(progress.progress / 60)}:{(progress.progress % 60).toString().padStart(2, '0')} / 
-                              {Math.floor(progress.duration / 60)}:{(progress.duration % 60).toString().padStart(2, '0')}
-                            </div>
-                          </div>
-                        )}
-                      </button>
-                    );
-                  })
-              }
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
