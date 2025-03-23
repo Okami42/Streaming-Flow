@@ -537,14 +537,10 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
     ? episode?.sibnetVostfrId
     : episode?.sibnetVfId;
     
-  // Définir des sources mp4 fictives pour l'exemple
+  // Définir des sources mp4 de démonstration
   const mp4Source = selectedLanguage === "vostfr"
-    ? useSeasonsStructure
-      ? `https://storage-anime.com/${anime?.id}/s${selectedSeason}e${selectedEpisode}-vostfr.mp4`
-      : `https://storage-anime.com/${anime?.id}/e${selectedEpisode}-vostfr.mp4`
-    : useSeasonsStructure
-      ? `https://storage-anime.com/${anime?.id}/s${selectedSeason}e${selectedEpisode}-vf.mp4`
-      : `https://storage-anime.com/${anime?.id}/e${selectedEpisode}-vf.mp4`;
+    ? "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" 
+    : "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -717,89 +713,28 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                 {/* Tabs pour choisir le lecteur */}
                 <div className="mb-4">
                   <Tabs defaultValue="lecteur1" className="w-full">
-                    <TabsList className="grid w-full grid-cols-2 bg-[#151a2a] mb-2">
-                      <TabsTrigger value="lecteur1" className="data-[state=active]:bg-[#1a1f35]">Lecteur 1</TabsTrigger>
-                      <TabsTrigger value="lecteur2" className="data-[state=active]:bg-[#1a1f35]">Lecteur 2</TabsTrigger>
+                    <TabsList className="grid w-full grid-cols-2 bg-[#151a2a] mb-2 rounded-t-md border border-white/10 border-b-0">
+                      <TabsTrigger value="lecteur1" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/50 data-[state=active]:to-blue-500/50 data-[state=active]:text-white data-[state=active]:shadow-inner">Lecteur 1</TabsTrigger>
+                      <TabsTrigger value="lecteur2" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/50 data-[state=active]:to-blue-500/50 data-[state=active]:text-white data-[state=active]:shadow-inner">Lecteur 2</TabsTrigger>
                     </TabsList>
                     
                     <TabsContent value="lecteur1" className="mt-0">
-                      {/* Lecteur personnalisé avec prévisualisation */}
-                      <VideoPlayer 
-                        sibnetId={videoId}
-                        poster={anime.bannerUrl || "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp"}
-                        onTimeUpdate={(time) => {
-                          currentTimeRef.current = time;
-                          updateTimeDisplay(time);
-                          if (Math.floor(time) % 5 === 0) {
-                            saveTime();
-                          }
-                        }}
-                        onPlay={() => {
-                          isPlayingRef.current = true;
-                          startTrackingTime(true);
-                        }}
-                        onPause={() => {
-                          isPlayingRef.current = false;
-                          saveTime(true);
-                          if (intervalRef.current) {
-                            clearInterval(intervalRef.current);
-                            intervalRef.current = null;
-                          }
-                        }}
-                        initialTime={currentTimeRef.current}
-                        onNextEpisode={() => {
-                          if (currentSeason && selectedEpisode < currentSeason.episodes.length) {
-                            setSelectedEpisode(prev => Math.min(currentSeason.episodes.length, prev + 1));
-                          }
-                        }}
-                        onPreviousEpisode={() => {
-                          if (selectedEpisode > 1) {
-                            setSelectedEpisode(prev => Math.max(1, prev - 1));
-                          }
-                        }}
-                        hasNextEpisode={currentSeason ? selectedEpisode < currentSeason.episodes.length : false}
-                        hasPreviousEpisode={selectedEpisode > 1}
-                      />
+                      {/* Lecteur style anime-sama.fr */}
+                      <div className="bg-black" style={{ width: '100%', height: '500px' }}>
+                        <VideoPlayer 
+                          sibnetId={videoId || "5742388"}
+                          className="w-full h-full"
+                        />
+                      </div>
                     </TabsContent>
                     
                     <TabsContent value="lecteur2" className="mt-0">
-                      {/* Lecteur Sibnet standard (ancien lecteur) */}
-                      <div className="bg-black rounded-md overflow-hidden aspect-video w-full">
-                        <div className="relative w-full h-0" style={{ paddingBottom: '56.25%' }}>
-                          {videoId ? (
-                            <div className="absolute inset-0 w-full h-full">
-                              <iframe 
-                                src={`https://video.sibnet.ru/shell.php?videoid=${videoId}`}
-                                width="100%" 
-                                height="100%" 
-                                frameBorder="0" 
-                                scrolling="no" 
-                                allow="autoplay; fullscreen" 
-                                allowFullScreen 
-                                className="w-full h-full"
-                                onLoad={() => {
-                                  console.log("Iframe chargée");
-                                  
-                                  // Démarrer automatiquement le suivi quand l'iframe est chargée
-                                  isPlayingRef.current = true;
-                                  startTrackingTime(true);
-                                  setRenderKey(prev => prev + 1);
-                                }}
-                              ></iframe>
-                            </div>
-                          ) : (
-                            <video 
-                              src={mp4Source} 
-                              controls 
-                              className="absolute inset-0 w-full h-full"
-                              poster={anime.bannerUrl || "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp"}
-                              onTimeUpdate={handleTimeUpdate}
-                              onPlay={handlePlay}
-                              onPause={handlePause}
-                              onEnded={handlePause}
-                            ></video>
-                          )}
-                        </div>
+                      {/* Lecteur style anime-sama.fr */}
+                      <div className="bg-black" style={{ width: '100%', height: '500px' }}>
+                        <VideoPlayer 
+                          sibnetId={videoId || "5742388"}
+                          className="w-full h-full"
+                        />
                       </div>
                     </TabsContent>
                   </Tabs>
@@ -807,41 +742,34 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
               </TabsContent>
 
               <TabsContent value="vf" className="mt-2">
-                <div className="bg-black rounded-md overflow-hidden aspect-video w-full">
-                  <div className="relative w-full h-0" style={{ paddingBottom: '56.25%' }}>
-                    {videoId ? (
-                      <div className="absolute inset-0 w-full h-full">
-                        <iframe 
-                          src={`https://video.sibnet.ru/shell.php?videoid=${videoId}`}
-                          width="100%" 
-                          height="100%" 
-                          frameBorder="0" 
-                          scrolling="no" 
-                          allow="autoplay; fullscreen" 
-                          allowFullScreen 
+                {/* Tabs pour choisir le lecteur */}
+                <div className="mb-4">
+                  <Tabs defaultValue="lecteur1" className="w-full">
+                    <TabsList className="grid w-full grid-cols-2 bg-[#151a2a] mb-2 rounded-t-md border border-white/10 border-b-0">
+                      <TabsTrigger value="lecteur1" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/50 data-[state=active]:to-blue-500/50 data-[state=active]:text-white data-[state=active]:shadow-inner">Lecteur 1</TabsTrigger>
+                      <TabsTrigger value="lecteur2" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/50 data-[state=active]:to-blue-500/50 data-[state=active]:text-white data-[state=active]:shadow-inner">Lecteur 2</TabsTrigger>
+                    </TabsList>
+                    
+                    <TabsContent value="lecteur1" className="mt-0">
+                      {/* Lecteur style anime-sama.fr */}
+                      <div className="bg-black" style={{ width: '100%', height: '500px' }}>
+                        <VideoPlayer 
+                          sibnetId={videoId || "5742388"}
                           className="w-full h-full"
-                          onLoad={() => {
-                            console.log("Iframe chargée");
-                            // Démarrer automatiquement le suivi quand l'iframe est chargée
-                            isPlayingRef.current = true;
-                            startTrackingTime(true);
-                            setRenderKey(prev => prev + 1);
-                          }}
-                        ></iframe>
+                        />
                       </div>
-                    ) : (
-                      <video 
-                        src={mp4Source} 
-                        controls 
-                        className="absolute inset-0 w-full h-full"
-                        poster={anime.bannerUrl || "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp"}
-                        onTimeUpdate={handleTimeUpdate}
-                        onPlay={handlePlay}
-                        onPause={handlePause}
-                        onEnded={handlePause}
-                      ></video>
-                    )}
-                  </div>
+                    </TabsContent>
+                    
+                    <TabsContent value="lecteur2" className="mt-0">
+                      {/* Lecteur style anime-sama.fr */}
+                      <div className="bg-black" style={{ width: '100%', height: '500px' }}>
+                        <VideoPlayer 
+                          sibnetId={videoId || "5742388"}
+                          className="w-full h-full"
+                        />
+                      </div>
+                    </TabsContent>
+                  </Tabs>
                 </div>
               </TabsContent>
             </Tabs>

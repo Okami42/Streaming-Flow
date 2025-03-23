@@ -3,8 +3,9 @@ export interface AnimeEpisode {
   number: number;
   title: string;
   duration: number;
-  sibnetVostfrId: string;
-  sibnetVfId: string;
+  sibnetVostfrId?: string;
+  sibnetVfId?: string;
+  smoothpreUrl?: string;
 }
 
 export interface AnimeSeason {
@@ -32,6 +33,9 @@ export interface Anime {
 
 // Fonction pour récupérer un anime par son ID
 export function getAnimeById(id: string): Anime | undefined {
+  if (id === "solo-leveling-2") {
+    return soloLevelingSeason2;
+  }
   return animes.find(anime => anime.id === id);
 }
 
@@ -70,84 +74,84 @@ export const animes: Anime[] = [
             title: "Je suis un chasseur de rang E",
             duration: 1440,
             sibnetVostfrId: "5389406",
-            sibnetVfId: "sl1ep1fr"
+            sibnetVfId: "5406687"
           },
           {
             number: 2,
             title: "Une porte rouge apparaît",
             duration: 1440,
             sibnetVostfrId: "5397577",
-            sibnetVfId: "sl1ep2fr"
+            sibnetVfId: "5415193"
           },
           {
             number: 3,
             title: "Donjon double",
             duration: 1440,
             sibnetVostfrId: "5406329",
-            sibnetVfId: "sl1ep3fr"
+            sibnetVfId: "5421450"
           },
           {
             number: 4,
             title: "Le système",
             duration: 1440,
             sibnetVostfrId: "5414604",
-            sibnetVfId: "sl1ep4fr"
+            sibnetVfId: "5428347"
           },
           {
             number: 5,
             title: "Niveau supérieur",
             duration: 1440,
             sibnetVostfrId: "5421264",
-            sibnetVfId: "sl1ep5fr"
+            sibnetVfId: "5435958"
           },
           {
             number: 6,
             title: "Chasses nocturnes",
             duration: 1440,
             sibnetVostfrId: "5428101",
-            sibnetVfId: "sl1ep6fr"
+            sibnetVfId: "5444965"
           },
           {
             number: 7,
             title: "Appel de l'aventure",
             duration: 1440,
             sibnetVostfrId: "5435724",
-            sibnetVfId: "sl1ep7fr"
+            sibnetVfId: "5453272"
           },
           {
             number: 8,
             title: "Le rang C",
             duration: 1440,
             sibnetVostfrId: "5444576",
-            sibnetVfId: "sl1ep8fr"
+            sibnetVfId: "5470652"
           },
           {
             number: 9,
             title: "La tanière des loups",
             duration: 1440,
             sibnetVostfrId: "5453063",
-            sibnetVfId: "sl1ep9fr"
+            sibnetVfId: "5479612"
           },
           {
             number: 10,
             title: "Progression de compétence",
             duration: 1440,
             sibnetVostfrId: "5461770",
-            sibnetVfId: "sl1ep10fr"
+            sibnetVfId: "5496084"
           },
           {
             number: 11,
             title: "Raid de haut rang",
             duration: 1440,
             sibnetVostfrId: "5470382",
-            sibnetVfId: "sl1ep11fr"
+            sibnetVfId: "5504016"
           },
           {
             number: 12,
             title: "La tour de puissance",
             duration: 1440,
             sibnetVostfrId: "5479260",
-            sibnetVfId: "sl1ep12fr"
+            sibnetVfId: "5511308"
           },
           {
             number: 13,
@@ -155,6 +159,97 @@ export const animes: Anime[] = [
             duration: 1440,
             sibnetVostfrId: "5487838",
             sibnetVfId: "sl1ep13fr"
+          }
+        ]
+      },
+      {
+        seasonNumber: 2,
+        title: "Saison 2",
+        year: 2024,
+        episodes: [
+          {
+            number: 1,
+            title: "Le Retour du Chasseur",
+            duration: 1440,
+            sibnetVostfrId: "5790524",
+            sibnetVfId: "5806748"
+          },
+          {
+            number: 2,
+            title: "Nouveau Pouvoir",
+            duration: 1440,
+            sibnetVostfrId: "5795961",
+            sibnetVfId: "5812653"
+          },
+          {
+            number: 3,
+            title: "La Menace Grandissante",
+            duration: 1440,
+            sibnetVostfrId: "5801411",
+            sibnetVfId: "5819532"
+          },
+          {
+            number: 4,
+            title: "Alliance Inattendue",
+            duration: 1440,
+            sibnetVostfrId: "5806488",
+            sibnetVfId: "5826552"
+          },
+          {
+            number: 5,
+            title: "Le Secret de la Tour",
+            duration: 1440,
+            sibnetVostfrId: "5811885",
+            sibnetVfId: "5834007"
+          },
+          {
+            number: 6,
+            title: "Confrontation",
+            duration: 1440,
+            sibnetVostfrId: "5819034",
+            sibnetVfId: "5839458"
+          },
+          {
+            number: 7,
+            title: "L'Ascension",
+            duration: 1440,
+            sibnetVostfrId: "5825877",
+            sibnetVfId: "5845865"
+          },
+          {
+            number: 8,
+            title: "Vérité Cachée",
+            duration: 1440,
+            sibnetVostfrId: "5832048",
+            sibnetVfId: "5851984"
+          },
+          {
+            number: 9,
+            title: "Le Test Final",
+            duration: 1440,
+            sibnetVostfrId: "5839080",
+            sibnetVfId: "5857932"
+          },
+          {
+            number: 10,
+            title: "Force Ultime",
+            duration: 1440,
+            sibnetVostfrId: "5845645",
+            sibnetVfId: "11000111"
+          },
+          {
+            number: 11,
+            title: "Révélation",
+            duration: 1440,
+            sibnetVostfrId: "5851330",
+            sibnetVfId: "111000000011"
+          },
+          {
+            number: 12,
+            title: "Nouveau Départ",
+            duration: 1440,
+            sibnetVostfrId: "5857706",
+            sibnetVfId: "111100001"
           }
         ]
       }
@@ -806,4 +901,112 @@ export const animes: Anime[] = [
       }
     ]
   }
-]; 
+];
+
+// Ajout de Solo Leveling saison 2 avec les IDs Sibnet
+export const soloLevelingSeason2: Anime = {
+  id: "solo-leveling-2",
+  title: "Solo Leveling",
+  originalTitle: "나 혼자만 레벨업",
+  description: "Suite des aventures de Sung Jin-Woo, le seul chasseur à pouvoir monter de niveau dans un monde où les chasseurs doivent combattre des monstres mortels issus de portails.",
+  type: "TV",
+  status: "En cours",
+  year: 2024,
+  seasons: [
+    {
+      seasonNumber: 2,
+      title: "Saison 2",
+      year: 2024,
+      episodes: [
+        {
+          number: 1,
+          title: "Le Retour du Chasseur",
+          duration: 1440,
+          sibnetVostfrId: "5790524",
+          sibnetVfId: "5806748"
+        },
+        {
+          number: 2,
+          title: "Nouveau Pouvoir",
+          duration: 1440,
+          sibnetVostfrId: "5795961",
+          sibnetVfId: "5812653"
+        },
+        {
+          number: 3,
+          title: "La Menace Grandissante",
+          duration: 1440,
+          sibnetVostfrId: "5801411",
+          sibnetVfId: "5819532"
+        },
+        {
+          number: 4,
+          title: "Alliance Inattendue",
+          duration: 1440,
+          sibnetVostfrId: "5806488",
+          sibnetVfId: "5826552"
+        },
+        {
+          number: 5,
+          title: "Le Secret de la Tour",
+          duration: 1440,
+          sibnetVostfrId: "5811885",
+          sibnetVfId: "5834007"
+        },
+        {
+          number: 6,
+          title: "Confrontation",
+          duration: 1440,
+          sibnetVostfrId: "5819034",
+          sibnetVfId: "5839458"
+        },
+        {
+          number: 7,
+          title: "L'Ascension",
+          duration: 1440,
+          sibnetVostfrId: "5825877",
+          sibnetVfId: "5845865"
+        },
+        {
+          number: 8,
+          title: "Vérité Cachée",
+          duration: 1440,
+          sibnetVostfrId: "5832048",
+          sibnetVfId: "5851984"
+        },
+        {
+          number: 9,
+          title: "Le Test Final",
+          duration: 1440,
+          sibnetVostfrId: "5839080",
+          sibnetVfId: "5857932"
+        },
+        {
+          number: 10,
+          title: "Force Ultime",
+          duration: 1440,
+          sibnetVostfrId: "5845645",
+          sibnetVfId: "5845865"
+        },
+        {
+          number: 11,
+          title: "Révélation",
+          duration: 1440,
+          sibnetVostfrId: "5851330",
+          sibnetVfId: "5851984"
+        },
+        {
+          number: 12,
+          title: "Nouveau Départ",
+          duration: 1440,
+          sibnetVostfrId: "5857706",
+          sibnetVfId: "5857932"
+        }
+      ]
+    }
+  ],
+  genres: ["Action", "Aventure", "Fantasy", "Surnaturel"],
+  rating: 9.2,
+  imageUrl: "/picture/animes/solo-leveling.jpg",
+  bannerUrl: "/picture/bannieres/solo-leveling-banner.jpg"
+}; 
