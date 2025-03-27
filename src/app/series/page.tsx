@@ -7,13 +7,85 @@ import Link from "next/link";
 import CustomImage from "@/components/ui/custom-image";
 import ContentSection from "@/components/ContentSection";
 
+// Styles pour l'animation des étoiles
+const starStyles = `
+  @keyframes twinkle {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  .stars-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background-color: white;
+    animation: twinkle 4s infinite;
+  }
+
+  .star:nth-child(1) {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+
+  .star:nth-child(2) {
+    top: 30%;
+    left: 40%;
+    animation-delay: 1s;
+  }
+
+  .star:nth-child(3) {
+    top: 15%;
+    left: 60%;
+    animation-delay: 2s;
+  }
+
+  .star:nth-child(4) {
+    top: 40%;
+    left: 80%;
+    animation-delay: 3s;
+  }
+
+  .star:nth-child(5) {
+    top: 60%;
+    left: 20%;
+    animation-delay: 2.5s;
+  }
+
+  .star:nth-child(6) {
+    top: 75%;
+    left: 50%;
+    animation-delay: 1.5s;
+  }
+
+  .star:nth-child(7) {
+    top: 80%;
+    left: 70%;
+    animation-delay: 0.5s;
+  }
+
+  .star:nth-child(8) {
+    top: 10%;
+    left: 90%;
+    animation-delay: 3.5s;
+  }
+`;
+
 export default function SeriesPage() {
   // Données temporaires pour les séries et films (à remplacer par de vraies données par la suite)
   const featuredSeries = {
     id: "breaking-bad",
     title: "Breaking Bad",
     description: "Un professeur de chimie atteint d'un cancer du poumon inopérable se lance dans la fabrication et la vente de méthamphétamine pour assurer l'avenir financier de sa famille.",
-    imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
+    imageUrl: "https://fr.web.img5.acsta.net/pictures/19/06/18/12/11/3956503.jpg",
     genres: ["Drame", "Crime", "Thriller"]
   };
   
@@ -151,20 +223,43 @@ export default function SeriesPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <style dangerouslySetInnerHTML={{ __html: starStyles }} />
       <Header />
 
       <main className="flex-grow">
-        {/* Hero section simplifiée */}
-        <div className="relative h-[400px] w-full overflow-hidden bg-[#0c1222]">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#151a2a] to-[#0c1222]/70"></div>
-          <div className="container mx-auto px-4 h-full flex flex-col justify-center relative z-10">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Séries & Films
-            </h1>
-            <p className="text-xl text-gray-300 max-w-2xl">
-              Découvrez notre collection de séries et films en streaming de haute qualité
-            </p>
+        {/* Hero section avec okastreamtextbanner.png */}
+        <div className="relative h-[300px] md:h-[400px] lg:h-[500px] w-full overflow-hidden">
+          {/* Background image */}
+          <div className="absolute inset-0">
+            <CustomImage
+              src="/picture/okastreamtextbanner.png"
+              alt="Séries et Films"
+              fill
+              priority
+              className="object-cover"
+            />
+
+            {/* Overlay gradients */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/60 to-black/30" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#030711] via-transparent to-transparent" />
+
+            {/* Animated particle effect */}
+            <div className="absolute inset-0 opacity-30">
+              <div className="stars-container">
+                <div className="star"></div>
+                <div className="star"></div>
+                <div className="star"></div>
+                <div className="star"></div>
+                <div className="star"></div>
+                <div className="star"></div>
+                <div className="star"></div>
+                <div className="star"></div>
+              </div>
+            </div>
           </div>
+
+          {/* Bottom glow effect */}
+          <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-500 to-transparent"></div>
         </div>
 
         <div className="container mx-auto px-4 py-8">

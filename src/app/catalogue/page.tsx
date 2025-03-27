@@ -27,6 +27,13 @@ const animes: CatalogueAnime[] = [
     language: "VOSTFR",
   },
   {
+    id: "solo-leveling",
+    title: "Solo Leveling",
+    imageUrl: "https://img-cdn.thepublive.com/wion/media/post_attachments/files/web-story/900_1600/2024/3/26/1711469910345_sololeveling.jpg",
+    type: "Anime",
+    language: "VOSTFR",
+  },
+  {
     id: "unnamed-memory",
     title: "Unnamed Memory",
     imageUrl: "https://ext.same-assets.com/3309958097/2676309700.jpeg",

@@ -28,8 +28,9 @@ export interface AnimeEpisode {
   number: number;
   title: string;
   duration: number;
-  sibnetVostfrId: string;
-  sibnetVfId: string;
+  sibnetVostfrId?: string;
+  sibnetVfId?: string;
+  vidmolyUrl?: string;
 }
 
 export interface AnimeSeason {

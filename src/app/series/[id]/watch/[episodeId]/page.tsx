@@ -90,15 +90,46 @@ export default function WatchPage({ params }: { params: { id: string; episodeId:
           </div>
 
           {/* Lecteur vidéo */}
-          <div className="relative aspect-video w-full bg-black/50 rounded-lg overflow-hidden mb-6">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-white text-center p-4">
-                <div className="mb-4">Lecteur vidéo simulé</div>
-                <p className="text-sm text-gray-400 mb-2">URL de la vidéo:</p>
-                <code className="bg-gray-800 px-2 py-1 rounded text-xs">
-                  {episode.videoUrl}
-                </code>
-              </div>
+          <div className="relative w-full aspect-video bg-black rounded-lg overflow-hidden mb-6 shadow-2xl">
+            <div className="w-full h-full">
+              {episode.videoUrl.includes('dood.wf') ? (
+                <iframe 
+                  src={episode.videoUrl}
+                  className="w-full h-full" 
+                  frameBorder="0" 
+                  scrolling="no" 
+                  allowFullScreen
+                  sandbox="allow-same-origin allow-scripts"
+                  referrerPolicy="no-referrer"
+                ></iframe>
+              ) : episode.videoUrl.includes('filemoon.sx') ? (
+                <iframe 
+                  src={episode.videoUrl}
+                  className="w-full h-full" 
+                  frameBorder="0" 
+                  scrolling="no" 
+                  allowFullScreen
+                  sandbox="allow-same-origin allow-scripts allow-forms"
+                  referrerPolicy="no-referrer"
+                ></iframe>
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-white text-center p-4">
+                    <div className="mb-4">Lecteur vidéo simulé</div>
+                    <p className="text-sm text-gray-400 mb-2">URL de la vidéo:</p>
+                    <code className="bg-gray-800 px-2 py-1 rounded text-xs">
+                      {episode.videoUrl}
+                    </code>
+                  </div>
+                </div>
+              )}
+            </div>
+            
+            {/* Étiquette du lecteur */}
+            <div className="absolute top-0 right-0 bg-blue-600 text-white px-3 py-1 text-sm font-bold rounded-bl">
+              {episode.videoUrl.includes('filemoon.sx') ? 'FILEMOON VOSTFR' : 
+               episode.videoUrl.includes('dood.wf') ? 'LECTEUR DOODSTREAM' : 
+               'LECTEUR VIDÉO'}
             </div>
           </div>
 

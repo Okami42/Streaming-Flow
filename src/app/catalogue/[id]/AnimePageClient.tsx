@@ -295,10 +295,10 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                 intervalRef.current = null;
               }
               
-              // Mettre à jour l'état de lecture
+              // Mettre à jour l'état
               isPlayingRef.current = false;
               
-              // Sauvegarder le temps actuel
+              // Sauvegarder le temps
               saveTime(true);
             }
           }, 2000);
@@ -766,7 +766,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       {/* Lecteur style anime-sama.fr */}
                       <div className="bg-black" style={{ width: '100%', height: '500px' }}>
                         <VideoPlayer 
-                          sibnetId={videoId || "5742388"}
+                          vidmolyId={episode?.vidmolyId}
                           className="w-full h-full"
                         />
                       </div>
@@ -776,7 +776,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       {/* Lecteur style anime-sama.fr */}
                       <div className="bg-black" style={{ width: '100%', height: '500px' }}>
                         <VideoPlayer 
-                          sibnetId={videoId || "5742388"}
+                          sibnetId={videoId}
                           className="w-full h-full"
                         />
                       </div>
@@ -798,7 +798,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       {/* Lecteur style anime-sama.fr */}
                       <div className="bg-black" style={{ width: '100%', height: '500px' }}>
                         <VideoPlayer 
-                          sibnetId={videoId || "5742388"}
+                          vidmolyId={episode?.vidmolyVfId}
                           className="w-full h-full"
                         />
                       </div>
@@ -808,7 +808,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       {/* Lecteur style anime-sama.fr */}
                       <div className="bg-black" style={{ width: '100%', height: '500px' }}>
                         <VideoPlayer 
-                          sibnetId={videoId || "5742388"}
+                          sibnetId={videoId}
                           className="w-full h-full"
                         />
                       </div>

@@ -40,6 +40,7 @@ const HistoryDropdown = memo(function HistoryDropdown() {
 
 export default function Header() {
   const pathname = usePathname();
+  const isSeriesSection = pathname.startsWith("/series");
 
   return (
     <header className="bg-[#030711]/80 backdrop-blur-md border-b border-white/5 py-5 sticky top-0 z-50">
@@ -47,7 +48,7 @@ export default function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center group primary-glow mr-6">
           <CustomImage
-            src="/picture/logookaviolet.png"
+            src={isSeriesSection ? "/picture/icon_logo_okami.png" : "/picture/logookaviolet.png"}
             alt="Okanime Logo"
             width={180}
             height={60}
@@ -70,10 +71,16 @@ export default function Header() {
         {/* Nav Links */}
         <div className="flex items-center space-x-4">
           <nav className="hidden md:flex items-center space-x-8 mr-4">
-            <NavLink href="/catalogue" active={pathname === "/catalogue"}>
+            <NavLink 
+              href={isSeriesSection ? "/series/catalogue" : "/catalogue"} 
+              active={isSeriesSection ? pathname === "/series/catalogue" : pathname === "/catalogue"}
+            >
               Catalogue
             </NavLink>
-            <NavLink href="/planning" active={pathname === "/planning"}>
+            <NavLink 
+              href={isSeriesSection ? "/series/planning" : "/planning"} 
+              active={isSeriesSection ? pathname === "/series/planning" : pathname === "/planning"}
+            >
               Planning
             </NavLink>
             <NavLink href="/aide" active={pathname === "/aide"}>

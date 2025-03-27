@@ -6,6 +6,9 @@ export interface AnimeEpisode {
   sibnetVostfrId?: string;
   sibnetVfId?: string;
   smoothpreUrl?: string;
+  vidmolyUrl?: string;
+  vidmolyId?: string;
+  vidmolyVfId?: string;
 }
 
 export interface AnimeSeason {
@@ -69,90 +72,18 @@ export const animes: Anime[] = [
         title: "Saison 1",
         year: 2024,
         episodes: [
-          {
-            number: 1,
-            title: "Je suis un chasseur de rang E",
-            duration: 1440,
-            sibnetVostfrId: "5389406",
-            sibnetVfId: "5406687"
-          },
-          {
-            number: 2,
-            title: "Une porte rouge apparaît",
-            duration: 1440,
-            sibnetVostfrId: "5397577",
-            sibnetVfId: "5415193"
-          },
-          {
-            number: 3,
-            title: "Donjon double",
-            duration: 1440,
-            sibnetVostfrId: "5406329",
-            sibnetVfId: "5421450"
-          },
-          {
-            number: 4,
-            title: "Le système",
-            duration: 1440,
-            sibnetVostfrId: "5414604",
-            sibnetVfId: "5428347"
-          },
-          {
-            number: 5,
-            title: "Niveau supérieur",
-            duration: 1440,
-            sibnetVostfrId: "5421264",
-            sibnetVfId: "5435958"
-          },
-          {
-            number: 6,
-            title: "Chasses nocturnes",
-            duration: 1440,
-            sibnetVostfrId: "5428101",
-            sibnetVfId: "5444965"
-          },
-          {
-            number: 7,
-            title: "Appel de l'aventure",
-            duration: 1440,
-            sibnetVostfrId: "5435724",
-            sibnetVfId: "5453272"
-          },
-          {
-            number: 8,
-            title: "Le rang C",
-            duration: 1440,
-            sibnetVostfrId: "5453063",
-            sibnetVfId: "5470652"
-          },
-          {
-            number: 9,
-            title: "La tanière des loups",
-            duration: 1440,
-            sibnetVostfrId: "5461770",
-            sibnetVfId: "5479612"
-          },
-          {
-            number: 10,
-            title: "Progression de compétence",
-            duration: 1440,
-            sibnetVostfrId: "5470382",
-            sibnetVfId: "5496084"
-          },
-          {
-            number: 11,
-            title: "Raid de haut rang",
-            duration: 1440,
-            sibnetVostfrId: "5479260",
-            sibnetVfId: "5504016"
-          },
-          {
-            number: 12,
-            title: "La tour de puissance",
-            duration: 1440,
-            sibnetVostfrId: "5487838",
-            sibnetVfId: "5511308"
-          }
+          { number: 1, title: "Je suis un chasseur de rang E", duration: 1440, sibnetVostfrId: "5389406", sibnetVfId: "5406687" },
+          { number: 2, title: "Une porte rouge apparaît", duration: 1440, sibnetVostfrId: "5397577", sibnetVfId: "5415193" },
+          { number: 3, title: "Donjon double", duration: 1440, sibnetVostfrId: "5406329", sibnetVfId: "5421450" },
+          { number: 4, title: "Le système", duration: 1440, sibnetVostfrId: "5414604", sibnetVfId: "5428347" },
+          { number: 5, title: "Niveau supérieur", duration: 1440, sibnetVostfrId: "5421264", sibnetVfId: "5435958" },
+          { number: 6, title: "Chasses nocturnes", duration: 1440, sibnetVostfrId: "5428101", sibnetVfId: "5444965" },
+          { number: 7, title: "Appel de l'aventure", duration: 1440, sibnetVostfrId: "5435724", sibnetVfId: "5453272" },
+          { number: 8, title: "Le rang C", duration: 1440, sibnetVostfrId: "5453063", sibnetVfId: "5470652" },
+          { number: 9, title: "La tanière des loups", duration: 1440, sibnetVostfrId: "5461770", sibnetVfId: "5479612" },
+          { number: 10, title: "Progression de compétence", duration: 1440, sibnetVostfrId: "5470382", sibnetVfId: "5496084" },
+          { number: 11, title: "Raid de haut rang", duration: 1440, sibnetVostfrId: "5479260", sibnetVfId: "5504016" },
+          { number: 12, title: "La tour de puissance", duration: 1440, sibnetVostfrId: "5487838", sibnetVfId: "5511308" }
         ]
       },
       {
@@ -160,90 +91,18 @@ export const animes: Anime[] = [
         title: "Saison 2",
         year: 2024,
         episodes: [
-          {
-            number: 1,
-            title: "Le Retour du Chasseur",
-            duration: 1440,
-            sibnetVostfrId: "5790524",
-            sibnetVfId: "5806748"
-          },
-          {
-            number: 2,
-            title: "Nouveau Pouvoir",
-            duration: 1440,
-            sibnetVostfrId: "5795961",
-            sibnetVfId: "5812653"
-          },
-          {
-            number: 3,
-            title: "La Menace Grandissante",
-            duration: 1440,
-            sibnetVostfrId: "5801411",
-            sibnetVfId: "5819532"
-          },
-          {
-            number: 4,
-            title: "Alliance Inattendue",
-            duration: 1440,
-            sibnetVostfrId: "5806488",
-            sibnetVfId: "5826552"
-          },
-          {
-            number: 5,
-            title: "Le Secret de la Tour",
-            duration: 1440,
-            sibnetVostfrId: "5811885",
-            sibnetVfId: "5834007"
-          },
-          {
-            number: 6,
-            title: "Confrontation",
-            duration: 1440,
-            sibnetVostfrId: "5819034",
-            sibnetVfId: "5839458"
-          },
-          {
-            number: 7,
-            title: "L'Ascension",
-            duration: 1440,
-            sibnetVostfrId: "5825877",
-            sibnetVfId: "5845865"
-          },
-          {
-            number: 8,
-            title: "Vérité Cachée",
-            duration: 1440,
-            sibnetVostfrId: "5832048",
-            sibnetVfId: "5851984"
-          },
-          {
-            number: 9,
-            title: "Le Test Final",
-            duration: 1440,
-            sibnetVostfrId: "5839080",
-            sibnetVfId: "5857932"
-          },
-          {
-            number: 10,
-            title: "Force Ultime",
-            duration: 1440,
-            sibnetVostfrId: "5845645",
-            sibnetVfId: "11000111"
-          },
-          {
-            number: 11,
-            title: "Révélation",
-            duration: 1440,
-            sibnetVostfrId: "5851330",
-            sibnetVfId: "111000000011"
-          },
-          {
-            number: 12,
-            title: "Nouveau Départ",
-            duration: 1440,
-            sibnetVostfrId: "5857706",
-            sibnetVfId: "111100001"
-          }
+          { number: 1, title: "Le Retour du Chasseur", duration: 1440, sibnetVostfrId: "5790524", sibnetVfId: "5806748" },
+          { number: 2, title: "Nouveau Pouvoir", duration: 1440, sibnetVostfrId: "5795961", sibnetVfId: "5812653" },
+          { number: 3, title: "La Menace Grandissante", duration: 1440, sibnetVostfrId: "5801411", sibnetVfId: "5819532" },
+          { number: 4, title: "Alliance Inattendue", duration: 1440, sibnetVostfrId: "5806488", sibnetVfId: "5826552" },
+          { number: 5, title: "Le Secret de la Tour", duration: 1440, sibnetVostfrId: "5811885", sibnetVfId: "5834007" },
+          { number: 6, title: "Confrontation", duration: 1440, sibnetVostfrId: "5819034", sibnetVfId: "5839458" },
+          { number: 7, title: "L'Ascension", duration: 1440, sibnetVostfrId: "5825877", sibnetVfId: "5845865" },
+          { number: 8, title: "Vérité Cachée", duration: 1440, sibnetVostfrId: "5832048", sibnetVfId: "5851984" },
+          { number: 9, title: "Le Test Final", duration: 1440, sibnetVostfrId: "5839080", sibnetVfId: "5857932" },
+          { number: 10, title: "Force Ultime", duration: 1440, sibnetVostfrId: "5845645", sibnetVfId: "11000111" },
+          { number: 11, title: "Révélation", duration: 1440, sibnetVostfrId: "5851330", sibnetVfId: "111000000011" },
+          { number: 12, title: "Nouveau Départ", duration: 1440, sibnetVostfrId: "5857706", sibnetVfId: "111100001" }
         ]
       }
     ]
@@ -261,20 +120,8 @@ export const animes: Anime[] = [
     genres: ["Action", "Aventure", "Historique", "Fantastique"],
     rating: 9.5,
     episodes: [
-      {
-        number: 1,
-        title: "Cruauté",
-        duration: 1440, // 24 minutes
-        sibnetVostfrId: "abcdef123",
-        sibnetVfId: "123456abc"
-      },
-      {
-        number: 2,
-        title: "Sabre du démon",
-        duration: 1440,
-        sibnetVostfrId: "ghijkl456",
-        sibnetVfId: "789012def"
-      }
+      { number: 1, title: "Cruauté", duration: 1440, sibnetVostfrId: "abcdef123", sibnetVfId: "123456abc" },
+      { number: 2, title: "Sabre du démon", duration: 1440, sibnetVostfrId: "ghijkl456", sibnetVfId: "789012def" }
     ],
     seasons: [
       {
@@ -282,41 +129,11 @@ export const animes: Anime[] = [
         title: "Saison 1",
         year: 2019,
         episodes: [
-          {
-            number: 1,
-            title: "Cruauté",
-            duration: 1440,
-            sibnetVostfrId: "ds1ep1",
-            sibnetVfId: "ds1ep1fr"
-          },
-          {
-            number: 2,
-            title: "Sabre du démon",
-            duration: 1440,
-            sibnetVostfrId: "ds1ep2",
-            sibnetVfId: "ds1ep2fr"
-          },
-          {
-            number: 3,
-            title: "Sabito et Makomo",
-            duration: 1440,
-            sibnetVostfrId: "ds1ep3",
-            sibnetVfId: "ds1ep3fr"
-          },
-          {
-            number: 4,
-            title: "Sélection finale",
-            duration: 1440,
-            sibnetVostfrId: "ds1ep4",
-            sibnetVfId: "ds1ep4fr"
-          },
-          {
-            number: 5,
-            title: "Ma propre acier",
-            duration: 1440,
-            sibnetVostfrId: "ds1ep5",
-            sibnetVfId: "ds1ep5fr"
-          }
+          { number: 1, title: "Cruauté", duration: 1440, sibnetVostfrId: "ds1ep1", sibnetVfId: "ds1ep1fr" },
+          { number: 2, title: "Sabre du démon", duration: 1440, sibnetVostfrId: "ds1ep2", sibnetVfId: "ds1ep2fr" },
+          { number: 3, title: "Sabito et Makomo", duration: 1440, sibnetVostfrId: "ds1ep3", sibnetVfId: "ds1ep3fr" },
+          { number: 4, title: "Sélection finale", duration: 1440, sibnetVostfrId: "ds1ep4", sibnetVfId: "ds1ep4fr" },
+          { number: 5, title: "Ma propre acier", duration: 1440, sibnetVostfrId: "ds1ep5", sibnetVfId: "ds1ep5fr" }
         ]
       },
       {
@@ -324,34 +141,10 @@ export const animes: Anime[] = [
         title: "Arc du Train de l'Infini",
         year: 2021,
         episodes: [
-          {
-            number: 1,
-            title: "Le train de l'Infini",
-            duration: 1440,
-            sibnetVostfrId: "ds2ep1",
-            sibnetVfId: "ds2ep1fr"
-          },
-          {
-            number: 2,
-            title: "Sommeil profond",
-            duration: 1440,
-            sibnetVostfrId: "ds2ep2",
-            sibnetVfId: "ds2ep2fr"
-          },
-          {
-            number: 3,
-            title: "Enmu",
-            duration: 1440,
-            sibnetVostfrId: "ds2ep3",
-            sibnetVfId: "ds2ep3fr"
-          },
-          {
-            number: 4,
-            title: "Akaza",
-            duration: 1440,
-            sibnetVostfrId: "ds2ep4",
-            sibnetVfId: "ds2ep4fr"
-          }
+          { number: 1, title: "Le train de l'Infini", duration: 1440, sibnetVostfrId: "ds2ep1", sibnetVfId: "ds2ep1fr" },
+          { number: 2, title: "Sommeil profond", duration: 1440, sibnetVostfrId: "ds2ep2", sibnetVfId: "ds2ep2fr" },
+          { number: 3, title: "Enmu", duration: 1440, sibnetVostfrId: "ds2ep3", sibnetVfId: "ds2ep3fr" },
+          { number: 4, title: "Akaza", duration: 1440, sibnetVostfrId: "ds2ep4", sibnetVfId: "ds2ep4fr" }
         ]
       },
       {
@@ -359,27 +152,9 @@ export const animes: Anime[] = [
         title: "Arc du Village des Forgerons",
         year: 2023,
         episodes: [
-          {
-            number: 1,
-            title: "Le village caché",
-            duration: 1440,
-            sibnetVostfrId: "ds3ep1",
-            sibnetVfId: "ds3ep1fr"
-          },
-          {
-            number: 2,
-            title: "Les forgerons",
-            duration: 1440,
-            sibnetVostfrId: "ds3ep2",
-            sibnetVfId: "ds3ep2fr"
-          },
-          {
-            number: 3,
-            title: "L'attaque des démons",
-            duration: 1440,
-            sibnetVostfrId: "ds3ep3",
-            sibnetVfId: "ds3ep3fr"
-          }
+          { number: 1, title: "Le village caché", duration: 1440, sibnetVostfrId: "ds3ep1", sibnetVfId: "ds3ep1fr" },
+          { number: 2, title: "Les forgerons", duration: 1440, sibnetVostfrId: "ds3ep2", sibnetVfId: "ds3ep2fr" },
+          { number: 3, title: "L'attaque des démons", duration: 1440, sibnetVostfrId: "ds3ep3", sibnetVfId: "ds3ep3fr" }
         ]
       }
     ]
@@ -397,20 +172,8 @@ export const animes: Anime[] = [
     genres: ["Action", "Surnaturel", "École", "Démons"],
     rating: 9.2,
     episodes: [
-      {
-        number: 1,
-        title: "Ryomen Sukuna",
-        duration: 1440,
-        sibnetVostfrId: "jkaisen123",
-        sibnetVfId: "jkaisen123fr"
-      },
-      {
-        number: 2,
-        title: "Pour moi-même",
-        duration: 1440,
-        sibnetVostfrId: "jkaisen456",
-        sibnetVfId: "jkaisen456fr"
-      }
+      { number: 1, title: "Ryomen Sukuna", duration: 1440, sibnetVostfrId: "jkaisen123", sibnetVfId: "jkaisen123fr" },
+      { number: 2, title: "Pour moi-même", duration: 1440, sibnetVostfrId: "jkaisen456", sibnetVfId: "jkaisen456fr" }
     ],
     seasons: [
       {
@@ -418,174 +181,30 @@ export const animes: Anime[] = [
         title: "Saison 1",
         year: 2020,
         episodes: [
-          {
-            number: 1,
-            title: "Ryomen Sukuna",
-            duration: 1440,
-            sibnetVostfrId: "4667514",
-            sibnetVfId: "jk1ep1fr"
-          },
-          {
-            number: 2,
-            title: "Pour moi-même",
-            duration: 1440,
-            sibnetVostfrId: "4667523",
-            sibnetVfId: "jk1ep2fr"
-          },
-          {
-            number: 3,
-            title: "Jeune fille d'acier",
-            duration: 1440,
-            sibnetVostfrId: "4667532",
-            sibnetVfId: "jk1ep3fr"
-          },
-          {
-            number: 4,
-            title: "La mort des esprits maudits",
-            duration: 1440,
-            sibnetVostfrId: "4667548",
-            sibnetVfId: "jk1ep4fr"
-          },
-          {
-            number: 5,
-            title: "L'existence terreuse",
-            duration: 1440,
-            sibnetVostfrId: "4667557",
-            sibnetVfId: "jk1ep5fr"
-          },
-          {
-            number: 6,
-            title: "Après la pluie",
-            duration: 1440,
-            sibnetVostfrId: "4667566",
-            sibnetVfId: "jk1ep6fr"
-          },
-          {
-            number: 7,
-            title: "L'assaut",
-            duration: 1440,
-            sibnetVostfrId: "4667578",
-            sibnetVfId: "jk1ep7fr"
-          },
-          {
-            number: 8,
-            title: "Écorchure",
-            duration: 1440,
-            sibnetVostfrId: "4667599",
-            sibnetVfId: "jk1ep8fr"
-          },
-          {
-            number: 9,
-            title: "Petit poisson et Échec inversé",
-            duration: 1440,
-            sibnetVostfrId: "4667621",
-            sibnetVfId: "jk1ep9fr"
-          },
-          {
-            number: 10,
-            title: "Magie idole",
-            duration: 1440,
-            sibnetVostfrId: "4667634",
-            sibnetVfId: "jk1ep10fr"
-          },
-          {
-            number: 11,
-            title: "Formation en équipe",
-            duration: 1440,
-            sibnetVostfrId: "4667642",
-            sibnetVfId: "jk1ep11fr"
-          },
-          {
-            number: 12,
-            title: "À toi, ô mon brillant futur",
-            duration: 1440,
-            sibnetVostfrId: "4667648",
-            sibnetVfId: "jk1ep12fr"
-          },
-          {
-            number: 13,
-            title: "Demain",
-            duration: 1440,
-            sibnetVostfrId: "4667656",
-            sibnetVfId: "jk1ep13fr"
-          },
-          {
-            number: 14,
-            title: "Kyoto Sister School Exchange Event - Team Battle, Part 1",
-            duration: 1440,
-            sibnetVostfrId: "4667663",
-            sibnetVfId: "jk1ep14fr"
-          },
-          {
-            number: 15,
-            title: "Kyoto Sister School Exchange Event - Team Battle, Part 2",
-            duration: 1440,
-            sibnetVostfrId: "4667667",
-            sibnetVfId: "jk1ep15fr"
-          },
-          {
-            number: 16,
-            title: "Kyoto Sister School Exchange Event - Team Battle, Part 3",
-            duration: 1440,
-            sibnetVostfrId: "4667673",
-            sibnetVfId: "jk1ep16fr"
-          },
-          {
-            number: 17,
-            title: "Kyoto Sister School Exchange Event - Individual Battle, Part 1",
-            duration: 1440,
-            sibnetVostfrId: "4667683",
-            sibnetVfId: "jk1ep17fr"
-          },
-          {
-            number: 18,
-            title: "Préparatifs",
-            duration: 1440,
-            sibnetVostfrId: "4667689",
-            sibnetVfId: "jk1ep18fr"
-          },
-          {
-            number: 19,
-            title: "Black Flash",
-            duration: 1440,
-            sibnetVostfrId: "4667696",
-            sibnetVfId: "jk1ep19fr"
-          },
-          {
-            number: 20,
-            title: "Nonstandard",
-            duration: 1440,
-            sibnetVostfrId: "4667717",
-            sibnetVfId: "jk1ep20fr"
-          },
-          {
-            number: 21,
-            title: "Origine de l'obéissance",
-            duration: 1440,
-            sibnetVostfrId: "4667725",
-            sibnetVfId: "jk1ep21fr"
-          },
-          {
-            number: 22,
-            title: "Le destin",
-            duration: 1440,
-            sibnetVostfrId: "4667735",
-            sibnetVfId: "jk1ep22fr"
-          },
-          {
-            number: 23,
-            title: "Le gouffre",
-            duration: 1440,
-            sibnetVostfrId: "4667746",
-            sibnetVfId: "jk1ep23fr"
-          },
-          {
-            number: 24,
-            title: "Accomplissement",
-            duration: 1440,
-            sibnetVostfrId: "4667756",
-            sibnetVfId: "jk1ep24fr"
-          }
+          { number: 1, title: "Ryomen Sukuna", duration: 1440, sibnetVostfrId: "4667514", sibnetVfId: "jk1ep1fr" },
+          { number: 2, title: "Pour moi-même", duration: 1440, sibnetVostfrId: "4667523", sibnetVfId: "jk1ep2fr" },
+          { number: 3, title: "Jeune fille d'acier", duration: 1440, sibnetVostfrId: "4667532", sibnetVfId: "jk1ep3fr" },
+          { number: 4, title: "La mort des esprits maudits", duration: 1440, sibnetVostfrId: "4667548", sibnetVfId: "jk1ep4fr" },
+          { number: 5, title: "L'existence terreuse", duration: 1440, sibnetVostfrId: "4667557", sibnetVfId: "jk1ep5fr" },
+          { number: 6, title: "Après la pluie", duration: 1440, sibnetVostfrId: "4667566", sibnetVfId: "jk1ep6fr" },
+          { number: 7, title: "L'assaut", duration: 1440, sibnetVostfrId: "4667578", sibnetVfId: "jk1ep7fr" },
+          { number: 8, title: "Écorchure", duration: 1440, sibnetVostfrId: "4667599", sibnetVfId: "jk1ep8fr" },
+          { number: 9, title: "Petit poisson et Échec inversé", duration: 1440, sibnetVostfrId: "4667621", sibnetVfId: "jk1ep9fr" },
+          { number: 10, title: "Magie idole", duration: 1440, sibnetVostfrId: "4667634", sibnetVfId: "jk1ep10fr" },
+          { number: 11, title: "Formation en équipe", duration: 1440, sibnetVostfrId: "4667642", sibnetVfId: "jk1ep11fr" },
+          { number: 12, title: "À toi, ô mon brillant futur", duration: 1440, sibnetVostfrId: "4667648", sibnetVfId: "jk1ep12fr" },
+          { number: 13, title: "Demain", duration: 1440, sibnetVostfrId: "4667656", sibnetVfId: "jk1ep13fr" },
+          { number: 14, title: "Kyoto Sister School Exchange Event - Team Battle, Part 1", duration: 1440, sibnetVostfrId: "4667663", sibnetVfId: "jk1ep14fr" },
+          { number: 15, title: "Kyoto Sister School Exchange Event - Team Battle, Part 2", duration: 1440, sibnetVostfrId: "4667667", sibnetVfId: "jk1ep15fr" },
+          { number: 16, title: "Kyoto Sister School Exchange Event - Team Battle, Part 3", duration: 1440, sibnetVostfrId: "4667673", sibnetVfId: "jk1ep16fr" },
+          { number: 17, title: "Kyoto Sister School Exchange Event - Individual Battle, Part 1", duration: 1440, sibnetVostfrId: "4667683", sibnetVfId: "jk1ep17fr" },
+          { number: 18, title: "Préparatifs", duration: 1440, sibnetVostfrId: "4667689", sibnetVfId: "jk1ep18fr" },
+          { number: 19, title: "Black Flash", duration: 1440, sibnetVostfrId: "4667717", sibnetVfId: "jk1ep19fr" },
+          { number: 20, title: "Nonstandard", duration: 1440, sibnetVostfrId: "4667725", sibnetVfId: "jk1ep20fr" },
+          { number: 21, title: "Origine de l'obéissance", duration: 1440, sibnetVostfrId: "4667735", sibnetVfId: "jk1ep21fr" },
+          { number: 22, title: "Le destin", duration: 1440, sibnetVostfrId: "4667746", sibnetVfId: "jk1ep22fr" },
+          { number: 23, title: "Le gouffre", duration: 1440, sibnetVostfrId: "4667756", sibnetVfId: "jk1ep23fr" },
+          { number: 24, title: "Accomplissement", duration: 1440, sibnetVostfrId: "4667766", sibnetVfId: "jk1ep24fr" }
         ]
       },
       {
@@ -593,62 +212,14 @@ export const animes: Anime[] = [
         title: "Saison 2 - L'incident de Shibuya",
         year: 2023,
         episodes: [
-          {
-            number: 1,
-            title: "Shibuya",
-            duration: 1440,
-            sibnetVostfrId: "jk2ep1",
-            sibnetVfId: "jk2ep1fr"
-          },
-          {
-            number: 2,
-            title: "Premières batailles",
-            duration: 1440,
-            sibnetVostfrId: "jk2ep2",
-            sibnetVfId: "jk2ep2fr"
-          },
-          {
-            number: 3,
-            title: "Sans nom",
-            duration: 1440,
-            sibnetVostfrId: "jk2ep3",
-            sibnetVfId: "jk2ep3fr"
-          },
-          {
-            number: 4,
-            title: "Rassemblement des forces",
-            duration: 1440,
-            sibnetVostfrId: "jk2ep4",
-            sibnetVfId: "jk2ep4fr"
-          },
-          {
-            number: 5,
-            title: "Sukuna contre Mahomora",
-            duration: 1440,
-            sibnetVostfrId: "jk2ep5",
-            sibnetVfId: "jk2ep5fr"
-          },
-          {
-            number: 6,
-            title: "Le réveil du roi des fléaux",
-            duration: 1440,
-            sibnetVostfrId: "jk2ep6",
-            sibnetVfId: "jk2ep6fr"
-          },
-          {
-            number: 7,
-            title: "Destruction totale",
-            duration: 1440,
-            sibnetVostfrId: "jk2ep7",
-            sibnetVfId: "jk2ep7fr"
-          },
-          {
-            number: 8,
-            title: "Derniers espoirs",
-            duration: 1440,
-            sibnetVostfrId: "jk2ep8",
-            sibnetVfId: "jk2ep8fr"
-          }
+          { number: 1, title: "Shibuya", duration: 1440, sibnetVostfrId: "jk2ep1", sibnetVfId: "jk2ep1fr" },
+          { number: 2, title: "Premières batailles", duration: 1440, sibnetVostfrId: "jk2ep2", sibnetVfId: "jk2ep2fr" },
+          { number: 3, title: "Sans nom", duration: 1440, sibnetVostfrId: "jk2ep3", sibnetVfId: "jk2ep3fr" },
+          { number: 4, title: "Rassemblement des forces", duration: 1440, sibnetVostfrId: "jk2ep4", sibnetVfId: "jk2ep4fr" },
+          { number: 5, title: "Sukuna contre Mahomora", duration: 1440, sibnetVostfrId: "jk2ep5", sibnetVfId: "jk2ep5fr" },
+          { number: 6, title: "Le réveil du roi des fléaux", duration: 1440, sibnetVostfrId: "jk2ep6", sibnetVfId: "jk2ep6fr" },
+          { number: 7, title: "Destruction totale", duration: 1440, sibnetVostfrId: "jk2ep7", sibnetVfId: "jk2ep7fr" },
+          { number: 8, title: "Derniers espoirs", duration: 1440, sibnetVostfrId: "jk2ep8", sibnetVfId: "jk2ep8fr" }
         ]
       }
     ]
@@ -667,20 +238,8 @@ export const animes: Anime[] = [
     genres: ["Action", "Science-fiction", "Dystopie"],
     rating: 8.7,
     episodes: [
-      {
-        number: 1,
-        title: "SE7EN",
-        duration: 1440,
-        sibnetVostfrId: "akudama123",
-        sibnetVfId: "akudama123fr"
-      },
-      {
-        number: 2,
-        title: "Reservoir Dogs",
-        duration: 1440,
-        sibnetVostfrId: "akudama456",
-        sibnetVfId: "akudama456fr"
-      },
+      { number: 1, title: "SE7EN", duration: 1440, sibnetVostfrId: "akudama123", sibnetVfId: "akudama123fr" },
+      { number: 2, title: "Reservoir Dogs", duration: 1440, sibnetVostfrId: "akudama456", sibnetVfId: "akudama456fr" }
       // Ajoutez d'autres épisodes selon vos besoins
     ]
   },
@@ -768,54 +327,38 @@ export const animes: Anime[] = [
     status: "Terminé",
     genres: ["Sports", "Comédie", "Drame", "École"],
     rating: 8.7,
-    episodes: [
-      {
-        number: 1,
-        title: "Je suis Kuroko",
-        duration: 1440,
-        sibnetVostfrId: "4737805",
-        sibnetVfId: "knb1ep1fr"
-      },
-      {
-        number: 2,
-        title: "Je suis sérieux",
-        duration: 1440,
-        sibnetVostfrId: "4737812",
-        sibnetVfId: "knb1ep2fr"
-      }
-    ],
     seasons: [
       {
         seasonNumber: 1,
         title: "Saison 1",
         year: 2012,
         episodes: [
-          { number: 1, title: "Je suis Kuroko", duration: 1440, sibnetVostfrId: "4737805", sibnetVfId: "knb1ep1fr" },
-          { number: 2, title: "Je suis sérieux", duration: 1440, sibnetVostfrId: "4737812", sibnetVfId: "knb1ep2fr" },
-          { number: 3, title: "La victoire est toujours importante", duration: 1440, sibnetVostfrId: "4737817", sibnetVfId: "knb1ep3fr" },
-          { number: 4, title: "Rien n'est impossible", duration: 1440, sibnetVostfrId: "4737823", sibnetVfId: "knb1ep4fr" },
-          { number: 5, title: "Ta basket est trop vieille", duration: 1440, sibnetVostfrId: "4737830", sibnetVfId: "knb1ep5fr" },
-          { number: 6, title: "Faisons-le", duration: 1440, sibnetVostfrId: "4737836", sibnetVfId: "knb1ep6fr" },
-          { number: 7, title: "Tu as beaucoup de jugeote", duration: 1440, sibnetVostfrId: "4737843", sibnetVfId: "knb1ep7fr" },
-          { number: 8, title: "Je suis vraiment jaloux", duration: 1440, sibnetVostfrId: "4737848", sibnetVfId: "knb1ep8fr" },
-          { number: 9, title: "Tu ferais bien de gagner", duration: 1440, sibnetVostfrId: "4737852", sibnetVfId: "knb1ep9fr" },
-          { number: 10, title: "Je lui montrerai", duration: 1440, sibnetVostfrId: "4737857", sibnetVfId: "knb1ep10fr" },
-          { number: 11, title: "Commençons", duration: 1440, sibnetVostfrId: "4737865", sibnetVfId: "knb1ep11fr" },
-          { number: 12, title: "Franchement, je déteste ça", duration: 1440, sibnetVostfrId: "4737888", sibnetVfId: "knb1ep12fr" },
-          { number: 13, title: "Je ne peux pas lire son mental", duration: 1440, sibnetVostfrId: "4737905", sibnetVfId: "knb1ep13fr" },
-          { number: 14, title: "Vous avez eu tort de m'en vouloir", duration: 1440, sibnetVostfrId: "4737923", sibnetVfId: "knb1ep14fr" },
-          { number: 15, title: "Nous n'avons pas fini", duration: 1440, sibnetVostfrId: "4737938", sibnetVfId: "knb1ep15fr" },
-          { number: 16, title: "Laissez-moi vous raconter", duration: 1440, sibnetVostfrId: "4737947", sibnetVfId: "knb1ep16fr" },
-          { number: 17, title: "Tu m'as battu", duration: 1440, sibnetVostfrId: "4737952", sibnetVfId: "knb1ep17fr" },
-          { number: 18, title: "Vous allez comprendre pourquoi", duration: 1440, sibnetVostfrId: "4737955", sibnetVfId: "knb1ep18fr" },
-          { number: 19, title: "C'est pas pour des prunes", duration: 1440, sibnetVostfrId: "4737957", sibnetVfId: "knb1ep19fr" },
-          { number: 20, title: "Je ne peux pas le croire", duration: 1440, sibnetVostfrId: "4737960", sibnetVfId: "knb1ep20fr" },
-          { number: 21, title: "Essaie de me dépasser", duration: 1440, sibnetVostfrId: "4737964", sibnetVfId: "knb1ep21fr" },
-          { number: 22, title: "Je suis pas un gamin", duration: 1440, sibnetVostfrId: "4737966", sibnetVfId: "knb1ep22fr" },
-          { number: 23, title: "Je suis le meilleur joueur", duration: 1440, sibnetVostfrId: "4737969", sibnetVfId: "knb1ep23fr" },
-          { number: 24, title: "Ne me fais pas rire", duration: 1440, sibnetVostfrId: "4737970", sibnetVfId: "knb1ep24fr" },
-          { number: 25, title: "C'est le moment de bondir", duration: 1440, sibnetVostfrId: "4737973", sibnetVfId: "knb1ep25fr" },
-          { number: 26, title: "Rendez-vous l'hiver prochain", duration: 1440, sibnetVostfrId: "4737979", sibnetVfId: "knb1ep26fr" }
+          { number: 1, title: "Je suis Kuroko", duration: 1440, sibnetVostfrId: "4737805", sibnetVfId: "knb1ep1fr", vidmolyId: "wzylhfzpuojr", vidmolyVfId: "jd656av8msnz" },
+          { number: 2, title: "Je suis sérieux", duration: 1440, sibnetVostfrId: "4737812", sibnetVfId: "knb1ep2fr", vidmolyId: "ob16ortkk4s6", vidmolyVfId: "ipnby5gbmmnt" },
+          { number: 3, title: "La victoire est toujours importante", duration: 1440, sibnetVostfrId: "4737817", sibnetVfId: "knb1ep3fr", vidmolyId: "08dc3cd7kf3z", vidmolyVfId: "v4o9phgmm84a" },
+          { number: 4, title: "Rien n'est impossible", duration: 1440, sibnetVostfrId: "4737823", sibnetVfId: "knb1ep4fr", vidmolyId: "mjexmfhuf3ir", vidmolyVfId: "wwhcm0d8fsde" },
+          { number: 5, title: "Ta basket est trop vieille", duration: 1440, sibnetVostfrId: "4737830", sibnetVfId: "knb1ep5fr", vidmolyId: "6epkz9ti7s8c", vidmolyVfId: "wc93pzggd8xu" },
+          { number: 6, title: "Faisons-le", duration: 1440, sibnetVostfrId: "4737836", sibnetVfId: "knb1ep6fr", vidmolyId: "o060y8kkl6i8", vidmolyVfId: "dxcmjjkrjsa6" },
+          { number: 7, title: "Tu as beaucoup de jugeote", duration: 1440, sibnetVostfrId: "4737843", sibnetVfId: "knb1ep7fr", vidmolyId: "hlc1q309hxdo", vidmolyVfId: "8ofm8d9xp70z" },
+          { number: 8, title: "Je suis vraiment jaloux", duration: 1440, sibnetVostfrId: "4737848", sibnetVfId: "knb1ep8fr", vidmolyId: "12qlxa0qov0x", vidmolyVfId: "7rciwycrkjbk" },
+          { number: 9, title: "Tu ferais bien de gagner", duration: 1440, sibnetVostfrId: "4737852", sibnetVfId: "knb1ep9fr", vidmolyId: "93invz4tj562", vidmolyVfId: "xo6jh6svdnet" },
+          { number: 10, title: "Je lui montrerai", duration: 1440, sibnetVostfrId: "4737857", sibnetVfId: "knb1ep10fr", vidmolyId: "ncnouok1n5rr", vidmolyVfId: "5wo5im1d74sh" },
+          { number: 11, title: "Commençons", duration: 1440, sibnetVostfrId: "4737865", sibnetVfId: "knb1ep11fr", vidmolyId: "8dutagswadbk", vidmolyVfId: "vafz7indiktl" },
+          { number: 12, title: "Franchement, je déteste ça", duration: 1440, sibnetVostfrId: "4737888", sibnetVfId: "knb1ep12fr", vidmolyId: "rci6i15kvuhl", vidmolyVfId: "tnycnnkr7zsa" },
+          { number: 13, title: "Je ne peux pas lire son mental", duration: 1440, sibnetVostfrId: "4737905", sibnetVfId: "knb1ep13fr", vidmolyId: "xq47oz822ll0", vidmolyVfId: "p2924f92weps" },
+          { number: 14, title: "Vous avez eu tort de m'en vouloir", duration: 1440, sibnetVostfrId: "4737923", sibnetVfId: "knb1ep14fr", vidmolyId: "jfefbfzodbm7", vidmolyVfId: "61uesd0lrvbo" },
+          { number: 15, title: "Nous n'avons pas fini", duration: 1440, sibnetVostfrId: "4737938", sibnetVfId: "knb1ep15fr", vidmolyId: "t1qj9rofnfi9", vidmolyVfId: "llv42pauwq40" },
+          { number: 16, title: "Laissez-moi vous raconter", duration: 1440, sibnetVostfrId: "4737947", sibnetVfId: "knb1ep16fr", vidmolyId: "xz2n206md159", vidmolyVfId: "sjv1vbavap3a" },
+          { number: 17, title: "Tu m'as battu", duration: 1440, sibnetVostfrId: "4737952", sibnetVfId: "knb1ep17fr", vidmolyId: "szyufzpfhqdy", vidmolyVfId: "8buj3v2ln2x3" },
+          { number: 18, title: "Vous allez comprendre pourquoi", duration: 1440, sibnetVostfrId: "4737955", sibnetVfId: "knb1ep18fr", vidmolyId: "h01z543cee4q", vidmolyVfId: "m7bue0cyofi3" },
+          { number: 19, title: "C'est pas pour des prunes", duration: 1440, sibnetVostfrId: "4737957", sibnetVfId: "knb1ep19fr", vidmolyId: "un2o2vklreeq", vidmolyVfId: "oavdtuh3gzb7" },
+          { number: 20, title: "Je ne peux pas le croire", duration: 1440, sibnetVostfrId: "4737960", sibnetVfId: "knb1ep20fr", vidmolyId: "97x10lrpv11x", vidmolyVfId: "sd8o05gexlkk" },
+          { number: 21, title: "Essaie de me dépasser", duration: 1440, sibnetVostfrId: "4737964", sibnetVfId: "knb1ep21fr", vidmolyId: "xq08n31ncyrt", vidmolyVfId: "liw9d9e1xe9l" },
+          { number: 22, title: "Je suis pas un gamin", duration: 1440, sibnetVostfrId: "4737966", sibnetVfId: "knb1ep22fr", vidmolyId: "uo0895udk23n", vidmolyVfId: "yqtuqwm2h0lc" },
+          { number: 23, title: "Je suis le meilleur joueur", duration: 1440, sibnetVostfrId: "4737969", sibnetVfId: "knb1ep23fr", vidmolyId: "lniv6vwxv9ct", vidmolyVfId: "p9d34y2si2ph" },
+          { number: 24, title: "Ne me fais pas rire", duration: 1440, sibnetVostfrId: "4737970", sibnetVfId: "knb1ep24fr", vidmolyId: "6y5in5vy1lcp", vidmolyVfId: "jz5euqb3a23w" },
+          { number: 25, title: "C'est le moment de bondir", duration: 1440, sibnetVostfrId: "4737973", sibnetVfId: "knb1ep25fr", vidmolyId: "jm0ro3exx6gl", vidmolyVfId: "hjeblwvjot8z" },
+          { number: 26, title: "Rendez-vous l'hiver prochain", duration: 1440, sibnetVostfrId: "4737979", sibnetVfId: "knb1ep26fr", vidmolyId: "0mfirqgxxm0n", vidmolyVfId: "9shyt9oywprx" }
         ]
       },
       {
@@ -823,9 +366,31 @@ export const animes: Anime[] = [
         title: "Saison 2",
         year: 2013,
         episodes: [
-          { number: 1, title: "Je suis de retour", duration: 1440, sibnetVostfrId: "knb2ep1", sibnetVfId: "knb2ep1fr" },
-          { number: 2, title: "On recommence", duration: 1440, sibnetVostfrId: "knb2ep2", sibnetVfId: "knb2ep2fr" },
-          { number: 3, title: "Nouveaux défis", duration: 1440, sibnetVostfrId: "knb2ep3", sibnetVfId: "knb2ep3fr" }
+          { number: 1, title: "Le début d'une nouvelle bataille", duration: 24, vidmolyId: "xafsie3bdtvl" },
+          { number: 2, title: "Le retour de l'Empereur", duration: 24, vidmolyId: "48tuc0y2gxe2" },
+          { number: 3, title: "Le défi de Midorima", duration: 24, vidmolyId: "tim6bnmyexb6" },
+          { number: 4, title: "La stratégie de Takao", duration: 24, vidmolyId: "7s3joc42lz27" },
+          { number: 5, title: "Le réveil de l'Empereur", duration: 24, vidmolyId: "7rak4rs8fy58" },
+          { number: 6, title: "Le défi de Kise", duration: 24, vidmolyId: "veg303zq2ohe" },
+          { number: 7, title: "Le match contre Kaijo", duration: 24, vidmolyId: "imdcjkccpmse" },
+          { number: 8, title: "La victoire de Seirin", duration: 24, vidmolyId: "rg7s5x2dybrx" },
+          { number: 9, title: "Le défi de Murasakibara", duration: 24, vidmolyId: "qrz65u0sb5wd" },
+          { number: 10, title: "Le match contre Yosen", duration: 24, vidmolyId: "1h0t45u15lrt" },
+          { number: 11, title: "La stratégie de Himuro", duration: 24, vidmolyId: "mljq6uyc99tx" },
+          { number: 12, title: "Le réveil de Murasakibara", duration: 24, vidmolyId: "enca96d1yd3f" },
+          { number: 13, title: "Le défi d'Aomine", duration: 24, vidmolyId: "eix5mwlc43y5" },
+          { number: 14, title: "Le match contre Touou", duration: 24, vidmolyId: "rsqv9guy4a7t" },
+          { number: 15, title: "La stratégie d'Imayoshi", duration: 24, vidmolyId: "scwy4vdg01m6" },
+          { number: 16, title: "Le réveil d'Aomine", duration: 24, vidmolyId: "7nw2woyc68ik" },
+          { number: 17, title: "Le défi de Kise", duration: 24, vidmolyId: "2zi0v6x6nlsm" },
+          { number: 18, title: "Le match contre Kaijo", duration: 24, vidmolyId: "12o7urfd9evm" },
+          { number: 19, title: "La stratégie de Kasamatsu", duration: 24, vidmolyId: "5odj088n2khn" },
+          { number: 20, title: "Le réveil de Kise", duration: 24, vidmolyId: "2jq8rhfxmlbm" },
+          { number: 21, title: "Le défi de Midorima", duration: 24, vidmolyId: "o1xspu9dpypq" },
+          { number: 22, title: "Le match contre Shutoku", duration: 24, vidmolyId: "sh8advwo48ay" },
+          { number: 23, title: "La stratégie de Takao", duration: 24, vidmolyId: "4le1q3ca4sve" },
+          { number: 24, title: "Le réveil de Midorima", duration: 24, vidmolyId: "82advzu27gxs" },
+          { number: 25, title: "Le défi final", duration: 24, vidmolyId: "xxrwo7nbwfwq" }
         ]
       },
       {
@@ -853,20 +418,8 @@ export const animes: Anime[] = [
     genres: ["Action", "Aventure", "Drame", "Historique"],
     rating: 8.9,
     episodes: [
-      {
-        number: 1,
-        title: "Quelque part, pas ici",
-        duration: 1440,
-        sibnetVostfrId: "vs1ep1",
-        sibnetVfId: "vs1ep1fr"
-      },
-      {
-        number: 2,
-        title: "L'épée",
-        duration: 1440,
-        sibnetVostfrId: "vs1ep2",
-        sibnetVfId: "vs1ep2fr"
-      }
+      { number: 1, title: "Quelque part, pas ici", duration: 1440, sibnetVostfrId: "vs1ep1", sibnetVfId: "vs1ep1fr" },
+      { number: 2, title: "L'épée", duration: 1440, sibnetVostfrId: "vs1ep2", sibnetVfId: "vs1ep2fr" }
     ],
     seasons: [
       {
@@ -911,90 +464,18 @@ export const soloLevelingSeason2: Anime = {
       title: "Saison 2",
       year: 2024,
       episodes: [
-        {
-          number: 1,
-          title: "Le Retour du Chasseur",
-          duration: 1440,
-          sibnetVostfrId: "5790524",
-          sibnetVfId: "5806748"
-        },
-        {
-          number: 2,
-          title: "Nouveau Pouvoir",
-          duration: 1440,
-          sibnetVostfrId: "5795961",
-          sibnetVfId: "5812653"
-        },
-        {
-          number: 3,
-          title: "La Menace Grandissante",
-          duration: 1440,
-          sibnetVostfrId: "5801411",
-          sibnetVfId: "5819532"
-        },
-        {
-          number: 4,
-          title: "Alliance Inattendue",
-          duration: 1440,
-          sibnetVostfrId: "5806488",
-          sibnetVfId: "5826552"
-        },
-        {
-          number: 5,
-          title: "Le Secret de la Tour",
-          duration: 1440,
-          sibnetVostfrId: "5811885",
-          sibnetVfId: "5834007"
-        },
-        {
-          number: 6,
-          title: "Confrontation",
-          duration: 1440,
-          sibnetVostfrId: "5819034",
-          sibnetVfId: "5839458"
-        },
-        {
-          number: 7,
-          title: "L'Ascension",
-          duration: 1440,
-          sibnetVostfrId: "5825877",
-          sibnetVfId: "5845865"
-        },
-        {
-          number: 8,
-          title: "Vérité Cachée",
-          duration: 1440,
-          sibnetVostfrId: "5832048",
-          sibnetVfId: "5851984"
-        },
-        {
-          number: 9,
-          title: "Le Test Final",
-          duration: 1440,
-          sibnetVostfrId: "5839080",
-          sibnetVfId: "5857932"
-        },
-        {
-          number: 10,
-          title: "Force Ultime",
-          duration: 1440,
-          sibnetVostfrId: "5845645",
-          sibnetVfId: "5845865"
-        },
-        {
-          number: 11,
-          title: "Révélation",
-          duration: 1440,
-          sibnetVostfrId: "5851330",
-          sibnetVfId: "5851984"
-        },
-        {
-          number: 12,
-          title: "Nouveau Départ",
-          duration: 1440,
-          sibnetVostfrId: "5857706",
-          sibnetVfId: "5857932"
-        }
+        { number: 1, title: "Le Retour du Chasseur", duration: 1440, sibnetVostfrId: "5790524", sibnetVfId: "5806748" },
+        { number: 2, title: "Nouveau Pouvoir", duration: 1440, sibnetVostfrId: "5795961", sibnetVfId: "5812653" },
+        { number: 3, title: "La Menace Grandissante", duration: 1440, sibnetVostfrId: "5801411", sibnetVfId: "5819532" },
+        { number: 4, title: "Alliance Inattendue", duration: 1440, sibnetVostfrId: "5806488", sibnetVfId: "5826552" },
+        { number: 5, title: "Le Secret de la Tour", duration: 1440, sibnetVostfrId: "5811885", sibnetVfId: "5834007" },
+        { number: 6, title: "Confrontation", duration: 1440, sibnetVostfrId: "5819034", sibnetVfId: "5839458" },
+        { number: 7, title: "L'Ascension", duration: 1440, sibnetVostfrId: "5825877", sibnetVfId: "5845865" },
+        { number: 8, title: "Vérité Cachée", duration: 1440, sibnetVostfrId: "5832048", sibnetVfId: "5851984" },
+        { number: 9, title: "Le Test Final", duration: 1440, sibnetVostfrId: "5839080", sibnetVfId: "5857932" },
+        { number: 10, title: "Force Ultime", duration: 1440, sibnetVostfrId: "5845645", sibnetVfId: "11000111" },
+        { number: 11, title: "Révélation", duration: 1440, sibnetVostfrId: "5851330", sibnetVfId: "111000000011" },
+        { number: 12, title: "Nouveau Départ", duration: 1440, sibnetVostfrId: "5857706", sibnetVfId: "111100001" }
       ]
     }
   ],

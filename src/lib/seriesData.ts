@@ -5,10 +5,10 @@ export const seriesData: Content[] = [
     id: "breaking-bad",
     title: "Breaking Bad",
     description: "Un professeur de chimie atteint d'un cancer du poumon inopérable se lance dans la fabrication et la vente de méthamphétamine pour assurer l'avenir financier de sa famille.",
-    imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
-    bannerUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
+    imageUrl: "https://fr.web.img5.acsta.net/pictures/19/06/18/12/11/3956503.jpg",
+    bannerUrl: "https://fr.web.img5.acsta.net/pictures/19/06/18/12/11/3956503.jpg",
     episodes: [
-      { id: 1, title: "Pilot", videoUrl: "https://exemple.com/video1" },
+      { id: 1, title: "Pilot", videoUrl: "https://filemoon.sx/e/a6bywq4y41fu" },
       { id: 2, title: "Cat's in the Bag...", videoUrl: "https://exemple.com/video2" },
       { id: 3, title: "...And the Bag's in the River", videoUrl: "https://exemple.com/video3" }
     ],
