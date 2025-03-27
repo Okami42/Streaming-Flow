@@ -1,6 +1,6 @@
 import AnimePageClient from "./AnimePageClient";
 import { ErrorBoundary } from 'react-error-boundary';
-import { getAnimeById, soloLevelingSeason2 } from "@/lib/animeData";
+import { getAnimeById } from "@/lib/animeData";
 import { notFound } from "next/navigation";
 
 // Composant d'erreur séparé dans un fichier à part pour éviter l'erreur
@@ -23,10 +23,8 @@ export default async function AnimePage({ params }: { params: { id: string } }) 
   // Attendre les paramètres pour résoudre l'avertissement sur params.id
   const { id } = await Promise.resolve(params);
   
-  // Vérifier spécifiquement pour Solo Leveling saison 2
-  let anime = id === "solo-leveling-2" 
-    ? soloLevelingSeason2 
-    : getAnimeById(id);
+  // Récupérer l'anime par son ID (getAnimeById gère déjà le cas de solo-leveling-2)
+  const anime = getAnimeById(id);
 
   if (!anime) {
     return notFound();

@@ -18,7 +18,7 @@ export default function VideoPlayer({
   poster,
   className = "",
 }: VideoPlayerProps) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
   const sibnetIframeRef = useRef<HTMLIFrameElement>(null);
   const vidmolyIframeRef = useRef<HTMLIFrameElement>(null);
@@ -41,12 +41,12 @@ export default function VideoPlayer({
     iframe.src = "about:blank";
     setTimeout(() => {
       iframe.src = src;
-    }, 50);
+    }, 10); // Réduit à 10ms pour un chargement plus rapide
   };
   
   // Reset chargement lors d'un changement d'URL
   useEffect(() => {
-    setIsLoading(true);
+    setIsLoading(false); // Définir directement à false pour cacher l'indicateur de chargement
     setHasError(false);
     
     // Chargement initial des iframes
@@ -58,12 +58,10 @@ export default function VideoPlayer({
     }
     
     if (vidmolyIframeRef.current && finalVidmolyUrl) {
-      // Avec Vidmoly, on laisse un petit délai avant de charger
-      setTimeout(() => {
-        if (vidmolyIframeRef.current) {
-          forceIframeReload(vidmolyIframeRef.current, finalVidmolyUrl);
-        }
-      }, 300);
+      // Chargement immédiat sans délai
+      if (vidmolyIframeRef.current) {
+        forceIframeReload(vidmolyIframeRef.current, finalVidmolyUrl);
+      }
     }
   }, [sibnetId, vidmolyId, vidmolyUrl, finalVidmolyUrl]);
   
@@ -141,18 +139,16 @@ export default function VideoPlayer({
   
   // Gestion des événements
   const handleIframeLoad = () => {
-    // Délai pour s'assurer que le contenu est chargé
-    setTimeout(() => {
-      setIsLoading(false);
+    // Pas de délai, afficher la vidéo immédiatement
+    setIsLoading(false);
       
-      // Appliquer la protection anti-redirection sur l'iframe chargé
-      if (vidmolyIframeRef.current) {
-        onIframeMount(vidmolyIframeRef.current);
-      }
-      if (sibnetIframeRef.current) {
-        onIframeMount(sibnetIframeRef.current);
-      }
-    }, 500);
+    // Appliquer la protection anti-redirection sur l'iframe chargé
+    if (vidmolyIframeRef.current) {
+      onIframeMount(vidmolyIframeRef.current);
+    }
+    if (sibnetIframeRef.current) {
+      onIframeMount(sibnetIframeRef.current);
+    }
   };
   
   const handleIframeError = () => {
@@ -181,14 +177,7 @@ export default function VideoPlayer({
   
   return (
     <div ref={containerRef} className={`w-full h-full relative ${className}`} style={{ overflow: 'hidden' }}>
-      {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black z-10">
-          <div className="flex flex-col items-center">
-            <Loader2 className="w-10 h-10 text-pink-500 animate-spin mb-4" />
-            <p className="text-white text-sm">Chargement de la vidéo...</p>
-          </div>
-        </div>
-      )}
+      {/* L'indicateur de chargement est supprimé */}
       
       {hasError && (
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black z-10">

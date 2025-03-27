@@ -37,7 +37,7 @@ export interface Anime {
 // Fonction pour récupérer un anime par son ID
 export function getAnimeById(id: string): Anime | undefined {
   if (id === "solo-leveling-2") {
-    return soloLevelingSeason2;
+    return animes.find(anime => anime.id === "solo-leveling");
   }
   return animes.find(anime => anime.id === id);
 }
@@ -80,10 +80,10 @@ export const animes: Anime[] = [
           { number: 6, title: "Chasses nocturnes", duration: 1440, sibnetVostfrId: "5428101", sibnetVfId: "5444965" },
           { number: 7, title: "Appel de l'aventure", duration: 1440, sibnetVostfrId: "5435724", sibnetVfId: "5453272" },
           { number: 8, title: "Le rang C", duration: 1440, sibnetVostfrId: "5453063", sibnetVfId: "5470652" },
-          { number: 9, title: "La tanière des loups", duration: 1440, sibnetVostfrId: "5461770", sibnetVfId: "5479612" },
-          { number: 10, title: "Progression de compétence", duration: 1440, sibnetVostfrId: "5470382", sibnetVfId: "5496084" },
-          { number: 11, title: "Raid de haut rang", duration: 1440, sibnetVostfrId: "5479260", sibnetVfId: "5504016" },
-          { number: 12, title: "La tour de puissance", duration: 1440, sibnetVostfrId: "5487838", sibnetVfId: "5511308" }
+          { number: 9, title: "La tanière des loups", duration: 1440, sibnetVostfrId: "5462021", sibnetVfId: "5479018" },
+          { number: 10, title: "Le carnaval des ombres", duration: 1440, sibnetVostfrId: "5479008", sibnetVfId: "5499235" },
+          { number: 11, title: "Je suis devenu plus fort", duration: 1440, sibnetVostfrId: "5544078", sibnetVfId: "5574694" },
+          { number: 12, title: "Le retour du rang S", duration: 1440, sibnetVostfrId: "5545895", sibnetVfId: "5574694" }
         ]
       },
       {
@@ -155,71 +155,6 @@ export const animes: Anime[] = [
           { number: 1, title: "Le village caché", duration: 1440, sibnetVostfrId: "ds3ep1", sibnetVfId: "ds3ep1fr" },
           { number: 2, title: "Les forgerons", duration: 1440, sibnetVostfrId: "ds3ep2", sibnetVfId: "ds3ep2fr" },
           { number: 3, title: "L'attaque des démons", duration: 1440, sibnetVostfrId: "ds3ep3", sibnetVfId: "ds3ep3fr" }
-        ]
-      }
-    ]
-  },
-  {
-    id: "jujutsu-kaisen",
-    title: "Jujutsu Kaisen",
-    originalTitle: "呪術廻戦",
-    description: "Yuji Itadori, un lycéen doué en sport, rejoint le club de spiritisme de son école pour éviter l'équipe sportive. Malgré ses talents athlétiques naturels, il veut simplement une vie tranquille. Quand de véritables esprits apparaissent à l'école, Yuji avale une relique maudite pour protéger ses amis – un doigt appartenant au démon Ryomen Sukuna. Désormais possédé, il est condamné à mort par les exorcistes, mais un puissant exorciste lui propose de mourir uniquement après avoir consommé tous les doigts de Sukuna, lui permettant de l'éliminer définitivement.",
-    imageUrl: "https://ext.same-assets.com/2879165773/327560351.jpeg",
-    bannerUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
-    year: 2020,
-    type: "TV",
-    status: "En cours",
-    genres: ["Action", "Surnaturel", "École", "Démons"],
-    rating: 9.2,
-    episodes: [
-      { number: 1, title: "Ryomen Sukuna", duration: 1440, sibnetVostfrId: "jkaisen123", sibnetVfId: "jkaisen123fr" },
-      { number: 2, title: "Pour moi-même", duration: 1440, sibnetVostfrId: "jkaisen456", sibnetVfId: "jkaisen456fr" }
-    ],
-    seasons: [
-      {
-        seasonNumber: 1,
-        title: "Saison 1",
-        year: 2020,
-        episodes: [
-          { number: 1, title: "Ryomen Sukuna", duration: 1440, sibnetVostfrId: "4667514", sibnetVfId: "jk1ep1fr" },
-          { number: 2, title: "Pour moi-même", duration: 1440, sibnetVostfrId: "4667523", sibnetVfId: "jk1ep2fr" },
-          { number: 3, title: "Jeune fille d'acier", duration: 1440, sibnetVostfrId: "4667532", sibnetVfId: "jk1ep3fr" },
-          { number: 4, title: "La mort des esprits maudits", duration: 1440, sibnetVostfrId: "4667548", sibnetVfId: "jk1ep4fr" },
-          { number: 5, title: "L'existence terreuse", duration: 1440, sibnetVostfrId: "4667557", sibnetVfId: "jk1ep5fr" },
-          { number: 6, title: "Après la pluie", duration: 1440, sibnetVostfrId: "4667566", sibnetVfId: "jk1ep6fr" },
-          { number: 7, title: "L'assaut", duration: 1440, sibnetVostfrId: "4667578", sibnetVfId: "jk1ep7fr" },
-          { number: 8, title: "Écorchure", duration: 1440, sibnetVostfrId: "4667599", sibnetVfId: "jk1ep8fr" },
-          { number: 9, title: "Petit poisson et Échec inversé", duration: 1440, sibnetVostfrId: "4667621", sibnetVfId: "jk1ep9fr" },
-          { number: 10, title: "Magie idole", duration: 1440, sibnetVostfrId: "4667634", sibnetVfId: "jk1ep10fr" },
-          { number: 11, title: "Formation en équipe", duration: 1440, sibnetVostfrId: "4667642", sibnetVfId: "jk1ep11fr" },
-          { number: 12, title: "À toi, ô mon brillant futur", duration: 1440, sibnetVostfrId: "4667648", sibnetVfId: "jk1ep12fr" },
-          { number: 13, title: "Demain", duration: 1440, sibnetVostfrId: "4667656", sibnetVfId: "jk1ep13fr" },
-          { number: 14, title: "Kyoto Sister School Exchange Event - Team Battle, Part 1", duration: 1440, sibnetVostfrId: "4667663", sibnetVfId: "jk1ep14fr" },
-          { number: 15, title: "Kyoto Sister School Exchange Event - Team Battle, Part 2", duration: 1440, sibnetVostfrId: "4667667", sibnetVfId: "jk1ep15fr" },
-          { number: 16, title: "Kyoto Sister School Exchange Event - Team Battle, Part 3", duration: 1440, sibnetVostfrId: "4667673", sibnetVfId: "jk1ep16fr" },
-          { number: 17, title: "Kyoto Sister School Exchange Event - Individual Battle, Part 1", duration: 1440, sibnetVostfrId: "4667683", sibnetVfId: "jk1ep17fr" },
-          { number: 18, title: "Préparatifs", duration: 1440, sibnetVostfrId: "4667689", sibnetVfId: "jk1ep18fr" },
-          { number: 19, title: "Black Flash", duration: 1440, sibnetVostfrId: "4667717", sibnetVfId: "jk1ep19fr" },
-          { number: 20, title: "Nonstandard", duration: 1440, sibnetVostfrId: "4667725", sibnetVfId: "jk1ep20fr" },
-          { number: 21, title: "Origine de l'obéissance", duration: 1440, sibnetVostfrId: "4667735", sibnetVfId: "jk1ep21fr" },
-          { number: 22, title: "Le destin", duration: 1440, sibnetVostfrId: "4667746", sibnetVfId: "jk1ep22fr" },
-          { number: 23, title: "Le gouffre", duration: 1440, sibnetVostfrId: "4667756", sibnetVfId: "jk1ep23fr" },
-          { number: 24, title: "Accomplissement", duration: 1440, sibnetVostfrId: "4667766", sibnetVfId: "jk1ep24fr" }
-        ]
-      },
-      {
-        seasonNumber: 2,
-        title: "Saison 2 - L'incident de Shibuya",
-        year: 2023,
-        episodes: [
-          { number: 1, title: "Shibuya", duration: 1440, sibnetVostfrId: "jk2ep1", sibnetVfId: "jk2ep1fr" },
-          { number: 2, title: "Premières batailles", duration: 1440, sibnetVostfrId: "jk2ep2", sibnetVfId: "jk2ep2fr" },
-          { number: 3, title: "Sans nom", duration: 1440, sibnetVostfrId: "jk2ep3", sibnetVfId: "jk2ep3fr" },
-          { number: 4, title: "Rassemblement des forces", duration: 1440, sibnetVostfrId: "jk2ep4", sibnetVfId: "jk2ep4fr" },
-          { number: 5, title: "Sukuna contre Mahomora", duration: 1440, sibnetVostfrId: "jk2ep5", sibnetVfId: "jk2ep5fr" },
-          { number: 6, title: "Le réveil du roi des fléaux", duration: 1440, sibnetVostfrId: "jk2ep6", sibnetVfId: "jk2ep6fr" },
-          { number: 7, title: "Destruction totale", duration: 1440, sibnetVostfrId: "jk2ep7", sibnetVfId: "jk2ep7fr" },
-          { number: 8, title: "Derniers espoirs", duration: 1440, sibnetVostfrId: "jk2ep8", sibnetVfId: "jk2ep8fr" }
         ]
       }
     ]
@@ -366,31 +301,32 @@ export const animes: Anime[] = [
         title: "Saison 2",
         year: 2013,
         episodes: [
-          { number: 1, title: "Le début d'une nouvelle bataille", duration: 24, vidmolyId: "xafsie3bdtvl" },
-          { number: 2, title: "Le retour de l'Empereur", duration: 24, vidmolyId: "48tuc0y2gxe2" },
-          { number: 3, title: "Le défi de Midorima", duration: 24, vidmolyId: "tim6bnmyexb6" },
-          { number: 4, title: "La stratégie de Takao", duration: 24, vidmolyId: "7s3joc42lz27" },
-          { number: 5, title: "Le réveil de l'Empereur", duration: 24, vidmolyId: "7rak4rs8fy58" },
-          { number: 6, title: "Le défi de Kise", duration: 24, vidmolyId: "veg303zq2ohe" },
-          { number: 7, title: "Le match contre Kaijo", duration: 24, vidmolyId: "imdcjkccpmse" },
-          { number: 8, title: "La victoire de Seirin", duration: 24, vidmolyId: "rg7s5x2dybrx" },
-          { number: 9, title: "Le défi de Murasakibara", duration: 24, vidmolyId: "qrz65u0sb5wd" },
-          { number: 10, title: "Le match contre Yosen", duration: 24, vidmolyId: "1h0t45u15lrt" },
-          { number: 11, title: "La stratégie de Himuro", duration: 24, vidmolyId: "mljq6uyc99tx" },
-          { number: 12, title: "Le réveil de Murasakibara", duration: 24, vidmolyId: "enca96d1yd3f" },
-          { number: 13, title: "Le défi d'Aomine", duration: 24, vidmolyId: "eix5mwlc43y5" },
-          { number: 14, title: "Le match contre Touou", duration: 24, vidmolyId: "rsqv9guy4a7t" },
-          { number: 15, title: "La stratégie d'Imayoshi", duration: 24, vidmolyId: "scwy4vdg01m6" },
-          { number: 16, title: "Le réveil d'Aomine", duration: 24, vidmolyId: "7nw2woyc68ik" },
-          { number: 17, title: "Le défi de Kise", duration: 24, vidmolyId: "2zi0v6x6nlsm" },
-          { number: 18, title: "Le match contre Kaijo", duration: 24, vidmolyId: "12o7urfd9evm" },
-          { number: 19, title: "La stratégie de Kasamatsu", duration: 24, vidmolyId: "5odj088n2khn" },
-          { number: 20, title: "Le réveil de Kise", duration: 24, vidmolyId: "2jq8rhfxmlbm" },
-          { number: 21, title: "Le défi de Midorima", duration: 24, vidmolyId: "o1xspu9dpypq" },
-          { number: 22, title: "Le match contre Shutoku", duration: 24, vidmolyId: "sh8advwo48ay" },
-          { number: 23, title: "La stratégie de Takao", duration: 24, vidmolyId: "4le1q3ca4sve" },
-          { number: 24, title: "Le réveil de Midorima", duration: 24, vidmolyId: "82advzu27gxs" },
-          { number: 25, title: "Le défi final", duration: 24, vidmolyId: "xxrwo7nbwfwq" }
+          { number: 1, title: "Le début d'une nouvelle bataille", duration: 1440, sibnetVostfrId: "4737982", vidmolyId: "xafsie3bdtvl" },
+          { number: 2, title: "Le retour de l'Empereur", duration: 1440, sibnetVostfrId: "4737984", vidmolyId: "48tuc0y2gxe2" },
+          { number: 3, title: "Le défi de Midorima", duration: 1440, sibnetVostfrId: "4737987", vidmolyId: "tim6bnmyexb6" },
+          { number: 4, title: "La stratégie de Takao", duration: 1440, sibnetVostfrId: "4737991", vidmolyId: "7s3joc42lz27" },
+          { number: 5, title: "Le réveil de l'Empereur", duration: 1440, sibnetVostfrId: "4737993", vidmolyId: "7rak4rs8fy58" },
+          { number: 6, title: "Le défi de Kise", duration: 1440, sibnetVostfrId: "4737996", vidmolyId: "veg303zq2ohe" },
+          { number: 7, title: "Le match contre Kaijo", duration: 1440, sibnetVostfrId: "4738000", vidmolyId: "imdcjkccpmse" },
+          { number: 8, title: "La victoire de Seirin", duration: 1440, sibnetVostfrId: "4738002", vidmolyId: "rg7s5x2dybrx" },
+          { number: 9, title: "Le défi de Murasakibara", duration: 1440, sibnetVostfrId: "4738005", vidmolyId: "qrz65u0sb5wd" },
+          { number: 10, title: "Le match contre Yosen", duration: 1440, sibnetVostfrId: "4738008", vidmolyId: "1h0t45u15lrt" },
+          { number: 11, title: "La stratégie de Himuro", duration: 1440, sibnetVostfrId: "4738011", vidmolyId: "mljq6uyc99tx" },
+          { number: 12, title: "Le réveil de Murasakibara", duration: 1440, sibnetVostfrId: "4738013", vidmolyId: "enca96d1yd3f" },
+          { number: 13, title: "Le défi d'Aomine", duration: 1440, sibnetVostfrId: "5010815", vidmolyId: "eix5mwlc43y5" },
+          { number: 14, title: "Le match contre Touou", duration: 1440, sibnetVostfrId: "4738017", vidmolyId: "rsqv9guy4a7t" },
+          { number: 15, title: "La stratégie d'Imayoshi", duration: 1440, sibnetVostfrId: "4738019", vidmolyId: "scwy4vdg01m6" },
+          { number: 16, title: "Le réveil d'Aomine", duration: 1440, sibnetVostfrId: "4738027", vidmolyId: "7nw2woyc68ik" },
+          { number: 17, title: "Le défi de Kise", duration: 1440, sibnetVostfrId: "4738022", vidmolyId: "2zi0v6x6nlsm" },
+          { number: 18, title: "Le match contre Kaijo", duration: 1440, sibnetVostfrId: "4738048", vidmolyId: "12o7urfd9evm" },
+          { number: 19, title: "La stratégie de Kasamatsu", duration: 1440, sibnetVostfrId: "4738052", vidmolyId: "5odj088n2khn" },
+          { number: 20, title: "Le réveil de Kise", duration: 1440, sibnetVostfrId: "4738057", vidmolyId: "2jq8rhfxmlbm" },
+          { number: 21, title: "Le défi de Midorima", duration: 1440, sibnetVostfrId: "4738059", vidmolyId: "o1xspu9dpypq" },
+          { number: 22, title: "Le match contre Shutoku", duration: 1440, sibnetVostfrId: "4738063", vidmolyId: "sh8advwo48ay" },
+          { number: 23, title: "La stratégie de Takao", duration: 1440, sibnetVostfrId: "4738067", vidmolyId: "o1xspu9dpypq" },
+          { number: 24, title: "Le réveil de Midorima", duration: 1440, sibnetVostfrId: "4738068", vidmolyId: "sh8advwo48ay" },
+          { number: 25, title: "Je suis l'ombre", duration: 1440, sibnetVostfrId: "4738070", vidmolyId: "o1xspu9dpypq" },
+          { number: 26, title: "Seirin, le meilleur lycée du Japon", duration: 1440, sibnetVostfrId: "4738072", vidmolyId: "sh8advwo48ay" }
         ]
       },
       {
@@ -446,41 +382,89 @@ export const animes: Anime[] = [
         ]
       }
     ]
+  },
+  {
+    id: "jujutsu-kaisen",
+    title: "Jujutsu Kaisen",
+    originalTitle: "呪術廻戦",
+    description: "Plus de 10 000 morts et disparus sont recensés chaque année au Japon. Les sentiments négatifs que relâchent les êtres humains sont en cause. Souffrance, regrets, humiliation : leur concentration dans un même endroit engendre des malédictions souvent mortelles. Yuji Itadori, lycéen et membre du club d'occultisme, avale le doigt découpé d'un démon millénaire pour briser une malédiction. Maintenant possédé par Ryômen Sukuna, le célèbre démon à deux visages, il parvient étonnamment à garder le contrôle de son corps. Condamné à mort par l'organisation des exorcistes, il ne pourra survivre qu'à condition de trouver tous les doigts de Sukuna afin d'écarter la menace une bonne fois pour toutes.",
+    imageUrl: "https://ext.same-assets.com/2879165773/327560351.jpeg",
+    bannerUrl: "picture/bassembanniere.png",
+    year: 2020,
+    type: "TV",
+    status: "En cours",
+    genres: ["Action", "Aventure", "School Life", "Yokai", "Surnaturel", "Magie", "Mystère", "Shônen"],
+    rating: 8.8,
+    seasons: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        year: 2020,
+        episodes: [
+          { number: 1, title: "Ryomen Sukuna", duration: 1440, sibnetVostfrId: "4667514", sibnetVfId: "4668025" },
+          { number: 2, title: "Pour moi-même", duration: 1440, sibnetVostfrId: "4667523", sibnetVfId: "4668028" },
+          { number: 3, title: "La fille au volant", duration: 1440, sibnetVostfrId: "4667532", sibnetVfId: "4668029" },
+          { number: 4, title: "Peine de mort", duration: 1440, sibnetVostfrId: "4667548", sibnetVfId: "4668030" },
+          { number: 5, title: "Le bien et le mal", duration: 1440, sibnetVostfrId: "4667557", sibnetVfId: "4668034" },
+          { number: 6, title: "Après la pluie", duration: 1440, sibnetVostfrId: "4667566", sibnetVfId: "4668035" },
+          { number: 7, title: "Assaut", duration: 1440, sibnetVostfrId: "4667578", sibnetVfId: "4668038" },
+          { number: 8, title: "Bonne volonté", duration: 1440, sibnetVostfrId: "4667599", sibnetVfId: "4668040" },
+          { number: 9, title: "Petit poisson et Écorcheur", duration: 1440, sibnetVostfrId: "4667621", sibnetVfId: "4668042" },
+          { number: 10, title: "Délire mutuel", duration: 1440, sibnetVostfrId: "4667634", sibnetVfId: "4668044" },
+          { number: 11, title: "En sommeil", duration: 1440, sibnetVostfrId: "4667642", sibnetVfId: "4668049" },
+          { number: 12, title: "Le tournoi de l'éveil", duration: 1440, sibnetVostfrId: "4667648", sibnetVfId: "4668055" },
+          { number: 13, title: "Demain", duration: 1440, sibnetVostfrId: "4667656", sibnetVfId: "4668061" },
+          { number: 14, title: "Kyoto Sister School Exchange Event - Team Battle 0 -", duration: 1440, sibnetVostfrId: "4667663", sibnetVfId: "4668066" },
+          { number: 15, title: "Kyoto Sister School Exchange Event - Group Battle 1 -", duration: 1440, sibnetVostfrId: "4667667", sibnetVfId: "4668072" },
+          { number: 16, title: "Kyoto Sister School Exchange Event - Group Battle 2 -", duration: 1440, sibnetVostfrId: "4667673", sibnetVfId: "4668077" },
+          { number: 17, title: "Kyoto Sister School Exchange Event - Group Battle 3 -", duration: 1440, sibnetVostfrId: "4667683", sibnetVfId: "4668081" },
+          { number: 18, title: "La répétition", duration: 1440, sibnetVostfrId: "4667689", sibnetVfId: "4668084" },
+          { number: 19, title: "Black Flash", duration: 1440, sibnetVostfrId: "4667696", sibnetVfId: "4668086" },
+          { number: 20, title: "Irresponsabilité", duration: 1440, sibnetVostfrId: "4667717", sibnetVfId: "4668089" },
+          { number: 21, title: "Jujutsu Koshien", duration: 1440, sibnetVostfrId: "4667725", sibnetVfId: "4668092" },
+          { number: 22, title: "Le prix des malédictions", duration: 1440, sibnetVostfrId: "4667735", sibnetVfId: "4668096" },
+          { number: 23, title: "Le péché de l'origine", duration: 1440, sibnetVostfrId: "4667746", sibnetVfId: "4668102" },
+          { number: 24, title: "Réplique", duration: 1440, sibnetVostfrId: "4667756", sibnetVfId: "4668111" }
+        ]
+      },
+      {
+        seasonNumber: 2,
+        title: "Saison 2",
+        year: 2023,
+        episodes: [
+          { number: 1, title: "Fuji de nuit", duration: 1440, sibnetVostfrId: "5190453", sibnetVfId: "5253308" },
+          { number: 2, title: "Malheur", duration: 1440, sibnetVostfrId: "5196965", sibnetVfId: "5253310" },
+          { number: 3, title: "Transformation", duration: 1440, sibnetVostfrId: "5203199", sibnetVfId: "5258312" },
+          { number: 4, title: "Retour", duration: 1440, sibnetVostfrId: "5210246", sibnetVfId: "5258314" },
+          { number: 5, title: "Précurseur", duration: 1440, sibnetVostfrId: "5217464", sibnetVfId: "5263543" },
+          { number: 6, title: "Loi désirable", duration: 1440, sibnetVostfrId: "5238868", sibnetVfId: "5263545" },
+          { number: 7, title: "Échec", duration: 1440, sibnetVostfrId: "5246781", sibnetVfId: "5269446" },
+          { number: 8, title: "Toujours aussi fort", duration: 1440, sibnetVostfrId: "5253009", sibnetVfId: "5278562" },
+          { number: 9, title: "Malédiction sur malédiction – Partie 1", duration: 1440, sibnetVostfrId: "5258097", sibnetVfId: "5278171" },
+          { number: 10, title: "Malédiction sur malédiction – Partie 2", duration: 1440, sibnetVostfrId: "5263399", sibnetVfId: "5288287" },
+          { number: 11, title: "Il faudra bien que quelqu'un le fasse", duration: 1440, sibnetVostfrId: "5269261", sibnetVfId: "5298421" },
+          { number: 12, title: "Sans titre", duration: 1440, sibnetVostfrId: "5277754", sibnetVfId: "5306222" },
+          { number: 13, title: "La révolution rouge", duration: 1440, sibnetVostfrId: "5288042", sibnetVfId: "5314926" },
+          { number: 14, title: "Convergence", duration: 1440, sibnetVostfrId: "5297930", sibnetVfId: "5324699" },
+          { number: 15, title: "Rive nord de Shibuya", duration: 1440, sibnetVostfrId: "5305970", sibnetVfId: "5334985" },
+          { number: 16, title: "Dévoilement", duration: 1440, sibnetVostfrId: "5314006", sibnetVfId: "5346113" },
+          { number: 17, title: "Dagon", duration: 1440, sibnetVostfrId: "5324440", sibnetVfId: "5355754" },
+          { number: 18, title: "Rapprochement", duration: 1440, sibnetVostfrId: "5334685", sibnetVfId: "5364778" },
+          { number: 19, title: "Résonance", duration: 1440, sibnetVostfrId: "5345737", sibnetVfId: "5372583" },
+          { number: 20, title: "Reddition", duration: 1440, sibnetVostfrId: "5355176", sibnetVfId: "5380126" },
+          { number: 21, title: "Rassemblement", duration: 1440, sibnetVostfrId: "5364195", sibnetVfId: "5395745" },
+          { number: 22, title: "Métamorphose", duration: 1440, sibnetVostfrId: "5372381", sibnetVfId: "5404433" },
+          { number: 23, title: "Shibuya Incident Perfection", duration: 1440, sibnetVostfrId: "5379934", sibnetVfId: "5413795" }
+        ]
+      },
+      {
+        seasonNumber: 0,
+        title: "Film",
+        year: 2022,
+        episodes: [
+          { number: 1, title: "Jujutsu Kaisen 0", duration: 6000, sibnetVostfrId: "4879058", sibnetVfId: "4879087" }
+        ]
+      }
+    ]
   }
 ];
-
-// Ajout de Solo Leveling saison 2 avec les IDs Sibnet
-export const soloLevelingSeason2: Anime = {
-  id: "solo-leveling-2",
-  title: "Solo Leveling",
-  originalTitle: "나 혼자만 레벨업",
-  description: "Suite des aventures de Sung Jin-Woo, le seul chasseur à pouvoir monter de niveau dans un monde où les chasseurs doivent combattre des monstres mortels issus de portails.",
-  type: "TV",
-  status: "En cours",
-  year: 2024,
-  seasons: [
-    {
-      seasonNumber: 2,
-      title: "Saison 2",
-      year: 2024,
-      episodes: [
-        { number: 1, title: "Le Retour du Chasseur", duration: 1440, sibnetVostfrId: "5790524", sibnetVfId: "5806748" },
-        { number: 2, title: "Nouveau Pouvoir", duration: 1440, sibnetVostfrId: "5795961", sibnetVfId: "5812653" },
-        { number: 3, title: "La Menace Grandissante", duration: 1440, sibnetVostfrId: "5801411", sibnetVfId: "5819532" },
-        { number: 4, title: "Alliance Inattendue", duration: 1440, sibnetVostfrId: "5806488", sibnetVfId: "5826552" },
-        { number: 5, title: "Le Secret de la Tour", duration: 1440, sibnetVostfrId: "5811885", sibnetVfId: "5834007" },
-        { number: 6, title: "Confrontation", duration: 1440, sibnetVostfrId: "5819034", sibnetVfId: "5839458" },
-        { number: 7, title: "L'Ascension", duration: 1440, sibnetVostfrId: "5825877", sibnetVfId: "5845865" },
-        { number: 8, title: "Vérité Cachée", duration: 1440, sibnetVostfrId: "5832048", sibnetVfId: "5851984" },
-        { number: 9, title: "Le Test Final", duration: 1440, sibnetVostfrId: "5839080", sibnetVfId: "5857932" },
-        { number: 10, title: "Force Ultime", duration: 1440, sibnetVostfrId: "5845645", sibnetVfId: "11000111" },
-        { number: 11, title: "Révélation", duration: 1440, sibnetVostfrId: "5851330", sibnetVfId: "111000000011" },
-        { number: 12, title: "Nouveau Départ", duration: 1440, sibnetVostfrId: "5857706", sibnetVfId: "111100001" }
-      ]
-    }
-  ],
-  genres: ["Action", "Aventure", "Fantasy", "Surnaturel"],
-  rating: 9.2,
-  imageUrl: "/picture/animes/solo-leveling.jpg",
-  bannerUrl: "/picture/bannieres/solo-leveling-banner.jpg"
-}; 
