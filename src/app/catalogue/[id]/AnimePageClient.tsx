@@ -766,7 +766,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       {/* Lecteur style anime-sama.fr */}
                       <div className="bg-black" style={{ width: '100%', height: '500px' }}>
                         <VideoPlayer 
-                          vidmolyId={episode?.vidmolyId}
+                          sibnetId={videoId}
                           className="w-full h-full"
                         />
                       </div>
@@ -776,7 +776,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       {/* Lecteur style anime-sama.fr */}
                       <div className="bg-black" style={{ width: '100%', height: '500px' }}>
                         <VideoPlayer 
-                          sibnetId={videoId}
+                          vidmolyId={episode?.vidmolyId}
                           className="w-full h-full"
                         />
                       </div>
@@ -798,7 +798,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       {/* Lecteur style anime-sama.fr */}
                       <div className="bg-black" style={{ width: '100%', height: '500px' }}>
                         <VideoPlayer 
-                          vidmolyId={episode?.vidmolyVfId}
+                          sibnetId={videoId}
                           className="w-full h-full"
                         />
                       </div>
@@ -808,7 +808,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       {/* Lecteur style anime-sama.fr */}
                       <div className="bg-black" style={{ width: '100%', height: '500px' }}>
                         <VideoPlayer 
-                          sibnetId={videoId}
+                          vidmolyId={episode?.vidmolyVfId}
                           className="w-full h-full"
                         />
                       </div>

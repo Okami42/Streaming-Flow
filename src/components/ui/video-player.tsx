@@ -22,6 +22,7 @@ export default function VideoPlayer({
   const [hasError, setHasError] = useState(false);
   const sibnetIframeRef = useRef<HTMLIFrameElement>(null);
   const vidmolyIframeRef = useRef<HTMLIFrameElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   
   // Construction directe de l'URL Vidmoly - format standard
   const finalVidmolyUrl = vidmolyId 
@@ -66,11 +67,91 @@ export default function VideoPlayer({
     }
   }, [sibnetId, vidmolyId, vidmolyUrl, finalVidmolyUrl]);
   
+  // Empêcher les redirections depuis l'iframe
+  useEffect(() => {
+    // Fonction pour intercepter les tentatives de redirection
+    const preventRedirects = (e: MessageEvent) => {
+      // Bloquer les messages qui pourraient venir des iframes
+      if (e.data && typeof e.data === 'string' && e.data.includes('location')) {
+        e.stopPropagation();
+        console.log('Tentative de redirection bloquée');
+      }
+    };
+
+    // Fonction pour surveiller les clics sur les iframes et bloquer les redirections
+    const handleFrameClick = (e: MouseEvent) => {
+      // Si le clic est sur ou dans un iframe, on vérifie s'il s'agit d'un lien
+      const frameDoc = vidmolyIframeRef.current?.contentDocument || sibnetIframeRef.current?.contentDocument;
+      if (frameDoc) {
+        const links = frameDoc.querySelectorAll('a');
+        links.forEach(link => {
+          // Empêcher les liens de s'ouvrir
+          link.target = '_self';
+          link.onclick = (e) => {
+            e.preventDefault();
+            return false;
+          };
+        });
+      }
+    };
+
+    // Installer sur window pour intercepter au niveau global
+    window.addEventListener('message', preventRedirects);
+    if (containerRef.current) {
+      containerRef.current.addEventListener('click', handleFrameClick as EventListener);
+    }
+
+    // Nettoyer les écouteurs d'événements
+    return () => {
+      window.removeEventListener('message', preventRedirects);
+      if (containerRef.current) {
+        containerRef.current.removeEventListener('click', handleFrameClick as EventListener);
+      }
+    };
+  }, []);
+  
+  // Installer des bloqueurs de redirection sur l'iframe au chargement
+  const onIframeMount = (iframe: HTMLIFrameElement | null) => {
+    if (!iframe) return;
+    
+    try {
+      // Essayer de modifier le comportement du document iframe après chargement
+      iframe.onload = () => {
+        try {
+          const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+          if (iframeDoc) {
+            // Annuler tous les événements de clic qui pourraient causer des redirections
+            const links = iframeDoc.querySelectorAll('a');
+            links.forEach(link => {
+              link.target = '_self';
+              link.onclick = (e) => { 
+                e.preventDefault(); 
+                return false; 
+              };
+            });
+          }
+        } catch (error) {
+          console.log("Impossible d'accéder au contenu de l'iframe en raison des restrictions de sécurité CORS");
+        }
+      };
+    } catch (e) {
+      console.error("Erreur lors de la modification de l'iframe:", e);
+    }
+  };
+  
   // Gestion des événements
   const handleIframeLoad = () => {
     // Délai pour s'assurer que le contenu est chargé
     setTimeout(() => {
       setIsLoading(false);
+      
+      // Appliquer la protection anti-redirection sur l'iframe chargé
+      if (vidmolyIframeRef.current) {
+        onIframeMount(vidmolyIframeRef.current);
+      }
+      if (sibnetIframeRef.current) {
+        onIframeMount(sibnetIframeRef.current);
+      }
     }, 500);
   };
   
@@ -99,7 +180,7 @@ export default function VideoPlayer({
   };
   
   return (
-    <div className={`w-full h-full relative ${className}`}>
+    <div ref={containerRef} className={`w-full h-full relative ${className}`} style={{ overflow: 'hidden' }}>
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-black z-10">
           <div className="flex flex-col items-center">
@@ -121,35 +202,37 @@ export default function VideoPlayer({
         </div>
       )}
       
-      {sibnetId && (
-        <iframe 
-          ref={sibnetIframeRef}
-          width="100%" 
-          height="100%" 
-          frameBorder="0" 
-          scrolling="no" 
-          allowFullScreen 
-          className="w-full h-full"
-          onLoad={handleIframeLoad}
-          onError={handleIframeError}
-        />
-      )}
-      
-      {(vidmolyUrl || vidmolyId) && !sibnetId && (
-        <iframe 
-          ref={vidmolyIframeRef}
-          width="100%" 
-          height="100%" 
-          frameBorder="0" 
-          scrolling="no" 
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
-          allowFullScreen
-          loading="eager"
-          className="w-full h-full"
-          onLoad={handleIframeLoad}
-          onError={handleIframeError}
-        />
-      )}
+      {/* Conteneur de protection contre les redirections */}
+      <div className="w-full h-full relative">
+        {sibnetId && (
+          <iframe 
+            ref={sibnetIframeRef}
+            width="100%" 
+            height="100%" 
+            frameBorder="0" 
+            scrolling="no" 
+            allowFullScreen 
+            className="w-full h-full"
+            onLoad={handleIframeLoad}
+            onError={handleIframeError}
+          />
+        )}
+        
+        {(vidmolyUrl || vidmolyId) && !sibnetId && (
+          <iframe 
+            ref={vidmolyIframeRef}
+            width="100%" 
+            height="100%" 
+            frameBorder="0" 
+            scrolling="no" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+            allowFullScreen
+            className="w-full h-full"
+            onLoad={handleIframeLoad}
+            onError={handleIframeError}
+          />
+        )}
+      </div>
     </div>
   );
 }
