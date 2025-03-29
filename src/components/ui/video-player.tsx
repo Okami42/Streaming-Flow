@@ -53,7 +53,7 @@ export default function VideoPlayer({
     if (sibnetIframeRef.current && sibnetId) {
       forceIframeReload(
         sibnetIframeRef.current, 
-        `https://video.sibnet.ru/shell.php?videoid=${sibnetId}`
+        sibnetId.includes('http') ? sibnetId : `https://video.sibnet.ru/shell.php?videoid=${sibnetId}`
       );
     }
     

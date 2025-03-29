@@ -12,7 +12,7 @@ export interface AnimeEpisode {
 }
 
 export interface AnimeSeason {
-  seasonNumber: number;
+  seasonNumber: number | string;
   title: string;
   year: number;
   episodes: AnimeEpisode[];
@@ -129,37 +129,106 @@ export const animes: Anime[] = [
         title: "Saison 1",
         year: 2019,
         episodes: [
-          { number: 1, title: "Cruauté", duration: 1440, sibnetVostfrId: "ds1ep1", sibnetVfId: "ds1ep1fr" },
-          { number: 2, title: "Sabre du démon", duration: 1440, sibnetVostfrId: "ds1ep2", sibnetVfId: "ds1ep2fr" },
-          { number: 3, title: "Sabito et Makomo", duration: 1440, sibnetVostfrId: "ds1ep3", sibnetVfId: "ds1ep3fr" },
-          { number: 4, title: "Sélection finale", duration: 1440, sibnetVostfrId: "ds1ep4", sibnetVfId: "ds1ep4fr" },
-          { number: 5, title: "Ma propre acier", duration: 1440, sibnetVostfrId: "ds1ep5", sibnetVfId: "ds1ep5fr" }
+          { number: 1, title: "Cruauté", duration: 1420, sibnetVostfrId: "4668120", sibnetVfId: "4668241" },
+          { number: 2, title: "Urokodaki Sakonji, le formateur", duration: 1420, sibnetVostfrId: "4668131", sibnetVfId: "4668280" },
+          { number: 3, title: "Sabito et Makomo", duration: 1420, sibnetVostfrId: "4668135", sibnetVfId: "4668284" },
+          { number: 4, title: "La Sélection finale", duration: 1420, sibnetVostfrId: "4668139", sibnetVfId: "4668287" },
+          { number: 5, title: "Chacun son acier", duration: 1420, sibnetVostfrId: "4668143", sibnetVfId: "4668289" },
+          { number: 6, title: "Le chasseur accompagné d'un démon", duration: 1420, sibnetVostfrId: "4668146", sibnetVfId: "4668291" },
+          { number: 7, title: "Kibutsuji Muzan", duration: 1420, sibnetVostfrId: "4668149", sibnetVfId: "4668293" },
+          { number: 8, title: "Le Parfum du sang d'envoûtement", duration: 1420, sibnetVostfrId: "4668152", sibnetVfId: "4668298" },
+          { number: 9, title: "Les Démons aux ballons et aux flèches", duration: 1420, sibnetVostfrId: "4668154", sibnetVfId: "4668299" },
+          { number: 10, title: "Nous resterons ensemble", duration: 1420, sibnetVostfrId: "4668157", sibnetVfId: "4668304" },
+          { number: 11, title: "La Maison aux tambours", duration: 1420, sibnetVostfrId: "4668162", sibnetVfId: "4668308" },
+          { number: 12, title: "Zen'itsu dort, le sanglier montre les crocs", duration: 1420, sibnetVostfrId: "4668168", sibnetVfId: "4668313" },
+          { number: 13, title: "Ce à quoi je tiens plus qu'à ma vie", duration: 1420, sibnetVostfrId: "4668174", sibnetVfId: "4668320" },
+          { number: 14, title: "Le Blason des glycines", duration: 1420, sibnetVostfrId: "4668180", sibnetVfId: "4668327" },
+          { number: 15, title: "Le Mont Natagumo", duration: 1420, sibnetVostfrId: "4668185", sibnetVfId: "4668332" },
+          { number: 16, title: "Faire passer les autres avant soi", duration: 1420, sibnetVostfrId: "4668191", sibnetVfId: "4668339" },
+          { number: 17, title: "Parfaire une seule technique", duration: 1420, sibnetVostfrId: "4668198", sibnetVfId: "4668344" },
+          { number: 18, title: "Des liens factices", duration: 1420, sibnetVostfrId: "4668203", sibnetVfId: "4668349" },
+          { number: 19, title: "Le Dieu du feu 🔥", duration: 1420, sibnetVostfrId: "4668210", sibnetVfId: "4668358" },
+          { number: 20, title: "Une famille improvisée", duration: 1420, sibnetVostfrId: "4668212", sibnetVfId: "4668363" },
+          { number: 21, title: "Violation du code", duration: 1420, sibnetVostfrId: "4668216", sibnetVfId: "4668369" },
+          { number: 22, title: "Le Maître", duration: 1420, sibnetVostfrId: "4668223", sibnetVfId: "4668375" },
+          { number: 23, title: "La Réunion des piliers", duration: 1420, sibnetVostfrId: "4668225", sibnetVfId: "4668379" },
+          { number: 24, title: "L'Entraînement récupérateur", duration: 1420, sibnetVostfrId: "4668227", sibnetVfId: "4668384" },
+          { number: 25, title: "Tsuyuri Kanao, la successeuse", duration: 1420, sibnetVostfrId: "4668229", sibnetVfId: "4668387" },
+          { number: 26, title: "Nouvelle mission", duration: 1420, sibnetVostfrId: "4668230", sibnetVfId: "4668389" }
         ]
       },
       {
-        seasonNumber: 2,
-        title: "Arc du Train de l'Infini",
+        seasonNumber: "Film",
+        title: "Film",
         year: 2021,
         episodes: [
-          { number: 1, title: "Le train de l'Infini", duration: 1440, sibnetVostfrId: "ds2ep1", sibnetVfId: "ds2ep1fr" },
-          { number: 2, title: "Sommeil profond", duration: 1440, sibnetVostfrId: "ds2ep2", sibnetVfId: "ds2ep2fr" },
-          { number: 3, title: "Enmu", duration: 1440, sibnetVostfrId: "ds2ep3", sibnetVfId: "ds2ep3fr" },
-          { number: 4, title: "Akaza", duration: 1440, sibnetVostfrId: "ds2ep4", sibnetVfId: "ds2ep4fr" }
+          { number: 1, title: "Le train de l'Infini", duration: 1440, sibnetVostfrId: "4825545", sibnetVfId: "4708131" }
         ]
       },
       {
-        seasonNumber: 3,
-        title: "Arc du Village des Forgerons",
-        year: 2023,
+        seasonNumber: "Train de l'Infini",
+        title: "Épisode - Train de l'Infini",
+        year: 2021,
         episodes: [
           { number: 1, title: "Le village caché", duration: 1440, sibnetVostfrId: "ds3ep1", sibnetVfId: "ds3ep1fr" },
           { number: 2, title: "Les forgerons", duration: 1440, sibnetVostfrId: "ds3ep2", sibnetVfId: "ds3ep2fr" },
           { number: 3, title: "L'attaque des démons", duration: 1440, sibnetVostfrId: "ds3ep3", sibnetVfId: "ds3ep3fr" }
+
+        ]
+      },
+      {
+        seasonNumber: 2,
+        title: "Saison 2",
+        year: 2020,
+        episodes: [
+          { number: 1, title: "Le Démon, Partie 1", duration: 1440, sibnetVostfrId: "4667143", sibnetVfId: "4699607" },
+          { number: 2, title: "Le Démon, Partie 2", duration: 1440, sibnetVostfrId: "4667145", sibnetVfId: "4699609" },
+          { number: 3, title: "Le Démon, Partie 3", duration: 1440, sibnetVostfrId: "4667146", sibnetVfId: "4699611" },
+          { number: 4, title: "Le Démon, Partie 4", duration: 1440, sibnetVostfrId: "4667148", sibnetVfId: "4699612" },
+          { number: 5, title: "Le Démon, Partie 5", duration: 1440, sibnetVostfrId: "4667149", sibnetVfId: "4699613" },
+          { number: 6, title: "Le Démon, Partie 6", duration: 1440, sibnetVostfrId: "4667151", sibnetVfId: "4699614" },
+          { number: 7, title: "Le Démon, Partie 7", duration: 1440, sibnetVostfrId: "4667153", sibnetVfId: "4699616" },
+          { number: 8, title: "Le Démon, Partie 8", duration: 1440, sibnetVostfrId: "4667156", sibnetVfId: "4699618" },
+          { number: 9, title: "Le Démon, Partie 9", duration: 1440, sibnetVostfrId: "4667157", sibnetVfId: "4699620" },
+          { number: 10, title: "Le Démon, Partie 10", duration: 1440, sibnetVostfrId: "4667164", sibnetVfId: "4699622" },
+          { number: 11, title: "Le Démon, Partie 11", duration: 1440, sibnetVostfrId: "4667165", sibnetVfId: "4699625" }
+        ]
+      },
+      {
+        seasonNumber: 3,
+        title: "Saison 3",
+        year: 2022,
+        episodes: [
+          { "number": 1, "title": "Le Démon, Partie 12", "duration": 1440, "sibnetVostfrId": "5101293", "sibnetVfId": "5123652" },
+          { "number": 2, "title": "Le Démon, Partie 13", "duration": 1440, "sibnetVostfrId": "5107783", "sibnetVfId": "5129278" },
+          { "number": 3, "title": "Le Démon, Partie 14", "duration": 1440, "sibnetVostfrId": "5115500", "sibnetVfId": "5139733" },
+          { "number": 4, "title": "Le Démon, Partie 15", "duration": 1440, "sibnetVostfrId": "5122356", "sibnetVfId": "5148655" },
+          { "number": 5, "title": "Le Démon, Partie 16", "duration": 1440, "sibnetVostfrId": "5129066", "sibnetVfId": "5155200" },
+          { "number": 6, "title": "Le Démon, Partie 17", "duration": 1440, "sibnetVostfrId": "5139273", "sibnetVfId": "5162155" },
+          { "number": 7, "title": "Le Démon, Partie 18", "duration": 1440, "sibnetVostfrId": "5148330", "sibnetVfId": "5168755" },
+          { "number": 8, "title": "Le Démon, Partie 19", "duration": 1440, "sibnetVostfrId": "5155057", "sibnetVfId": "5175891" },
+          { "number": 9, "title": "Le Démon, Partie 20", "duration": 1440, "sibnetVostfrId": "5162019", "sibnetVfId": "5181163" },
+          { "number": 10, "title": "Le Démon, Partie 21", "duration": 1440, "sibnetVostfrId": "5168522", "sibnetVfId": "5186530" },
+          { "number": 11, "title": "Le Démon, Partie 22", "duration": 1440, "sibnetVostfrId": "5175809", "sibnetVfId": "5193486" }
+        ]
+      },
+      {
+        seasonNumber: 4,
+        title: "Saison 4",
+        year: 2024,
+        episodes: [
+          { number: 1, title: "Pour vaincre Kibutsuji Muzan", duration: 1440, sibnetVostfrId: "5533798", sibnetVfId: "5558735" },
+          { number: 2, title: "La Souffrance de Tomioka Giyû, pilier de l'eau", duration: 1440, sibnetVostfrId: "5540224", sibnetVfId: "5565316" },
+          { number: 3, title: "Tanjiro est rétabli et se joint à l'entraînement", duration: 1440, sibnetVostfrId: "5546321", sibnetVfId: "5574503" },
+          { number: 4, title: "Souris", duration: 1440, sibnetVostfrId: "5552382", sibnetVfId: "5582223" },
+          { number: 5, title: "Manger des démons", duration: 1440, sibnetVostfrId: "5558041", sibnetVfId: "5589758" },
+          { number: 6, title: "Le Plus Fort des pourfendeurs", duration: 1440, sibnetVostfrId: "5565081", sibnetVfId: "5597263" },
+          { number: 7, title: "Himejima Gyômei, pilier du rocher", duration: 1440, sibnetVostfrId: "5573417", sibnetVfId: "5606165" },
+          { number: 8, title: "Rassemblement des piliers", duration: 1440, sibnetVostfrId: "5581267", sibnetVfId: "5613056" }
         ]
       }
     ]
   },
-  // Vous pouvez ajouter d'autres animes ici
   {
     id: "akudama-drive",
     title: "Akudama Drive",
@@ -458,7 +527,7 @@ export const animes: Anime[] = [
         ]
       },
       {
-        seasonNumber: 0,
+        seasonNumber: "Film",
         title: "Film",
         year: 2022,
         episodes: [

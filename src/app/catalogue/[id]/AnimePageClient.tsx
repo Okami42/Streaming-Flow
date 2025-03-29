@@ -16,7 +16,7 @@ import VideoPlayer from "@/components/ui/video-player";
 
 export default function AnimePageClient({ anime }: { anime: Anime | undefined }) {
   const [selectedEpisode, setSelectedEpisode] = useState(1);
-  const [selectedSeason, setSelectedSeason] = useState(1);
+  const [selectedSeason, setSelectedSeason] = useState<number | string>(1);
   const [selectedLanguage, setSelectedLanguage] = useState<"vostfr" | "vf">("vostfr");
   const [isFollowing, setIsFollowing] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -45,14 +45,14 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
   
   // Récupérer la saison actuelle si disponible
   const currentSeason = useSeasonsStructure 
-    ? anime?.seasons?.find(s => s.seasonNumber === selectedSeason)
+    ? anime?.seasons?.find(s => String(s.seasonNumber) === String(selectedSeason))
     : null;
     
   // Fonction pour récupérer les épisodes selon la structure
-  const getEpisodes = (seasonNumber: number) => {
+  const getEpisodes = (seasonNumber: number | string) => {
     if (!anime || !anime.seasons) return [];
     
-    const season = anime.seasons.find(s => s.seasonNumber === seasonNumber);
+    const season = anime.seasons.find(s => String(s.seasonNumber) === String(seasonNumber));
     if (!season) return [];
     
     // Filter episodes for VF tab
@@ -73,12 +73,12 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
     
   // Récupérer l'épisode actuel selon la structure utilisée
   const episode = useSeasonsStructure
-    ? anime?.seasons?.find(s => s.seasonNumber === selectedSeason)?.episodes.find(ep => ep.number === selectedEpisode)
+    ? anime?.seasons?.find(s => String(s.seasonNumber) === String(selectedSeason))?.episodes.find(ep => ep.number === selectedEpisode)
     : anime?.episodes?.find(ep => ep.number === selectedEpisode);
 
   // Obtenir la liste des épisodes à afficher
   const episodesToShow = useSeasonsStructure
-    ? getEpisodes(selectedSeason)
+    ? getEpisodes(String(selectedSeason))
     : (anime?.episodes || []);
 
   // Fonction pour mettre à jour l'affichage du temps sans affecter la logique
@@ -545,7 +545,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
       let episodes: AnimeEpisode[] = [];
       
       if (useSeasonsStructure) {
-        episodes = getEpisodes(selectedSeason);
+        episodes = getEpisodes(String(selectedSeason));
       } else {
         // Pour les autres animes sans saisons
         episodes = anime.episodes || [];
@@ -866,7 +866,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                   <select 
                     value={selectedSeason}
                     onChange={(e) => {
-                      setSelectedSeason(Number(e.target.value));
+                      setSelectedSeason(e.target.value);
                       setSelectedEpisode(1);
                     }}
                     className="bg-[#151a2a] text-white border border-white/10 rounded-md px-2 py-1"
@@ -883,7 +883,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {episodesToShow.map((ep) => {
-                const progress = getEpisodeProgress(selectedSeason, ep.number);
+                const progress = getEpisodeProgress(Number(selectedSeason), ep.number);
                 
                 return (
                   <button
