@@ -46,7 +46,7 @@ export default function Header() {
     <header className="bg-[#030711]/80 backdrop-blur-md border-b border-white/5 py-5 sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between px-4">
         {/* Logo */}
-        <Link href="/" className="flex items-center group primary-glow mr-6">
+        <Link href="/anime" className="flex items-center group primary-glow mr-6">
           <CustomImage
             src={isSeriesSection ? "/picture/icon_logo_okami.png" : "/picture/logookaviolet.png"}
             alt="Okanime Logo"
@@ -61,11 +61,14 @@ export default function Header() {
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <Search className="h-4 w-4 text-pink-500" />
           </div>
-          <Input
-            type="search"
-            placeholder="RECHERCHER..."
-            className="bg-[#0a0d14]/70 border-white/10 pl-10 text-sm text-gray-200 rounded-md focus:border-pink-500 focus:ring-1 focus:ring-pink-500/50 transition-all"
-          />
+          <Link href="/search">
+            <Input
+              type="search"
+              placeholder="RECHERCHER..."
+              className="bg-[#101418] border border-white/10 pl-10 text-sm text-gray-200 rounded-full focus:border-pink-500 focus:ring-1 focus:ring-pink-500/50 transition-all cursor-pointer"
+              readOnly
+            />
+          </Link>
         </div>
 
         {/* Nav Links */}
