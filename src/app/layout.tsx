@@ -4,7 +4,7 @@ import { ThemeProvider } from "@/context/theme-context";
 import { HistoryProvider } from "@/context/history-context";
 
 export const metadata: Metadata = {
-  title: "Okanstream | Anime & Scans ainsi que des Films & Séries",
+  title: "Okastream | Anime & Scans ET Films & Séries",
   description: "Site de référencement et de visionnage de contenus d'animation japonaise et Films & Séries",
   icons: {
     icon: [
