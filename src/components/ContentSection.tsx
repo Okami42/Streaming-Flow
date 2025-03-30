@@ -1,6 +1,7 @@
 "use client";
 
-import { Clock } from "lucide-react";
+import React, { useRef, useState } from "react";
+import { Clock, ChevronLeft, ChevronRight } from "lucide-react";
 import SectionTitle from "./SectionTitle";
 import AnimeCard from "./AnimeCard";
 import { cn } from "@/lib/utils";
@@ -27,38 +28,64 @@ export default function ContentSection({
   items,
   className
 }: ContentSectionProps) {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -280, behavior: 'smooth' });
+    }
+  };
+  
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: 280, behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className={cn("py-7 relative", className)}>
       {/* Glass effect background for better visual separation */}
       <div className="absolute inset-0 bg-gradient-to-r from-[#0c1222]/40 to-transparent opacity-50 rounded-lg -z-10"></div>
 
-      <SectionTitle title={title} icon={icon} />
-
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
-        {items.map((item) => (
-          <AnimeCard
-            key={item.id}
-            id={item.id}
-            title={item.title}
-            imageUrl={item.imageUrl}
-            time={item.time}
-            type={item.type}
-            language={item.language}
-          />
-        ))}
-      </div>
-
-      {/* If there are many items, add a view all button */}
-      {items.length > 4 && (
-        <div className="flex justify-center mt-8">
-          <button className="bg-gradient-to-r from-pink-600/20 to-blue-600/20 hover:from-pink-600/30 hover:to-blue-600/30 text-white px-6 py-2 rounded-md border border-white/10 transition-all duration-300 hover:shadow-[0_0_15px_rgba(236,72,153,0.2)] group">
-            <span className="relative">
-              Voir tout
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-pink-500 to-blue-500 group-hover:w-full transition-all duration-300"></span>
-            </span>
+      <div className="flex justify-between items-center mb-4">
+        <SectionTitle title={title} icon={icon} />
+        
+        <div className="flex space-x-2">
+          <button 
+            onClick={scrollLeft}
+            className="p-1 rounded-full bg-[#151a2a] hover:bg-[#1e263f] border border-white/5 transition-colors"
+            aria-label="Défiler à gauche"
+          >
+            <ChevronLeft className="h-5 w-5 text-white/70" />
+          </button>
+          <button 
+            onClick={scrollRight}
+            className="p-1 rounded-full bg-[#151a2a] hover:bg-[#1e263f] border border-white/5 transition-colors"
+            aria-label="Défiler à droite"
+          >
+            <ChevronRight className="h-5 w-5 text-white/70" />
           </button>
         </div>
-      )}
+      </div>
+
+      <div 
+        ref={scrollContainerRef}
+        className="flex overflow-x-auto space-x-5 pb-4 hide-scrollbar"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+      >
+        {items.map((item) => (
+          <div key={item.id} className="flex-shrink-0 w-[200px]">
+            <AnimeCard
+              id={item.id}
+              title={item.title}
+              imageUrl={item.imageUrl}
+              time={item.time}
+              type={item.type}
+              language={item.language}
+            />
+          </div>
+        ))}
+      </div>
     </section>
   );
 }

@@ -56,6 +56,18 @@
   }
 }
 
+@layer utilities {
+  /* Masquer la barre de défilement tout en gardant la fonctionnalité de défilement */
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .hide-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+}
+
 @layer components {
   .anime-card {
     @apply bg-[#0F1729] rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 border border-[#1a1f35];

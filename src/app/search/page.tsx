@@ -8,6 +8,7 @@ import { AnimeCard } from "@/components/AnimeCard";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { getAllAnimes } from "@/lib/animeData";
+import { recentEpisodes, hidden, recentScans, latestFilms } from "@/lib/data";
 
 export default function SearchPage() {
   const searchParams = useSearchParams();
@@ -25,19 +26,48 @@ export default function SearchPage() {
 
   const performSearch = (term: string) => {
     const animes = getAllAnimes();
+    // Ajouter les animes de data.ts
+    const additionalAnimes = [...recentEpisodes, ...hidden, ...latestFilms].map(item => ({
+      id: item.id,
+      title: item.title,
+      imageUrl: item.imageUrl,
+      type: item.type || "Anime",
+      language: item.language || "VOSTFR"
+    }));
     
     if (!term.trim()) {
       setResults([]);
       return;
     }
     
-    const filteredResults = animes.filter(anime => 
+    // Filtrer les animes de animeData.ts
+    const filteredAnimes = animes.filter(anime => 
       anime.title.toLowerCase().includes(term.toLowerCase()) ||
       anime.originalTitle?.toLowerCase().includes(term.toLowerCase()) ||
       anime.description.toLowerCase().includes(term.toLowerCase())
+    ).map(anime => ({
+      id: anime.id,
+      title: anime.title,
+      imageUrl: anime.imageUrl,
+      type: "Anime",
+      language: "VOSTFR"
+    }));
+    
+    // Filtrer les animes supplémentaires
+    const filteredAdditionalAnimes = additionalAnimes.filter(anime => 
+      anime.title.toLowerCase().includes(term.toLowerCase())
     );
     
-    setResults(filteredResults);
+    // Combiner les résultats et éliminer les doublons
+    const combinedResults = [...filteredAnimes];
+    
+    filteredAdditionalAnimes.forEach(anime => {
+      if (!combinedResults.some(item => item.id === anime.id)) {
+        combinedResults.push(anime);
+      }
+    });
+    
+    setResults(combinedResults);
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,8 +115,8 @@ export default function SearchPage() {
                 id={anime.id}
                 title={anime.title}
                 imageUrl={anime.imageUrl}
-                type="Anime"
-                language="VOSTFR"
+                type={anime.type}
+                language={anime.language}
               />
             ))}
           </div>

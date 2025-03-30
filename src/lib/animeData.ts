@@ -107,7 +107,8 @@ export const animes: Anime[] = [
           { number: 9, title: "Le Test Final", duration: 1440, sibnetVostfrId: "5839080", sibnetVfId: "5857932" },
           { number: 10, title: "Force Ultime", duration: 1440, sibnetVostfrId: "5845645", sibnetVfId: "11000111" },
           { number: 11, title: "Révélation", duration: 1440, sibnetVostfrId: "5851330", sibnetVfId: "111000000011" },
-          { number: 12, title: "Nouveau Départ", duration: 1440, sibnetVostfrId: "5857706", sibnetVfId: "111100001" }
+          { number: 12, title: "Nouveau Départ", duration: 1440, sibnetVostfrId: "5857706", sibnetVfId: "111100001" },
+          { number: 13, title: "Nouveau Départ 2", duration: 1440, sibnetVostfrId: "5863647", sibnetVfId: "111100001" }
         ]
       }
     ]
