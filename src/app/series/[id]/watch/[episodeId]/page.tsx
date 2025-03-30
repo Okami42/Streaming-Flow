@@ -112,6 +112,14 @@ export default function WatchPage({ params }: { params: { id: string; episodeId:
                   sandbox="allow-same-origin allow-scripts allow-forms"
                   referrerPolicy="no-referrer"
                 ></iframe>
+              ) : episode.videoUrl.endsWith('.mp4') || episode.videoUrl.includes('cloudflarestorage') ? (
+                <video 
+                  src={episode.videoUrl} 
+                  className="w-full h-full" 
+                  controls 
+                  autoPlay 
+                  playsInline
+                ></video>
               ) : (
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-white text-center p-4">
@@ -129,6 +137,7 @@ export default function WatchPage({ params }: { params: { id: string; episodeId:
             <div className="absolute top-0 right-0 bg-blue-600 text-white px-3 py-1 text-sm font-bold rounded-bl">
               {episode.videoUrl.includes('filemoon.sx') ? 'FILEMOON VOSTFR' : 
                episode.videoUrl.includes('dood.wf') ? 'LECTEUR DOODSTREAM' : 
+               episode.videoUrl.endsWith('.mp4') || episode.videoUrl.includes('cloudflarestorage') ? 'LECTEUR MP4' :
                'LECTEUR VIDÉO'}
             </div>
           </div>

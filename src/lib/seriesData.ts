@@ -8,7 +8,7 @@ export const seriesData: Content[] = [
     imageUrl: "https://fr.web.img5.acsta.net/pictures/19/06/18/12/11/3956503.jpg",
     bannerUrl: "https://fr.web.img5.acsta.net/pictures/19/06/18/12/11/3956503.jpg",
     episodes: [
-      { id: 1, title: "Pilot", videoUrl: "https://filemoon.sx/e/a6bywq4y41fu" },
+      { id: 1, title: "Chute Libre", videoUrl: "https://108db1a83666122bd523a9a87a603622.r2.cloudflarestorage.com/lefonda/SERIES/1396/VF/S01/01.mp4?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=74328dd7208e83181ff43bc26d7197f1%2F20250330%2Fauto%2Fs3%2Faws4_request&X-Amz-Date=20250330T234749Z&X-Amz-SignedHeaders=host&X-Amz-Expires=43200&X-Amz-Signature=8b926e2efddbf8a2a0d437156c89b50e83aef7c5b7cdb910344290da4731ff12" },
       { id: 2, title: "Cat's in the Bag...", videoUrl: "https://exemple.com/video2" },
       { id: 3, title: "...And the Bag's in the River", videoUrl: "https://exemple.com/video3" }
     ],
