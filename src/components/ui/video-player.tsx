@@ -7,6 +7,7 @@ interface VideoPlayerProps {
   sibnetId?: string;
   vidmolyUrl?: string;
   vidmolyId?: string;
+  sendvidId?: string;
   poster?: string;
   className?: string;
 }
@@ -15,6 +16,7 @@ export default function VideoPlayer({
   sibnetId,
   vidmolyUrl,
   vidmolyId,
+  sendvidId,
   poster,
   className = "",
 }: VideoPlayerProps) {
@@ -56,11 +58,12 @@ export default function VideoPlayer({
           className="w-full h-full"
           onLoad={handleIframeLoad}
           onError={handleIframeError}
+          style={{ display: isLoading ? 'none' : 'block' }}
         />
       )}
       
       {/* Lecteur Vidmoly (natif) */}
-      {(vidmolyUrl || vidmolyId) && !sibnetId && (
+      {finalVidmolyUrl && !sibnetId && (
         <iframe 
           src={finalVidmolyUrl}
           width="100%" 
@@ -72,6 +75,22 @@ export default function VideoPlayer({
           className="w-full h-full"
           onLoad={handleIframeLoad}
           onError={handleIframeError}
+          style={{ display: isLoading ? 'none' : 'block' }}
+        />
+      )}
+      
+      {/* Lecteur Sendvid (natif) */}
+      {sendvidId && !sibnetId && !finalVidmolyUrl && (
+        <iframe 
+          src={`https://sendvid.com/embed/${sendvidId}`}
+          width="100%" 
+          height="100%" 
+          frameBorder="0" 
+          scrolling="no" 
+          allowFullScreen 
+          onLoad={handleIframeLoad}
+          onError={handleIframeError}
+          style={{ display: isLoading ? 'none' : 'block' }}
         />
       )}
     </div>

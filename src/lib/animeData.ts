@@ -9,6 +9,7 @@ export interface AnimeEpisode {
   vidmolyUrl?: string;
   vidmolyId?: string;
   vidmolyVfId?: string;
+  sendvidId?: string;
 }
 
 export interface AnimeSeason {
@@ -59,6 +60,75 @@ export function getAnimesByGenre(genre: string): Anime[] {
 
 // Liste des animes
 export const animes: Anime[] = [
+  {
+    id: "akira",
+    title: "Akira",
+    originalTitle: "アキラ",
+    description: "En juillet 1988, une mystérieuse explosion détruit Tokyo et déclenche la troisième guerre mondiale. 31 ans plus tard, en 2019, Neo-Tokyo, la mégalopole construite sur la baie de Tokyo a retrouvé sa prospérité d'antan et se prépare à l'événement majeur des Jeux olympiques de 2020. Dans l'ombre, les choses sont moins réjouissantes : les sectes religieuses pullulent, le terrorisme fait rage, et les manifestations sont durement réprimées par les forces de l'ordre. Dans ce contexte chaotique, l'histoire suit le destin de Kaneda, chef de gang de jeunes motards, et de son ami d'enfance Tetsuo. Après une confrontation avec un gang rival, Tetsuo est blessé et capturé par l'armée qui mène des expériences secrètes sur des êtres dotés de pouvoirs psychiques. Au contact de ces individus, Tetsuo développe d'extraordinaires pouvoirs qu'il ne parvient pas à maîtriser. Devenu incontrôlable, il représente bientôt une menace pour Neo-Tokyo, que seul Kaneda semble capable d'arrêter.",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BM2ZiZTk1ODgtMTZkNS00NTYxLWIxZTUtNWExZGYwZTRjODViXkEyXkFqcGdeQXVyMTE2MzA3MDM@._V1_.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 1988,
+    type: "Movie",
+    status: "Terminé",
+    genres: ["Science-fiction", "Action", "Cyberpunk", "Psychologique"],
+    rating: 8.7,
+    episodes: [
+      { number: 1, title: "Akira", duration: 7440, sibnetVostfrId: "4740096", sibnetVfId: "5340708" }
+    ]
+  },
+  {
+    id: "nagatoro",
+    title: "Arrête de me chauffer Nagatoro",
+    originalTitle: "イジらないで、長瀞さん",
+    description: "Naoto Hachiouji est un étudiant otaku solitaire qui passe son temps à dessiner. Un jour, il rencontre Hayase Nagatoro, une fille de première année qui commence à le taquiner sans relâche. Malgré l'embarras et l'humiliation qu'il ressent initialement, Naoto découvre peu à peu que leurs interactions lui permettent de sortir de sa coquille et que Nagatoro pourrait être plus attachée à lui qu'elle ne veut bien l'admettre.",
+    imageUrl: "https://fr.web.img2.acsta.net/pictures/21/03/24/17/22/3948943.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2021,
+    type: "TV",
+    status: "Terminé",
+    genres: ["Comédie", "Romance", "Tranche de vie", "École"],
+    rating: 7.8,
+    seasons: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        year: 2021,
+        episodes: [
+          { number: 1, title: "Je te trouve un peu... / Tu t'énerves jamais ?", duration: 1440, sibnetVostfrId: "4290980", sibnetVfId: "4573351" },
+          { number: 2, title: "Ton souhait s'est réalisé ! / Coucou, c'est moi !", duration: 1440, sibnetVostfrId: "4295910", sibnetVfId: "4580989" },
+          { number: 3, title: "On rejouera, hein ? / Viens t'asseoir ici !", duration: 1440, sibnetVostfrId: "4301350", sibnetVfId: "4589163" },
+          { number: 4, title: "T'es tout rouge ! / Tu devrais un peu plus...", duration: 1440, sibnetVostfrId: "4306690", sibnetVfId: "4594077" },
+          { number: 5, title: "Tout touffu / Merci beaucoup !", duration: 1440, sibnetVostfrId: "4310975", sibnetVfId: "4600276" },
+          { number: 6, title: "T'es grave naïf / Ramène-toi à la plage !", duration: 1440, sibnetVostfrId: "4315884", sibnetVfId: "5553840" },
+          { number: 7, title: "On va au festival ? / On dirait un rencard / On rentre ?", duration: 1440, sibnetVostfrId: "4319845", sibnetVfId: "4614623" },
+          { number: 8, title: "Ça serait plutôt marrant / On joue à pierre-feuille-ciseaux", duration: 1440, sibnetVostfrId: "4323890", sibnetVfId: "4622092" },
+          { number: 9, title: "C'est vraiment un cochon / Un gars aussi chelou peut pas gérer un rencard !", duration: 1440, sibnetVostfrId: "4328598", sibnetVfId: "4629048" },
+          { number: 10, title: "T'as pas l'air souple / Mets-en-lui plein la vue !", duration: 1440, sibnetVostfrId: "4332899", sibnetVfId: "4636255" },
+          { number: 11, title: "T'en penses quoi ? / T'es vraiment pas honnête", duration: 1440, sibnetVostfrId: "4336991", sibnetVfId: "4645173" },
+          { number: 12, title: "Genre, une bestiole comme toi commence à percer ? / T'y as mis ton amour ?", duration: 1440, sibnetVostfrId: "4340165", sibnetVfId: "4651686" }
+        ]
+      },
+      {
+        seasonNumber: 2,
+        title: "Saison 2",
+        year: 2024,
+        episodes: [
+          { number: 1, title: "On est potes, non ?", duration: 1440, sibnetVostfrId: "5001688", sibnetVfId: "5479098" },
+          { number: 2, title: "Ça alors, tu m'invites ?", duration: 1440, sibnetVostfrId: "5006411", sibnetVfId: "5479099" },
+          { number: 3, title: "T'as entendu notre conversation ?", duration: 1440, sibnetVostfrId: "5009553", sibnetVfId: "5479101" },
+          { number: 4, title: "Tu peux entrer. Fais comme chez toi.", duration: 1440, sibnetVostfrId: "5015744", sibnetVfId: "5479103" },
+          { number: 5, title: "C'est à ça que ressemble ta chambre", duration: 1440, sibnetVostfrId: "5024418", sibnetVfId: "5479105" },
+          { number: 6, title: "Seras-tu chanceux cette année ?", duration: 1440, sibnetVostfrId: "5031591", sibnetVfId: "5479107" },
+          { number: 7, title: "Ça m'étonne pas que tu sois nul", duration: 1440, sibnetVostfrId: "5039558", sibnetVfId: "5479108" },
+          { number: 8, title: "Et si tu faisais un peu de muscu ?", duration: 1440, sibnetVostfrId: "5049154", sibnetVfId: "5479109" },
+          { number: 9, title: "Si tu gagnes ne serait-ce qu'un combat...", duration: 1440, sibnetVostfrId: "5058520", sibnetVfId: "5479111" },
+          { number: 10, title: "Je dois beaucoup à Hachiôji", duration: 1440, sibnetVostfrId: "5067253", sibnetVfId: "5479113" },
+          { number: 11, title: "T'es pas triste que je sois pas là ?", duration: 1440, sibnetVostfrId: "5073176", sibnetVfId: "5479114" },
+          { number: 12, title: "Tu veux faire un truc classique de rendez-vous ?", duration: 1440, sibnetVostfrId: "5079577", sibnetVfId: "5479115" }
+        ]
+      }
+    ]
+  },
   {
     id: "solo-leveling",
     title: "Solo Leveling",
@@ -126,8 +196,8 @@ export const animes: Anime[] = [
     genres: ["Action", "Aventure", "Historique", "Fantastique"],
     rating: 9.5,
     episodes: [
-      { number: 1, title: "Cruauté", duration: 1440, sibnetVostfrId: "abcdef123", sibnetVfId: "123456abc" },
-      { number: 2, title: "Sabre du démon", duration: 1440, sibnetVostfrId: "ghijkl456", sibnetVfId: "789012def" }
+      { number: 1, title: "Cruauté", duration: 1440, sibnetVostfrId: "4670053", sibnetVfId: "4745088" },
+      { number: 2, title: "Sabre du démon", duration: 1440, sibnetVostfrId: "4670054", sibnetVfId: "4745089" }
     ],
     seasons: [
       {
@@ -248,9 +318,18 @@ export const animes: Anime[] = [
     genres: ["Action", "Science-fiction", "Dystopie"],
     rating: 8.7,
     episodes: [
-      { number: 1, title: "SE7EN", duration: 1440, sibnetVostfrId: "akudama123", sibnetVfId: "akudama123fr" },
-      { number: 2, title: "Reservoir Dogs", duration: 1440, sibnetVostfrId: "akudama456", sibnetVfId: "akudama456fr" }
-      // Ajoutez d'autres épisodes selon vos besoins
+      { number: 1, title: "Episode 1", duration: 1440, sibnetVostfrId: "4113996" },
+      { number: 2, title: "Episode 2", duration: 1440, sibnetVostfrId: "4121876" },
+      { number: 3, title: "Episode 3", duration: 1440, sibnetVostfrId: "4121877" },
+      { number: 4, title: "Episode 4", duration: 1440, sibnetVostfrId: "4124111" },
+      { number: 5, title: "Episode 5", duration: 1440, sibnetVostfrId: "4131827" },
+      { number: 6, title: "Episode 6", duration: 1440, sibnetVostfrId: "4138651" },
+      { number: 7, title: "Episode 7", duration: 1440, sibnetVostfrId: "4145600" },
+      { number: 8, title: "Episode 8", duration: 1440, sibnetVostfrId: "4154555" },
+      { number: 9, title: "Episode 9", duration: 1440, sibnetVostfrId: "4162621" },
+      { number: 10, title: "Episode 10", duration: 1440, sibnetVostfrId: "4168934" },
+      { number: 11, title: "Episode 11", duration: 1440, sibnetVostfrId: "4175750" },
+      { number: 12, title: "Episode 12", duration: 1440, sibnetVostfrId: "4189420" }
     ]
   },
   {
@@ -458,22 +537,36 @@ export const animes: Anime[] = [
     status: "En cours",
     genres: ["Action", "Aventure", "Drame", "Historique"],
     rating: 8.9,
-    episodes: [
-      { number: 1, title: "Quelque part, pas ici", duration: 1440, sibnetVostfrId: "vs1ep1", sibnetVfId: "vs1ep1fr" },
-      { number: 2, title: "L'épée", duration: 1440, sibnetVostfrId: "vs1ep2", sibnetVfId: "vs1ep2fr" }
-    ],
     seasons: [
       {
         seasonNumber: 1,
         title: "Saison 1",
         year: 2019,
         episodes: [
-          { number: 1, title: "Quelque part, pas ici", duration: 1440, sibnetVostfrId: "vs1ep1", sibnetVfId: "vs1ep1fr" },
-          { number: 2, title: "L'épée", duration: 1440, sibnetVostfrId: "vs1ep2", sibnetVfId: "vs1ep2fr" },
-          { number: 3, title: "Le troll", duration: 1440, sibnetVostfrId: "vs1ep3", sibnetVfId: "vs1ep3fr" },
-          { number: 4, title: "Une véritable guerrière", duration: 1440, sibnetVostfrId: "vs1ep4", sibnetVfId: "vs1ep4fr" },
-          { number: 5, title: "La mission", duration: 1440, sibnetVostfrId: "vs1ep5", sibnetVfId: "vs1ep5fr" },
-          { number: 6, title: "L'expédition commence", duration: 1440, sibnetVostfrId: "vs1ep6", sibnetVfId: "vs1ep6fr" }
+          { number: 1, title: "Quelque part ailleurs", duration: 1440, sibnetVostfrId: "3647044", sibnetVfId: "4943733" },
+          { number: 2, title: "Epée", duration: 1440, sibnetVostfrId: "3647304", sibnetVfId: "4943740" },
+          { number: 3, title: "Troll", duration: 1440, sibnetVostfrId: "3647443", sibnetVfId: "4943742" },
+          { number: 4, title: "Un vrai guerrier", duration: 1440, sibnetVostfrId: "3662684", sibnetVfId: "4943747" },
+          { number: 5, title: "Le fils du Troll", duration: 1440, sibnetVostfrId: "3667963", sibnetVfId: "4943757" },
+          { number: 6, title: "Le début du voyage", duration: 1440, sibnetVostfrId: "3672944", sibnetVfId: "4943765" },
+          { number: 7, title: "Les Normands", duration: 1440, sibnetVostfrId: "3676493", sibnetVfId: "4943768" },
+          { number: 8, title: "Au-delà de la mer", duration: 1440, sibnetVostfrId: "3688051", sibnetVfId: "4943776" },
+          { number: 9, title: "Duel à mort sur le pont de Londres", duration: 1440, sibnetVostfrId: "3691477", sibnetVfId: "4943782" },
+          { number: 10, title: "Ragnarok", duration: 1440, sibnetVostfrId: "3702318", sibnetVfId: "4943792" },
+          { number: 11, title: "Un pari", duration: 1440, sibnetVostfrId: "3706484", sibnetVfId: "4943797" },
+          { number: 12, title: "Le pays sur la rive lointaine", duration: 1440, sibnetVostfrId: "3710539", sibnetVfId: "4943807" },
+          { number: 13, title: "Fils de héros", duration: 1440, sibnetVostfrId: "3717142", sibnetVfId: "4943816" },
+          { number: 14, title: "La lumière de l'aube", duration: 1440, sibnetVostfrId: "3721647", sibnetVfId: "4943822" },
+          { number: 15, title: "Après Yule", duration: 1440, sibnetVostfrId: "3726383", sibnetVfId: "4943833" },
+          { number: 16, title: "Histoire de bêtes", duration: 1440, sibnetVostfrId: "3730909", sibnetVfId: "4943848" },
+          { number: 17, title: "Servant", duration: 1440, sibnetVostfrId: "3736885", sibnetVfId: "4943863" },
+          { number: 18, title: "Hors du berceau", duration: 1440, sibnetVostfrId: "3748880", sibnetVfId: "4943873" },
+          { number: 19, title: "Un front uni", duration: 1440, sibnetVostfrId: "3756834", sibnetVfId: "4943879" },
+          { number: 20, title: "Couronne", duration: 1440, sibnetVostfrId: "3762340", sibnetVfId: "4943886" },
+          { number: 21, title: "Réunion", duration: 1440, sibnetVostfrId: "3767329", sibnetVfId: "4943890" },
+          { number: 22, title: "Loup solitaire", duration: 1440, sibnetVostfrId: "3772512", sibnetVfId: "4943891" },
+          { number: 23, title: "Erreur de jugement", duration: 1440, sibnetVostfrId: "3776730", sibnetVfId: "4943894" },
+          { number: 24, title: "La fin du prologue", duration: 1440, sibnetVostfrId: "3782231", sibnetVfId: "4943897" }
         ]
       },
       {
@@ -481,9 +574,30 @@ export const animes: Anime[] = [
         title: "Saison 2 - L'ère esclave",
         year: 2023,
         episodes: [
-          { number: 1, title: "Esclave", duration: 1440, sibnetVostfrId: "vs2ep1", sibnetVfId: "vs2ep1fr" },
-          { number: 2, title: "Une nouvelle vie", duration: 1440, sibnetVostfrId: "vs2ep2", sibnetVfId: "vs2ep2fr" },
-          { number: 3, title: "La ferme", duration: 1440, sibnetVostfrId: "vs2ep3", sibnetVfId: "vs2ep3fr" }
+          { number: 1, title: "Episode 1", duration: 1440, sibnetVostfrId: "5004408", sibnetVfId: "5026921" },
+          { number: 2, title: "Episode 2", duration: 1440, sibnetVostfrId: "5011334", sibnetVfId: "5033731" },
+          { number: 3, title: "Episode 3", duration: 1440, sibnetVostfrId: "5018542", sibnetVfId: "5044600" },
+          { number: 4, title: "Episode 4", duration: 1440, sibnetVostfrId: "5026395", sibnetVfId: "5052822" },
+          { number: 5, title: "Episode 5", duration: 1440, sibnetVostfrId: "5052406", sibnetVfId: "5061067" },
+          { number: 6, title: "Episode 6", duration: 1440, sibnetVostfrId: "5060798", sibnetVfId: "5069392" },
+          { number: 7, title: "Episode 7", duration: 1440, sibnetVostfrId: "5069061", sibnetVfId: "5075340" },
+          { number: 8, title: "Episode 8", duration: 1440, sibnetVostfrId: "5075067", sibnetVfId: "5081652" },
+          { number: 9, title: "Episode 9", duration: 1440, sibnetVostfrId: "5081387", sibnetVfId: "5089301" },
+          { number: 10, title: "Episode 10", duration: 1440, sibnetVostfrId: "5088885", sibnetVfId: "5095610" },
+          { number: 11, title: "Episode 11", duration: 1440, sibnetVostfrId: "5095328", sibnetVfId: "5102021" },
+          { number: 12, title: "Episode 12", duration: 1440, sibnetVostfrId: "5101840", sibnetVfId: "5108678" },
+          { number: 13, title: "Episode 13", duration: 1440, sibnetVostfrId: "5108510", sibnetVfId: "5116910" },
+          { number: 14, title: "Episode 14", duration: 1440, sibnetVostfrId: "5116560", sibnetVfId: "5123645" },
+          { number: 15, title: "Episode 15", duration: 1440, sibnetVostfrId: "5123255", sibnetVfId: "5130404" },
+          { number: 16, title: "Episode 16", duration: 1440, sibnetVostfrId: "5129963", sibnetVfId: "5141307" },
+          { number: 17, title: "Episode 17", duration: 1440, sibnetVostfrId: "5140997", sibnetVfId: "5149599" },
+          { number: 18, title: "Episode 18", duration: 1440, sibnetVostfrId: "5149336", sibnetVfId: "5156147" },
+          { number: 19, title: "Episode 19", duration: 1440, sibnetVostfrId: "5155922", sibnetVfId: "5163201" },
+          { number: 20, title: "Episode 20", duration: 1440, sibnetVostfrId: "5163016", sibnetVfId: "5169877" },
+          { number: 21, title: "Episode 21", duration: 1440, sibnetVostfrId: "5169663", sibnetVfId: "5176587" },
+          { number: 22, title: "Episode 22", duration: 1440, sibnetVostfrId: "5176400", sibnetVfId: "5181771" },
+          { number: 23, title: "Episode 23", duration: 1440, sibnetVostfrId: "5181771", sibnetVfId: "5187492" },
+          { number: 24, title: "Episode 24", duration: 1440, sibnetVostfrId: "5187492", sibnetVfId: "5194290" }
         ]
       }
     ]
@@ -568,6 +682,65 @@ export const animes: Anime[] = [
         year: 2022,
         episodes: [
           { number: 1, title: "Jujutsu Kaisen 0", duration: 6000, sibnetVostfrId: "4879058", sibnetVfId: "4879087" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "death-note",
+    title: "Death Note",
+    originalTitle: "デスノート",
+    description: "Light Yagami est un étudiant surdoué qui juge le monde actuel criminel et corrompu. Sa vie change radicalement le jour où il ramasse par hasard un mystérieux cahier intitulé 'Death Note'. Son mode d'emploi indique que 'la personne dont le nom est écrit dans ce cahier meurt'. D'abord sceptique, Light décide toutefois de tester le cahier et découvre que son pouvoir est bien réel. Il rencontre alors l'ancien propriétaire du Death Note, un dieu de la mort nommé Ryuk. Celui-ci déclare avoir volontairement laissé tomber son carnet dans le monde des humains par ennui. Light décide d'utiliser le Death Note pour exterminer les criminels et créer un monde parfait dont il serait le dieu. L'utilisation du Death Note attire l'attention du mystérieux détective L, qui tente de découvrir l'identité de celui que l'opinion publique nomme désormais 'Kira'.",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BNjRiNmNjMmMtN2U2Yi00ODgxLTk3OTMtMmI1MTI1NjYyZTEzXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2006,
+    type: "TV",
+    status: "Terminé",
+    genres: ["Mystère", "Surnaturel", "Thriller", "Psychologique"],
+    rating: 9.0,
+    seasons: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        year: 2006,
+        episodes: [
+          { number: 1, title: "Episode 1", duration: 1440, sibnetVostfrId: "4670053", sibnetVfId: "4745088" },
+          { number: 2, title: "Episode 2", duration: 1440, sibnetVostfrId: "4670054", sibnetVfId: "4745089" },
+          { number: 3, title: "Episode 3", duration: 1440, sibnetVostfrId: "4670056", sibnetVfId: "4745090" },
+          { number: 4, title: "Episode 4", duration: 1440, sibnetVostfrId: "4670057", sibnetVfId: "4745091" },
+          { number: 5, title: "Episode 5", duration: 1440, sendvidId: "3tvfpyyp", sibnetVfId: "4745092" },
+          { number: 6, title: "Episode 6", duration: 1440, sibnetVostfrId: "4670061", sibnetVfId: "4745094" },
+          { number: 7, title: "Episode 7", duration: 1440, sibnetVostfrId: "4670063", sibnetVfId: "4745097" },
+          { number: 8, title: "Episode 8", duration: 1440, sibnetVostfrId: "4670067", sibnetVfId: "4745099" },
+          { number: 9, title: "Episode 9", duration: 1440, sibnetVostfrId: "4670071", sibnetVfId: "4745101" },
+          { number: 10, title: "Episode 10", duration: 1440, sibnetVostfrId: "4670075", sibnetVfId: "4745102" },
+          { number: 11, title: "Episode 11", duration: 1440, sibnetVostfrId: "4670078", sibnetVfId: "4745103" },
+          { number: 12, title: "Episode 12", duration: 1440, sibnetVostfrId: "4670085", sibnetVfId: "4745104" },
+          { number: 13, title: "Episode 13", duration: 1440, sibnetVostfrId: "4670094", sibnetVfId: "4745105" },
+          { number: 14, title: "Episode 14", duration: 1440, sibnetVostfrId: "4670100", sibnetVfId: "4745106" },
+          { number: 15, title: "Episode 15", duration: 1440, sibnetVostfrId: "4670104", sibnetVfId: "4745107" },
+          { number: 16, title: "Episode 16", duration: 1440, sibnetVostfrId: "4670109", sibnetVfId: "4745108" },
+          { number: 17, title: "Episode 17", duration: 1440, sibnetVostfrId: "4670114", sibnetVfId: "4745111" },
+          { number: 18, title: "Episode 18", duration: 1440, sibnetVostfrId: "4670117", sibnetVfId: "4745113" },
+          { number: 19, title: "Episode 19", duration: 1440, sibnetVostfrId: "4670119", sibnetVfId: "4745114" },
+          { number: 20, title: "Episode 20", duration: 1440, sibnetVostfrId: "4670121", sibnetVfId: "4745115" },
+          { number: 21, title: "Episode 21", duration: 1440, sibnetVostfrId: "4670123", sibnetVfId: "4745117" },
+          { number: 22, title: "Episode 22", duration: 1440, sibnetVostfrId: "4670125", sibnetVfId: "4745118" },
+          { number: 23, title: "Episode 23", duration: 1440, sibnetVostfrId: "4670127", sibnetVfId: "4745125" },
+          { number: 24, title: "Episode 24", duration: 1440, sibnetVostfrId: "4670129", sibnetVfId: "4745134" },
+          { number: 25, title: "Episode 25", duration: 1440, sibnetVostfrId: "4670131", sibnetVfId: "4745137" },
+          { number: 26, title: "Episode 26", duration: 1440, sibnetVostfrId: "4670133", sibnetVfId: "4745138" },
+          { number: 27, title: "Episode 27", duration: 1440, sibnetVostfrId: "4670136", sibnetVfId: "4745140" },
+          { number: 28, title: "Episode 28", duration: 1440, sibnetVostfrId: "4670138", sibnetVfId: "4745144" },
+          { number: 29, title: "Episode 29", duration: 1440, sibnetVostfrId: "4670143", sibnetVfId: "4745149" },
+          { number: 30, title: "Episode 30", duration: 1440, sibnetVostfrId: "4670146", sibnetVfId: "4745153" },
+          { number: 31, title: "Episode 31", duration: 1440, sibnetVostfrId: "4670151", sibnetVfId: "4745156" },
+          { number: 32, title: "Episode 32", duration: 1440, sibnetVostfrId: "4670160", sibnetVfId: "4745157" },
+          { number: 33, title: "Episode 33", duration: 1440, sibnetVostfrId: "4670165", sibnetVfId: "4745162" },
+          { number: 34, title: "Episode 34", duration: 1440, sibnetVostfrId: "4670170", sibnetVfId: "4745164" },
+          { number: 35, title: "Episode 35", duration: 1440, sibnetVostfrId: "4670173", sibnetVfId: "4745165" },
+          { number: 36, title: "Episode 36", duration: 1440, sibnetVostfrId: "4670175", sibnetVfId: "4745169" },
+          { number: 37, title: "Episode 37", duration: 1440, sibnetVostfrId: "4670178", sibnetVfId: "4745172" }
         ]
       }
     ]

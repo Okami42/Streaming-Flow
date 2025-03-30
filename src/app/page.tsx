@@ -46,7 +46,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-[#030711]/90 md:group-hover:bg-[#030711]/70 transition-all duration-500 z-10"></div>
           <div className="absolute inset-0">
             <CustomImage
-              src="/picture/serie-film.jpg"
+              src="/picture/serie-film.png"
               alt="Fond séries et films"
               fill={true}
               className="object-cover object-center transition-transform duration-700 md:group-hover:scale-110"

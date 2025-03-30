@@ -15,65 +15,79 @@ interface CatalogueAnime {
   title: string;
   imageUrl: string;
   type: "Anime" | "Scans";
-  language: "VOSTFR" | "VF";
+  language: "VOSTFR" | "VF" | "VF & VOSTFR";
 }
 
 const animes: CatalogueAnime[] = [
+  {
+    id: "akira",
+    title: "Akira",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BM2ZiZTk1ODgtMTZkNS00NTYxLWIxZTUtNWExZGYwZTRjODViXkEyXkFqcGdeQXVyMTE2MzA3MDM@._V1_.jpg",
+    type: "Anime",
+    language: "VF & VOSTFR",
+  },
+  {
+    id: "nagatoro",
+    title: "Arrête de me chauffer Nagatoro",
+    imageUrl: "https://fr.web.img2.acsta.net/pictures/21/03/24/17/22/3948943.jpg",
+    type: "Anime",
+    language: "VF & VOSTFR",
+  },
   {
     id: "welcome-demon-school-teacher",
     title: "Welcome, Demon-School Teacher!",
     imageUrl: "https://ext.same-assets.com/3692778002/4215009052.jpeg",
     type: "Anime",
-    language: "VOSTFR",
+    language: "VF & VOSTFR",
   },
   {
     id: "solo-leveling",
     title: "Solo Leveling",
     imageUrl: "https://img-cdn.thepublive.com/wion/media/post_attachments/files/web-story/900_1600/2024/3/26/1711469910345_sololeveling.jpg",
     type: "Anime",
-    language: "VOSTFR",
+    language: "VF & VOSTFR",
   },
   {
     id: "unnamed-memory",
     title: "Unnamed Memory",
     imageUrl: "https://ext.same-assets.com/3309958097/2676309700.jpeg",
     type: "Anime",
-    language: "VOSTFR",
+    language: "VF & VOSTFR",
   },
   {
     id: "failure-skill-nut-master",
     title: "Failure Skill 'Nut Master'",
     imageUrl: "https://ext.same-assets.com/2175864690/3344234865.jpeg",
     type: "Anime",
-    language: "VOSTFR",
+    language: "VF & VOSTFR",
   },
   {
     id: "amagami-san-chi-no-enmusubi",
     title: "Amagami-san Chi no Enmusubi",
     imageUrl: "https://ext.same-assets.com/4236370899/4066221021.jpeg",
     type: "Anime",
-    language: "VOSTFR",
+    language: "VF & VOSTFR",
   },
   {
     id: "return-to-player",
     title: "Return to Player",
     imageUrl: "https://ext.same-assets.com/844008929/3598158507.jpeg",
     type: "Anime",
-    language: "VOSTFR",
+    language: "VF & VOSTFR",
   },
   {
     id: "demon-slayer",
     title: "Demon Slayer",
     imageUrl: "https://ext.same-assets.com/3039906599/884967313.jpeg",
     type: "Anime",
-    language: "VOSTFR",
+    language: "VF & VOSTFR",
   },
   {
     id: "jujutsu-kaisen",
     title: "Jujutsu Kaisen",
     imageUrl: "https://ext.same-assets.com/2879165773/327560351.jpeg",
     type: "Anime",
-    language: "VOSTFR",
+    language: "VF & VOSTFR",
   },
   {
     id: "akudama-drive",
@@ -87,14 +101,21 @@ const animes: CatalogueAnime[] = [
     title: "Kuroko no Basket",
     imageUrl: "https://images.justwatch.com/poster/181383869/s166/kuroko-no-basket.avif",
     type: "Anime" as const,
-    language: "VOSTFR" as const,
+    language: "VF & VOSTFR" as const,
   },
   {
     id: "vinland-saga",
     title: "Vinland Saga",
     imageUrl: "https://ext.same-assets.com/4165707166/2193428669.jpeg",
     type: "Anime" as const,
-    language: "VOSTFR" as const,
+    language: "VF & VOSTFR" as const,
+  },
+  {
+    id: "death-note",
+    title: "Death Note",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BNjRiNmNjMmMtN2U2Yi00ODgxLTk3OTMtMmI1MTI1NjYyZTEzXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_.jpg",
+    type: "Anime" as const,
+    language: "VF & VOSTFR" as const,
   },
 ];
 
@@ -167,43 +188,6 @@ export default function CataloguePage() {
                   {genre}
                 </button>
               ))}
-            </div>
-          </div>
-
-          {/* Special Focus for Welcome Demon-School Teacher */}
-          <div className="mb-10 p-6 rounded-xl bg-gradient-to-r from-[#151a2a] to-[#0c1222] border border-white/5">
-            <h2 className="text-xl font-bold text-white mb-4">En ce moment sur Okanime</h2>
-            <div className="flex flex-col md:flex-row gap-6 items-center">
-              <div className="w-full md:w-1/3 lg:w-1/4">
-                <Link href="/catalogue/welcome-demon-school-teacher" className="block">
-                  <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg border-2 border-pink-500/20 hover:border-pink-500/50 transition-all shadow-lg hover:shadow-pink-500/20">
-                    <img
-                      src="https://ext.same-assets.com/3692778002/4215009052.jpeg"
-                      alt="Welcome, Demon-School Teacher!"
-                      className="object-cover w-full h-full"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-60 transition-opacity duration-300"></div>
-                  </div>
-                </Link>
-              </div>
-              <div className="flex-1">
-                <h3 className="text-2xl font-bold text-white mb-2">Welcome, Demon-School Teacher!</h3>
-                <p className="text-gray-300 mb-4">
-                  Suzuki Iruma a été vendu à un démon par ses parents. Surprenant, ce démon, qui est le principal d'une école de démons, l'adopte comme son petit-fils. Il l'inscrit au "Babyls", une école pour démons où Iruma va découvrir un univers nouveau à lui.
-                </p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {["Comédie", "Démons", "Fantasy", "École"].map((tag) => (
-                    <span key={tag} className="inline-block px-2 py-1 text-xs bg-[#151a2a] text-gray-300 rounded-md">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <Link href="/catalogue/welcome-demon-school-teacher">
-                  <Button className="theme-button">
-                    Voir les épisodes
-                  </Button>
-                </Link>
-              </div>
             </div>
           </div>
 

@@ -744,12 +744,15 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                   >
                     VOSTFR
                   </TabsTrigger>
-                  <TabsTrigger
-                    value="vf"
-                    className="data-[state=active]:bg-[#1a1f35] data-[state=active]:text-white"
-                  >
-                    VF
-                  </TabsTrigger>
+                  {/* Ne pas afficher l'option VF pour Akudama Drive */}
+                  {anime?.id !== "akudama-drive" && (
+                    <TabsTrigger
+                      value="vf"
+                      className="data-[state=active]:bg-[#1a1f35] data-[state=active]:text-white"
+                    >
+                      VF
+                    </TabsTrigger>
+                  )}
                 </TabsList>
               </div>
 
@@ -757,13 +760,25 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                 {/* Tabs pour choisir le lecteur */}
                 <div className="mb-4">
                   <Tabs defaultValue="lecteur1" className="w-full">
-                    <TabsList className="grid w-full grid-cols-2 bg-[#151a2a] mb-2 rounded-t-md border border-white/10 border-b-0">
+                    <TabsList className="grid w-full grid-cols-3 bg-[#151a2a] mb-2 rounded-t-md border border-white/10 border-b-0">
                       <TabsTrigger value="lecteur1" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/50 data-[state=active]:to-blue-500/50 data-[state=active]:text-white data-[state=active]:shadow-inner">Lecteur 1</TabsTrigger>
                       <TabsTrigger value="lecteur2" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/50 data-[state=active]:to-blue-500/50 data-[state=active]:text-white data-[state=active]:shadow-inner">Lecteur 2</TabsTrigger>
+                      <TabsTrigger value="lecteur3" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/50 data-[state=active]:to-blue-500/50 data-[state=active]:text-white data-[state=active]:shadow-inner">Lecteur 3</TabsTrigger>
                     </TabsList>
                     
                     <TabsContent value="lecteur1" className="mt-0">
-                      {/* Lecteur style anime-sama.fr */}
+                      {/* Lecteur Sendvid (si disponible) ou Sibnet */}
+                      <div className="bg-black" style={{ width: '100%', height: '500px' }}>
+                        <VideoPlayer 
+                          sendvidId={episode?.sendvidId}
+                          sibnetId={episode?.sendvidId ? undefined : videoId}
+                          className="w-full h-full"
+                        />
+                      </div>
+                    </TabsContent>
+                    
+                    <TabsContent value="lecteur2" className="mt-0">
+                      {/* Lecteur Sibnet */}
                       <div className="bg-black" style={{ width: '100%', height: '500px' }}>
                         <VideoPlayer 
                           sibnetId={videoId}
@@ -772,8 +787,8 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       </div>
                     </TabsContent>
                     
-                    <TabsContent value="lecteur2" className="mt-0">
-                      {/* Lecteur style anime-sama.fr */}
+                    <TabsContent value="lecteur3" className="mt-0">
+                      {/* Lecteur Vidmoly */}
                       <div className="bg-black" style={{ width: '100%', height: '500px' }}>
                         <VideoPlayer 
                           vidmolyId={episode?.vidmolyId}
