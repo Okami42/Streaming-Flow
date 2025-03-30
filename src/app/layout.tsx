@@ -6,6 +6,13 @@ import { HistoryProvider } from "@/context/history-context";
 export const metadata: Metadata = {
   title: "Okanime | Anime et Scans en ligne",
   description: "Site de référencement et de visionnage de contenus d'animation japonaise",
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '128x128' },
+      { url: '/icon_logo_okami.png', sizes: '192x192' }
+    ],
+    apple: { url: '/icon_logo_okami.png', sizes: '180x180' }
+  }
 };
 
 export default function RootLayout({

@@ -47,13 +47,15 @@ export default function Header() {
       <div className="container mx-auto flex items-center justify-between px-4">
         {/* Logo */}
         <Link href="/anime" className="flex items-center group primary-glow mr-6">
-          <CustomImage
-            src={isSeriesSection ? "/picture/icon_logo_okami.png" : "/picture/logookaviolet.png"}
-            alt="Okanime Logo"
-            width={180}
-            height={60}
-            className="h-12 w-auto transition-transform duration-300 group-hover:scale-105"
-          />
+          <div className="flex items-center gap-2">
+            <CustomImage
+              src={isSeriesSection ? "/picture/icon_logo_okami.png" : "/picture/logookaviolet.png"}
+              alt="Okanime Logo"
+              width={180}
+              height={60}
+              className="h-12 w-auto transition-transform duration-300 group-hover:scale-105"
+            />
+          </div>
         </Link>
 
         {/* Search Bar */}
