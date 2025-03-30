@@ -16,7 +16,7 @@ export default function Error({
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-[#030711] text-white">
-      <h1 className="text-xl font-bold text-red-500 mb-4">Une erreur est survenue</h1>
+      <h1 className="text-xl font-bold text-red-500 mb-4">Une erreur est survenueeee</h1>
       <p className="mb-4 text-gray-300">{error.message}</p>
       <button 
         onClick={reset}
