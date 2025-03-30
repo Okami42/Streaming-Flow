@@ -4,8 +4,8 @@ import { ThemeProvider } from "@/context/theme-context";
 import { HistoryProvider } from "@/context/history-context";
 
 export const metadata: Metadata = {
-  title: "Okanime | Anime et Scans en ligne",
-  description: "Site de référencement et de visionnage de contenus d'animation japonaise",
+  title: "Okanstream | Anime & Scans ainsi que des Films & Séries",
+  description: "Site de référencement et de visionnage de contenus d'animation japonaise et Films & Séries",
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '128x128' },
