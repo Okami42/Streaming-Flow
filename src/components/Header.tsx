@@ -46,7 +46,7 @@ export default function Header() {
     <header className="bg-[#030711]/80 backdrop-blur-md border-b border-white/5 py-5 sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between px-4">
         {/* Logo */}
-        <Link href="/anime" className="flex items-center group primary-glow mr-6">
+        <Link href="/series" className="flex items-center group primary-glow mr-6">
           <div className="flex items-center gap-2">
             <CustomImage
               src={isSeriesSection ? "/picture/icon_logo_okami.png" : "/picture/logookaviolet.png"}
