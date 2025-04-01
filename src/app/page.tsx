@@ -3,6 +3,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import CustomImage from "@/components/ui/custom-image";
 
+<meta name="google-site-verification" content="JXUG7kpK-JLc6mNdI8pFXnTQPnJA4Z-TKV4iefh1aAg" />
+
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-[#030711] text-white">
