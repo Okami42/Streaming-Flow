@@ -5,6 +5,12 @@ export interface Episode {
   videoUrl: string;
 }
 
+export interface Season {
+  seasonNumber: number;
+  title: string;
+  episodes: Episode[];
+}
+
 export interface Content {
   id: string;
   title: string;
@@ -19,7 +25,8 @@ export interface Content {
   genres: string[];
   rating: number;
   language: string;
-  seasons?: number;  // Uniquement pour les séries
+  seasons?: number;  // Nombre total de saisons
+  seasonsList?: Season[];  // Liste détaillée des saisons
   runtime?: string;  // Uniquement pour les films
 }
 

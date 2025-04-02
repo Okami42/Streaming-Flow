@@ -63,10 +63,10 @@ export default function Header() {
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <Search className="h-4 w-4 text-pink-500" />
           </div>
-          <Link href="/search">
+          <Link href={isSeriesSection ? "/series/search" : "/search"}>
             <Input
               type="search"
-              placeholder="RECHERCHER..."
+              placeholder={isSeriesSection ? "RECHERCHER DES SÉRIES..." : "RECHERCHER DES ANIMÉS..."}
               className="bg-[#101418] border border-white/10 pl-10 text-sm text-gray-200 rounded-full focus:border-pink-500 focus:ring-1 focus:ring-pink-500/50 transition-all cursor-pointer"
               readOnly
             />
