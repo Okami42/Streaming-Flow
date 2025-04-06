@@ -502,11 +502,30 @@ export const seriesData: Content[] = [
     rating: 8.6,
     language: "VF",
     seasons: 12
+  },
+  {
+    id: "blade-runner-2049",
+    title: "Blade Runner 2049",
+    description: "Trente ans après les événements du premier film, un nouveau blade runner, l'Officier K, découvre un secret enfoui depuis longtemps qui pourrait plonger la société dans le chaos. Cette découverte l'amène à retrouver Rick Deckard, disparu depuis tout ce temps.",
+    imageUrl: "https://fusion.molotov.tv/arts/i/446x588/Ch8SHQoUwtj3pLilnXZVcdnXGgzVKBizwXwSA2pwZxgBCh8IARIbChSA_fyWJZmlm6Y3WrLBpjPRNPWsfRIDcG5n/jpg",
+    bannerUrl: "/picture/okastreamtextbanner.png",
+    episodes: [
+      { id: 1, title: "Blade Runner 2049 (Film complet)", videoUrl: "https://beerscloud.com/iframe/6njC9wk7DN" }
+    ],
+    status: "Terminé",
+    year: 2017,
+    studio: "Warner Bros",
+    type: "Film",
+    genres: ["Science-fiction", "Thriller", "Drame"],
+    rating: 8.0,
+    language: "VF/VOSTFR",
+    runtime: "2h44"
   }
 ];
 
 // Films récents
 export const recentFilms = [
+  seriesData.find(item => item.id === "blade-runner-2049"),
   seriesData.find(item => item.id === "dune"),
   seriesData.find(item => item.id === "pulp-fiction")
 ].filter(Boolean);
@@ -522,6 +541,7 @@ export const popularSeries = [
 
 // Films classiques
 export const classicFilms = [
+  seriesData.find(item => item.id === "blade-runner-2049"),
   seriesData.find(item => item.id === "pulp-fiction")
 ].filter(Boolean);
 

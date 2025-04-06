@@ -157,6 +157,18 @@ export default function WatchPage({ params }: { params: any }) {
                       referrerPolicy="no-referrer"
                     ></iframe>
                   </div>
+                ) : episode.videoUrl.includes('beerscloud.com') ? (
+                  <div className="relative flex items-center justify-center w-full h-full bg-[#030711]">
+                    <iframe 
+                      src={episode.videoUrl}
+                      className="w-full h-full" 
+                      frameBorder="0" 
+                      scrolling="no" 
+                      allowFullScreen
+                      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                      referrerPolicy="no-referrer"
+                    ></iframe>
+                  </div>
                 ) : !episode.videoUrl.includes('http') ? (
                   <iframe 
                     src={`https://video.sibnet.ru/shell.php?videoid=${episode.videoUrl}&skin=4&share=1`}
@@ -209,6 +221,7 @@ export default function WatchPage({ params }: { params: any }) {
                 {episode.videoUrl.includes('filemoon.sx') ? 'FILEMOON VOSTFR' : 
                  episode.videoUrl.includes('dood.wf') ? 'DOODSTREAM' : 
                  episode.videoUrl.includes('iframe.mediadelivery.net') ? 'CLOUDFLARE' :
+                 episode.videoUrl.includes('beerscloud.com') ? 'BEERSCLOUD' :
                  !episode.videoUrl.includes('http') ? 'SIBNET VF' :
                  episode.videoUrl.includes('vidmoly.to') ? 'VIDMOLY VF' :
                  episode.videoUrl.endsWith('.mp4') || episode.videoUrl.includes('cloudflarestorage') ? 'MP4' :

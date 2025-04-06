@@ -8,6 +8,7 @@ interface VideoPlayerProps {
   vidmolyUrl?: string;
   vidmolyId?: string;
   sendvidId?: string;
+  beerscloudId?: string;
   poster?: string;
   className?: string;
 }
@@ -17,6 +18,7 @@ export default function VideoPlayer({
   vidmolyUrl,
   vidmolyId,
   sendvidId,
+  beerscloudId,
   poster,
   className = "",
 }: VideoPlayerProps) {
@@ -26,6 +28,11 @@ export default function VideoPlayer({
   const finalVidmolyUrl = vidmolyId 
     ? `https://vidmoly.to/embed-${vidmolyId}.html`
     : vidmolyUrl;
+  
+  // Construction de l'URL Beerscloud
+  const beerscloudUrl = beerscloudId
+    ? `https://beerscloud.com/iframe/${beerscloudId}`
+    : null;
   
   // Gérer le chargement de l'iframe
   const handleIframeLoad = () => {
@@ -91,7 +98,7 @@ export default function VideoPlayer({
       )}
       
       {/* Lecteur Sendvid (natif) */}
-      {sendvidId && !sibnetId && !finalVidmolyUrl && (
+      {sendvidId && !sibnetId && !finalVidmolyUrl && !beerscloudUrl && (
         <iframe 
           src={`https://sendvid.com/embed/${sendvidId}`}
           width="100%" 
@@ -106,6 +113,28 @@ export default function VideoPlayer({
             position: 'absolute',
             left: '-1.5%',
             width: '103%',
+            height: '100%'
+          }}
+        />
+      )}
+      
+      {/* Lecteur Beerscloud */}
+      {beerscloudUrl && !sibnetId && !finalVidmolyUrl && !sendvidId && (
+        <iframe 
+          src={beerscloudUrl}
+          width="100%" 
+          height="100%" 
+          frameBorder="0" 
+          scrolling="no" 
+          allowFullScreen 
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          onLoad={handleIframeLoad}
+          onError={handleIframeError}
+          style={{ 
+            display: isLoading ? 'none' : 'block',
+            position: 'absolute',
+            left: '0',
+            width: '100%',
             height: '100%'
           }}
         />
