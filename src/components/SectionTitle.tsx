@@ -17,7 +17,7 @@ export default function SectionTitle({ title, icon, className }: SectionTitlePro
           {icon}
         </div>
 
-        <h2 className="text-white uppercase text-sm sm:text-xl font-bold tracking-wide">
+        <h2 className="text-white uppercase text-[10px] sm:text-sm md:text-xl font-bold tracking-wide">
           {title}
           <span className="ml-1 sm:ml-2 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500">・</span>
         </h2>

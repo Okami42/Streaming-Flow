@@ -74,10 +74,13 @@ export default function AnimePage() {
 
         <div className="container mx-auto px-4 py-8">
           {/* Featured Anime */}
-          <div className="mb-8 sm:mb-12 p-4 sm:p-6 rounded-xl bg-gradient-to-r from-[#151a2a] to-[#0c1222] border border-white/5">
-            <div className="flex items-center gap-1 sm:gap-2 mb-3 sm:mb-4">
+          <div className="mb-6 sm:mb-12 p-4 sm:p-6 rounded-xl bg-gradient-to-r from-[#151a2a] to-[#0c1222] border border-white/5">
+            <div className="flex items-center gap-2 sm:gap-2 mb-3 sm:mb-4">
               <Star className="h-4 sm:h-5 w-4 sm:w-5 text-yellow-500" />
-              <h2 className="text-base sm:text-xl font-bold text-white">Anime à la une</h2>
+              <h2 className="text-sm sm:text-base md:text-xl font-bold text-white">
+                <span className="inline sm:hidden">À la une</span>
+                <span className="hidden sm:inline">Anime à la une</span>
+              </h2>
             </div>
             <div className="flex flex-col md:flex-row gap-4 sm:gap-6 items-center">
               <div className="w-full md:w-1/4 lg:w-1/5">
@@ -96,20 +99,20 @@ export default function AnimePage() {
                 </Link>
               </div>
               <div className="flex-1">
-                <h3 className="text-2xl font-bold text-white mb-2">Solo Leveling</h3>
-                <p className="text-gray-300 mb-4">
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">Solo Leveling</h3>
+                <p className="text-sm sm:text-base text-gray-300 mb-3 sm:mb-4">
                   Dix ans auparavant, des portails ont commencé à apparaître dans le monde. Sung Jin Woo est considéré comme le plus faible des Chasseurs de rang E. Lors d'une mission dans un donjon de rang D, il acquiert une capacité étrange qui pourrait lui permettre de devenir le plus puissant des Chasseurs.
                 </p>
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="flex flex-wrap gap-2 mb-3 sm:mb-4">
                   {["Action", "Fantasy", "Aventure", "Surnaturel"].map((tag) => (
                     <span key={tag} className="inline-block px-2 py-1 text-xs bg-[#151a2a] text-gray-300 rounded-md">
                       {tag}
                     </span>
                   ))}
                 </div>
-                <div className="flex gap-4">
+                <div className="flex gap-3 sm:gap-4">
                   <Link href="/catalogue/solo-leveling">
-                    <Button className="theme-button">
+                    <Button className="theme-button h-9 sm:h-10 px-3 sm:px-4 text-sm">
                       <Play className="mr-2 h-4 w-4" />
                       Regarder
                     </Button>

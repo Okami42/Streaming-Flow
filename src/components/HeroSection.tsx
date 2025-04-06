@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function HeroSection() {
   return (
-    <div className="relative h-[300px] md:h-[400px] lg:h-[500px] w-full overflow-hidden">
+    <div className="relative h-[500px] sm:h-[400px] md:h-[450px] lg:h-[500px] w-full overflow-hidden">
       {/* Background with anime characters */}
       <div className="absolute inset-0">
         <CustomImage
@@ -15,7 +15,7 @@ export default function HeroSection() {
           alt="Anime characters"
           fill
           priority
-          className="object-cover"
+          className="object-cover object-center md:object-center"
         />
 
         {/* Overlay gradients */}
@@ -44,23 +44,23 @@ export default function HeroSection() {
             <h2 className="text-sm font-semibold tracking-wider mb-2">EXCLUSIVITÉ OKANIME</h2>
           </div>
 
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-normal md:font-bold text-white mb-4 drop-shadow-lg">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-normal md:font-bold text-white mb-2 md:mb-4 drop-shadow-lg">
             NOUVELLE <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500">SAISON</span>
           </h1>
 
-          <p className="text-gray-300 text-sm md:text-base mb-6 max-w-[260px] font-light">
+          <p className="text-gray-300 text-sm md:text-base mb-4 md:mb-6 max-w-[280px] md:max-w-[260px] font-light">
             Solo Leveling Saison 2 est enfin disponible. Ne manquez rien de cette nouvelle saison.
           </p>
 
-          <div className="flex gap-4">
+          <div className="flex gap-3 md:gap-4">
             <Link href="/catalogue/welcome-demon-school-teacher">
-              <Button className="bg-gradient-to-r from-pink-600 to-pink-700 hover:from-pink-700 hover:to-pink-800 text-white border-0 font-medium">
+              <Button className="bg-gradient-to-r from-pink-600 to-pink-700 hover:from-pink-700 hover:to-pink-800 text-white border-0 font-medium text-sm md:text-base px-3 py-2 md:px-4 md:py-2">
                 Regarder
               </Button>
             </Link>
             <Link href="/planning">
-              <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 font-medium flex items-center gap-2">
-                <Play className="h-4 w-4" /> Planning
+              <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 font-medium flex items-center gap-2 text-sm md:text-base px-3 py-2 md:px-4 md:py-2">
+                <Play className="h-3 w-3 md:h-4 md:w-4" /> Planning
               </Button>
             </Link>
           </div>
