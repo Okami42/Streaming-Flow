@@ -4,15 +4,18 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import HistoryList from "@/components/HistoryList";
+import FavoritesList from "@/components/FavoritesList";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTheme } from "@/context/theme-context";
 import { useHistory } from "@/context/history-context";
+import { useFavorites } from "@/context/favorites-context";
 import { Button } from "@/components/ui/button";
 import { Pencil, User } from "lucide-react";
 
 export default function ProfilePage() {
   const { currentTheme } = useTheme();
   const { clearHistory } = useHistory();
+  const { favorites, clearFavorites } = useFavorites();
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -98,9 +101,21 @@ export default function ProfilePage() {
                 </TabsContent>
 
                 <TabsContent value="favorites">
-                  <div className="text-center py-8">
-                    <p className="text-gray-400">Vous n'avez pas encore de favoris.</p>
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-xl font-bold text-white">Mes Favoris</h2>
+                    {favorites.length > 0 && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={clearFavorites}
+                        className="text-xs bg-transparent border-gray-700 hover:bg-gray-800/50"
+                      >
+                        Effacer les favoris
+                      </Button>
+                    )}
                   </div>
+                  
+                  <FavoritesList />
                 </TabsContent>
 
                 <TabsContent value="notifications">

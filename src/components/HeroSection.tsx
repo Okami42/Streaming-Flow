@@ -44,14 +44,11 @@ export default function HeroSection() {
             <h2 className="text-sm font-semibold tracking-wider mb-2">EXCLUSIVITÉ OKANIME</h2>
           </div>
 
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 drop-shadow-lg">
-            NOUVELLE<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500">
-              SAISON
-            </span>
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-normal md:font-bold text-white mb-4 drop-shadow-lg">
+            NOUVELLE <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500">SAISON</span>
           </h1>
 
-          <p className="text-gray-300 text-sm md:text-base mb-6 max-w-xs">
+          <p className="text-gray-300 text-sm md:text-base mb-6 max-w-[260px] font-light">
             Solo Leveling Saison 2 est enfin disponible. Ne manquez rien de cette nouvelle saison.
           </p>
 

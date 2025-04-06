@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { seriesData } from "@/lib/seriesData";
 import { useHistory } from "@/context/history-context";
+import { useFavorites } from "@/context/favorites-context";
 import { Content, Episode } from "@/lib/types";
 
 export default function WatchPage({ params }: { params: any }) {
@@ -73,30 +74,56 @@ export default function WatchPage({ params }: { params: any }) {
     });
   }, [series.id, unwrappedParams.episodeId, seasonNumber]);
 
+  // Ajouter le hook useFavorites
+  const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
+
+  // Ajouter une fonction pour gérer l'ajout/retrait des favoris
+  const handleFavoriteToggle = () => {
+    const favoriteId = `${series.id}-${unwrappedParams.episodeId}${seasonNumber ? `-s${seasonNumber}` : ''}`;
+    
+    if (isFavorite(favoriteId)) {
+      removeFromFavorites(favoriteId);
+    } else {
+      addToFavorites({
+        id: favoriteId,
+        title: `${series.title} - ${episode.title}`,
+        imageUrl: series.imageUrl,
+        type: series.type,
+        seriesId: series.id,
+        seasonNumber: seasonNumber,
+        episodeId: parseInt(unwrappedParams.episodeId)
+      });
+    }
+  };
+
+  // Pour vérifier si l'épisode est dans les favoris
+  const episodeFavoriteId = `${series.id}-${unwrappedParams.episodeId}${seasonNumber ? `-s${seasonNumber}` : ''}`;
+  const isEpisodeFavorite = isFavorite(episodeFavoriteId);
+
   return (
     <div className="flex flex-col min-h-screen bg-[#030711]">
       <Header />
       
       <main className="flex-grow">
-        <div className="container mx-auto px-4 py-4">
-          <div className="mb-4">
-            <Link href={`/series/${series.id}${seasonNumber ? `?season=${seasonNumber}` : ''}`} className="inline-flex items-center text-blue-400 hover:text-blue-300">
-              <ChevronLeft className="h-4 w-4 mr-1" />
+        <div className="container mx-auto px-2 sm:px-4 py-2 sm:py-4">
+          <div className="mb-2 sm:mb-4">
+            <Link href={`/series/${series.id}${seasonNumber ? `?season=${seasonNumber}` : ''}`} className="inline-flex items-center text-blue-400 hover:text-blue-300 text-xs sm:text-sm">
+              <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
               Retour à {series.title}
             </Link>
           </div>
           
-          <h1 className="text-2xl font-bold text-white mb-2">
+          <h1 className="text-lg sm:text-2xl font-bold text-white mb-1 sm:mb-2 line-clamp-2">
             {series.title} - {seasonNumber ? `Saison ${seasonNumber}` : ''} Épisode {episode.id}: {episode.title}
           </h1>
           
-          <div className="text-sm text-gray-400 mb-4">
+          <div className="text-xs sm:text-sm text-gray-400 mb-2 sm:mb-4">
             Épisode {episode.id} / {totalEpisodes}
           </div>
           
           {/* Lecteur vidéo */}
           <div className="flex justify-center">
-            <div className="relative w-full max-w-4xl aspect-video bg-black rounded-lg overflow-hidden mb-6 shadow-2xl">
+            <div className="relative w-full max-w-4xl aspect-video bg-black rounded-lg overflow-hidden mb-3 sm:mb-6 shadow-2xl">
               <div className="w-full h-full">
                 {episode.videoUrl.includes('dood.wf') ? (
                   <iframe 
@@ -132,13 +159,19 @@ export default function WatchPage({ params }: { params: any }) {
                   </div>
                 ) : !episode.videoUrl.includes('http') ? (
                   <iframe 
-                    src={`https://video.sibnet.ru/shell.php?videoid=${episode.videoUrl}`}
-                    className="w-full h-full" 
+                    src={`https://video.sibnet.ru/shell.php?videoid=${episode.videoUrl}&skin=4&share=1`}
+                    className="absolute inset-0"
                     frameBorder="0" 
                     scrolling="no" 
                     allowFullScreen
-                    allow="autoplay; fullscreen"
+                    allow="fullscreen; autoplay"
                     referrerPolicy="no-referrer"
+                    style={{ 
+                      width: '100%',
+                      height: '100%',
+                      border: 'none',
+                      zIndex: 1
+                    }}
                   ></iframe>
                 ) : episode.videoUrl.includes('vidmoly.to') ? (
                   <iframe 
@@ -161,9 +194,9 @@ export default function WatchPage({ params }: { params: any }) {
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-white text-center p-4">
-                      <div className="mb-4">Lecteur vidéo simulé</div>
-                      <p className="text-sm text-gray-400 mb-2">URL de la vidéo:</p>
-                      <code className="bg-gray-800 px-2 py-1 rounded text-xs">
+                      <div className="mb-4 text-sm sm:text-base">Lecteur vidéo simulé</div>
+                      <p className="text-xs sm:text-sm text-gray-400 mb-2">URL de la vidéo:</p>
+                      <code className="bg-gray-800 px-2 py-1 rounded text-[10px] sm:text-xs">
                         {episode.videoUrl}
                       </code>
                     </div>
@@ -172,63 +205,67 @@ export default function WatchPage({ params }: { params: any }) {
               </div>
               
               {/* Étiquette du lecteur */}
-              <div className="absolute top-0 right-0 bg-blue-600 text-white px-3 py-1 text-sm font-bold rounded-bl">
+              <div className="absolute top-0 right-0 bg-blue-600 text-white px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-sm font-bold rounded-bl">
                 {episode.videoUrl.includes('filemoon.sx') ? 'FILEMOON VOSTFR' : 
-                 episode.videoUrl.includes('dood.wf') ? 'LECTEUR DOODSTREAM' : 
-                 episode.videoUrl.includes('iframe.mediadelivery.net') ? 'CLOUDFLARE STREAM' :
+                 episode.videoUrl.includes('dood.wf') ? 'DOODSTREAM' : 
+                 episode.videoUrl.includes('iframe.mediadelivery.net') ? 'CLOUDFLARE' :
                  !episode.videoUrl.includes('http') ? 'SIBNET VF' :
                  episode.videoUrl.includes('vidmoly.to') ? 'VIDMOLY VF' :
-                 episode.videoUrl.endsWith('.mp4') || episode.videoUrl.includes('cloudflarestorage') ? 'LECTEUR MP4' :
-                 'LECTEUR VIDÉO'}
+                 episode.videoUrl.endsWith('.mp4') || episode.videoUrl.includes('cloudflarestorage') ? 'MP4' :
+                 'LECTEUR'}
               </div>
             </div>
           </div>
           
           {/* Navigation et actions */}
-          <div className="mb-6">
+          <div className="mb-4 sm:mb-6">
             {/* Boutons de navigation centrés */}
-            <div className="flex justify-center space-x-4 mb-4">
+            <div className="flex justify-center space-x-2 sm:space-x-4 mb-3 sm:mb-4">
               {prevEpisode ? (
                 <Link href={`/series/${series.id}/watch/${prevEpisode.id}${seasonNumber ? `?season=${seasonNumber}` : ''}`}>
-                  <Button variant="outline" className="border-white/10 hover:border-white/20">
-                    <ArrowLeft className="h-4 w-4 mr-2" />
+                  <Button variant="outline" className="border-white/10 hover:border-white/20 px-2 sm:px-4 py-1 sm:py-2 h-8 sm:h-10 text-xs sm:text-sm">
+                    <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                     Précédent
                   </Button>
                 </Link>
               ) : (
-                <Button variant="outline" disabled className="border-white/10 opacity-50">
-                  <ArrowLeft className="h-4 w-4 mr-2" />
+                <Button variant="outline" disabled className="border-white/10 opacity-50 px-2 sm:px-4 py-1 sm:py-2 h-8 sm:h-10 text-xs sm:text-sm">
+                  <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                   Précédent
                 </Button>
               )}
               
               {nextEpisode ? (
                 <Link href={`/series/${series.id}/watch/${nextEpisode.id}${seasonNumber ? `?season=${seasonNumber}` : ''}`}>
-                  <Button variant="outline" className="border-white/10 hover:border-white/20">
+                  <Button variant="outline" className="border-white/10 hover:border-white/20 px-2 sm:px-4 py-1 sm:py-2 h-8 sm:h-10 text-xs sm:text-sm">
                     Suivant
-                    <ArrowRight className="h-4 w-4 ml-2" />
+                    <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 ml-1 sm:ml-2" />
                   </Button>
                 </Link>
               ) : (
-                <Button variant="outline" disabled className="border-white/10 opacity-50">
+                <Button variant="outline" disabled className="border-white/10 opacity-50 px-2 sm:px-4 py-1 sm:py-2 h-8 sm:h-10 text-xs sm:text-sm">
                   Suivant
-                  <ArrowRight className="h-4 w-4 ml-2" />
+                  <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 ml-1 sm:ml-2" />
                 </Button>
               )}
             </div>
             
             {/* Actions */}
-            <div className="flex justify-center space-x-6">
-              <Button variant="ghost" className="text-white/70 hover:text-white">
-                <Heart className="h-4 w-4 mr-2" />
-                Aimer
+            <div className="flex justify-center space-x-4 sm:space-x-6">
+              <Button 
+                variant="ghost" 
+                className={`${isEpisodeFavorite ? 'text-red-500 hover:text-red-400' : 'text-white/70 hover:text-white'} p-1 sm:p-2 h-auto text-xs sm:text-sm`}
+                onClick={handleFavoriteToggle}
+              >
+                <Heart className={`h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 ${isEpisodeFavorite ? 'fill-red-500' : ''}`} />
+                {isEpisodeFavorite ? 'Aimé' : 'Aimer'}
               </Button>
-              <Button variant="ghost" className="text-white/70 hover:text-white">
-                <Share className="h-4 w-4 mr-2" />
+              <Button variant="ghost" className="text-white/70 hover:text-white p-1 sm:p-2 h-auto text-xs sm:text-sm">
+                <Share className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                 Partager
               </Button>
-              <Button variant="ghost" className="text-white/70 hover:text-white">
-                <MessageSquare className="h-4 w-4 mr-2" />
+              <Button variant="ghost" className="text-white/70 hover:text-white p-1 sm:p-2 h-auto text-xs sm:text-sm">
+                <MessageSquare className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                 Commenter
               </Button>
             </div>

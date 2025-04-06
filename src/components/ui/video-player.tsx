@@ -42,23 +42,28 @@ export default function VideoPlayer({
       {/* Afficher un loader pendant le chargement */}
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-black z-10">
-          <Loader2 className="w-8 h-8 animate-spin text-white" />
+          <Loader2 className="w-6 h-6 sm:w-8 sm:h-8 animate-spin text-white" />
         </div>
       )}
       
       {/* Lecteur Sibnet (natif) */}
       {sibnetId && (
         <iframe 
-          src={`https://video.sibnet.ru/shell.php?videoid=${sibnetId}`}
-          width="100%" 
-          height="100%" 
+          src={`https://video.sibnet.ru/shell.php?videoid=${sibnetId}&skin=4&share=1`}
           frameBorder="0" 
           scrolling="no" 
           allowFullScreen 
-          className="w-full h-full"
+          className="absolute inset-0"
+          allow="fullscreen; autoplay"
           onLoad={handleIframeLoad}
           onError={handleIframeError}
-          style={{ display: isLoading ? 'none' : 'block' }}
+          style={{ 
+            display: isLoading ? 'none' : 'block',
+            width: '100%',
+            height: '100%',
+            border: 'none',
+            zIndex: 1
+          }}
         />
       )}
       
@@ -75,7 +80,13 @@ export default function VideoPlayer({
           className="w-full h-full"
           onLoad={handleIframeLoad}
           onError={handleIframeError}
-          style={{ display: isLoading ? 'none' : 'block' }}
+          style={{ 
+            display: isLoading ? 'none' : 'block',
+            position: 'absolute',
+            left: '-1.5%',
+            width: '103%',
+            height: '100%'
+          }}
         />
       )}
       
@@ -90,7 +101,13 @@ export default function VideoPlayer({
           allowFullScreen 
           onLoad={handleIframeLoad}
           onError={handleIframeError}
-          style={{ display: isLoading ? 'none' : 'block' }}
+          style={{ 
+            display: isLoading ? 'none' : 'block',
+            position: 'absolute',
+            left: '-1.5%',
+            width: '103%',
+            height: '100%'
+          }}
         />
       )}
     </div>

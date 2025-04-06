@@ -8,18 +8,27 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChevronLeft, ChevronRight, Heart, Info, List, Play, Share2, Star } from "lucide-react";
 import { useHistory } from "@/context/history-context";
+import { useFavorites } from "@/context/favorites-context";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
-import { Anime, AnimeEpisode } from "@/lib/animeData";
+import { Anime, AnimeEpisode, getAllAnimes } from "@/lib/animeData";
 import VideoPlayer from "@/components/ui/video-player";
 
 export default function AnimePageClient({ anime }: { anime: Anime | undefined }) {
   const [selectedEpisode, setSelectedEpisode] = useState(1);
-  const [selectedSeason, setSelectedSeason] = useState<number | string>(1);
+  const [selectedSeason, setSelectedSeason] = useState<number>(1);
   const [selectedLanguage, setSelectedLanguage] = useState<"vostfr" | "vf">("vostfr");
   const [isFollowing, setIsFollowing] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
+  
+  // Récupérer les fonctions du hook useHistory
+  const { addToWatchHistory, updateWatchProgress, watchHistory } = useHistory();
+  
+  // Utiliser le hook de favoris au lieu d'un état local
+  const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
+  const animeFavoriteId = anime ? `anime-${anime.id}` : '';
+  const isAnimeFavorite = isFavorite(animeFavoriteId);
+  
   const [showInfo, setShowInfo] = useState(false);
   const [totalEpisodes, setTotalEpisodes] = useState(0);
   
@@ -33,15 +42,17 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
   // État UI pour forcer le rendu uniquement quand nécessaire
   const [renderKey, setRenderKey] = useState(0);
   const sibnetOverlayRef = React.useRef<HTMLDivElement>(null);
+  
+  // État pour afficher l'en-tête de section
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
 
-  const { addToWatchHistory, updateWatchProgress, watchHistory } = useHistory();
-  const pathname = usePathname();
-
-  // Déterminer si on utilise la nouvelle structure (saisons) ou l'ancienne (episodes)
-  // Pour éviter les changements de dépendances dans useEffect, cette valeur ne doit pas changer
-  const useSeasonsStructure = React.useMemo(() => {
-    return !!anime?.seasons && anime.seasons.length > 0;
-  }, [anime]);
+  // Utilisé pour l'URL
+  const selectedSeasonNumber = typeof selectedSeason === 'string' 
+    ? parseInt(selectedSeason, 10) 
+    : selectedSeason;
+  
+  // Déterminer si nous utilisons la structure de saisons
+  const useSeasonsStructure = anime?.seasons && anime.seasons.length > 0;
   
   // Récupérer la saison actuelle si disponible
   const currentSeason = useSeasonsStructure 
@@ -506,36 +517,22 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
     setRenderKey(prev => prev + 1);
   };
 
-  // Fonction pour récupérer la progression d'un épisode
-  const getEpisodeProgress = (seasonNumber: number, episodeNumber: number) => {
+  // Fonction pour obtenir l'avancement d'un épisode
+  const getEpisodeProgress = (seasonNumber: number | string, episodeNumber: number) => {
     if (!anime) return null;
     
     // Identifiant avec ou sans saison
     const episodeId = useSeasonsStructure
       ? `${anime.id}-s${seasonNumber}e${episodeNumber}`
       : `${anime.id}-e${episodeNumber}`;
-    
-    const historyItem = watchHistory.find(item => item.id === episodeId);
-    
-    if (!historyItem) return null;
-    
-    // Trouver l'épisode selon la structure utilisée
-    let foundEpisode: AnimeEpisode | undefined;
-    
-    if (useSeasonsStructure) {
-      const season = anime.seasons?.find(s => s.seasonNumber === seasonNumber);
-      if (!season) return null;
-      foundEpisode = season.episodes.find(ep => ep.number === episodeNumber);
-    } else {
-      foundEpisode = anime.episodes?.find(ep => ep.number === episodeNumber);
-    }
-    
-    if (!foundEpisode) return null;
+      
+    const historyEntry = watchHistory.find(item => item.id === episodeId);
+    if (!historyEntry) return null;
     
     return {
-      progress: historyItem.progress,
-      duration: foundEpisode.duration,
-      percentage: Math.min(100, Math.round((historyItem.progress / foundEpisode.duration) * 100))
+      progress: historyEntry.progress,
+      duration: historyEntry.duration,
+      percentage: (historyEntry.progress / historyEntry.duration) * 100
     };
   };
 
@@ -558,6 +555,35 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
       }
     }
   }, [anime, selectedSeason, useSeasonsStructure, selectedLanguage]);
+
+  // Fonction pour gérer l'ajout/retrait des favoris
+  const handleFavoriteToggle = () => {
+    if (!anime) return;
+    
+    if (isAnimeFavorite) {
+      removeFromFavorites(animeFavoriteId);
+    } else {
+      addToFavorites({
+        id: animeFavoriteId,
+        title: anime.title,
+        imageUrl: anime.imageUrl,
+        type: "Anime",
+        seriesId: anime.id
+      });
+    }
+  };
+
+  // Fonction pour aller à l'épisode suivant
+  const goToNextEpisode = () => {
+    if (selectedEpisode < totalEpisodes) {
+      setSelectedEpisode(prev => Math.min(totalEpisodes, prev + 1));
+      
+      // Faire défiler la page jusqu'au lecteur vidéo
+      setTimeout(() => {
+        document.getElementById("player-section")?.scrollIntoView({ behavior: "smooth" });
+      }, 300);
+    }
+  };
 
   if (!anime) {
     return (
@@ -627,9 +653,9 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                 <Button
                   variant="outline"
                   className="w-10 h-10 p-0 flex items-center justify-center border-white/10 hover:bg-white/5"
-                  onClick={() => setIsFavorite(!isFavorite)}
+                  onClick={handleFavoriteToggle}
                 >
-                  <Heart className={`h-4 w-4 ${isFavorite ? "fill-pink-500 text-pink-500" : ""}`} />
+                  <Heart className={`h-4 w-4 ${isAnimeFavorite ? "fill-pink-500 text-pink-500" : ""}`} />
                 </Button>
               </div>
             </div>
@@ -690,10 +716,6 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                   <Share2 className="mr-2 h-4 w-4" />
                   Partager
                 </Button>
-                <Button variant="outline" className="border-white/10 hover:bg-white/5">
-                  <Info className="mr-2 h-4 w-4" />
-                  Infos
-                </Button>
               </div>
             </div>
           </div>
@@ -721,7 +743,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                           <button
                             key={season.seasonNumber}
                             onClick={() => {
-                              setSelectedSeason(season.seasonNumber);
+                              setSelectedSeason(Number(season.seasonNumber));
                               setSelectedEpisode(1); // Réinitialiser l'épisode quand on change de saison
                             }}
                             className={`px-3 py-1 text-sm rounded ${
@@ -760,15 +782,14 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                 {/* Tabs pour choisir le lecteur */}
                 <div className="mb-4">
                   <Tabs defaultValue="lecteur1" className="w-full">
-                    <TabsList className="grid w-full grid-cols-3 bg-[#151a2a] mb-2 rounded-t-md border border-white/10 border-b-0">
+                    <TabsList className="grid w-full grid-cols-2 bg-[#151a2a] mb-2 rounded-t-md border border-white/10 border-b-0">
                       <TabsTrigger value="lecteur1" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/50 data-[state=active]:to-blue-500/50 data-[state=active]:text-white data-[state=active]:shadow-inner">Lecteur 1</TabsTrigger>
                       <TabsTrigger value="lecteur2" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/50 data-[state=active]:to-blue-500/50 data-[state=active]:text-white data-[state=active]:shadow-inner">Lecteur 2</TabsTrigger>
-                      <TabsTrigger value="lecteur3" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/50 data-[state=active]:to-blue-500/50 data-[state=active]:text-white data-[state=active]:shadow-inner">Lecteur 3</TabsTrigger>
                     </TabsList>
                     
                     <TabsContent value="lecteur1" className="mt-0">
                       {/* Lecteur Sendvid (si disponible) ou Sibnet */}
-                      <div className="bg-black" style={{ width: '100%', height: '500px' }}>
+                      <div className="bg-black" style={{ width: '100%', height: '650px' }}>
                         <VideoPlayer 
                           sendvidId={episode?.sendvidId}
                           sibnetId={episode?.sendvidId ? undefined : videoId}
@@ -779,19 +800,9 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                     
                     <TabsContent value="lecteur2" className="mt-0">
                       {/* Lecteur Sibnet */}
-                      <div className="bg-black" style={{ width: '100%', height: '500px' }}>
+                      <div className="bg-black" style={{ width: '100%', height: '650px' }}>
                         <VideoPlayer 
                           sibnetId={videoId}
-                          className="w-full h-full"
-                        />
-                      </div>
-                    </TabsContent>
-                    
-                    <TabsContent value="lecteur3" className="mt-0">
-                      {/* Lecteur Vidmoly */}
-                      <div className="bg-black" style={{ width: '100%', height: '500px' }}>
-                        <VideoPlayer 
-                          vidmolyId={episode?.vidmolyId}
                           className="w-full h-full"
                         />
                       </div>
@@ -811,7 +822,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                     
                     <TabsContent value="lecteur1" className="mt-0">
                       {/* Lecteur style anime-sama.fr */}
-                      <div className="bg-black" style={{ width: '100%', height: '500px' }}>
+                      <div className="bg-black" style={{ width: '100%', height: '650px' }}>
                         <VideoPlayer 
                           sibnetId={videoId}
                           className="w-full h-full"
@@ -821,7 +832,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                     
                     <TabsContent value="lecteur2" className="mt-0">
                       {/* Lecteur style anime-sama.fr */}
-                      <div className="bg-black" style={{ width: '100%', height: '500px' }}>
+                      <div className="bg-black" style={{ width: '100%', height: '650px' }}>
                         <VideoPlayer 
                           vidmolyId={episode?.vidmolyVfId}
                           className="w-full h-full"
@@ -854,11 +865,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                 variant="outline"
                 className="border-white/10 hover:bg-white/5"
                 disabled={selectedEpisode >= (totalEpisodes || 1)}
-                onClick={() => {
-                  if (totalEpisodes) {
-                    setSelectedEpisode(prev => Math.min(totalEpisodes, prev + 1));
-                  }
-                }}
+                onClick={goToNextEpisode}
               >
                 Épisode suivant
                 <ChevronRight className="ml-2 h-4 w-4" />
@@ -881,7 +888,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                   <select 
                     value={selectedSeason}
                     onChange={(e) => {
-                      setSelectedSeason(e.target.value);
+                      setSelectedSeason(Number(e.target.value));
                       setSelectedEpisode(1);
                     }}
                     className="bg-[#151a2a] text-white border border-white/10 rounded-md px-2 py-1"
@@ -941,13 +948,66 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
           <div className="mb-12">
             <h2 className="text-xl font-bold text-white mb-4">Vous aimerez aussi</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="animate-pulse">
-                  <div className="aspect-[3/4] bg-[#151a2a] rounded-md mb-2"></div>
-                  <div className="h-4 bg-[#151a2a] rounded mb-1"></div>
-                  <div className="h-3 bg-[#151a2a] rounded w-2/3"></div>
+              {/* Jujutsu Kaisen est toujours affiché en premier */}
+              <Link 
+                href={`/catalogue/jujutsu-kaisen`} 
+                key="jujutsu-kaisen"
+                className="group transition-transform duration-200 hover:scale-105"
+              >
+                <div className="relative aspect-[3/4] overflow-hidden rounded-md mb-2">
+                  <CustomImage
+                    src="https://m.media-amazon.com/images/M/MV5BNGY4MTg3NzgtMmFkZi00NTg5LWExMmEtMWI3YzI1ODdmMWQ1XkEyXkFqcGdeQXVyMjQwMDg0Ng@@._V1_.jpg"
+                    alt="Jujutsu Kaisen"
+                    fill
+                    className="object-cover group-hover:brightness-110"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-medium text-white">2020</span>
+                      <div className="flex items-center">
+                        <Star className="h-3 w-3 text-yellow-500 mr-1" />
+                        <span className="text-xs text-white">8.9</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              ))}
+                <h3 className="text-sm font-medium text-white line-clamp-2">Jujutsu Kaisen</h3>
+              </Link>
+              
+              {/* Autres recommandations */}
+              {getAllAnimes()
+                .filter(rec => 
+                  rec.id !== anime.id && 
+                  rec.id !== "nagatoro" &&
+                  rec.id !== "jujutsu-kaisen"
+                )
+                .slice(0, 5)
+                .map((recommended) => (
+                  <Link 
+                    href={`/catalogue/${recommended.id}`} 
+                    key={recommended.id}
+                    className="group transition-transform duration-200 hover:scale-105"
+                  >
+                    <div className="relative aspect-[3/4] overflow-hidden rounded-md mb-2">
+                      <CustomImage
+                        src={recommended.imageUrl}
+                        alt={recommended.title}
+                        fill
+                        className="object-cover group-hover:brightness-110"
+                      />
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-medium text-white">{recommended.year}</span>
+                          <div className="flex items-center">
+                            <Star className="h-3 w-3 text-yellow-500 mr-1" />
+                            <span className="text-xs text-white">{recommended.rating}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <h3 className="text-sm font-medium text-white line-clamp-2">{recommended.title}</h3>
+                  </Link>
+                ))}
             </div>
           </div>
         </div>

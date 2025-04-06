@@ -70,4 +70,15 @@ export interface Anime {
   members: number;
   favorites: number;
   seasons: AnimeSeason[];
+}
+
+export interface FavoriteItem {
+  id: string;
+  title: string;
+  imageUrl: string;
+  type: string;
+  addedAt: string;
+  seriesId?: string;
+  seasonNumber?: number;
+  episodeId?: number;
 } 

@@ -74,12 +74,12 @@ export default function AnimePage() {
 
         <div className="container mx-auto px-4 py-8">
           {/* Featured Anime */}
-          <div className="mb-12 p-6 rounded-xl bg-gradient-to-r from-[#151a2a] to-[#0c1222] border border-white/5">
-            <div className="flex items-center gap-2 mb-4">
-              <Star className="h-5 w-5 text-yellow-500" />
-              <h2 className="text-xl font-bold text-white">Anime à la une</h2>
+          <div className="mb-8 sm:mb-12 p-4 sm:p-6 rounded-xl bg-gradient-to-r from-[#151a2a] to-[#0c1222] border border-white/5">
+            <div className="flex items-center gap-1 sm:gap-2 mb-3 sm:mb-4">
+              <Star className="h-4 sm:h-5 w-4 sm:w-5 text-yellow-500" />
+              <h2 className="text-base sm:text-xl font-bold text-white">Anime à la une</h2>
             </div>
-            <div className="flex flex-col md:flex-row gap-6 items-center">
+            <div className="flex flex-col md:flex-row gap-4 sm:gap-6 items-center">
               <div className="w-full md:w-1/4 lg:w-1/5">
                 <Link href="/catalogue/solo-leveling" className="block">
                   <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg border-2 border-pink-500/20 hover:border-pink-500/50 transition-all shadow-lg hover:shadow-pink-500/20">

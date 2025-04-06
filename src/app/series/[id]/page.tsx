@@ -4,12 +4,13 @@ import React, { useState, use, useEffect } from "react";
 import { notFound, useSearchParams } from "next/navigation";
 import { seriesData } from "@/lib/seriesData";
 import { Button } from "@/components/ui/button";
-import { Clock, Calendar, Star, Building, Film, Tag, ChevronDown } from "lucide-react";
+import { Clock, Calendar, Star, Building, Film, Tag, ChevronDown, Heart } from "lucide-react";
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import CustomImage from "@/components/ui/custom-image";
 import { Content, Episode, Season } from "@/lib/types";
+import { useFavorites } from "@/context/favorites-context";
 
 export default function SeriesPage({ params }: { params: any }) {
   // Unwrap params avec React.use()
@@ -48,6 +49,28 @@ export default function SeriesPage({ params }: { params: any }) {
       return season ? season.title : `Saison ${selectedSeason}`;
     }
     return "Épisodes";
+  };
+
+  // Ajouter le hook useFavorites
+  const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
+  
+  // Pour vérifier si la série est dans les favoris
+  const seriesFavoriteId = `series-${series.id}`;
+  const isSeriesFavorite = isFavorite(seriesFavoriteId);
+
+  // Ajouter une fonction pour gérer l'ajout/retrait des favoris
+  const handleFavoriteToggle = () => {
+    if (isSeriesFavorite) {
+      removeFromFavorites(seriesFavoriteId);
+    } else {
+      addToFavorites({
+        id: seriesFavoriteId,
+        title: series.title,
+        imageUrl: series.imageUrl,
+        type: series.type,
+        seriesId: series.id
+      });
+    }
   };
 
   return (
@@ -93,7 +116,7 @@ export default function SeriesPage({ params }: { params: any }) {
                       </span>
                     ))}
                   </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
                     <div className="flex items-center gap-2">
                       <Star className="h-4 w-4 text-yellow-500" />
                       <span className="text-sm text-gray-300">
@@ -117,6 +140,15 @@ export default function SeriesPage({ params }: { params: any }) {
                       </span>
                     </div>
                   </div>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={handleFavoriteToggle}
+                    className={`mt-2 ${isSeriesFavorite ? 'bg-red-500/10 border-red-500/30 text-red-400 hover:bg-red-500/20' : 'bg-transparent border-gray-700 text-gray-300 hover:bg-gray-800/50'}`}
+                  >
+                    <Heart className={`h-4 w-4 mr-2 ${isSeriesFavorite ? 'fill-red-500' : ''}`} />
+                    {isSeriesFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'}
+                  </Button>
                 </div>
               </div>
             </div>

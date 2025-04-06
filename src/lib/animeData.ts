@@ -148,17 +148,18 @@ export const animes: Anime[] = [
         year: 2024,
         episodes: [
           { number: 1, title: "Je suis un chasseur de rang E", duration: 1440, sibnetVostfrId: "5389406", sibnetVfId: "5406687" },
-          { number: 2, title: "Une porte rouge apparaît", duration: 1440, sibnetVostfrId: "5397577", sibnetVfId: "5415193" },
-          { number: 3, title: "Donjon double", duration: 1440, sibnetVostfrId: "5406329", sibnetVfId: "5421450" },
-          { number: 4, title: "Le système", duration: 1440, sibnetVostfrId: "5414604", sibnetVfId: "5428347" },
-          { number: 5, title: "Niveau supérieur", duration: 1440, sibnetVostfrId: "5421264", sibnetVfId: "5435958" },
-          { number: 6, title: "Chasses nocturnes", duration: 1440, sibnetVostfrId: "5428101", sibnetVfId: "5444965" },
-          { number: 7, title: "Appel de l'aventure", duration: 1440, sibnetVostfrId: "5435724", sibnetVfId: "5453272" },
-          { number: 8, title: "Le rang C", duration: 1440, sibnetVostfrId: "5453063", sibnetVfId: "5470652" },
-          { number: 9, title: "La tanière des loups", duration: 1440, sibnetVostfrId: "5462021", sibnetVfId: "5479018" },
-          { number: 10, title: "Le carnaval des ombres", duration: 1440, sibnetVostfrId: "5479008", sibnetVfId: "5499235" },
-          { number: 11, title: "Je suis devenu plus fort", duration: 1440, sibnetVostfrId: "5544078", sibnetVfId: "5574694" },
-          { number: 12, title: "Le retour du rang S", duration: 1440, sibnetVostfrId: "5545895", sibnetVfId: "5574694" }
+          { number: 2, title: "Un chasseur de rang E", duration: 1440, sibnetVostfrId: "5397577", sibnetVfId: "5415193" },
+          { number: 3, title: "Je vous sauverai tous", duration: 1440, sibnetVostfrId: "5406329", sibnetVfId: "5421450" },
+          { number: 4, title: "Le secret d'un donjon", duration: 1440, sibnetVostfrId: "5414604", sibnetVfId: "5428347" },
+          { number: 5, title: "Un oiseau en cage", duration: 1440, sibnetVostfrId: "5421264", sibnetVfId: "5435958" },
+          { number: 6, title: "Le combat duel", duration: 1440, sibnetVostfrId: "5428101", sibnetVfId: "5444965" },
+          { number: 7, title: "Tuer ou être tué", duration: 1440, sibnetVostfrId: "5435724", sibnetVfId: "5453272" },
+          { number: 8, title: "Une invitation", duration: 1440, sibnetVostfrId: "5444576", sibnetVfId: "5461990" },
+          { number: 9, title: "Le tournoi des ombres", duration: 1440, sibnetVostfrId: "5453063", sibnetVfId: "5470652" },
+          { number: 10, title: "Devenir plus fort", duration: 1440, sibnetVostfrId: "5461770", sibnetVfId: "5479018" },
+          { number: 11, title: "La menace approche", duration: 1440, sibnetVostfrId: "5470382", sibnetVfId: "5489456" },
+          { number: 12, title: "Le chasseur seul", duration: 1440, sibnetVostfrId: "5479260", sibnetVfId: "5499235" },
+          { number: 13, title: "Je me lèverai", duration: 1440, sibnetVostfrId: "5487838", sibnetVfId: "5506878" }
         ]
       },
       {
