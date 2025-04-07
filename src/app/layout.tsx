@@ -57,6 +57,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" suppressHydrationWarning>
+      <head>
+        <meta name="google-site-verification" content="JXUG7kpK-JLc6mNdI8pFXnTQPnJA4Z-TKV4iefh1aAg" />
+      </head>
       <Script id="videojs-error-fix" strategy="afterInteractive">
         {`
           // Solution complète pour les erreurs Sibnet, videojs, VAST et sécurité
