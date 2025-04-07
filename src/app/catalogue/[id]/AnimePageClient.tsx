@@ -17,7 +17,7 @@ import VideoPlayer from "@/components/ui/video-player";
 
 export default function AnimePageClient({ anime }: { anime: Anime | undefined }) {
   const [selectedEpisode, setSelectedEpisode] = useState(1);
-  const [selectedSeason, setSelectedSeason] = useState<number>(1);
+  const [selectedSeason, setSelectedSeason] = useState<number | string>(1);
   const [selectedLanguage, setSelectedLanguage] = useState<"vostfr" | "vf">("vostfr");
   const [isFollowing, setIsFollowing] = useState(false);
   
@@ -48,7 +48,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
 
   // Utilisé pour l'URL
   const selectedSeasonNumber = typeof selectedSeason === 'string' 
-    ? parseInt(selectedSeason, 10) 
+    ? isNaN(parseInt(selectedSeason, 10)) ? selectedSeason : parseInt(selectedSeason, 10) 
     : selectedSeason;
   
   // Déterminer si nous utilisons la structure de saisons
@@ -363,7 +363,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
           progress: currentTimeRef.current,
           duration: episode.duration,
           episodeInfo: {
-            season: useSeasonsStructure ? selectedSeason : 1,
+            season: useSeasonsStructure ? (typeof selectedSeason === 'string' ? 1 : selectedSeason) : 1,
             episode: episode.number,
             title: episode.title,
           },
@@ -556,6 +556,13 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
     }
   }, [anime, selectedSeason, useSeasonsStructure, selectedLanguage]);
 
+  // Déboguer l'ID vidmoly du film Kuroko
+  useEffect(() => {
+    if (anime?.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' && episode?.vidmolyId) {
+      console.log("DEBUG Film Kuroko - ID vidmoly:", episode.vidmolyId);
+    }
+  }, [anime?.id, selectedSeason, episode?.vidmolyId]);
+
   // Fonction pour gérer l'ajout/retrait des favoris
   const handleFavoriteToggle = () => {
     if (!anime) return;
@@ -727,35 +734,33 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
               onValueChange={(value) => setSelectedLanguage(value as "vostfr" | "vf")}
               className="mb-4"
             >
+
               <div className="flex items-center justify-between mb-2">
                 <div>
                   <h2 className="text-xl font-bold text-white">
-                    {useSeasonsStructure ? `${currentSeason?.title} - ` : ""}
-                    Épisode {selectedEpisode}: {episode?.title}
+                    {anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' 
+                      ? "Kuroko's Basket Last Game (Film)" 
+                      : (useSeasonsStructure ? `${currentSeason?.title} - ` : "") + `Épisode ${selectedEpisode}: ${episode?.title}`}
                   </h2>
                   
                   {/* Sélecteur de saison pour les animes avec plusieurs saisons */}
                   {useSeasonsStructure && anime?.seasons && anime.seasons.length > 1 && (
                     <div className="flex items-center mt-2 gap-2">
                       <span className="text-sm text-gray-400">Saison:</span>
-                      <div className="flex space-x-1">
+                      <select 
+                        value={String(selectedSeason)}
+                        onChange={(e) => {
+                          setSelectedSeason(isNaN(Number(e.target.value)) ? e.target.value : Number(e.target.value));
+                          setSelectedEpisode(1);
+                        }}
+                        className="bg-[#151a2a] text-white border border-white/10 rounded-md px-2 py-1"
+                      >
                         {anime.seasons.map((season) => (
-                          <button
-                            key={season.seasonNumber}
-                            onClick={() => {
-                              setSelectedSeason(Number(season.seasonNumber));
-                              setSelectedEpisode(1); // Réinitialiser l'épisode quand on change de saison
-                            }}
-                            className={`px-3 py-1 text-sm rounded ${
-                              selectedSeason === season.seasonNumber
-                                ? "bg-pink-600 text-white"
-                                : "bg-[#151a2a] text-gray-300 hover:bg-[#1a1f35]"
-                            }`}
-                          >
-                            {season.seasonNumber}
-                          </button>
+                          <option key={season.seasonNumber} value={season.seasonNumber}>
+                            {String(season.seasonNumber) === "Film" ? "Film" : `Saison ${season.seasonNumber}`} ({season.year})
+                          </option>
                         ))}
-                      </div>
+                      </select>
                     </div>
                   )}
                 </div>
@@ -788,24 +793,54 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                     </TabsList>
                     
                     <TabsContent value="lecteur1" className="mt-0">
-                      {/* Lecteur Sendvid (si disponible) ou Sibnet */}
-                      <div className="bg-black" style={{ width: '100%', height: '650px' }}>
-                        <VideoPlayer 
-                          sendvidId={episode?.sendvidId}
-                          sibnetId={episode?.sendvidId ? undefined : videoId}
-                          className="w-full h-full"
-                        />
-                      </div>
+                      {/* Lecteur spécifique pour Kuroko no Basket - Film */}
+                      {anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' ? (
+                        <div className="bg-black" style={{ width: '100%', height: '650px' }}>
+                          <iframe 
+                            src="https://vidmoly.to/embed-4vdf01s69rjl.html"
+                            width="100%" 
+                            height="100%" 
+                            frameBorder="0" 
+                            scrolling="no" 
+                            allowFullScreen 
+                            allow="autoplay; encrypted-media"
+                            className="w-full h-full"
+                            style={{ width: '100%', height: '100%' }}
+                          />
+                          {/* Message explicatif si le lecteur ne se charge pas */}
+                          <noscript>
+                            <p className="text-white p-4">Activez JavaScript pour voir cette vidéo ou désactivez AdBlock.</p>
+                          </noscript>
+                        </div>
+                      ) : (
+                        <div className="bg-black" style={{ width: '100%', height: '650px' }}>
+                          <VideoPlayer 
+                            sendvidId={episode?.sendvidId}
+                            sibnetId={episode?.sendvidId ? undefined : videoId}
+                            className="w-full h-full"
+                          />
+                        </div>
+                      )}
                     </TabsContent>
                     
                     <TabsContent value="lecteur2" className="mt-0">
-                      {/* Lecteur Sibnet */}
-                      <div className="bg-black" style={{ width: '100%', height: '650px' }}>
-                        <VideoPlayer 
-                          sibnetId={videoId}
-                          className="w-full h-full"
-                        />
-                      </div>
+                      {/* Lecteur 2 inversé : Sibnet pour Kuroko, Vidmoly pour les autres */}
+                      {anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' ? (
+                        <div className="bg-black" style={{ width: '100%', height: '650px' }}>
+                          <VideoPlayer 
+                            sibnetId={videoId}
+                            className="w-full h-full"
+                          />
+                        </div>
+                      ) : (
+                        <div className="bg-black" style={{ width: '100%', height: '650px' }}>
+                          <VideoPlayer 
+                            vidmolyId={episode?.vidmolyId}
+                            sibnetId={!episode?.vidmolyId ? videoId : undefined}
+                            className="w-full h-full"
+                          />
+                        </div>
+                      )}
                     </TabsContent>
                   </Tabs>
                 </div>
@@ -886,16 +921,16 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-gray-400">Saison:</span>
                   <select 
-                    value={selectedSeason}
+                    value={String(selectedSeason)}
                     onChange={(e) => {
-                      setSelectedSeason(Number(e.target.value));
+                      setSelectedSeason(isNaN(Number(e.target.value)) ? e.target.value : Number(e.target.value));
                       setSelectedEpisode(1);
                     }}
                     className="bg-[#151a2a] text-white border border-white/10 rounded-md px-2 py-1"
                   >
                     {anime.seasons.map((season) => (
                       <option key={season.seasonNumber} value={season.seasonNumber}>
-                        {season.title} ({season.year})
+                        {String(season.seasonNumber) === "Film" ? "Film" : `Saison ${season.seasonNumber}`} ({season.year})
                       </option>
                     ))}
                   </select>
@@ -905,7 +940,10 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {episodesToShow.map((ep) => {
-                const progress = getEpisodeProgress(Number(selectedSeason), ep.number);
+                const progress = getEpisodeProgress(
+                  typeof selectedSeason === 'string' ? selectedSeason : selectedSeason, 
+                  ep.number
+                );
                 
                 return (
                   <button
