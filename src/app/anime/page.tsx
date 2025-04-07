@@ -176,7 +176,7 @@ export default function AnimePage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
-                  href="https://discord.gg/anime-flow"
+                  href="https://discord.gg/23cqMGEEqJ"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-gradient-to-r from-[#5865F2] to-[#404EED] text-white px-8 py-3 rounded-md font-medium hover:shadow-lg transition-shadow duration-300"
@@ -184,7 +184,7 @@ export default function AnimePage() {
                   Rejoindre Discord
                 </a>
                 <a
-                  href="https://twitter.com/anime_flow"
+                  href="https://twitter.com/OkastreamFr"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-gradient-to-r from-[#1D9BF0] to-[#1A8CD8] text-white px-8 py-3 rounded-md font-medium hover:shadow-lg transition-shadow duration-300"
