@@ -52,7 +52,7 @@ export default function Footer() {
             </h3>
             <div className="flex space-x-4">
               <a
-                href="https://discord.gg/anime-flow"
+                href="https://discord.gg/23cqMGEEqJ"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-[#151a2a] hover:bg-[#1e263f] p-2.5 rounded-full border border-white/5 transition-all duration-300 hover:border-white/20 primary-glow"
@@ -60,7 +60,7 @@ export default function Footer() {
                 <Instagram className="h-5 w-5 text-white" />
               </a>
               <a
-                href="https://twitter.com/anime_flow"
+                href="https://twitter.com/OkastreamFr"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-[#151a2a] hover:bg-[#1e263f] p-2.5 rounded-full border border-white/5 transition-all duration-300 hover:border-white/20 primary-glow"
