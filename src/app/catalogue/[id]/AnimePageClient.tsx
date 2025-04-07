@@ -857,12 +857,32 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                     
                     <TabsContent value="lecteur1" className="mt-0">
                       {/* Lecteur style anime-sama.fr */}
-                      <div className="bg-black" style={{ width: '100%', height: '650px' }}>
-                        <VideoPlayer 
-                          sibnetId={videoId}
-                          className="w-full h-full"
-                        />
-                      </div>
+                      {anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' ? (
+                        <div className="bg-black" style={{ width: '100%', height: '650px' }}>
+                          <iframe 
+                            src="https://player.vimeo.com/video/1073297108?h=6d0921f528"
+                            width="100%" 
+                            height="100%" 
+                            frameBorder="0" 
+                            scrolling="no" 
+                            allowFullScreen 
+                            allow="autoplay; encrypted-media"
+                            className="w-full h-full"
+                            style={{ width: '100%', height: '100%' }}
+                          />
+                          {/* Message explicatif si le lecteur ne se charge pas */}
+                          <noscript>
+                            <p className="text-white p-4">Activez JavaScript pour voir cette vidéo.</p>
+                          </noscript>
+                        </div>
+                      ) : (
+                        <div className="bg-black" style={{ width: '100%', height: '650px' }}>
+                          <VideoPlayer 
+                            sibnetId={videoId}
+                            className="w-full h-full"
+                          />
+                        </div>
+                      )}
                     </TabsContent>
                     
                     <TabsContent value="lecteur2" className="mt-0">
@@ -1048,6 +1068,13 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                 ))}
             </div>
           </div>
+
+          {/* Message d'avertissement concernant AdBlock pour Kuroko film */}
+          {anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' && (
+            <div className="bg-amber-800/20 border border-amber-600/30 rounded-md p-3 mb-4 text-amber-300 text-sm">
+              <strong>⚠️</strong> Si la vidéo ne s'affiche pas, veuillez désactiver votre bloqueur de publicités (AdBlock) pour ce site.
+            </div>
+          )}
         </div>
       </main>
 

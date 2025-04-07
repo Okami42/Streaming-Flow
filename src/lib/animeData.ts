@@ -521,7 +521,7 @@ export const animes: Anime[] = [
         title: "Film",
         year: 2017,
         episodes: [
-          { number: 1, title: "Kuroko's Basket Last Game", duration: 1440, vidmolyId: "4vdf01s69rjl", vidmolyVfId: "i835rhqdf94g" }
+          { number: 1, title: "Kuroko's Basket Last Game", duration: 1440, vidmolyId: "4vdf01s69rjl", vidmolyVfId: "i835rhqdf94g", smoothpreUrl: "https://vimeo.com/1073297108/6d0921f528" }
         ]
       }
     ]
