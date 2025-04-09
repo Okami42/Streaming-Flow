@@ -3,9 +3,15 @@
 import React, { useState } from 'react';
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import HLSPlayer from '@/components/ui/hls-player';
+import dynamic from 'next/dynamic';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+
+// Import dynamique du lecteur pour éviter les problèmes de build sur Vercel
+const VercelHLSPlayer = dynamic(() => import('@/components/ui/vercel-hls-player'), {
+  ssr: false,
+  loading: () => <div className="aspect-video bg-[#151a2a] rounded-md flex items-center justify-center text-white/70">Chargement du lecteur...</div>
+});
 
 export default function TestHLSPlayer() {
   const [m3u8Url, setM3u8Url] = useState<string>('');
@@ -74,7 +80,7 @@ export default function TestHLSPlayer() {
           
           {currentStream ? (
             <div className="aspect-video bg-black rounded-md overflow-hidden">
-              <HLSPlayer src={currentStream} />
+              <VercelHLSPlayer src={currentStream} />
             </div>
           ) : (
             <div className="aspect-video bg-[#151a2a] rounded-md flex items-center justify-center text-white/70">
