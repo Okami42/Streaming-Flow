@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, History, Bell } from "lucide-react";
+import { Search, History, Bell, Calendar, Video } from "lucide-react";
 import CustomImage from "./ui/custom-image";
 import Link from "next/link";
 import { Input } from "./ui/input";
@@ -132,7 +132,6 @@ export default function Header() {
     </header>
   );
 }
-
 type NavLinkProps = {
   href: string;
   active?: boolean;
@@ -157,3 +156,4 @@ const NavLink = memo(function NavLink({ href, active, children }: NavLinkProps) 
     </Link>
   );
 });
+

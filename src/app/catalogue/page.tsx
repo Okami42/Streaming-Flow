@@ -100,22 +100,29 @@ const animes: CatalogueAnime[] = [
     id: "kuroko-no-basket",
     title: "Kuroko no Basket",
     imageUrl: "https://images.justwatch.com/poster/181383869/s166/kuroko-no-basket.avif",
-    type: "Anime" as const,
-    language: "VF & VOSTFR" as const,
+    type: "Anime",
+    language: "VF & VOSTFR",
   },
   {
     id: "vinland-saga",
     title: "Vinland Saga",
     imageUrl: "https://ext.same-assets.com/4165707166/2193428669.jpeg",
-    type: "Anime" as const,
-    language: "VF & VOSTFR" as const,
+    type: "Anime",
+    language: "VF & VOSTFR",
   },
   {
     id: "death-note",
     title: "Death Note",
     imageUrl: "https://m.media-amazon.com/images/M/MV5BNjRiNmNjMmMtN2U2Yi00ODgxLTk3OTMtMmI1MTI1NjYyZTEzXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_.jpg",
-    type: "Anime" as const,
-    language: "VF & VOSTFR" as const,
+    type: "Anime",
+    language: "VF & VOSTFR",
+  },
+  {
+    id: "frieren",
+    title: "Frieren",
+    imageUrl: "https://fr.web.img6.acsta.net/pictures/23/09/11/15/28/0344154.jpg",
+    type: "Anime",
+    language: "VOSTFR",
   },
 ];
 
@@ -128,6 +135,7 @@ const genres = [
 export default function CataloguePage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+  const [languageFilter, setLanguageFilter] = useState<"VOSTFR" | "VF" | "VF & VOSTFR" | "">("");
 
   const toggleGenre = (genre: string) => {
     if (selectedGenres.includes(genre)) {

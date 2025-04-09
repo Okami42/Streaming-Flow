@@ -10,6 +10,8 @@ export interface AnimeEpisode {
   vidmolyId?: string;
   vidmolyVfId?: string;
   sendvidId?: string;
+  m3u8Url?: string;
+  m3u8VfUrl?: string;
 }
 
 export interface AnimeSeason {
@@ -518,10 +520,18 @@ export const animes: Anime[] = [
       },
       {
         seasonNumber: "Film",
-        title: "Film",
+        title: "Kuroko no Basket: Last Game",
         year: 2017,
         episodes: [
-          { number: 1, title: "Kuroko's Basket Last Game", duration: 1440, vidmolyId: "4vdf01s69rjl", vidmolyVfId: "i835rhqdf94g", smoothpreUrl: "https://vimeo.com/1073297108/6d0921f528" }
+          { 
+            number: 1, 
+            title: "Kuroko's Basket Last Game", 
+            duration: 1440, 
+            vidmolyId: "4vdf01s69rjl", 
+            vidmolyVfId: "i835rhqdf94g", 
+            smoothpreUrl: "https://vimeo.com/1073297108/6d0921f528",
+            m3u8VfUrl: "https://streaming23.animedigitalnetwork.fr/1744239835727-1046246-b5b12c6e209c9af33b8b9f56cc55e07b/video1_1080p/playlist.m3u8"
+          }
         ]
       }
     ]
@@ -742,6 +752,56 @@ export const animes: Anime[] = [
           { number: 35, title: "Episode 35", duration: 1440, sibnetVostfrId: "4670173", sibnetVfId: "4745165" },
           { number: 36, title: "Episode 36", duration: 1440, sibnetVostfrId: "4670175", sibnetVfId: "4745169" },
           { number: 37, title: "Episode 37", duration: 1440, sibnetVostfrId: "4670178", sibnetVfId: "4745172" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "frieren",
+    title: "Frieren",
+    originalTitle: "葬送のフリーレン",
+    description: "Après avoir vaincu le Roi des Démons et ramené la paix dans le royaume, l'elfe mage Frieren et ses compagnons, Himmel le héros, Heiter le prêtre et Eisen le guerrier, se séparent et poursuivent leurs propres voies. En raison de sa longévité, Frieren voit ses amis vieillir et mourir les uns après les autres. Réalisant qu'elle n'a jamais vraiment cherché à comprendre les humains, Frieren commence un voyage pour découvrir leur valeur et leur importance.",
+    imageUrl: "https://fr.web.img6.acsta.net/pictures/23/09/11/15/28/0344154.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2023,
+    type: "TV",
+    status: "En cours",
+    genres: ["Aventure", "Drame", "Fantasy", "Shōnen"],
+    rating: 8.9,
+    seasons: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        year: 2023,
+        episodes: [
+          { number: 1, title: "Entre le jour et la nuit", duration: 1440, vidmolyId: "b44nsd5xtnfi", m3u8Url: "https://streaming23.animedigitalnetwork.fr/1744239835727-1046246-b5b12c6e209c9af33b8b9f56cc55e07b/video1_1080p/playlist.m3u8" },
+          { number: 2, title: "Erreur", duration: 1440, vidmolyId: "vufv40ffe3hu" },
+          { number: 3, title: "Fantôme", duration: 1440, vidmolyId: "hkxpho35ew34" },
+          { number: 4, title: "Des liens du souvenir", duration: 1440, vidmolyId: "8xdxwh85i9u9" },
+          { number: 5, title: "Association des mages", duration: 1440, vidmolyId: "ecyg6wdcx5tx" },
+          { number: 6, title: "Le commencement", duration: 1440, vidmolyId: "4n1797f3qibn" },
+          { number: 7, title: "Bataille", duration: 1440, vidmolyId: "r0pgc82bdkdh" },
+          { number: 8, title: "Ciel étoilé", duration: 1440, vidmolyId: "74x4rh2bwxct" },
+          { number: 9, title: "Détermination", duration: 1440, vidmolyId: "nfskx0fkxzs6" },
+          { number: 10, title: "Village de la vallée", duration: 1440, vidmolyId: "le76ov3d3aiq" },
+          { number: 11, title: "Série", duration: 1440, vidmolyId: "uy2jrnt9v37m" },
+          { number: 12, title: "La promesse", duration: 1440, vidmolyId: "adhd3df69rn7" },
+          { number: 13, title: "Adieu", duration: 1440, vidmolyId: "zen6v66fveo1" },
+          { number: 14, title: "Aura", duration: 1440, vidmolyId: "iz0d7k55jxz0" },
+          { number: 15, title: "Forêt de l'acier", duration: 1440, vidmolyId: "4tnpon4waok8" },
+          { number: 16, title: "Fierté", duration: 1440, vidmolyId: "wc4oy593r63a" },
+          { number: 17, title: "Combat", duration: 1440, vidmolyId: "29tvwb8fy5hm" },
+          { number: 18, title: "Fin", duration: 1440, vidmolyId: "int78gee1w2l" },
+          { number: 19, title: "La cité d'Äußerst", duration: 1440, vidmolyId: "kfvjhj32g705" },
+          { number: 20, title: "Connaissances", duration: 1440, vidmolyId: "36pwoa1tpizo" },
+          { number: 21, title: "Mission", duration: 1440, vidmolyId: "m8xqlrrwkyod" },
+          { number: 22, title: "Une nuit à Äußerst", duration: 1440, vidmolyId: "segkjfvdrh9r" },
+          { number: 23, title: "Une soirée agréable", duration: 1440, vidmolyId: "197zcxqa0t88" },
+          { number: 24, title: "L'examen", duration: 1440, vidmolyId: "w4kj3dl5u6wq" },
+          { number: 25, title: "Au nord", duration: 1440, vidmolyId: "9abyjgcbha2x" },
+          { number: 26, title: "Le pays des âmes solitaires", duration: 1440, vidmolyId: "0y2it9gwtrrh" },
+          { number: 27, title: "Le Rempart de Graf", duration: 1440, vidmolyId: "20i2e78ya3ck" },
+          { number: 28, title: "Le lac des berceuses", duration: 1440, vidmolyId: "nweav3y1b6o5" }
         ]
       }
     ]

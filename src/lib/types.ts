@@ -37,7 +37,13 @@ export interface AnimeEpisode {
   duration: number;
   sibnetVostfrId?: string;
   sibnetVfId?: string;
+  smoothpreUrl?: string;
   vidmolyUrl?: string;
+  vidmolyId?: string;
+  vidmolyVfId?: string;
+  sendvidId?: string;
+  m3u8Url?: string;  // URL directe vers un flux HLS m3u8
+  m3u8VfUrl?: string; // URL directe vers un flux HLS m3u8 en version française
 }
 
 export interface AnimeSeason {

@@ -172,6 +172,13 @@ export const classics = [
     type: "Anime",
     language: "VOSTFR",
   },
+  {
+    id: "frieren",
+    title: "Frieren",
+    imageUrl: "https://fr.web.img6.acsta.net/pictures/23/09/11/15/28/0344154.jpg",
+    type: "Anime",
+    language: "VOSTFR",
+  },
 ];
 
 // Films classiques

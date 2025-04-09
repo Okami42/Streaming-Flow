@@ -14,6 +14,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import { Anime, AnimeEpisode, getAllAnimes } from "@/lib/animeData";
 import VideoPlayer from "@/components/ui/video-player";
+import HLSPlayer from '@/components/ui/hls-player';
 
 export default function AnimePageClient({ anime }: { anime: Anime | undefined }) {
   const [selectedEpisode, setSelectedEpisode] = useState(1);
@@ -787,9 +788,18 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                 {/* Tabs pour choisir le lecteur */}
                 <div className="mb-4">
                   <Tabs defaultValue="lecteur1" className="w-full">
-                    <TabsList className="grid w-full grid-cols-2 bg-[#151a2a] mb-2 rounded-t-md border border-white/10 border-b-0">
+                    <TabsList className={`grid w-full ${anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' ? 'grid-cols-2' : 'grid-cols-3'} bg-[#151a2a] mb-2 rounded-t-md border border-white/10 border-b-0`}>
                       <TabsTrigger value="lecteur1" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/50 data-[state=active]:to-blue-500/50 data-[state=active]:text-white data-[state=active]:shadow-inner">Lecteur 1</TabsTrigger>
                       <TabsTrigger value="lecteur2" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/50 data-[state=active]:to-blue-500/50 data-[state=active]:text-white data-[state=active]:shadow-inner">Lecteur 2</TabsTrigger>
+                      {!(anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film') && (
+                        <TabsTrigger 
+                          value="lecteur3" 
+                          className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/50 data-[state=active]:to-blue-500/50 data-[state=active]:text-white data-[state=active]:shadow-inner"
+                          disabled={!episode?.m3u8VfUrl}
+                        >
+                          Lecteur 3 (Teste de qualité)
+                        </TabsTrigger>
+                      )}
                     </TabsList>
                     
                     <TabsContent value="lecteur1" className="mt-0">
@@ -842,6 +852,23 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                         </div>
                       )}
                     </TabsContent>
+                    
+                    <TabsContent value="lecteur3" className="mt-0">
+                      {/* Lecteur HLS pour les flux m3u8 */}
+                      <div className="bg-black" style={{ width: '100%', height: '650px' }}>
+                        {episode?.m3u8Url ? (
+                          <HLSPlayer 
+                            src={episode.m3u8Url}
+                            className="w-full h-full"
+                            poster={anime.bannerUrl || anime.imageUrl}
+                          />
+                        ) : (
+                          <div className="flex items-center justify-center h-full text-white/70">
+                            Aucun flux HLS disponible pour cet épisode
+                          </div>
+                        )}
+                      </div>
+                    </TabsContent>
                   </Tabs>
                 </div>
               </TabsContent>
@@ -850,25 +877,28 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                 {/* Tabs pour choisir le lecteur */}
                 <div className="mb-4">
                   <Tabs defaultValue="lecteur1" className="w-full">
-                    <TabsList className="grid w-full grid-cols-2 bg-[#151a2a] mb-2 rounded-t-md border border-white/10 border-b-0">
+                    <TabsList className={`grid w-full ${anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' ? 'grid-cols-2' : 'grid-cols-3'} bg-[#151a2a] mb-2 rounded-t-md border border-white/10 border-b-0`}>
                       <TabsTrigger value="lecteur1" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/50 data-[state=active]:to-blue-500/50 data-[state=active]:text-white data-[state=active]:shadow-inner">Lecteur 1</TabsTrigger>
                       <TabsTrigger value="lecteur2" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/50 data-[state=active]:to-blue-500/50 data-[state=active]:text-white data-[state=active]:shadow-inner">Lecteur 2</TabsTrigger>
+                      {!(anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film') && (
+                        <TabsTrigger 
+                          value="lecteur3" 
+                          className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/50 data-[state=active]:to-blue-500/50 data-[state=active]:text-white data-[state=active]:shadow-inner"
+                          disabled={!episode?.m3u8VfUrl}
+                        >
+                          Lecteur 3 (Teste de qualité)
+                        </TabsTrigger>
+                      )}
                     </TabsList>
                     
                     <TabsContent value="lecteur1" className="mt-0">
                       {/* Lecteur style anime-sama.fr */}
                       {anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' ? (
                         <div className="bg-black" style={{ width: '100%', height: '650px' }}>
-                          <iframe 
-                            src="https://player.vimeo.com/video/1073297108?h=6d0921f528"
-                            width="100%" 
-                            height="100%" 
-                            frameBorder="0" 
-                            scrolling="no" 
-                            allowFullScreen 
-                            allow="autoplay; encrypted-media"
+                          <HLSPlayer 
+                            src="https://streaming23.animedigitalnetwork.fr/1744239835727-1046246-b5b12c6e209c9af33b8b9f56cc55e07b/video1_1080p/playlist.m3u8"
                             className="w-full h-full"
-                            style={{ width: '100%', height: '100%' }}
+                            poster={anime.bannerUrl || anime.imageUrl}
                           />
                           {/* Message explicatif si le lecteur ne se charge pas */}
                           <noscript>
@@ -892,6 +922,23 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                           vidmolyId={episode?.vidmolyVfId}
                           className="w-full h-full"
                         />
+                      </div>
+                    </TabsContent>
+                    
+                    <TabsContent value="lecteur3" className="mt-0">
+                      {/* Lecteur HLS pour les flux m3u8 en VF */}
+                      <div className="bg-black" style={{ width: '100%', height: '650px' }}>
+                        {episode?.m3u8VfUrl ? (
+                          <HLSPlayer 
+                            src={episode.m3u8VfUrl}
+                            className="w-full h-full"
+                            poster={anime.bannerUrl || anime.imageUrl}
+                          />
+                        ) : (
+                          <div className="flex items-center justify-center h-full text-white/70">
+                            Aucun flux HLS disponible pour cet épisode en VF
+                          </div>
+                        )}
                       </div>
                     </TabsContent>
                   </Tabs>
