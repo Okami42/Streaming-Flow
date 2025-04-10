@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-// Import de Hls supprimé - sera importé dynamiquement
+// Import de type uniquement pour TypeScript, pas de dépendance runtime
+import type Hls from "hls.js";
 import { Loader2 } from "lucide-react";
 
 interface HLSPlayerProps {
@@ -93,8 +94,19 @@ export default function HLSPlayer({
     const loadVideo = async () => {
       try {
         // Import dynamique de hls.js
-        const Hls = (await import('hls.js')).default;
+        const HlsModule = await import('hls.js').catch(err => {
+          console.error("Erreur lors de l'importation de hls.js:", err);
+          return null;
+        });
         
+        if (!HlsModule) {
+          setError("Impossible de charger le module HLS");
+          setIsLoading(false);
+          return;
+        }
+        
+        const Hls = HlsModule.default;
+
         // Si HLS.js est supporté
         if (Hls.isSupported() && src.includes('.m3u8')) {
           setHlsSupported(true);
