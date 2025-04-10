@@ -64,11 +64,16 @@ const nextConfig = {
   webpack: (config, { isServer }) => {
     // Résoudre le problème de hls.js sur Vercel
     if (isServer) {
-      // Pour le rendu côté serveur, on crée un module vide
-      config.resolve.alias['hls.js'] = false;
+      // Pour le rendu côté serveur, on utilise notre module vide
+      config.resolve.alias['hls.js'] = require.resolve('./src/lib/empty-module.js');
     }
     
     return config;
+  },
+  // Configuration pour Turbopack
+  experimental: {
+    // Il est préférable de supprimer complètement la configuration Turbo plutôt que d'utiliser une valeur invalide
+    turbo: {},
   },
 }
 
