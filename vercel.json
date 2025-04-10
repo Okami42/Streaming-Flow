@@ -9,7 +9,7 @@
   "framework": "nextjs",
   "buildCommand": "npm run build",
   "devCommand": "next dev",
-  "installCommand": "npm ci --legacy-peer-deps",
+  "installCommand": "npm install && npm install hls.js",
   "regions": ["cdg1"],
   "headers": [
     {
