@@ -64,8 +64,8 @@ const nextConfig = {
   webpack: (config, { isServer }) => {
     // Résoudre le problème de hls.js sur Vercel
     if (isServer) {
-      // Pour le rendu côté serveur, on utilise notre module vide
-      config.resolve.alias['hls.js'] = require.resolve('./src/lib/empty-module.js');
+      // Pour le rendu côté serveur, on utilise un chemin fixe pour notre module vide
+      config.resolve.alias['hls.js'] = './src/lib/empty-module.js';
     }
     
     return config;
