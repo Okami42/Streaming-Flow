@@ -14,13 +14,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import { Anime, AnimeEpisode, getAllAnimes } from "@/lib/animeData";
 import VideoPlayer from "@/components/ui/video-player";
-import dynamic from 'next/dynamic';
-
-// Import dynamique du lecteur pour éviter les problèmes de build sur Vercel
-const VercelHLSPlayer = dynamic(() => import('@/components/ui/vercel-hls-player'), {
-  ssr: false,
-  loading: () => <div className="aspect-video bg-[#151a2a] flex items-center justify-center text-white/70">Chargement du lecteur...</div>
-});
+import HLSPlayer from '@/components/ui/hls-player';
 
 export default function AnimePageClient({ anime }: { anime: Anime | undefined }) {
   const [selectedEpisode, setSelectedEpisode] = useState(1);
@@ -863,7 +857,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       {/* Lecteur HLS pour les flux m3u8 */}
                       <div className="bg-black" style={{ width: '100%', height: '650px' }}>
                         {episode?.m3u8Url ? (
-                          <VercelHLSPlayer 
+                          <HLSPlayer 
                             src={episode.m3u8Url}
                             className="w-full h-full"
                             poster={anime.bannerUrl || anime.imageUrl}
@@ -901,7 +895,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       {/* Lecteur style anime-sama.fr */}
                       {anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' ? (
                         <div className="bg-black" style={{ width: '100%', height: '650px' }}>
-                          <VercelHLSPlayer 
+                          <HLSPlayer 
                             src="https://streaming23.animedigitalnetwork.fr/1744239835727-1046246-b5b12c6e209c9af33b8b9f56cc55e07b/video1_1080p/playlist.m3u8"
                             className="w-full h-full"
                             poster={anime.bannerUrl || anime.imageUrl}
@@ -935,7 +929,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       {/* Lecteur HLS pour les flux m3u8 en VF */}
                       <div className="bg-black" style={{ width: '100%', height: '650px' }}>
                         {episode?.m3u8VfUrl ? (
-                          <VercelHLSPlayer 
+                          <HLSPlayer 
                             src={episode.m3u8VfUrl}
                             className="w-full h-full"
                             poster={anime.bannerUrl || anime.imageUrl}
