@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import HLSPlayer from '@/components/ui/hls-player';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { getProxiedStreamUrl } from "@/lib/utils";
 
 export default function TestHLSPlayer() {
   const [m3u8Url, setM3u8Url] = useState<string>('');
@@ -74,7 +75,7 @@ export default function TestHLSPlayer() {
           
           {currentStream ? (
             <div className="aspect-video bg-black rounded-md overflow-hidden">
-              <HLSPlayer src={currentStream} />
+              <HLSPlayer src={getProxiedStreamUrl(currentStream)} />
             </div>
           ) : (
             <div className="aspect-video bg-[#151a2a] rounded-md flex items-center justify-center text-white/70">

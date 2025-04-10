@@ -15,6 +15,7 @@ import React from "react";
 import { Anime, AnimeEpisode, getAllAnimes } from "@/lib/animeData";
 import VideoPlayer from "@/components/ui/video-player";
 import HLSPlayer from '@/components/ui/hls-player';
+import { getProxiedStreamUrl } from "@/lib/utils";
 
 export default function AnimePageClient({ anime }: { anime: Anime | undefined }) {
   const [selectedEpisode, setSelectedEpisode] = useState(1);
@@ -806,21 +807,11 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       {/* Lecteur spécifique pour Kuroko no Basket - Film */}
                       {anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' ? (
                         <div className="bg-black" style={{ width: '100%', height: '650px' }}>
-                          <iframe 
-                            src="https://vidmoly.to/embed-4vdf01s69rjl.html"
-                            width="100%" 
-                            height="100%" 
-                            frameBorder="0" 
-                            scrolling="no" 
-                            allowFullScreen 
-                            allow="autoplay; encrypted-media"
+                          <HLSPlayer 
+                            src={getProxiedStreamUrl("https://streaming23.animedigitalnetwork.fr/1744239835727-1046246-b5b12c6e209c9af33b8b9f56cc55e07b/video1_1080p/playlist.m3u8")}
                             className="w-full h-full"
-                            style={{ width: '100%', height: '100%' }}
+                            poster={anime.bannerUrl || anime.imageUrl}
                           />
-                          {/* Message explicatif si le lecteur ne se charge pas */}
-                          <noscript>
-                            <p className="text-white p-4">Activez JavaScript pour voir cette vidéo ou désactivez AdBlock.</p>
-                          </noscript>
                         </div>
                       ) : (
                         <div className="bg-black" style={{ width: '100%', height: '650px' }}>
@@ -858,7 +849,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       <div className="bg-black" style={{ width: '100%', height: '650px' }}>
                         {episode?.m3u8Url ? (
                           <HLSPlayer 
-                            src={episode.m3u8Url}
+                            src={getProxiedStreamUrl(episode.m3u8Url)}
                             className="w-full h-full"
                             poster={anime.bannerUrl || anime.imageUrl}
                           />
@@ -896,7 +887,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       {anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' ? (
                         <div className="bg-black" style={{ width: '100%', height: '650px' }}>
                           <HLSPlayer 
-                            src="https://streaming23.animedigitalnetwork.fr/1744239835727-1046246-b5b12c6e209c9af33b8b9f56cc55e07b/video1_1080p/playlist.m3u8"
+                            src={getProxiedStreamUrl("https://streaming23.animedigitalnetwork.fr/1744239835727-1046246-b5b12c6e209c9af33b8b9f56cc55e07b/video1_1080p/playlist.m3u8")}
                             className="w-full h-full"
                             poster={anime.bannerUrl || anime.imageUrl}
                           />
@@ -930,7 +921,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       <div className="bg-black" style={{ width: '100%', height: '650px' }}>
                         {episode?.m3u8VfUrl ? (
                           <HLSPlayer 
-                            src={episode.m3u8VfUrl}
+                            src={getProxiedStreamUrl(episode.m3u8VfUrl)}
                             className="w-full h-full"
                             poster={anime.bannerUrl || anime.imageUrl}
                           />

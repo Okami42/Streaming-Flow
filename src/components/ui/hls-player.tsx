@@ -113,7 +113,15 @@ export default function HLSPlayer({
           const hls = new Hls({
             enableWorker: true,
             lowLatencyMode: true,
-            backBufferLength: 90
+            backBufferLength: 90,
+            // Configuration pour les requêtes XHR
+            xhrSetup: function(xhr, url) {
+              // Ajouter des en-têtes spécifiques pour les requêtes
+              if (url.includes('animedigitalnetwork.fr')) {
+                xhr.setRequestHeader('Referer', 'https://animedigitalnetwork.fr/');
+                xhr.setRequestHeader('Origin', 'https://animedigitalnetwork.fr');
+              }
+            }
           });
           
           hlsRef.current = hls;
@@ -130,20 +138,22 @@ export default function HLSPlayer({
           });
           
           hls.on(Hls.Events.ERROR, (_event: any, data: any) => {
+            console.error("HLS error:", data);
+            
             if (data.fatal) {
               switch (data.type) {
                 case Hls.ErrorTypes.NETWORK_ERROR:
-                  console.error("Erreur réseau");
+                  console.error("Erreur réseau:", data.details);
                   setError("Erreur de chargement: vérifiez votre connexion");
                   hls.startLoad(); // Essayer de recharger
                   break;
                 case Hls.ErrorTypes.MEDIA_ERROR:
-                  console.error("Erreur média");
+                  console.error("Erreur média:", data.details);
                   setError("Erreur de lecture vidéo");
                   hls.recoverMediaError(); // Essayer de récupérer
                   break;
                 default:
-                  console.error("Erreur non récupérable");
+                  console.error("Erreur non récupérable:", data.details);
                   setError("Erreur de lecture");
                   hls.destroy();
                   break;
