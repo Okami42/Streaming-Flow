@@ -60,7 +60,16 @@ const nextConfig = {
         ]
       }
     ]
-  }
+  },
+  webpack: (config, { isServer }) => {
+    // Résoudre le problème de hls.js sur Vercel
+    if (isServer) {
+      // Pour le rendu côté serveur, on crée un module vide
+      config.resolve.alias['hls.js'] = false;
+    }
+    
+    return config;
+  },
 }
 
 export default nextConfig
