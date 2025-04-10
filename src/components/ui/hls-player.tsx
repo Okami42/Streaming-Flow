@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import Hls from "hls.js";
+// Import de Hls supprimé - sera importé dynamiquement
 import { Loader2 } from "lucide-react";
 
 interface HLSPlayerProps {
@@ -22,7 +22,7 @@ export default function HLSPlayer({
   const previewRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const hlsRef = useRef<Hls | null>(null);
+  const hlsRef = useRef<any | null>(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [showPreview, setShowPreview] = useState(false);
@@ -32,6 +32,7 @@ export default function HLSPlayer({
   const videoContainerRef = useRef<HTMLDivElement>(null);
   const previewControlsActive = useRef(false);
   const [isPaused, setIsPaused] = useState(true);
+  const [hlsSupported, setHlsSupported] = useState<boolean | null>(null);
 
   // Formater le temps en MM:SS
   const formatTime = (time: number) => {
@@ -91,8 +92,12 @@ export default function HLSPlayer({
 
     const loadVideo = async () => {
       try {
+        // Import dynamique de hls.js
+        const Hls = (await import('hls.js')).default;
+        
         // Si HLS.js est supporté
         if (Hls.isSupported() && src.includes('.m3u8')) {
+          setHlsSupported(true);
           const hls = new Hls({
             enableWorker: true,
             lowLatencyMode: true,
@@ -136,6 +141,7 @@ export default function HLSPlayer({
         } 
         // Support natif HLS pour Safari
         else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+          setHlsSupported(true);
           video.src = src;
           video.addEventListener('loadedmetadata', () => {
             if (autoPlay) {
@@ -153,6 +159,7 @@ export default function HLSPlayer({
         } 
         // Pas de support HLS
         else {
+          setHlsSupported(false);
           setError("Votre navigateur ne prend pas en charge la lecture HLS");
           setIsLoading(false);
         }
@@ -253,15 +260,11 @@ export default function HLSPlayer({
     }
 
     return () => {
-      video.removeEventListener('timeupdate', handleTimeUpdate);
-      video.removeEventListener('play', handlePlayPause);
-      video.removeEventListener('pause', handlePlayPause);
-      video.removeEventListener('ended', handlePlayPause);
       if (hlsRef.current) {
         hlsRef.current.destroy();
       }
     };
-  }, [src, autoPlay, previewImage]);
+  }, [src, autoPlay]);
 
   // Style personnalisé pour le lecteur vidéo
   const videoStyle = `
