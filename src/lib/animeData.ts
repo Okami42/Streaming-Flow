@@ -528,9 +528,9 @@ export const animes: Anime[] = [
             title: "Kuroko's Basket Last Game", 
             duration: 1440, 
             vidmolyId: "4vdf01s69rjl", 
-            vidmolyVfId: "i835rhqdf94g", 
-            smoothpreUrl: "https://vimeo.com/1073297108/6d0921f528",
-            m3u8VfUrl: "https://streaming23.animedigitalnetwork.fr/1744239835727-1046246-b5b12c6e209c9af33b8b9f56cc55e07b/video1_1080p/playlist.m3u8"
+            vidmolyVfId: "u01v11vvld94", // Mise à jour avec le nouveau ID
+            smoothpreUrl: "https://vimeo.com/1073297108/6d0921f528"
+            // Retrait de m3u8VfUrl qui ne fonctionne plus
           }
         ]
       }

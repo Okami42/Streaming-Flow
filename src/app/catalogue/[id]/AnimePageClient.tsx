@@ -300,6 +300,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
           setTimeout(() => {
             // Si nous sommes toujours en mode lecture mais que le temps n'a pas changé
             if (isPlayingRef.current && currentTime === currentTimeRef.current) {
+              // Probable pause
               console.log("Pause auto-détectée par intervalle de vérification");
               
               // Arrêter le timer
@@ -807,10 +808,9 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       {/* Lecteur spécifique pour Kuroko no Basket - Film */}
                       {anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' ? (
                         <div className="bg-black" style={{ width: '100%', height: '650px' }}>
-                          <HLSPlayer 
-                            src={getProxiedStreamUrl("https://streaming23.animedigitalnetwork.fr/1744239835727-1046246-b5b12c6e209c9af33b8b9f56cc55e07b/video1_1080p/playlist.m3u8")}
+                          <VideoPlayer 
+                            vidmolyId={episode?.vidmolyVfId}
                             className="w-full h-full"
-                            poster={anime.bannerUrl || anime.imageUrl}
                           />
                         </div>
                       ) : (
@@ -828,9 +828,10 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       {/* Lecteur 2 inversé : Sibnet pour Kuroko, Vidmoly pour les autres */}
                       {anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' ? (
                         <div className="bg-black" style={{ width: '100%', height: '650px' }}>
-                          <VideoPlayer 
-                            sibnetId={videoId}
+                          <HLSPlayer 
+                            src={getProxiedStreamUrl("https://streaming23.animedigitalnetwork.fr/1744239835727-1046246-b5b12c6e209c9af33b8b9f56cc55e07b/video1_1080p/playlist.m3u8")}
                             className="w-full h-full"
+                            poster={anime.bannerUrl || anime.imageUrl}
                           />
                         </div>
                       ) : (
@@ -886,15 +887,10 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       {/* Lecteur style anime-sama.fr */}
                       {anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' ? (
                         <div className="bg-black" style={{ width: '100%', height: '650px' }}>
-                          <HLSPlayer 
-                            src={getProxiedStreamUrl("https://streaming23.animedigitalnetwork.fr/1744239835727-1046246-b5b12c6e209c9af33b8b9f56cc55e07b/video1_1080p/playlist.m3u8")}
+                          <VideoPlayer 
+                            vidmolyId={episode?.vidmolyVfId}
                             className="w-full h-full"
-                            poster={anime.bannerUrl || anime.imageUrl}
                           />
-                          {/* Message explicatif si le lecteur ne se charge pas */}
-                          <noscript>
-                            <p className="text-white p-4">Activez JavaScript pour voir cette vidéo.</p>
-                          </noscript>
                         </div>
                       ) : (
                         <div className="bg-black" style={{ width: '100%', height: '650px' }}>

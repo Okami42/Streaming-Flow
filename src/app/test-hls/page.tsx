@@ -42,7 +42,7 @@ export default function TestHLSPlayer() {
               type="text" 
               value={m3u8Url}
               onChange={(e) => setM3u8Url(e.target.value)}
-              placeholder="https://example.com/stream.m3u8"
+              placeholder="https://streaming24.animedigitalnetwork.fr/1744313810426-1046246-088f39fa91b0c07367cabcd0af84fd65/video1_1080p/playlist.m3u8"
               className="flex-1 bg-[#151a2a] border-white/10"
             />
             <Button 
