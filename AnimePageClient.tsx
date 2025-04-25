@@ -12,7 +12,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
-// Type pour l'anime passé en prop
+// Type pour l'anime passé en propl
 interface Anime {
   id: string;
   title: string;
