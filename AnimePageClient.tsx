@@ -57,7 +57,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
 
   const episode = anime?.episodes?.find(ep => ep.number === selectedEpisode);
 
-  // Fonction pour mettre à jour l'affichage du temps sans affecter la logique
+  // Fonction pour mettre à jour l'affichage du temps sans affecter la logique.
   const updateTimeDisplay = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
