@@ -15,12 +15,9 @@ import { CalendarDays, Clock, Plus, Sparkles, Star, Play } from "lucide-react";
 import Link from "next/link";
 import CustomImage from "@/components/ui/custom-image";
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      [elemName: string]: any;
-    }
-  }
+// Définir un type pour les éléments intrinsèques personnalisés
+interface CustomElements {
+  [elemName: string]: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
 }
 
 // Type pour les éléments de contenu compatible avec ContentSection

@@ -14,7 +14,7 @@ import { useFavorites } from "@/context/favorites-context";
 import EpisodeCard from "@/components/EpisodeCard";
 import episodeDescriptions, { getEpisodeDescription } from "@/lib/episodeDescriptions";
 
-export default function SeriesPage({ params }: { params: any }) {
+export default function SeriesPage({ params }: { params: { id: string } }) {
   // Unwrap params avec React.use()
   const unwrappedParams = use(params) as { id: string };
   const searchParams = useSearchParams();

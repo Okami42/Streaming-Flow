@@ -11,7 +11,7 @@ import Header from "@/components/Header";
 import CustomImage from "@/components/ui/custom-image";
 import { useFavorites } from "@/context/favorites-context";
 
-export default function AnimePage({ params }: { params: any }) {
+export default function AnimePage({ params }: { params: { id: string } }) {
   // Unwrap params avec React.use()
   const unwrappedParams = use(params) as { id: string };
   const anime = getAnimeById(unwrappedParams.id);

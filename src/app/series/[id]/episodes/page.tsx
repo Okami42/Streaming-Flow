@@ -153,7 +153,7 @@ export default function SeriesEpisodesPage({ params }: { params: { id: string } 
               
               // Utiliser des données simulées spécifiques pour Squid Game
               let title = episode.title;
-              let description = episodeDescriptions[episode.id] || "Dans cet épisode, l'intrigue se poursuit avec de nombreux rebondissements et des moments de suspense qui captiveront l'audience.";
+              const description = episodeDescriptions[episode.id] || "Dans cet épisode, l'intrigue se poursuit avec de nombreux rebondissements et des moments de suspense qui captiveront l'audience.";
               
               // Si c'est Squid Game, utiliser les titres spécifiques
               if (series.id === "squid-game") {

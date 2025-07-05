@@ -12,7 +12,7 @@ import { useHistory } from "@/context/history-context";
 import { useFavorites } from "@/context/favorites-context";
 import { Content, Episode } from "@/lib/types";
 
-export default function WatchPage({ params }: { params: any }) {
+export default function WatchPage({ params }: { params: { id: string; episodeId: string } }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const unwrappedParams = use(params) as { id: string; episodeId: string };
@@ -27,9 +27,15 @@ export default function WatchPage({ params }: { params: any }) {
   const iframeRefs = useRef<HTMLIFrameElement[]>([]);
   const videoRef = useRef<HTMLVideoElement>(null);
   
+  // Hooks pour l'historique et les favoris
+  const { addToWatchHistory } = useHistory();
+  const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
+  
   // Trouver la série
   const series = seriesData.find((s) => s.id === unwrappedParams.id);
-  if (!series) return <div>Série non trouvée</div>;
+  if (!series) {
+    return <div>Série non trouvée</div>;
+  }
 
   // Vérifier si la série a plusieurs saisons
   const hasMultipleSeasons = series.seasonsList && series.seasonsList.length > 1;
@@ -42,7 +48,10 @@ export default function WatchPage({ params }: { params: any }) {
   } else {
     episode = series.episodes.find(ep => ep.id === parseInt(unwrappedParams.episodeId));
   }
-  if (!episode) return <div>Épisode non trouvé</div>;
+  
+  if (!episode) {
+    return <div>Épisode non trouvé</div>;
+  }
 
   // Calculer les épisodes précédent et suivant
   const getAdjacentEpisodes = () => {
@@ -64,7 +73,6 @@ export default function WatchPage({ params }: { params: any }) {
   const { prevEpisode, nextEpisode, totalEpisodes } = getAdjacentEpisodes();
   
   // Ajouter à l'historique
-  const { addToWatchHistory } = useHistory();
   useEffect(() => {
     addToWatchHistory({
       id: `${series.id}-${unwrappedParams.episodeId}${seasonNumber ? `-s${seasonNumber}` : ''}`,
@@ -80,7 +88,7 @@ export default function WatchPage({ params }: { params: any }) {
       },
       type: 'Anime'
     });
-  }, [series.id, unwrappedParams.episodeId, seasonNumber]);
+  }, [series.id, unwrappedParams.episodeId, seasonNumber, addToWatchHistory, series.title, series.imageUrl, episode.imageUrl, episode.title, episode.duration]);
 
   // Effet pour mettre à jour la clé du lecteur quand on change d'épisode
   useEffect(() => {
@@ -112,19 +120,17 @@ export default function WatchPage({ params }: { params: any }) {
       });
       
       // Nettoyer la vidéo directe si elle existe
-      if (videoRef.current) {
-        videoRef.current.pause();
-        videoRef.current.src = '';
-        videoRef.current.load();
+      const currentVideoRef = videoRef.current;
+      if (currentVideoRef) {
+        currentVideoRef.pause();
+        currentVideoRef.src = '';
+        currentVideoRef.load();
       }
       
       // Réinitialiser les références
       iframeRefs.current = [];
     };
   }, [unwrappedParams.id, unwrappedParams.episodeId, seasonNumber]);
-
-  // Ajouter le hook useFavorites
-  const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
 
   // Ajouter une fonction pour gérer l'ajout/retrait des favoris
   const handleFavoriteToggle = () => {
