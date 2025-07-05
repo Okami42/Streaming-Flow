@@ -14,7 +14,7 @@ import EpisodeCard from "@/components/EpisodeCard";
 // Définir le type correct pour les paramètres de page Next.js
 interface PageProps {
   params: any;
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams?: any;
 }
 
 interface RouteParams {

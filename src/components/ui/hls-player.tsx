@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 // Import de type uniquement pour TypeScript, pas de dépendance runtime
 import type Hls from "hls.js";
 import { Loader2 } from "lucide-react";
+import Image from 'next/image';
 
 interface HLSPlayerProps {
   src: string;
@@ -395,10 +396,13 @@ export default function HLSPlayer({
           {/* Vignette d'aperçu */}
           <div className="relative aspect-video w-full bg-[#6abeec] flex items-center justify-center">
             {previewImage ? (
-              <img 
+              <Image 
                 src={previewImage} 
                 alt="Aperçu" 
                 className="w-full h-full object-cover"
+                width={120}
+                height={68}
+                unoptimized // Nécessaire car l'image est générée dynamiquement
               />
             ) : (
               <div className="absolute inset-0 flex items-center justify-center">
