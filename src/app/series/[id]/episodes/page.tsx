@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, use } from "react";
+import React, { useState } from "react";
 import { notFound, useSearchParams } from "next/navigation";
 import { seriesData } from "@/lib/seriesData";
 import { ChevronDown, ChevronLeft } from "lucide-react";
@@ -11,11 +11,24 @@ import { Button } from "@/components/ui/button";
 import { Content, Episode, Season } from "@/lib/types";
 import EpisodeCard from "@/components/EpisodeCard";
 
-export default function SeriesEpisodesPage({ params }: { params: { id: string } }) {
+// Définir le type correct pour les paramètres de page Next.js
+interface PageProps {
+  params: any;
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
+
+interface RouteParams {
+  id: string;
+}
+
+export default function SeriesEpisodesPage({ params }: PageProps) {
   const searchParams = useSearchParams();
   const seasonParam = searchParams.get('season');
   
-  const series = seriesData.find((item) => item.id === params.id);
+  // Utiliser React.use() pour accéder aux paramètres
+  const unwrappedParams = React.use(params) as RouteParams;
+  const seriesId = unwrappedParams.id;
+  const series = seriesData.find((item) => item.id === seriesId);
   
   if (!series) {
     notFound();
@@ -170,7 +183,6 @@ export default function SeriesEpisodesPage({ params }: { params: { id: string } 
                   date="17 sept. 2021"
                   seasonNumber={hasMultipleSeasons ? selectedSeason : undefined}
                   seriesId={series.id}
-                  watchingNow={false}
                 />
               );
             })}

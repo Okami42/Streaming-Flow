@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, use, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
@@ -11,18 +11,35 @@ import { seriesData } from "@/lib/seriesData";
 import { useHistory } from "@/context/history-context";
 import { useFavorites } from "@/context/favorites-context";
 import { Content, Episode } from "@/lib/types";
+import React from "react";
 
-export default function WatchPage({ params }: { params: { id: string; episodeId: string } }) {
+// Définir le type correct pour les paramètres de page Next.js
+interface PageProps {
+  params: any;
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
+
+interface RouteParams {
+  id: string;
+  episodeId: string;
+}
+
+export default function WatchPage({ params }: PageProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const unwrappedParams = use(params) as { id: string; episodeId: string };
+  
+  // Utiliser React.use() pour accéder aux paramètres
+  const unwrappedParams = React.use(params) as RouteParams;
+  const id = unwrappedParams.id;
+  const episodeId = unwrappedParams.episodeId;
+  
   const seasonParam = searchParams.get('season');
   const seasonNumber = seasonParam ? parseInt(seasonParam) : undefined;
   
   // État pour détecter le mode plein écran
   const [isFullScreen, setIsFullScreen] = useState(false);
   // Clé unique pour forcer le rechargement du lecteur vidéo
-  const [playerKey, setPlayerKey] = useState(`${unwrappedParams.id}-${unwrappedParams.episodeId}-${seasonNumber || 0}`);
+  const [playerKey, setPlayerKey] = useState(`${id}-${episodeId}-${seasonNumber || 0}`);
   // Référence aux iframes pour nettoyage
   const iframeRefs = useRef<HTMLIFrameElement[]>([]);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -32,7 +49,7 @@ export default function WatchPage({ params }: { params: { id: string; episodeId:
   const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
   
   // Trouver la série
-  const series = seriesData.find((s) => s.id === unwrappedParams.id);
+  const series = seriesData.find((s) => s.id === id);
   if (!series) {
     return <div>Série non trouvée</div>;
   }
@@ -44,9 +61,9 @@ export default function WatchPage({ params }: { params: { id: string; episodeId:
   let episode: Episode | undefined;
   if (hasMultipleSeasons && seasonNumber) {
     const season = series.seasonsList?.find(s => s.seasonNumber === seasonNumber);
-    episode = season?.episodes.find(ep => ep.id === parseInt(unwrappedParams.episodeId));
+    episode = season?.episodes.find(ep => ep.id === parseInt(episodeId));
   } else {
-    episode = series.episodes.find(ep => ep.id === parseInt(unwrappedParams.episodeId));
+    episode = series.episodes.find(ep => ep.id === parseInt(episodeId));
   }
   
   if (!episode) {
@@ -62,7 +79,7 @@ export default function WatchPage({ params }: { params: { id: string; episodeId:
     }
     
     const totalEpisodes = episodes.length;
-    const currentIndex = episodes.findIndex(ep => ep.id === parseInt(unwrappedParams.episodeId));
+    const currentIndex = episodes.findIndex(ep => ep.id === parseInt(episodeId));
     
     const prevEpisode = currentIndex > 0 ? episodes[currentIndex - 1] : null;
     const nextEpisode = currentIndex < totalEpisodes - 1 ? episodes[currentIndex + 1] : null;
@@ -74,8 +91,9 @@ export default function WatchPage({ params }: { params: { id: string; episodeId:
   
   // Ajouter à l'historique
   useEffect(() => {
-    addToWatchHistory({
-      id: `${series.id}-${unwrappedParams.episodeId}${seasonNumber ? `-s${seasonNumber}` : ''}`,
+    // Utiliser une référence pour éviter des mises à jour en cascade
+    const historyItem = {
+      id: `${series.id}-${episodeId}${seasonNumber ? `-s${seasonNumber}` : ''}`,
       title: series.title,
       imageUrl: episode.imageUrl || series.imageUrl,
       lastWatchedAt: new Date().toISOString(),
@@ -83,17 +101,25 @@ export default function WatchPage({ params }: { params: { id: string; episodeId:
       duration: episode.duration || 1800,
       episodeInfo: {
         season: seasonNumber || 1,
-        episode: parseInt(unwrappedParams.episodeId),
+        episode: parseInt(episodeId),
         title: episode.title
       },
-      type: 'Anime'
-    });
-  }, [series.id, unwrappedParams.episodeId, seasonNumber, addToWatchHistory, series.title, series.imageUrl, episode.imageUrl, episode.title, episode.duration]);
+      type: 'Anime' as const
+    };
+    
+    // Utiliser un timeout pour éviter les mises à jour trop rapides
+    const timer = setTimeout(() => {
+      addToWatchHistory(historyItem);
+    }, 100);
+    
+    return () => clearTimeout(timer);
+  }, [series.id, episodeId, seasonNumber]); // Dépendances réduites
 
   // Effet pour mettre à jour la clé du lecteur quand on change d'épisode
   useEffect(() => {
-    // Mettre à jour la clé unique pour forcer le rechargement du lecteur
-    setPlayerKey(`${unwrappedParams.id}-${unwrappedParams.episodeId}-${seasonNumber || 0}-${Date.now()}`);
+    // Créer la clé une seule fois au montage du composant pour cet épisode
+    const uniqueKey = `${id}-${episodeId}-${seasonNumber || 0}-${Math.random().toString(36).substring(2, 9)}`;
+    setPlayerKey(uniqueKey);
     
     // Nettoyer les iframes précédents
     return () => {
@@ -130,11 +156,11 @@ export default function WatchPage({ params }: { params: { id: string; episodeId:
       // Réinitialiser les références
       iframeRefs.current = [];
     };
-  }, [unwrappedParams.id, unwrappedParams.episodeId, seasonNumber]);
+  }, [id, episodeId, seasonNumber]);
 
   // Ajouter une fonction pour gérer l'ajout/retrait des favoris
   const handleFavoriteToggle = () => {
-    const favoriteId = `${series.id}-${unwrappedParams.episodeId}${seasonNumber ? `-s${seasonNumber}` : ''}`;
+    const favoriteId = `${series.id}-${episodeId}${seasonNumber ? `-s${seasonNumber}` : ''}`;
     
     if (isFavorite(favoriteId)) {
       removeFromFavorites(favoriteId);
@@ -146,13 +172,13 @@ export default function WatchPage({ params }: { params: { id: string; episodeId:
         type: series.type,
         seriesId: series.id,
         seasonNumber: seasonNumber,
-        episodeId: parseInt(unwrappedParams.episodeId)
+        episodeId: parseInt(episodeId)
       });
     }
   };
 
   // Pour vérifier si l'épisode est dans les favoris
-  const episodeFavoriteId = `${series.id}-${unwrappedParams.episodeId}${seasonNumber ? `-s${seasonNumber}` : ''}`;
+  const episodeFavoriteId = `${series.id}-${episodeId}${seasonNumber ? `-s${seasonNumber}` : ''}`;
   const isEpisodeFavorite = isFavorite(episodeFavoriteId);
   
   // Détection du mode plein écran

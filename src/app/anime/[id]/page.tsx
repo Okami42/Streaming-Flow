@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, use } from "react";
+import React, { useState } from "react";
 import { notFound } from "next/navigation";
 import { getAnimeById } from "@/lib/animeData";
 import { Button } from "@/components/ui/button";
@@ -11,10 +11,21 @@ import Header from "@/components/Header";
 import CustomImage from "@/components/ui/custom-image";
 import { useFavorites } from "@/context/favorites-context";
 
-export default function AnimePage({ params }: { params: { id: string } }) {
-  // Unwrap params avec React.use()
-  const unwrappedParams = use(params) as { id: string };
-  const anime = getAnimeById(unwrappedParams.id);
+// Définir le type correct pour les paramètres de page Next.js
+interface PageProps {
+  params: any;
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
+
+interface RouteParams {
+  id: string;
+}
+
+export default function AnimePage({ params }: PageProps) {
+  // Utiliser React.use() pour accéder aux paramètres
+  const unwrappedParams = React.use(params) as RouteParams;
+  const animeId = unwrappedParams.id;
+  const anime = getAnimeById(animeId);
 
   if (!anime) {
     notFound();

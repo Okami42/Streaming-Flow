@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, use, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { notFound, useSearchParams } from "next/navigation";
 import { seriesData } from "@/lib/seriesData";
 import { Button } from "@/components/ui/button";
@@ -14,13 +14,24 @@ import { useFavorites } from "@/context/favorites-context";
 import EpisodeCard from "@/components/EpisodeCard";
 import episodeDescriptions, { getEpisodeDescription } from "@/lib/episodeDescriptions";
 
-export default function SeriesPage({ params }: { params: { id: string } }) {
-  // Unwrap params avec React.use()
-  const unwrappedParams = use(params) as { id: string };
+// Définir le type correct pour les paramètres de page Next.js
+interface PageProps {
+  params: any;
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
+
+interface RouteParams {
+  id: string;
+}
+
+export default function SeriesPage({ params }: PageProps) {
   const searchParams = useSearchParams();
   const seasonParam = searchParams.get('season');
   
-  const series = seriesData.find((item) => item.id === unwrappedParams.id);
+  // Utiliser React.use() pour accéder aux paramètres
+  const unwrappedParams = React.use(params) as RouteParams;
+  const seriesId = unwrappedParams.id;
+  const series = seriesData.find((item) => item.id === seriesId);
 
   if (!series) {
     notFound();
