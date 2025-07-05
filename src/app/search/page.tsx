@@ -27,13 +27,15 @@ export default function SearchPage() {
   const performSearch = (term: string) => {
     const animes = getAllAnimes();
     // Ajouter les animes de data.ts
-    const additionalAnimes = [...recentEpisodes, ...hidden, ...latestFilms].map(item => ({
-      id: item.id,
-      title: item.title,
-      imageUrl: item.imageUrl,
-      type: item.type || "Anime",
-      language: item.language || "VOSTFR"
-    }));
+    const additionalAnimes = [...recentEpisodes, ...hidden, ...latestFilms]
+      .filter(item => item !== null)
+      .map(item => ({
+        id: item.id,
+        title: item.title,
+        imageUrl: item.imageUrl,
+        type: item.type || "Anime",
+        language: item.language || "VOSTFR"
+      }));
     
     if (!term.trim()) {
       setResults([]);
