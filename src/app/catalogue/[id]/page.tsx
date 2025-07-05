@@ -2,6 +2,7 @@ import AnimePageClient from "./AnimePageClient";
 import { ErrorBoundary } from 'react-error-boundary';
 import { getAnimeById } from "@/lib/animeData";
 import { notFound } from "next/navigation";
+import React from "react";
 
 // Composant d'erreur séparé dans un fichier à part pour éviter l'erreur
 function MyFallbackComponent({ error }: { error: Error }) {
@@ -19,9 +20,19 @@ function MyFallbackComponent({ error }: { error: Error }) {
   );
 }
 
-export default async function AnimePage({ params }: { params: { id: string } }) {
-  // Attendre les paramètres pour résoudre l'avertissement sur params.id
-  const { id } = await Promise.resolve(params);
+// Définir le type correct pour les paramètres de page Next.js
+interface PageProps {
+  params: any;
+  searchParams?: any;
+}
+
+interface RouteParams {
+  id: string;
+}
+
+export default async function AnimePage({ params }: PageProps) {
+  // Utiliser les paramètres directement
+  const id = params.id;
   
   // Récupérer l'anime par son ID (getAnimeById gère déjà le cas de solo-leveling-2)
   const anime = getAnimeById(id);
