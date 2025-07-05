@@ -8,7 +8,7 @@ interface AnimeCardProps {
   imageUrl: string;
   time?: string;
   type: "Anime" | "Scans";
-  language: "VOSTFR" | "VF";
+  language: "VOSTFR" | "VF" | "VF & VOSTFR";
   href?: string;
   id?: string;
 }
