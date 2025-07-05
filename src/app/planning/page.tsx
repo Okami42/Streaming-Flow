@@ -38,9 +38,8 @@ export default function PlanningPage() {
                         key={anime.id}
                         title={anime.title}
                         imageUrl={anime.imageUrl}
-                        time={anime.time}
-                        type={anime.type}
-                        language={anime.language}
+                        type={anime.type as "Anime" | "Scans"}
+                        language={anime.language as "VOSTFR" | "VF" | "VF & VOSTFR"}
                         href={`/catalogue/${anime.id}`}
                       />
                     ))}
