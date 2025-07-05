@@ -22,12 +22,36 @@ interface CatalogueSeries {
 
 const seriesList: CatalogueSeries[] = [
   {
+    id: "motorheads",
+    title: "Motorheads",
+    imageUrl: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    type: "Série",
+    language: "VF",
+    time: "1 saison"
+  },
+  {
     id: "breaking-bad",
     title: "Breaking Bad",
     imageUrl: "https://fr.web.img5.acsta.net/pictures/19/06/18/12/11/3956503.jpg",
     type: "Série",
     language: "VF",
     time: "5 saisons"
+  },
+  {
+    id: "squid-game",
+    title: "Squid Game",
+    imageUrl: "https://media.senscritique.com/media/000021637905/300/squid_game.png",
+    type: "Série",
+    language: "VF",
+    time: "3 saisons"
+  },
+  {
+    id: "adventure-time",
+    title: "Adventure Time",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BMjE2MzE1MDI2M15BMl5BanBnXkFtZTgwNzUyODQxMDE@._V1_.jpg",
+    type: "Série",
+    language: "VF",
+    time: "10 saisons"
   },
   {
     id: "game-of-thrones",
@@ -88,7 +112,7 @@ const seriesList: CatalogueSeries[] = [
 ];
 
 const genres = [
-  "Action", "Aventure", "Comédie", "Drame", "Fantasy",
+  "Action", "Aventure", "Automobile", "Comédie", "Drame", "Fantasy",
   "Horreur", "Thriller", "Romance", "Science-Fiction", "Sport",
   "Crime", "Historique", "Documentaire", "Biopic"
 ];
@@ -113,10 +137,10 @@ export default function SeriesCataloguePage() {
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      <main className="flex-grow">
+      <main className="flex-grow pt-24">
         <div className="container mx-auto px-4 py-8">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-white mb-6">Catalogue de Séries & Films</h1>
+            <h1 className="text-3xl font-bold text-white mb-6"></h1>
 
             {/* Search and filters */}
             <div className="flex flex-col md:flex-row gap-4 mb-8">
@@ -156,44 +180,6 @@ export default function SeriesCataloguePage() {
                   {genre}
                 </button>
               ))}
-            </div>
-          </div>
-
-          {/* Special Focus for Breaking Bad */}
-          <div className="mb-10 p-6 rounded-xl bg-gradient-to-r from-[#151a2a] to-[#0c1222] border border-white/5">
-            <h2 className="text-xl font-bold text-white mb-4">En ce moment sur OKA Stream</h2>
-            <div className="flex flex-col md:flex-row gap-6 items-center">
-              <div className="w-full md:w-1/3 lg:w-1/4">
-                <Link href="/series/breaking-bad" className="block">
-                  <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg border-2 border-blue-500/20 hover:border-blue-500/50 transition-all shadow-lg hover:shadow-blue-500/20">
-                    <CustomImage
-                      src="https://fr.web.img5.acsta.net/pictures/19/06/18/12/11/3956503.jpg"
-                      alt="Breaking Bad"
-                      fill
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-60 transition-opacity duration-300"></div>
-                  </div>
-                </Link>
-              </div>
-              <div className="flex-1">
-                <h3 className="text-2xl font-bold text-white mb-2">Breaking Bad</h3>
-                <p className="text-gray-300 mb-4">
-                  Un professeur de chimie atteint d'un cancer du poumon inopérable se lance dans la fabrication et la vente de méthamphétamine pour assurer l'avenir financier de sa famille.
-                </p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {["Drame", "Crime", "Thriller"].map((tag) => (
-                    <span key={tag} className="inline-block px-2 py-1 text-xs bg-[#151a2a] text-gray-300 rounded-md">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <Link href="/series/breaking-bad">
-                  <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white">
-                    Voir les épisodes
-                  </Button>
-                </Link>
-              </div>
             </div>
           </div>
 

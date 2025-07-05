@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Loader2 } from "lucide-react";
 
 interface VideoPlayerProps {
@@ -11,6 +11,7 @@ interface VideoPlayerProps {
   beerscloudId?: string;
   poster?: string;
   className?: string;
+  key?: string;
 }
 
 export default function VideoPlayer({
@@ -23,6 +24,8 @@ export default function VideoPlayer({
   className = "",
 }: VideoPlayerProps) {
   const [isLoading, setIsLoading] = useState(true);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const playerKey = `${sibnetId || ''}-${vidmolyId || ''}-${sendvidId || ''}-${beerscloudId || ''}-${Date.now()}`;
   
   // Construction directe de l'URL Vidmoly - format standard
   const finalVidmolyUrl = vidmolyId 
@@ -43,9 +46,26 @@ export default function VideoPlayer({
   const handleIframeError = () => {
     setIsLoading(false);
   };
+
+  // Nettoyer l'iframe lors du démontage du composant
+  useEffect(() => {
+    return () => {
+      // Nettoyer l'iframe à la sortie
+      if (iframeRef.current && iframeRef.current.contentWindow) {
+        try {
+          // Essayer d'arrêter toute lecture en cours
+          const iframe = iframeRef.current;
+          iframe.src = 'about:blank';
+        } catch (e) {
+          // Ignorer les erreurs de sécurité cross-origin
+          console.log("Nettoyage de l'iframe impossible en raison des restrictions cross-origin");
+        }
+      }
+    };
+  }, [sibnetId, vidmolyId, sendvidId, beerscloudId]);
   
   return (
-    <div className={`w-full h-full relative ${className}`} style={{ overflow: 'hidden' }}>      
+    <div className={`w-full h-full relative ${className}`} style={{ overflow: 'hidden' }} key={playerKey}>      
       {/* Afficher un loader pendant le chargement */}
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-black z-10">
@@ -56,6 +76,7 @@ export default function VideoPlayer({
       {/* Lecteur Sibnet (natif) */}
       {sibnetId && (
         <iframe 
+          ref={iframeRef}
           src={`https://video.sibnet.ru/shell.php?videoid=${sibnetId}&skin=4&share=1`}
           frameBorder="0" 
           scrolling="no" 
@@ -77,6 +98,7 @@ export default function VideoPlayer({
       {/* Lecteur Vidmoly (natif) */}
       {finalVidmolyUrl && !sibnetId && (
         <iframe 
+          ref={iframeRef}
           src={finalVidmolyUrl}
           width="100%" 
           height="100%" 
@@ -100,6 +122,7 @@ export default function VideoPlayer({
       {/* Lecteur Sendvid (natif) */}
       {sendvidId && !sibnetId && !finalVidmolyUrl && !beerscloudUrl && (
         <iframe 
+          ref={iframeRef}
           src={`https://sendvid.com/embed/${sendvidId}`}
           width="100%" 
           height="100%" 
@@ -121,6 +144,7 @@ export default function VideoPlayer({
       {/* Lecteur Beerscloud */}
       {beerscloudUrl && !sibnetId && !finalVidmolyUrl && !sendvidId && (
         <iframe 
+          ref={iframeRef}
           src={beerscloudUrl}
           width="100%" 
           height="100%" 

@@ -153,7 +153,7 @@ export default function CataloguePage() {
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      <main className="flex-grow">
+      <main className="flex-grow pt-24">
         <div className="container mx-auto px-4 py-8">
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-white mb-6">Catalogue</h1>

@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect, use } from "react";
+import { useState, useEffect, use, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ArrowLeft, ArrowRight, Share, Heart, MessageSquare, ChevronLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { seriesData } from "@/lib/seriesData";
 import { useHistory } from "@/context/history-context";
 import { useFavorites } from "@/context/favorites-context";
@@ -18,6 +18,14 @@ export default function WatchPage({ params }: { params: any }) {
   const unwrappedParams = use(params) as { id: string; episodeId: string };
   const seasonParam = searchParams.get('season');
   const seasonNumber = seasonParam ? parseInt(seasonParam) : undefined;
+  
+  // État pour détecter le mode plein écran
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  // Clé unique pour forcer le rechargement du lecteur vidéo
+  const [playerKey, setPlayerKey] = useState(`${unwrappedParams.id}-${unwrappedParams.episodeId}-${seasonNumber || 0}`);
+  // Référence aux iframes pour nettoyage
+  const iframeRefs = useRef<HTMLIFrameElement[]>([]);
+  const videoRef = useRef<HTMLVideoElement>(null);
   
   // Trouver la série
   const series = seriesData.find((s) => s.id === unwrappedParams.id);
@@ -61,10 +69,10 @@ export default function WatchPage({ params }: { params: any }) {
     addToWatchHistory({
       id: `${series.id}-${unwrappedParams.episodeId}${seasonNumber ? `-s${seasonNumber}` : ''}`,
       title: series.title,
-      imageUrl: series.imageUrl,
+      imageUrl: episode.imageUrl || series.imageUrl,
       lastWatchedAt: new Date().toISOString(),
       progress: 0,
-      duration: 1800, // 30 minutes en secondes par défaut
+      duration: episode.duration || 1800,
       episodeInfo: {
         season: seasonNumber || 1,
         episode: parseInt(unwrappedParams.episodeId),
@@ -73,6 +81,47 @@ export default function WatchPage({ params }: { params: any }) {
       type: 'Anime'
     });
   }, [series.id, unwrappedParams.episodeId, seasonNumber]);
+
+  // Effet pour mettre à jour la clé du lecteur quand on change d'épisode
+  useEffect(() => {
+    // Mettre à jour la clé unique pour forcer le rechargement du lecteur
+    setPlayerKey(`${unwrappedParams.id}-${unwrappedParams.episodeId}-${seasonNumber || 0}-${Date.now()}`);
+    
+    // Nettoyer les iframes précédents
+    return () => {
+      // Nettoyer toutes les iframes
+      iframeRefs.current.forEach(iframe => {
+        if (iframe && iframe.contentWindow) {
+          try {
+            // Arrêter la lecture et vider la source
+            const iframeDoc = iframe.contentWindow.document;
+            const videoElements = iframeDoc.querySelectorAll('video');
+            videoElements.forEach((video: HTMLVideoElement) => {
+              video.pause();
+              video.src = '';
+              video.load();
+            });
+            
+            // Vider l'iframe
+            iframe.src = 'about:blank';
+          } catch (e) {
+            // Ignorer les erreurs de sécurité cross-origin
+            console.log("Nettoyage de l'iframe impossible en raison des restrictions cross-origin");
+          }
+        }
+      });
+      
+      // Nettoyer la vidéo directe si elle existe
+      if (videoRef.current) {
+        videoRef.current.pause();
+        videoRef.current.src = '';
+        videoRef.current.load();
+      }
+      
+      // Réinitialiser les références
+      iframeRefs.current = [];
+    };
+  }, [unwrappedParams.id, unwrappedParams.episodeId, seasonNumber]);
 
   // Ajouter le hook useFavorites
   const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
@@ -87,7 +136,7 @@ export default function WatchPage({ params }: { params: any }) {
       addToFavorites({
         id: favoriteId,
         title: `${series.title} - ${episode.title}`,
-        imageUrl: series.imageUrl,
+        imageUrl: episode.imageUrl || series.imageUrl,
         type: series.type,
         seriesId: series.id,
         seasonNumber: seasonNumber,
@@ -99,12 +148,67 @@ export default function WatchPage({ params }: { params: any }) {
   // Pour vérifier si l'épisode est dans les favoris
   const episodeFavoriteId = `${series.id}-${unwrappedParams.episodeId}${seasonNumber ? `-s${seasonNumber}` : ''}`;
   const isEpisodeFavorite = isFavorite(episodeFavoriteId);
+  
+  // Détection du mode plein écran
+  useEffect(() => {
+    const handleFullScreenChange = () => {
+      setIsFullScreen(
+        document.fullscreenElement !== null || 
+        (document as any).webkitFullscreenElement !== null || 
+        (document as any).mozFullScreenElement !== null ||
+        (document as any).msFullscreenElement !== null
+      );
+    };
+    
+    document.addEventListener('fullscreenchange', handleFullScreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullScreenChange);
+    document.addEventListener('mozfullscreenchange', handleFullScreenChange);
+    document.addEventListener('MSFullscreenChange', handleFullScreenChange);
+    
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullScreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullScreenChange);
+      document.removeEventListener('mozfullscreenchange', handleFullScreenChange);
+      document.removeEventListener('MSFullscreenChange', handleFullScreenChange);
+    };
+  }, []);
+
+  // Fonction pour activer le mode plein écran sur le conteneur vidéo
+  const toggleFullScreen = () => {
+    const videoContainer = document.getElementById('video-container');
+    if (!videoContainer) return;
+
+    if (!document.fullscreenElement) {
+      if (videoContainer.requestFullscreen) {
+        videoContainer.requestFullscreen();
+      } else if ((videoContainer as any).webkitRequestFullscreen) {
+        (videoContainer as any).webkitRequestFullscreen();
+      } else if ((videoContainer as any).msRequestFullscreen) {
+        (videoContainer as any).msRequestFullscreen();
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if ((document as any).webkitExitFullscreen) {
+        (document as any).webkitExitFullscreen();
+      } else if ((document as any).msExitFullscreen) {
+        (document as any).msExitFullscreen();
+      }
+    }
+  };
+
+  // Fonction pour ajouter les références d'iframe
+  const addIframeRef = (iframe: HTMLIFrameElement | null) => {
+    if (iframe && !iframeRefs.current.includes(iframe)) {
+      iframeRefs.current.push(iframe);
+    }
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-[#030711]">
       <Header />
       
-      <main className="flex-grow">
+      <main className="flex-grow pt-20">
         <div className="container mx-auto px-2 sm:px-4 py-2 sm:py-4">
           <div className="mb-2 sm:mb-4">
             <Link href={`/series/${series.id}${seasonNumber ? `?season=${seasonNumber}` : ''}`} className="inline-flex items-center text-blue-400 hover:text-blue-300 text-xs sm:text-sm">
@@ -122,11 +226,49 @@ export default function WatchPage({ params }: { params: any }) {
           </div>
           
           {/* Lecteur vidéo */}
-          <div className="flex justify-center">
-            <div className="relative w-full max-w-4xl aspect-video bg-black rounded-lg overflow-hidden mb-3 sm:mb-6 shadow-2xl">
-              <div className="w-full h-full">
+          <div className="flex justify-center" id="video-container" style={{ width: '100%' }}>
+            <div className="relative w-full max-w-5xl aspect-video bg-black rounded-lg overflow-hidden mb-3 sm:mb-6 shadow-2xl">
+              {/* Boutons de navigation sur le lecteur - mode normal */}
+              {!isFullScreen && (
+                <div className="absolute top-0 left-0 right-0 flex justify-between items-center p-2 sm:p-4 z-20">
+                  <Link href={`/series/${series.id}${seasonNumber ? `?season=${seasonNumber}` : ''}`} className="flex items-center text-white bg-black/50 hover:bg-black/70 transition-colors px-2 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm">
+                    <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+                    Retourner sur la fiche
+                  </Link>
+                  
+                  <div className="flex items-center space-x-2">
+                    {/* Bouton Épisode suivant - visible aussi en mode normal */}
+                    {nextEpisode && (
+                      <Link href={`/series/${series.id}/watch/${nextEpisode.id}${seasonNumber ? `?season=${seasonNumber}` : ''}`} className="flex items-center text-white bg-black/50 hover:bg-black/70 transition-colors px-2 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm">
+                        Épisode suivant
+                        <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 ml-1" />
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              )}
+              
+              {/* Boutons de navigation en mode plein écran */}
+              {isFullScreen && (
+                <div className="absolute top-4 left-0 right-0 flex justify-between items-center px-4 z-[9999]">
+                  <Link href={`/series/${series.id}${seasonNumber ? `?season=${seasonNumber}` : ''}`} className="flex items-center text-white bg-black/70 hover:bg-black/90 transition-colors px-3 py-2 rounded-full text-sm shadow-lg">
+                    <ChevronLeft className="h-4 w-4 mr-1" />
+                    Retourner sur la fiche
+                  </Link>
+                  
+                  {nextEpisode && (
+                    <Link href={`/series/${series.id}/watch/${nextEpisode.id}${seasonNumber ? `?season=${seasonNumber}` : ''}`} className="flex items-center text-white bg-black/70 hover:bg-black/90 transition-colors px-3 py-2 rounded-full text-sm shadow-lg">
+                      Épisode suivant
+                      <ChevronRight className="h-4 w-4 ml-1" />
+                    </Link>
+                  )}
+                </div>
+              )}
+              
+              <div className="w-full h-full" key={playerKey}>
                 {episode.videoUrl.includes('dood.wf') ? (
                   <iframe 
+                    ref={addIframeRef}
                     src={episode.videoUrl}
                     className="w-full h-full" 
                     frameBorder="0" 
@@ -134,9 +276,11 @@ export default function WatchPage({ params }: { params: any }) {
                     allowFullScreen
                     sandbox="allow-same-origin allow-scripts"
                     referrerPolicy="no-referrer"
+                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
                   ></iframe>
                 ) : episode.videoUrl.includes('filemoon.sx') ? (
                   <iframe 
+                    ref={addIframeRef}
                     src={episode.videoUrl}
                     className="w-full h-full" 
                     frameBorder="0" 
@@ -144,22 +288,12 @@ export default function WatchPage({ params }: { params: any }) {
                     allowFullScreen
                     sandbox="allow-same-origin allow-scripts allow-forms"
                     referrerPolicy="no-referrer"
+                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
                   ></iframe>
                 ) : episode.videoUrl.includes('iframe.mediadelivery.net') ? (
-                  <div className="relative flex items-center justify-center w-full h-full bg-[#030711]">
+                  <div className="relative w-full h-full flex items-center justify-center bg-[#030711]">
                     <iframe 
-                      src={episode.videoUrl}
-                      className="w-[90%] h-[90%] max-w-[1280px]" 
-                      frameBorder="0" 
-                      scrolling="no" 
-                      allowFullScreen
-                      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                      referrerPolicy="no-referrer"
-                    ></iframe>
-                  </div>
-                ) : episode.videoUrl.includes('beerscloud.com') ? (
-                  <div className="relative flex items-center justify-center w-full h-full bg-[#030711]">
-                    <iframe 
+                      ref={addIframeRef}
                       src={episode.videoUrl}
                       className="w-full h-full" 
                       frameBorder="0" 
@@ -167,10 +301,26 @@ export default function WatchPage({ params }: { params: any }) {
                       allowFullScreen
                       allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                       referrerPolicy="no-referrer"
+                      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                    ></iframe>
+                  </div>
+                ) : episode.videoUrl.includes('beerscloud.com') ? (
+                  <div className="relative w-full h-full flex items-center justify-center bg-[#030711]">
+                    <iframe 
+                      ref={addIframeRef}
+                      src={episode.videoUrl}
+                      className="w-full h-full" 
+                      frameBorder="0" 
+                      scrolling="no" 
+                      allowFullScreen
+                      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                      referrerPolicy="no-referrer"
+                      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
                     ></iframe>
                   </div>
                 ) : !episode.videoUrl.includes('http') ? (
                   <iframe 
+                    ref={addIframeRef}
                     src={`https://video.sibnet.ru/shell.php?videoid=${episode.videoUrl}&skin=4&share=1`}
                     className="absolute inset-0"
                     frameBorder="0" 
@@ -187,6 +337,7 @@ export default function WatchPage({ params }: { params: any }) {
                   ></iframe>
                 ) : episode.videoUrl.includes('vidmoly.to') ? (
                   <iframe 
+                    ref={addIframeRef}
                     src={episode.videoUrl}
                     className="w-full h-full" 
                     frameBorder="0" 
@@ -194,14 +345,17 @@ export default function WatchPage({ params }: { params: any }) {
                     allowFullScreen
                     allow="autoplay; fullscreen"
                     referrerPolicy="no-referrer"
+                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
                   ></iframe>
                 ) : episode.videoUrl.endsWith('.mp4') || episode.videoUrl.includes('cloudflarestorage') ? (
                   <video 
+                    ref={videoRef}
                     src={episode.videoUrl} 
-                    className="w-full h-full" 
+                    className="w-full h-full object-cover" 
                     controls 
                     autoPlay 
                     playsInline
+                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
                   ></video>
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center">
@@ -215,18 +369,6 @@ export default function WatchPage({ params }: { params: any }) {
                   </div>
                 )}
               </div>
-              
-              {/* Étiquette du lecteur */}
-              <div className="absolute top-0 right-0 bg-blue-600 text-white px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-sm font-bold rounded-bl">
-                {episode.videoUrl.includes('filemoon.sx') ? 'FILEMOON VOSTFR' : 
-                 episode.videoUrl.includes('dood.wf') ? 'DOODSTREAM' : 
-                 episode.videoUrl.includes('iframe.mediadelivery.net') ? 'CLOUDFLARE' :
-                 episode.videoUrl.includes('beerscloud.com') ? 'BEERSCLOUD' :
-                 !episode.videoUrl.includes('http') ? 'SIBNET VF' :
-                 episode.videoUrl.includes('vidmoly.to') ? 'VIDMOLY VF' :
-                 episode.videoUrl.endsWith('.mp4') || episode.videoUrl.includes('cloudflarestorage') ? 'MP4' :
-                 'LECTEUR'}
-              </div>
             </div>
           </div>
           
@@ -236,57 +378,115 @@ export default function WatchPage({ params }: { params: any }) {
             <div className="flex justify-center space-x-2 sm:space-x-4 mb-3 sm:mb-4">
               {prevEpisode ? (
                 <Link href={`/series/${series.id}/watch/${prevEpisode.id}${seasonNumber ? `?season=${seasonNumber}` : ''}`}>
-                  <Button variant="outline" className="border-white/10 hover:border-white/20 px-2 sm:px-4 py-1 sm:py-2 h-8 sm:h-10 text-xs sm:text-sm">
+                  <button 
+                    className={buttonVariants({
+                      variant: "outline",
+                      className: "border-white/10 hover:border-white/20 px-2 sm:px-4 py-1 sm:py-2 h-8 sm:h-10 text-xs sm:text-sm"
+                    })}
+                  >
                     <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                     Précédent
-                  </Button>
+                  </button>
                 </Link>
               ) : (
-                <Button variant="outline" disabled className="border-white/10 opacity-50 px-2 sm:px-4 py-1 sm:py-2 h-8 sm:h-10 text-xs sm:text-sm">
+                <button 
+                  disabled 
+                  className={buttonVariants({
+                    variant: "outline",
+                    className: "border-white/10 opacity-50 px-2 sm:px-4 py-1 sm:py-2 h-8 sm:h-10 text-xs sm:text-sm"
+                  })}
+                >
                   <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                   Précédent
-                </Button>
+                </button>
               )}
               
               {nextEpisode ? (
                 <Link href={`/series/${series.id}/watch/${nextEpisode.id}${seasonNumber ? `?season=${seasonNumber}` : ''}`}>
-                  <Button variant="outline" className="border-white/10 hover:border-white/20 px-2 sm:px-4 py-1 sm:py-2 h-8 sm:h-10 text-xs sm:text-sm">
+                  <button 
+                    className={buttonVariants({
+                      variant: "outline",
+                      className: "border-white/10 hover:border-white/20 px-2 sm:px-4 py-1 sm:py-2 h-8 sm:h-10 text-xs sm:text-sm"
+                    })}
+                  >
                     Suivant
                     <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 ml-1 sm:ml-2" />
-                  </Button>
+                  </button>
                 </Link>
               ) : (
-                <Button variant="outline" disabled className="border-white/10 opacity-50 px-2 sm:px-4 py-1 sm:py-2 h-8 sm:h-10 text-xs sm:text-sm">
+                <button 
+                  disabled 
+                  className={buttonVariants({
+                    variant: "outline",
+                    className: "border-white/10 opacity-50 px-2 sm:px-4 py-1 sm:py-2 h-8 sm:h-10 text-xs sm:text-sm"
+                  })}
+                >
                   Suivant
                   <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 ml-1 sm:ml-2" />
-                </Button>
+                </button>
               )}
-            </div>
-            
-            {/* Actions */}
-            <div className="flex justify-center space-x-4 sm:space-x-6">
-              <Button 
-                variant="ghost" 
-                className={`${isEpisodeFavorite ? 'text-red-500 hover:text-red-400' : 'text-white/70 hover:text-white'} p-1 sm:p-2 h-auto text-xs sm:text-sm`}
-                onClick={handleFavoriteToggle}
-              >
-                <Heart className={`h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 ${isEpisodeFavorite ? 'fill-red-500' : ''}`} />
-                {isEpisodeFavorite ? 'Aimé' : 'Aimer'}
-              </Button>
-              <Button variant="ghost" className="text-white/70 hover:text-white p-1 sm:p-2 h-auto text-xs sm:text-sm">
-                <Share className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-                Partager
-              </Button>
-              <Button variant="ghost" className="text-white/70 hover:text-white p-1 sm:p-2 h-auto text-xs sm:text-sm">
-                <MessageSquare className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-                Commenter
-              </Button>
             </div>
           </div>
         </div>
       </main>
 
       <Footer />
+      
+      {/* CSS pour optimiser l'affichage en plein écran */}
+      <style jsx global>{`
+        #video-container:fullscreen {
+          width: 100vw !important;
+          height: 100vh !important;
+          padding: 0;
+          margin: 0;
+          background: black;
+        }
+        
+        #video-container:fullscreen > div {
+          width: 100% !important;
+          height: 100% !important;
+          max-width: none !important;
+          border-radius: 0 !important;
+          margin: 0 !important;
+        }
+        
+        #video-container:fullscreen video,
+        #video-container:fullscreen iframe {
+          width: 100% !important;
+          height: 100% !important;
+          object-fit: contain !important;
+        }
+        
+        /* Pour Safari */
+        #video-container:-webkit-full-screen {
+          width: 100vw !important;
+          height: 100vh !important;
+          padding: 0;
+          margin: 0;
+          background: black;
+        }
+        
+        #video-container:-webkit-full-screen > div {
+          width: 100% !important;
+          height: 100% !important;
+          max-width: none !important;
+          border-radius: 0 !important;
+          margin: 0 !important;
+        }
+        
+        #video-container:-webkit-full-screen video,
+        #video-container:-webkit-full-screen iframe {
+          width: 100% !important;
+          height: 100% !important;
+          object-fit: contain !important;
+        }
+        
+        /* S'assurer que les boutons sont visibles en plein écran */
+        #video-container:fullscreen .absolute,
+        #video-container:-webkit-full-screen .absolute {
+          z-index: 9999 !important;
+        }
+      `}</style>
     </div>
   );
 } 

@@ -2,7 +2,19 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['ext.same-assets.com', 'storage-anime.com', 'video.sibnet.ru', 'sibnet.ru', 'embed.sibnet.ru'],
+    domains: [
+      'ext.same-assets.com', 
+      'storage-anime.com', 
+      'video.sibnet.ru', 
+      'sibnet.ru', 
+      'embed.sibnet.ru',
+      'i.ytimg.com',
+      'i0.wp.com',
+      'static1.srcdn.com',
+      'static1.colliderimages.com',
+      'via.placeholder.com',
+      'image.tmdb.org'
+    ],
     remotePatterns: [
       {
         protocol: 'https',
@@ -23,6 +35,14 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'embed.sibnet.ru',
+      },
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+      {
+        protocol: 'http',
+        hostname: '**',
       }
     ],
     unoptimized: true,

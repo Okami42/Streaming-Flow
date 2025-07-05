@@ -16,14 +16,14 @@ const HistoryDropdown = memo(function HistoryDropdown() {
   
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex items-center gap-1 bg-[#151a2a] hover:bg-[#1e263f] p-2 rounded-md border border-white/5 transition-colors relative">
-        <History className="h-4 w-4 text-white/70" />
+      <DropdownMenuTrigger className="text-white/80 hover:text-white transition-colors relative">
+        <History className="h-5 w-5" />
         {history.length > 0 && (
-          <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-pink-500 rounded-full" />
+          <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-red-500 rounded-full" />
         )}
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="bg-[#151a2a] border border-white/10 text-white rounded-md p-4 shadow-xl w-[350px] max-h-[400px] overflow-y-auto">
-        <div className="mb-2 pb-2 border-b border-white/5">
+      <DropdownMenuContent align="end" className="bg-black border border-gray-800 text-white rounded-md p-4 shadow-xl w-[350px] max-h-[400px] overflow-y-auto">
+        <div className="mb-2 pb-2 border-b border-gray-800">
           <h3 className="text-sm font-semibold">Historique</h3>
         </div>
         <HistoryList />

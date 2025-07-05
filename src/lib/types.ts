@@ -3,6 +3,8 @@ export interface Episode {
   id: number;
   title: string;
   videoUrl: string;
+  duration?: number; // Durée en secondes
+  imageUrl?: string; // URL de l'image de l'épisode
 }
 
 export interface Season {

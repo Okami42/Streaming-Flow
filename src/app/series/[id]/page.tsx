@@ -11,6 +11,8 @@ import Header from "@/components/Header";
 import CustomImage from "@/components/ui/custom-image";
 import { Content, Episode, Season } from "@/lib/types";
 import { useFavorites } from "@/context/favorites-context";
+import EpisodeCard from "@/components/EpisodeCard";
+import episodeDescriptions, { getEpisodeDescription } from "@/lib/episodeDescriptions";
 
 export default function SeriesPage({ params }: { params: any }) {
   // Unwrap params avec React.use()
@@ -39,6 +41,13 @@ export default function SeriesPage({ params }: { params: any }) {
       const season = series.seasonsList?.find(s => s.seasonNumber === selectedSeason);
       return season ? season.episodes : [];
     }
+    
+    // Si episodes est vide mais qu'il y a une saison 1, utiliser les épisodes de la saison 1
+    if (series.episodes.length === 0 && series.seasonsList && series.seasonsList.length > 0) {
+      const firstSeason = series.seasonsList.find(s => s.seasonNumber === 1);
+      return firstSeason ? firstSeason.episodes : [];
+    }
+    
     return series.episodes;
   };
 
@@ -77,7 +86,7 @@ export default function SeriesPage({ params }: { params: any }) {
     <div className="flex flex-col min-h-screen bg-[#030711]">
       <Header />
 
-      <main className="flex-grow">
+      <main className="flex-grow pt-20">
         {/* Bannière */}
         <div className="relative h-[50vh] w-full overflow-hidden">
           <div className="absolute inset-0">
@@ -204,34 +213,43 @@ export default function SeriesPage({ params }: { params: any }) {
               ) : (
                 <h2 className="text-xl font-bold text-white">Regarder</h2>
               )}
+              
+              {/* Bouton pour voir tous les épisodes */}
+              {series.type === "Série" && (
+                <Link href={`/series/${series.id}/episodes${hasMultipleSeasons ? `?season=${selectedSeason}` : ''}`}>
+                  <Button 
+                    variant="outline"
+                    className="border-blue-500/30 text-blue-400 hover:bg-blue-500/10"
+                  >
+                    Voir tous les épisodes
+                  </Button>
+                </Link>
+              )}
             </div>
             
-            <div className="space-y-4">
-              {getEpisodesToDisplay().map((episode: Episode) => (
-                <div
-                  key={episode.id}
-                  className="bg-[#151a2a] p-4 rounded-lg border border-white/5 hover:border-blue-500/30 transition-all"
-                >
-                  <Link href={`/series/${series.id}/watch/${episode.id}${hasMultipleSeasons ? `?season=${selectedSeason}` : ''}`}>
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <span className="text-blue-400 font-medium">
-                          {series.type === "Série" && `Épisode ${episode.id}`}
-                        </span>
-                        <h3 className="text-white font-medium">
-                          {episode.title}
-                        </h3>
-                      </div>
-                      <Button
-                        size="sm"
-                        className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-                      >
-                        Regarder
-                      </Button>
-                    </div>
-                  </Link>
-                </div>
-              ))}
+            {/* Nouvelle grille d'épisodes avec le composant EpisodeCard */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {getEpisodesToDisplay().map((episode: Episode) => {
+                // Utiliser la durée de l'épisode directement depuis les données
+                const duration = episode.duration || "55 min"; // Fallback uniquement si pas de durée
+                
+                // Description de l'épisode depuis notre nouveau fichier avec gestion des saisons
+                const description = getEpisodeDescription(series.id, episode.id, selectedSeason);
+                
+                return (
+                  <EpisodeCard
+                    key={episode.id}
+                    id={episode.id}
+                    title={episode.title}
+                    description={description}
+                    imageUrl={episode.imageUrl}
+                    duration={duration}
+                    date="17 sept. 2021"
+                    seasonNumber={hasMultipleSeasons ? selectedSeason : undefined}
+                    seriesId={series.id}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>

@@ -50,7 +50,7 @@ export default function AnimePage({ params }: { params: any }) {
     <div className="flex flex-col min-h-screen bg-[#030711]">
       <Header />
 
-      <main className="flex-grow">
+      <main className="flex-grow pt-20">
         {/* Bannière */}
         <div className="relative h-[50vh] w-full overflow-hidden">
           <div className="absolute inset-0">

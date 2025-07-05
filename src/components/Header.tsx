@@ -1,159 +1,124 @@
 "use client";
 
-import { Search, History, Bell, Calendar, Video } from "lucide-react";
-import CustomImage from "./ui/custom-image";
+import { Search, User, History, Star } from "lucide-react";
 import Link from "next/link";
-import { Input } from "./ui/input";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import ThemeSwitcher from "./ThemeSwitcher";
-import HistoryDropdown from "./HistoryDropdown";
-import { memo } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export default function Header() {
   const pathname = usePathname();
   const isSeriesSection = pathname.startsWith("/series");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  // Fermer le menu quand on clique ailleurs
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    }
+    
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
-    <header className="bg-[#030711]/80 backdrop-blur-md border-b border-white/5 py-3 sm:py-5 sticky top-0 z-50">
-      <div className="container mx-auto flex items-center justify-between px-2 sm:px-4">
-        {/* Logo */}
-        <Link href={isSeriesSection ? "/series" : "/anime"} className="flex items-center group primary-glow sm:mr-6 mr-2">
-          <div className="flex items-center gap-2">
-            <CustomImage
-              src={isSeriesSection ? "/picture/icon_logo_okami.png" : "/picture/logookaviolet.png"}
-              alt="Okanime Logo"
-              width={180}
-              height={60}
-              className="h-8 sm:h-12 w-auto transition-transform duration-300 group-hover:scale-105"
-            />
-          </div>
-        </Link>
-
-        {/* Search Bar Desktop */}
-        <div className="relative w-1/3 hidden md:block">
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <Search className="h-4 w-4 text-pink-500" />
-          </div>
-          <Link href={isSeriesSection ? "/series/search" : "/search"}>
-            <Input
-              type="search"
-              placeholder={isSeriesSection ? "RECHERCHER DES SÉRIES..." : "RECHERCHER DES ANIMÉS..."}
-              className="bg-[#101418] border border-white/10 pl-10 text-sm text-gray-200 rounded-full focus:border-pink-500 focus:ring-1 focus:ring-pink-500/50 transition-all cursor-pointer"
-              readOnly
-            />
+    <header className="fixed top-0 left-0 right-0 z-50 pt-6 pb-2 bg-gradient-to-b from-[#030711]/90 to-transparent backdrop-blur-sm">
+      <div className="container mx-auto flex items-center justify-between px-6">
+        {/* Navigation gauche */}
+        <div className="flex items-center space-x-6 md:space-x-10">
+          <Link 
+            href={isSeriesSection ? "/series" : "/"}
+            className={cn(
+              "text-white hover:text-white/80 transition-colors text-base md:text-lg font-medium drop-shadow-md",
+              (isSeriesSection ? pathname === "/series" : pathname === "/") && "text-white"
+            )}
+          >
+            Accueil
+          </Link>
+          <Link 
+            href={isSeriesSection ? "/series/top-10" : "/top-10"}
+            className={cn(
+              "text-white hover:text-white/80 transition-colors text-base md:text-lg font-medium hidden sm:inline drop-shadow-md",
+              (isSeriesSection ? pathname === "/series/top-10" : pathname === "/top-10") && "text-white"
+            )}
+          >
+            Top 10
+          </Link>
+          <Link 
+            href={isSeriesSection ? "/series/catalogue" : "/catalogue"}
+            className={cn(
+              "text-white hover:text-white/80 transition-colors text-base md:text-lg font-medium drop-shadow-md",
+              (isSeriesSection ? pathname === "/series/catalogue" : pathname === "/catalogue") && "text-white"
+            )}
+          >
+            Catalogue
           </Link>
         </div>
 
-        {/* Nav Links */}
-        <div className="flex items-center space-x-2 sm:space-x-4">
-          {/* Navigation pour mobile (icônes seulement) */}
-          <nav className="flex md:hidden items-center space-x-4">
-            <Link 
-              href={isSeriesSection ? "/series/catalogue" : "/catalogue"}
-              className={cn(
-                "text-xs text-white/90 flex flex-col items-center",
-                (isSeriesSection ? pathname === "/series/catalogue" : pathname === "/catalogue") && 
-                "text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500 font-semibold"
-              )}
-            >
-              <span>Catalogue</span>
-            </Link>
-            <Link 
-              href={isSeriesSection ? "/series/planning" : "/planning"}
-              className={cn(
-                "text-xs text-white/90 flex flex-col items-center",
-                (isSeriesSection ? pathname === "/series/planning" : pathname === "/planning") && 
-                "text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500 font-semibold"
-              )}
-            >
-              <span>Planning</span>
-            </Link>
-            <Link 
-              href="/profil"
-              className={cn(
-                "text-xs text-white/90 flex flex-col items-center",
-                pathname === "/profil" && 
-                "text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500 font-semibold"
-              )}
-            >
-              <span>Profil</span>
-            </Link>
-          </nav>
-
-          {/* Navigation pour desktop */}
-          <nav className="hidden md:flex items-center space-x-8 mr-4">
-            <NavLink 
-              href={isSeriesSection ? "/series/catalogue" : "/catalogue"} 
-              active={isSeriesSection ? pathname === "/series/catalogue" : pathname === "/catalogue"}
-            >
-              Catalogue
-            </NavLink>
-            <NavLink 
-              href={isSeriesSection ? "/series/planning" : "/planning"} 
-              active={isSeriesSection ? pathname === "/series/planning" : pathname === "/planning"}
-            >
-              Planning
-            </NavLink>
-            <NavLink href="/profil" active={pathname === "/profil"}>
-              Profil
-            </NavLink>
-          </nav>
-
-          {/* History dropdown - composant externe */}
-          <HistoryDropdown />
-
-          {/* Notifications */}
-          <button className="flex items-center gap-1 bg-[#151a2a] hover:bg-[#1e263f] p-2 rounded-md border border-white/5 transition-colors">
-            <Bell className="h-4 w-4 text-white/70" />
-          </button>
-
-          {/* Theme switcher */}
-          <ThemeSwitcher />
-        </div>
-      </div>
-
-      {/* Barre de recherche mobile en bas du header */}
-      <div className="md:hidden px-2 pb-2 pt-1">
-        <div className="relative w-full">
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <Search className="h-3 w-3 text-pink-500" />
-          </div>
-          <Link href={isSeriesSection ? "/series/search" : "/search"} className="w-full block">
-            <Input
-              type="search"
-              placeholder={isSeriesSection ? "RECHERCHER..." : "RECHERCHER..."}
-              className="bg-[#101418] border border-white/10 pl-8 text-xs h-8 text-gray-200 rounded-full focus:border-pink-500 focus:ring-1 focus:ring-pink-500/50 transition-all cursor-pointer w-full"
-              readOnly
-            />
+        {/* Éléments de droite */}
+        <div className="flex items-center space-x-4">
+          {/* Bouton de recherche avec cadre */}
+          <Link 
+            href={isSeriesSection ? "/series/catalogue" : "/catalogue"}
+            className="relative bg-black/40 backdrop-blur-sm rounded-md flex items-center justify-center h-10 px-3 sm:px-4 hover:bg-black/60 transition-colors shadow-md"
+          >
+            <Search className="h-5 w-5 text-white" />
+            <span className="text-white text-base hidden sm:inline ml-2">Rechercher</span>
           </Link>
+
+          {/* Menu burger avec dropdown */}
+          <div className="relative" ref={menuRef}>
+            <button 
+              className="bg-black/40 backdrop-blur-sm rounded-md flex items-center justify-center h-10 w-10 hover:bg-black/60 transition-colors shadow-md"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              <div className="flex flex-col space-y-1.5">
+                <span className="w-5 h-0.5 bg-white"></span>
+                <span className="w-5 h-0.5 bg-white"></span>
+                <span className="w-5 h-0.5 bg-white"></span>
+              </div>
+            </button>
+            
+            {/* Menu déroulant */}
+            {menuOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-[#141414] rounded-md shadow-lg overflow-hidden z-50 border border-gray-700">
+                <div className="py-1">
+                  <Link 
+                    href="/profil" 
+                    className="flex items-center px-4 py-3 text-sm text-white hover:bg-[#252525] transition-colors"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <User className="h-4 w-4 mr-3 text-white/70" />
+                    <span>Connexion</span>
+                  </Link>
+                  <Link 
+                    href="/historique" 
+                    className="flex items-center px-4 py-3 text-sm text-white hover:bg-[#252525] transition-colors"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <History className="h-4 w-4 mr-3 text-white/70" />
+                    <span>Historique</span>
+                  </Link>
+                  <Link 
+                    href="/watchlist" 
+                    className="flex items-center px-4 py-3 text-sm text-white hover:bg-[#252525] transition-colors"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <Star className="h-4 w-4 mr-3 text-white/70" />
+                    <span>Favoris</span>
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </header>
   );
 }
-type NavLinkProps = {
-  href: string;
-  active?: boolean;
-  children: React.ReactNode;
-};
-
-// Optimiser NavLink avec memo pour éviter les re-rendus
-const NavLink = memo(function NavLink({ href, active, children }: NavLinkProps) {
-  return (
-    <Link
-      href={href}
-      className={cn(
-        "group nav-link",
-        active && "text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-500 font-semibold"
-      )}
-    >
-      {children}
-      <span className={cn(
-        "block h-0.5 mt-1 transition-all duration-300",
-        active ? "w-full bg-gradient-to-r from-pink-500 to-blue-500" : "w-0 group-hover:w-full bg-gradient-to-r from-pink-500 to-blue-500"
-      )} />
-    </Link>
-  );
-});
 

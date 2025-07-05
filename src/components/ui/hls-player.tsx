@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 // Import de type uniquement pour TypeScript, pas de dépendance runtime
 import type Hls from "hls.js";
 import { Loader2 } from "lucide-react";
@@ -10,6 +10,7 @@ interface HLSPlayerProps {
   poster?: string;
   className?: string;
   autoPlay?: boolean;
+  key?: string;
 }
 
 export default function HLSPlayer({
@@ -34,6 +35,8 @@ export default function HLSPlayer({
   const previewControlsActive = useRef(false);
   const [isPaused, setIsPaused] = useState(true);
   const [hlsSupported, setHlsSupported] = useState<boolean | null>(null);
+  // Clé unique pour forcer le rechargement du lecteur
+  const playerKey = `hls-${src}-${Date.now()}`;
 
   // Formater le temps en MM:SS
   const formatTime = (time: number) => {
@@ -85,6 +88,7 @@ export default function HLSPlayer({
     // Nettoyer le lecteur précédent si besoin
     if (hlsRef.current) {
       hlsRef.current.destroy();
+      hlsRef.current = null;
     }
 
     // Réinitialiser les états
@@ -121,7 +125,12 @@ export default function HLSPlayer({
                 xhr.setRequestHeader('Referer', 'https://animedigitalnetwork.fr/');
                 xhr.setRequestHeader('Origin', 'https://animedigitalnetwork.fr');
               }
-            }
+            },
+            // Optimisations pour la qualité audio
+            maxBufferLength: 60, // Augmenter le buffer pour une lecture plus fluide
+            maxMaxBufferLength: 120, // Buffer maximum pour éviter les coupures
+            manifestLoadingMaxRetry: 5, // Plus de tentatives pour charger le manifeste
+            levelLoadingMaxRetry: 5, // Plus de tentatives pour charger les niveaux
           });
           
           hlsRef.current = hls;
@@ -129,6 +138,24 @@ export default function HLSPlayer({
           hls.attachMedia(video);
           
           hls.on(Hls.Events.MANIFEST_PARSED, () => {
+            // Sélectionner la meilleure qualité audio disponible
+            const audioTracks = hls.audioTracks;
+            if (audioTracks && audioTracks.length > 0) {
+              // Trouver la piste avec le meilleur bitrate
+              let bestAudioTrackId = 0;
+              let highestBitrate = 0;
+              
+              for (let i = 0; i < audioTracks.length; i++) {
+                if (audioTracks[i].bitrate > highestBitrate) {
+                  highestBitrate = audioTracks[i].bitrate;
+                  bestAudioTrackId = i;
+                }
+              }
+              
+              // Sélectionner la meilleure piste audio
+              hls.audioTrack = bestAudioTrackId;
+            }
+            
             if (autoPlay) {
               video.play().catch(err => {
                 console.warn("Lecture automatique échouée:", err);
@@ -275,15 +302,34 @@ export default function HLSPlayer({
         video.removeEventListener('play', handlePlayPause);
         video.removeEventListener('pause', handlePlayPause);
         video.removeEventListener('ended', handlePlayPause);
+        
+        // Nettoyer le lecteur HLS
         if (hlsRef.current) {
           hlsRef.current.destroy();
+          hlsRef.current = null;
+        }
+        
+        // Arrêter et nettoyer la vidéo
+        if (video) {
+          video.pause();
+          video.removeAttribute('src');
+          video.load();
         }
       };
     }
 
     return () => {
+      // Nettoyer le lecteur HLS
       if (hlsRef.current) {
         hlsRef.current.destroy();
+        hlsRef.current = null;
+      }
+      
+      // Arrêter et nettoyer la vidéo
+      if (video) {
+        video.pause();
+        video.removeAttribute('src');
+        video.load();
       }
     };
   }, [src, autoPlay]);
@@ -303,6 +349,7 @@ export default function HLSPlayer({
     <div 
       className={`relative w-full h-full ${className}`} 
       ref={videoContainerRef}
+      key={playerKey}
     >
       {/* Styles CSS personnalisés */}
       <style jsx>{videoStyle}</style>

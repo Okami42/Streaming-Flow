@@ -1,6 +1,309 @@
-import { Content } from "./types";
+import { Content, Episode } from "./types";
+
+// Ajout de l'interface EpisodeWithDuration pour les épisodes avec durée
+export interface EpisodeWithDuration extends Episode {
+  duration?: number; // Durée en secondes
+}
 
 export const seriesData: Content[] = [
+  {
+    id: "motorheads",
+    title: "Motorheads",
+    description: "Une équipe de passionnés de mécanique et de voitures de collection parcourt le monde à la recherche des véhicules les plus rares et les restaure à leur gloire d'antan. Entre défis techniques, courses contre la montre et rencontres avec des collectionneurs excentriques, l'équipe de Motorheads repousse les limites de la restauration automobile.",
+    imageUrl: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    bannerUrl: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
+    episodes: [],
+    status: "En cours",
+    year: 2023,
+    studio: "MotorTV",
+    type: "Série",
+    genres: ["Documentaire", "Automobile", "Aventure"],
+    rating: 8.5,
+    language: "VF/VOSTFR",
+    seasons: 1,
+    seasonsList: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        episodes: [
+          { 
+            id: 1, 
+            title: "Pilote", 
+            videoUrl: "https://exemple.com/motorheads-s01e01", 
+            duration: 55 * 60, // 55min
+            imageUrl: "https://images.unsplash.com/photo-1592198084033-aade902d1aae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+          },
+          { 
+            id: 2, 
+            title: "Lueur d'espoir", 
+            videoUrl: "https://exemple.com/motorheads-s01e02", 
+            duration: 55 * 60, // 55min
+            imageUrl: "https://images.unsplash.com/photo-1584345604476-8ec5f452d1f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+          },
+          { 
+            id: 3, 
+            title: "Premier tour de piste", 
+            videoUrl: "https://exemple.com/motorheads-s01e03", 
+            duration: 54 * 60, // 54min
+            imageUrl: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+          },
+          { 
+            id: 4, 
+            title: "Pièces détachées", 
+            videoUrl: "https://exemple.com/motorheads-s01e04", 
+            duration: 50 * 60, // 50min
+            imageUrl: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+          },
+          { 
+            id: 5, 
+            title: "À quel prix ?", 
+            videoUrl: "https://exemple.com/motorheads-s01e05", 
+            duration: 55 * 60, // 55min
+            imageUrl: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+          },
+          { 
+            id: 6, 
+            title: "Reconstruction", 
+            videoUrl: "https://exemple.com/motorheads-s01e06", 
+            duration: 49 * 60, // 49min
+            imageUrl: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+          },
+          { 
+            id: 7, 
+            title: "Faux contact", 
+            videoUrl: "https://exemple.com/motorheads-s01e07", 
+            duration: 51 * 60, // 51min
+            imageUrl: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+          },
+          { 
+            id: 8, 
+            title: "Court-circuit", 
+            videoUrl: "https://exemple.com/motorheads-s01e08", 
+            duration: 57 * 60, // 57min
+            imageUrl: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+          },
+          { 
+            id: 9, 
+            title: "Démarrage", 
+            videoUrl: "https://exemple.com/motorheads-s01e09", 
+            duration: 48 * 60, // 48min
+            imageUrl: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+          },
+          { 
+            id: 10, 
+            title: "Cardinal", 
+            videoUrl: "https://exemple.com/motorheads-s01e10", 
+            duration: 48 * 60, // 48min
+            imageUrl: "https://images.unsplash.com/photo-1502877338535-766e1452684a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "squid-game",
+    title: "Squid Game",
+    description: "Tentés par un prix alléchant en cas de victoire, des centaines de joueurs désargentés acceptent de s'affronter lors de jeux pour enfants apparemment inoffensifs, mais mortellement dangereux.",
+    imageUrl: "https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/2meX1nMdScFOoV4370rqHWKmXhY.jpg",
+    bannerUrl: "https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/2meX1nMdScFOoV4370rqHWKmXhY.jpg",
+    episodes: [],
+    status: "Terminée",
+    year: 2021,
+    studio: "Netflix",
+    type: "Série",
+    genres: ["Drame", "Thriller", "Action", "Survie"],
+    rating: 8.7,
+    language: "VF/VOSTFR",
+    seasons: 3,
+    seasonsList: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        episodes: [
+          { 
+            id: 1, 
+            title: "Un, deux, trois, soleil", 
+            videoUrl: "https://cineburger.xyz/series/Squid-Game/S01/Squid-Game-S01-E01.mp4", 
+            duration: 61 * 60,
+            imageUrl: "https://image.tmdb.org/t/p/original/vMFJS9LIUUAmQ1thq4vJ7iHKwRz.jpg"
+          },
+          { 
+            id: 2, 
+            title: "Enfer", 
+            videoUrl: "https://cineburger.xyz/series/Squid-Game/S01/Squid-Game-S01-E02.mp4", 
+            duration: 63 * 60,
+            imageUrl: "https://image.tmdb.org/t/p/original/uacNwki3PqXEFk9Pal9Ng5NwwAI.jpg"
+          },
+          { 
+            id: 3, 
+            title: "L'homme au parapluie", 
+            videoUrl: "https://cineburger.xyz/series/Squid-Game/S01/Squid-Game-S01-E03.mp4", 
+            duration: 55 * 60,
+            imageUrl: "https://image.tmdb.org/t/p/original/xNtgrNEsMXvmRQQtcFuJdbXOjmP.jpg"
+          },
+          { 
+            id: 4, 
+            title: "L'équipe avant tout", 
+            videoUrl: "https://cineburger.xyz/series/Squid-Game/S01/Squid-Game-S01-E04.mp4", 
+            duration: 55 * 60,
+            imageUrl: "https://image.tmdb.org/t/p/original/9cUGOdLN4gmnf3b9ILArnJsJI8Q.jpg"
+          },
+          { 
+            id: 5, 
+            title: "Un monde juste", 
+            videoUrl: "https://cineburger.xyz/series/Squid-Game/S01/Squid-Game-S01-E05.mp4", 
+            duration: 52 * 60,
+            imageUrl: "https://image.tmdb.org/t/p/original/A5SZMEDnvLCHdT9wDfzg3jmNi4U.jpg"
+          },
+          { 
+            id: 6, 
+            title: "Gganbu", 
+            videoUrl: "https://cineburger.xyz/series/Squid-Game/S01/Squid-Game-S01-E06.mp4", 
+            duration: 62 * 60,
+            imageUrl: "https://image.tmdb.org/t/p/original/uu4TgyyW259aOZHN0Ew4TEcNZQz.jpg"
+          },
+          { 
+            id: 7, 
+            title: "VIP", 
+            videoUrl: "https://cineburger.xyz/series/Squid-Game/S01/Squid-Game-S01-E07.mp4", 
+            duration: 58 * 60,
+            imageUrl: "https://image.tmdb.org/t/p/original/A5SZMEDnvLCHdT9wDfzg3jmNi4U.jpg"
+          },
+          { 
+            id: 8, 
+            title: "Leader", 
+            videoUrl: "https://cineburger.xyz/series/Squid-Game/S01/Squid-Game-S01-E08.mp4", 
+            duration: 33 * 60 ,
+            imageUrl: "https://image.tmdb.org/t/p/original/kYezBjgH3QI2U4Z6D1rQPIUyZJP.jpg"
+          },
+          { 
+            id: 9, 
+            title: "Finale", 
+            videoUrl: "https://cineburger.xyz/series/Squid-Game/S01/Squid-Game-S01-E09.mp4", 
+            duration: 56 * 60,
+            imageUrl: "https://image.tmdb.org/t/p/original/qFx5XKzD9LXw3OXlbMWOu4OGp7r.jpg"
+          }
+        ]
+      },
+      {
+        seasonNumber: 2,
+        title: "Saison 2",
+        episodes: [
+          { 
+            id: 1, 
+            title: "Le retour", 
+            videoUrl: "https://cineburger.xyz/series/Squid-Game/S02/Squid-Game-S02-E01.mp4",
+            duration: 55 * 60, // 55min
+            imageUrl: "https://image.tmdb.org/t/p/original/pJXYAUKXwGTJr8Lx84iuGMZpVM7.jpg"
+          },
+          { 
+            id: 2, 
+            title: "Nouveau jeu", 
+            videoUrl: "https://exemple.com/squid-game-s2-2",
+            duration: 55 * 60, // 55min
+            imageUrl: "https://image.tmdb.org/t/p/original/7dFZJ2ZJJdcmkp05B9NWlqTJ5tq.jpg"
+          },
+          { 
+            id: 3, 
+            title: "Les règles changent", 
+            videoUrl: "https://exemple.com/squid-game-s2-3",
+            duration: 55 * 60, // 55min
+            imageUrl: "https://image.tmdb.org/t/p/original/2OMB0Xs8nTPxwT1KQ5KpCR5UkGs.jpg"
+          },
+          { 
+            id: 4, 
+            title: "Alliances fragiles", 
+            videoUrl: "https://exemple.com/squid-game-s2-4",
+            duration: 55 * 60, // 55min
+            imageUrl: "https://image.tmdb.org/t/p/original/1fGTAYwJjdLLJVxS0wU0nNDe3RL.jpg"
+          },
+          { 
+            id: 5, 
+            title: "Le grand test", 
+            videoUrl: "https://exemple.com/squid-game-s2-5",
+            duration: 58 * 60, // 58min
+            imageUrl: "https://image.tmdb.org/t/p/original/8ozLnbAhxOSQxPKQKs3XCCsNwGW.jpg"
+          },
+          { 
+            id: 6, 
+            title: "Confrontation", 
+            videoUrl: "https://exemple.com/squid-game-s2-6",
+            duration: 62 * 60, // 1h02
+            imageUrl: "https://image.tmdb.org/t/p/original/3NTAbAiao4JLzFQw6YxP1YZppM8.jpg"
+          },
+          { 
+            id: 7, 
+            title: "Le masque tombe", 
+            videoUrl: "https://exemple.com/squid-game-s2-7",
+            duration: 59 * 60, // 59min
+            imageUrl: "https://image.tmdb.org/t/p/original/8LHSDyRlM9mJXYpN3Jeqh7C8YpQ.jpg"
+          },
+          { 
+            id: 8, 
+            title: "Dernière chance", 
+            videoUrl: "https://exemple.com/squid-game-s2-8",
+            duration: 65 * 60, // 1h05
+            imageUrl: "https://image.tmdb.org/t/p/original/pJXYAUKXwGTJr8Lx84iuGMZpVM7.jpg"
+          }
+        ]
+      },
+      {
+        seasonNumber: 3,
+        title: "Saison 3",
+        episodes: [
+          { 
+            id: 1, 
+            title: "La fin justifie les moyens", 
+            videoUrl: "https://exemple.com/squid-game-s3-1",
+            duration: 58 * 60, // 58min
+            imageUrl: "https://image.tmdb.org/t/p/original/3TpMBcAE26ZeKRJ0nt79IrSY9Np.jpg"
+          },
+          { 
+            id: 2, 
+            title: "Derrière le voile", 
+            videoUrl: "https://exemple.com/squid-game-s3-2",
+            duration: 54 * 60, // 54min
+            imageUrl: "https://image.tmdb.org/t/p/original/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg"
+          },
+          { 
+            id: 3, 
+            title: "Le système s'effondre", 
+            videoUrl: "https://exemple.com/squid-game-s3-3",
+            duration: 61 * 60, // 1h01
+            imageUrl: "https://image.tmdb.org/t/p/original/qVygtf2vU15L2yKS4Ke44U4oMdD.jpg"
+          },
+          { 
+            id: 4, 
+            title: "Ceux qui tirent les ficelles", 
+            videoUrl: "https://exemple.com/squid-game-s3-4",
+            duration: 57 * 60, // 57min
+            imageUrl: "https://image.tmdb.org/t/p/original/bAQ8O5Uw6FedtlCbJTutenzPVKd.jpg"
+          },
+          { 
+            id: 5, 
+            title: "Révélations", 
+            videoUrl: "https://exemple.com/squid-game-s3-5",
+            duration: 63 * 60, // 1h03
+            imageUrl: "https://image.tmdb.org/t/p/original/A3bsT0m1um6tvcmlIzQTJv0CoNe.jpg"
+          },
+          { 
+            id: 6, 
+            title: "Le dernier jeu", 
+            videoUrl: "https://exemple.com/squid-game-s3-6",
+            duration: 72 * 60, // 1h12
+            imageUrl: "https://image.tmdb.org/t/p/original/7dFZJ2ZJJdcmkp05B9NWlqTJ5tq.jpg"
+          },
+          { 
+            id: 7, 
+            title: "Conclusion", 
+            videoUrl: "https://exemple.com/squid-game-s3-7",
+            duration: 68 * 60, // 1h08
+            imageUrl: "https://image.tmdb.org/t/p/original/8ozLnbAhxOSQxPKQKs3XCCsNwGW.jpg"
+          }
+        ]
+      }
+    ]
+  },
   {
     id: "breaking-bad",
     title: "Breaking Bad",
