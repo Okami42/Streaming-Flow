@@ -14,6 +14,7 @@ import { Content, Episode } from "@/lib/types";
 import React from "react";
 import { formatTimeExtended } from "@/lib/history";
 import { extractSeriesId } from "@/lib/utils";
+import { WatchHistoryItem } from "@/lib/history";
 
 // Définir le type correct pour les paramètres de page Next.js
 interface PageProps {
@@ -41,6 +42,10 @@ export default function WatchPage({ params }: PageProps) {
   const seasonParam = searchParams.get('season');
   const seasonNumber = seasonParam ? parseInt(seasonParam) : undefined;
   
+  // Récupérer le temps de lecture depuis l'URL si présent
+  const timeParam = searchParams.get('time');
+  const initialTimeFromURL = timeParam ? parseInt(timeParam) : undefined;
+  
   // État pour détecter le mode plein écran
   const [isFullScreen, setIsFullScreen] = useState(false);
   // Clé unique pour forcer le rechargement du lecteur vidéo
@@ -54,7 +59,7 @@ export default function WatchPage({ params }: PageProps) {
   const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
   
   // État pour suivre le temps de lecture actuel
-  const [currentTime, setCurrentTime] = useState(0);
+  const [currentTime, setCurrentTime] = useState(initialTimeFromURL || 0);
   const [duration, setDuration] = useState(0);
   const [progressPercentage, setProgressPercentage] = useState(0);
   // Supprimer les flags qui causent des problèmes
@@ -99,9 +104,128 @@ export default function WatchPage({ params }: PageProps) {
   };
   
   const { prevEpisode, nextEpisode, totalEpisodes } = getAdjacentEpisodes();
+
+  // Fonction pour sauvegarder directement dans le localStorage pour les films
+  const saveFilmProgressToLocalStorage = (progress: number) => {
+    if (series.type === "Film") {
+      try {
+        // Clé unique pour ce film
+        const storageKey = `film_progress_${series.id}_${episodeId}${seasonNumber ? `_s${seasonNumber}` : ''}`;
+        
+        // Créer un objet de progression
+        const progressData = {
+          id: `${series.id}-${episodeId}${seasonNumber ? `-s${seasonNumber}` : ''}`,
+          progress: progress,
+          duration: duration || episode.duration || 1800,
+          lastUpdated: new Date().toISOString()
+        };
+        
+        // Sauvegarder dans le localStorage
+        localStorage.setItem(storageKey, JSON.stringify(progressData));
+        
+        // Également mettre à jour l'historique normal
+        const historyItemId = `${series.id}-${episodeId}${seasonNumber ? `-s${seasonNumber}` : ''}`;
+        
+        // Récupérer l'historique actuel
+        const savedWatchHistory = localStorage.getItem('animeWatchHistory');
+        if (savedWatchHistory) {
+          const historyArray = JSON.parse(savedWatchHistory) as WatchHistoryItem[];
+          
+          // Trouver si l'élément existe déjà
+          const existingItemIndex = historyArray.findIndex(item => item.id === historyItemId);
+          
+          if (existingItemIndex !== -1) {
+            // Mettre à jour l'élément existant
+            historyArray[existingItemIndex] = {
+              ...historyArray[existingItemIndex],
+              progress: progress,
+              lastWatchedAt: new Date().toISOString()
+            };
+          } else {
+            // Ajouter un nouvel élément
+            historyArray.unshift({
+              id: historyItemId,
+              title: series.title,
+              imageUrl: episode.imageUrl || series.imageUrl,
+              lastWatchedAt: new Date().toISOString(),
+              progress: progress,
+              duration: duration || episode.duration || 1800,
+              episodeInfo: {
+                season: seasonNumber || 1,
+                episode: parseInt(episodeId),
+                title: episode.title
+              },
+              type: 'Anime' as const
+            });
+          }
+          
+          // Sauvegarder l'historique mis à jour
+          localStorage.setItem('animeWatchHistory', JSON.stringify(historyArray));
+        }
+      } catch (e) {
+        console.error("Erreur lors de la sauvegarde de la progression du film:", e);
+      }
+    }
+  };
+  
+  // Fonction pour charger la progression du film depuis le localStorage
+  const loadFilmProgressFromLocalStorage = () => {
+    if (series.type === "Film") {
+      try {
+        // Clé unique pour ce film
+        const storageKey = `film_progress_${series.id}_${episodeId}${seasonNumber ? `_s${seasonNumber}` : ''}`;
+        
+        // Récupérer les données de progression
+        const savedProgress = localStorage.getItem(storageKey);
+        
+        if (savedProgress) {
+          const progressData = JSON.parse(savedProgress);
+          
+          // Mettre à jour l'état avec la progression sauvegardée
+          if (progressData.progress > 0) {
+            setCurrentTime(progressData.progress);
+            setDuration(progressData.duration);
+            setProgressPercentage((progressData.progress / progressData.duration) * 100);
+            
+            return progressData.progress;
+          }
+        }
+      } catch (e) {
+        console.error("Erreur lors du chargement de la progression du film:", e);
+      }
+      
+      return 0;
+    }
+    
+    return 0;
+  };
+  
+  // Charger la progression du film au montage du composant
+  useEffect(() => {
+    // Si le temps est déjà défini dans l'URL, l'utiliser en priorité
+    if (initialTimeFromURL && initialTimeFromURL > 0) {
+      setCurrentTime(initialTimeFromURL);
+      
+      // Pour les films, sauvegarder immédiatement ce temps dans le localStorage
+      if (series.type === "Film") {
+        saveFilmProgressToLocalStorage(initialTimeFromURL);
+      }
+      return;
+    }
+    
+    // Sinon, pour les films, charger depuis le localStorage
+    if (series.type === "Film") {
+      loadFilmProgressFromLocalStorage();
+    }
+  }, [series.type, initialTimeFromURL]);
   
   // Récupérer les informations de progression depuis l'historique
   useEffect(() => {
+    // Pour les films, on a déjà chargé la progression depuis le localStorage
+    if (series.type === "Film") {
+      return;
+    }
+    
     const historyItemId = `${series.id}-${episodeId}${seasonNumber ? `-s${seasonNumber}` : ''}`;
     const historyItem = watchHistory.find(item => item.id === historyItemId);
     
@@ -111,7 +235,7 @@ export default function WatchPage({ params }: PageProps) {
       setProgressPercentage((historyItem.progress / historyItem.duration) * 100);
       // Ne pas définir directement le currentTime ici, on le fera dans onLoadedMetadata
     }
-  }, [series.id, episodeId, seasonNumber, watchHistory]);
+  }, [series.id, episodeId, seasonNumber, watchHistory, series.type]);
   
   // Mettre à jour la progression toutes les 5 secondes
   useEffect(() => {
@@ -125,14 +249,19 @@ export default function WatchPage({ params }: PageProps) {
         setDuration(videoDuration);
         setProgressPercentage((newTime / videoDuration) * 100);
         
-        // Mettre à jour dans l'historique
-        const historyItemId = `${series.id}-${episodeId}${seasonNumber ? `-s${seasonNumber}` : ''}`;
-        updateWatchProgress(historyItemId, newTime);
+        // Pour les films, sauvegarder directement dans le localStorage
+        if (series.type === "Film") {
+          saveFilmProgressToLocalStorage(newTime);
+        } else {
+          // Mettre à jour dans l'historique normal pour les séries
+          const historyItemId = `${series.id}-${episodeId}${seasonNumber ? `-s${seasonNumber}` : ''}`;
+          updateWatchProgress(historyItemId, newTime);
+        }
       }
     }, 5000); // Intervalle plus long pour éviter les mises à jour trop fréquentes
     
     return () => clearInterval(updateInterval);
-  }, [series.id, episodeId, seasonNumber, duration, updateWatchProgress]);
+  }, [series.id, episodeId, seasonNumber, duration, updateWatchProgress, series.type]);
   
   // Gérer les événements de la vidéo - simplifier pour éviter les boucles
   const handleVideoTimeUpdate = () => {
@@ -140,10 +269,18 @@ export default function WatchPage({ params }: PageProps) {
     if (videoRef.current) {
       // Mise à jour occasionnelle pour l'affichage uniquement
       const newTime = Math.floor(videoRef.current.currentTime);
-      if (Math.abs(newTime - currentTime) > 5) { // Seulement si le changement est significatif
+      const videoDuration = Math.floor(videoRef.current.duration);
+      
+      // Seulement si le changement est significatif (revenir à la version originale)
+      if (Math.abs(newTime - currentTime) > 5) {
         setCurrentTime(newTime);
-        setDuration(Math.floor(videoRef.current.duration));
-        setProgressPercentage((newTime / videoRef.current.duration) * 100);
+        setDuration(videoDuration);
+        setProgressPercentage((newTime / videoDuration) * 100);
+        
+        // Pour les films, sauvegarder lors de changements significatifs
+        if (series.type === "Film" && newTime > 0) {
+          saveFilmProgressToLocalStorage(newTime);
+        }
       }
     }
   };
@@ -192,8 +329,40 @@ export default function WatchPage({ params }: PageProps) {
     };
   }, [id, episodeId, seasonNumber]);
 
+  // Ajouter un gestionnaire pour les messages des iframes
+  useEffect(() => {
+    // Fonction pour gérer les messages des iframes
+    const handleIframeMessage = (event: MessageEvent) => {
+      // Vérifier si le message vient d'un lecteur vidéo
+      if (event.data && event.data.event === 'videoReady') {
+        // Si la vidéo est prête et qu'on a un temps sauvegardé, on essaie de positionner la vidéo
+        if (currentTime > 0) {
+          try {
+            event.source?.postMessage({ action: 'seek', time: currentTime }, '*' as any);
+          } catch (e) {
+            console.log("Impossible d'envoyer le message au lecteur vidéo", e);
+          }
+        }
+      }
+    };
+
+    // Ajouter l'écouteur d'événements
+    window.addEventListener('message', handleIframeMessage);
+
+    // Nettoyer l'écouteur d'événements
+    return () => {
+      window.removeEventListener('message', handleIframeMessage);
+    };
+  }, [currentTime]);
+
   // Ajouter à l'historique
   useEffect(() => {
+    // Ne pas créer d'entrée d'historique à zéro pour les films
+    // car cela est déjà géré par l'effet ensureMovieInHistory
+    if (series.type === "Film" && currentTime === 0) {
+      return;
+    }
+    
     // Utiliser une référence pour éviter des mises à jour en cascade
     const historyItem = {
       id: `${series.id}-${episodeId}${seasonNumber ? `-s${seasonNumber}` : ''}`,
@@ -216,8 +385,8 @@ export default function WatchPage({ params }: PageProps) {
     }, 100);
     
     return () => clearTimeout(timer);
-  }, [series.id, episodeId, seasonNumber, currentTime, duration, addToWatchHistory]);
-
+  }, [series.id, episodeId, seasonNumber, currentTime, duration, addToWatchHistory, series.type]);
+  
   // Ajouter une fonction pour gérer l'ajout/retrait des favoris
   const handleFavoriteToggle = () => {
     const favoriteId = `${series.id}-${episodeId}${seasonNumber ? `-s${seasonNumber}` : ''}`;
@@ -365,11 +534,27 @@ export default function WatchPage({ params }: PageProps) {
                     {currentTime > 0 && (
                       <div className="absolute top-0 left-0 right-0 bg-black/80 text-white text-center py-2 z-10">
                         Reprise à {formatTimeExtended(currentTime)}
+                        <button 
+                          className="ml-2 px-2 py-1 bg-blue-600 rounded text-xs"
+                          onClick={() => {
+                            // Tentative d'accéder à l'iframe et de définir le temps
+                            try {
+                              const iframe = iframeRefs.current[0];
+                              if (iframe && iframe.contentWindow) {
+                                iframe.contentWindow.postMessage({ action: 'seek', time: currentTime }, '*');
+                              }
+                            } catch (e) {
+                              console.log("Impossible de contrôler la vidéo dans l'iframe");
+                            }
+                          }}
+                        >
+                          Reprendre
+                        </button>
                       </div>
                     )}
                     <iframe 
                       ref={addIframeRef}
-                      src={episode.videoUrl}
+                      src={`${episode.videoUrl}${episode.videoUrl.includes('?') ? '&' : '?'}currentTime=${currentTime}&autoplay=0`}
                       className="w-full h-full" 
                       frameBorder="0" 
                       scrolling="no" 
@@ -384,11 +569,27 @@ export default function WatchPage({ params }: PageProps) {
                     {currentTime > 0 && (
                       <div className="absolute top-0 left-0 right-0 bg-black/80 text-white text-center py-2 z-10">
                         Reprise à {formatTimeExtended(currentTime)}
+                        <button 
+                          className="ml-2 px-2 py-1 bg-blue-600 rounded text-xs"
+                          onClick={() => {
+                            // Tentative d'accéder à l'iframe et de définir le temps
+                            try {
+                              const iframe = iframeRefs.current[0];
+                              if (iframe && iframe.contentWindow) {
+                                iframe.contentWindow.postMessage({ action: 'seek', time: currentTime }, '*');
+                              }
+                            } catch (e) {
+                              console.log("Impossible de contrôler la vidéo dans l'iframe");
+                            }
+                          }}
+                        >
+                          Reprendre
+                        </button>
                       </div>
                     )}
                     <iframe 
                       ref={addIframeRef}
-                      src={episode.videoUrl}
+                      src={`${episode.videoUrl}${episode.videoUrl.includes('?') ? '&' : '?'}currentTime=${currentTime}&autoplay=0`}
                       className="w-full h-full" 
                       frameBorder="0" 
                       scrolling="no" 
@@ -403,11 +604,27 @@ export default function WatchPage({ params }: PageProps) {
                     {currentTime > 0 && (
                       <div className="absolute top-0 left-0 right-0 bg-black/80 text-white text-center py-2 z-10">
                         Reprise à {formatTimeExtended(currentTime)}
+                        <button 
+                          className="ml-2 px-2 py-1 bg-blue-600 rounded text-xs"
+                          onClick={() => {
+                            // Tentative d'accéder à l'iframe et de définir le temps
+                            try {
+                              const iframe = iframeRefs.current[0];
+                              if (iframe && iframe.contentWindow) {
+                                iframe.contentWindow.postMessage({ action: 'seek', time: currentTime }, '*');
+                              }
+                            } catch (e) {
+                              console.log("Impossible de contrôler la vidéo dans l'iframe");
+                            }
+                          }}
+                        >
+                          Reprendre
+                        </button>
                       </div>
                     )}
                     <iframe 
                       ref={addIframeRef}
-                      src={episode.videoUrl}
+                      src={`${episode.videoUrl}${episode.videoUrl.includes('?') ? '&' : '?'}currentTime=${currentTime}&autoplay=0`}
                       className="w-full h-full" 
                       frameBorder="0" 
                       scrolling="no" 
@@ -422,11 +639,27 @@ export default function WatchPage({ params }: PageProps) {
                     {currentTime > 0 && (
                       <div className="absolute top-0 left-0 right-0 bg-black/80 text-white text-center py-2 z-10">
                         Reprise à {formatTimeExtended(currentTime)}
+                        <button 
+                          className="ml-2 px-2 py-1 bg-blue-600 rounded text-xs"
+                          onClick={() => {
+                            // Tentative d'accéder à l'iframe et de définir le temps
+                            try {
+                              const iframe = iframeRefs.current[0];
+                              if (iframe && iframe.contentWindow) {
+                                iframe.contentWindow.postMessage({ action: 'seek', time: currentTime }, '*');
+                              }
+                            } catch (e) {
+                              console.log("Impossible de contrôler la vidéo dans l'iframe");
+                            }
+                          }}
+                        >
+                          Reprendre
+                        </button>
                       </div>
                     )}
                     <iframe 
                       ref={addIframeRef}
-                      src={episode.videoUrl}
+                      src={`${episode.videoUrl}${episode.videoUrl.includes('?') ? '&' : '?'}currentTime=${currentTime}&autoplay=0`}
                       className="w-full h-full" 
                       frameBorder="0" 
                       scrolling="no" 
@@ -441,16 +674,32 @@ export default function WatchPage({ params }: PageProps) {
                     {currentTime > 0 && (
                       <div className="absolute top-0 left-0 right-0 bg-black/80 text-white text-center py-2 z-10">
                         Reprise à {formatTimeExtended(currentTime)}
+                        <button 
+                          className="ml-2 px-2 py-1 bg-blue-600 rounded text-xs"
+                          onClick={() => {
+                            // Tentative d'accéder à l'iframe et de définir le temps
+                            try {
+                              const iframe = iframeRefs.current[0];
+                              if (iframe && iframe.contentWindow) {
+                                iframe.contentWindow.postMessage({ action: 'seek', time: currentTime }, '*');
+                              }
+                            } catch (e) {
+                              console.log("Impossible de contrôler la vidéo dans l'iframe");
+                            }
+                          }}
+                        >
+                          Reprendre
+                        </button>
                       </div>
                     )}
                     <iframe 
                       ref={addIframeRef}
-                      src={`https://video.sibnet.ru/shell.php?videoid=${episode.videoUrl}&skin=4&share=1`}
+                      src={`https://video.sibnet.ru/shell.php?videoid=${episode.videoUrl}&skin=4&share=1${currentTime > 0 ? `&start=${currentTime}` : ''}&autoplay=0`}
                       className="absolute inset-0"
                       frameBorder="0" 
                       scrolling="no" 
                       allowFullScreen
-                      allow="fullscreen; autoplay"
+                      allow="fullscreen"
                       referrerPolicy="no-referrer"
                       style={{ 
                         width: '100%',
@@ -465,11 +714,27 @@ export default function WatchPage({ params }: PageProps) {
                     {currentTime > 0 && (
                       <div className="absolute top-0 left-0 right-0 bg-black/80 text-white text-center py-2 z-10">
                         Reprise à {formatTimeExtended(currentTime)}
+                        <button 
+                          className="ml-2 px-2 py-1 bg-blue-600 rounded text-xs"
+                          onClick={() => {
+                            // Tentative d'accéder à l'iframe et de définir le temps
+                            try {
+                              const iframe = iframeRefs.current[0];
+                              if (iframe && iframe.contentWindow) {
+                                iframe.contentWindow.postMessage({ action: 'seek', time: currentTime }, '*');
+                              }
+                            } catch (e) {
+                              console.log("Impossible de contrôler la vidéo dans l'iframe");
+                            }
+                          }}
+                        >
+                          Reprendre
+                        </button>
                       </div>
                     )}
                     <iframe 
                       ref={addIframeRef}
-                      src={episode.videoUrl}
+                      src={`${episode.videoUrl}${episode.videoUrl.includes('?') ? '&' : '?'}currentTime=${currentTime}&autoplay=0`}
                       className="w-full h-full" 
                       frameBorder="0" 
                       scrolling="no" 
@@ -485,19 +750,79 @@ export default function WatchPage({ params }: PageProps) {
                     src={episode.videoUrl} 
                     className="w-full h-full object-cover" 
                     controls 
-                    autoPlay 
+                    autoPlay={true} 
                     playsInline
                     style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
                     onTimeUpdate={handleVideoTimeUpdate}
                     onLoadedMetadata={(e) => {
                       // Définir la position de lecture au chargement de la vidéo
                       // mais seulement une fois que la vidéo est chargée
-                      if (currentTime > 0 && e.currentTarget) {
-                        const video = e.currentTarget;
-                        // Utiliser une seule opération pour éviter les pauses/reprises
+                      const video = e.currentTarget;
+                      
+                      // Pour les films, essayer de charger la progression depuis le localStorage ou l'URL
+                      if (series.type === "Film") {
+                        // Si le temps est défini dans l'URL, l'utiliser en priorité
+                        if (initialTimeFromURL && initialTimeFromURL > 0) {
+                          video.currentTime = initialTimeFromURL;
+                        } else {
+                          // Sinon, essayer de charger depuis le localStorage
+                          const savedProgress = loadFilmProgressFromLocalStorage();
+                          if (savedProgress > 0) {
+                            video.currentTime = savedProgress;
+                          }
+                        }
+                      } else if (currentTime > 0) {
+                        // Pour les séries, utiliser le système d'historique normal
                         video.currentTime = currentTime;
-                        // Mettre à jour les valeurs affichées
-                        handleVideoTimeUpdate();
+                      }
+                      
+                      // Ajouter une notification pour indiquer que la vidéo a repris à un certain point
+                      if ((series.type === "Film" && video.currentTime > 0) || (currentTime > 0)) {
+                        const notificationTime = series.type === "Film" ? video.currentTime : currentTime;
+                        const notification = document.createElement('div');
+                        notification.className = 'absolute top-0 left-0 right-0 bg-black/80 text-white text-center py-2 z-10';
+                        notification.textContent = `Reprise à ${formatTimeExtended(notificationTime)}`;
+                        notification.style.animation = 'fadeOut 3s forwards';
+                        
+                        // Ajouter une animation CSS pour faire disparaître la notification
+                        const style = document.createElement('style');
+                        style.textContent = `
+                          @keyframes fadeOut {
+                            0% { opacity: 1; }
+                            70% { opacity: 1; }
+                            100% { opacity: 0; visibility: hidden; }
+                          }
+                        `;
+                        document.head.appendChild(style);
+                        
+                        // Ajouter la notification au conteneur de la vidéo
+                        const videoContainer = video.parentElement;
+                        if (videoContainer) {
+                          videoContainer.appendChild(notification);
+                          // Supprimer la notification après l'animation
+                          setTimeout(() => {
+                            notification.remove();
+                            style.remove();
+                          }, 3000);
+                        }
+                      }
+                    }}
+                    onPlay={() => {
+                      // Pour les films, sauvegarder l'état de lecture au démarrage
+                      if (series.type === "Film" && videoRef.current) {
+                        const newTime = Math.floor(videoRef.current.currentTime);
+                        if (newTime > 0) {
+                          saveFilmProgressToLocalStorage(newTime);
+                        }
+                      }
+                    }}
+                    onPause={() => {
+                      // Pour les films, sauvegarder l'état de lecture à la pause
+                      if (series.type === "Film" && videoRef.current) {
+                        const newTime = Math.floor(videoRef.current.currentTime);
+                        if (newTime > 0) {
+                          saveFilmProgressToLocalStorage(newTime);
+                        }
                       }
                     }}
                   ></video>

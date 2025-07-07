@@ -15,7 +15,7 @@ import { seriesData } from "@/lib/seriesData";
 // Fonction pour extraire l'ID de la série à partir de l'ID de l'historique
 const extractSeriesId = (historyId: string): string => {
   // Liste des séries connues avec des tirets dans leur ID
-  const knownSeriesWithHyphens = ["game-of-thrones", "breaking-bad", "squid-game", "stranger-things", "the-boys", "blade-runner-2049", "adventure-time", "top-gun-maverick"];
+  const knownSeriesWithHyphens = ["game-of-thrones", "breaking-bad", "squid-game", "stranger-things", "the-boys", "blade-runner-2049", "adventure-time", "top-gun-maverick", "the-batman"];
   
   // Vérifier d'abord si l'ID correspond à une série connue avec des tirets
   const matchedSeries = knownSeriesWithHyphens.find(id => historyId.startsWith(id));
@@ -109,8 +109,29 @@ export default function SeriesPage() {
   // Utiliser le hook d'historique pour accéder aux derniers épisodes regardés
   const { watchHistory } = useHistory();
   
+  // Filtrer l'historique pour éviter les duplications
+  const filteredHistory = React.useMemo(() => {
+    // Utiliser un Map pour stocker les entrées uniques par ID de série/film
+    const uniqueEntries = new Map();
+    
+    watchHistory.forEach(item => {
+      const seriesId = extractSeriesId(item.id);
+      
+      // Si cette série/film n'est pas encore dans notre Map, ou si cette entrée est plus récente
+      if (!uniqueEntries.has(seriesId) || 
+          new Date(item.lastWatchedAt) > new Date(uniqueEntries.get(seriesId).lastWatchedAt)) {
+        uniqueEntries.set(seriesId, item);
+      }
+    });
+    
+    // Convertir la Map en tableau et trier par date
+    return Array.from(uniqueEntries.values()).sort((a, b) => 
+      new Date(b.lastWatchedAt).getTime() - new Date(a.lastWatchedAt).getTime()
+    );
+  }, [watchHistory]);
+  
   // Récupérer les 5 derniers épisodes regardés (ou moins s'il y en a moins)
-  const recentlyWatched = watchHistory.slice(0, 5);
+  const recentlyWatched = filteredHistory.slice(0, 5);
   
   // Données temporaires pour les séries et films (à remplacer par de vraies données par la suite)
   const featuredSeries = {
@@ -178,8 +199,8 @@ export default function SeriesPage() {
     {
       id: "the-batman",
       title: "The Batman",
-      imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
-      time: "2h55",
+      imageUrl: "https://fr.web.img6.acsta.net/pictures/22/02/16/17/42/3125788.jpg",
+      time: "2h56",
       type: "Film",
       language: "VF"
     },
@@ -307,7 +328,7 @@ export default function SeriesPage() {
                 {recentlyWatched.map((item) => (
                   <div key={item.id} className="flex flex-col">
                     <Link 
-                      href={`/series/${extractSeriesId(item.id)}/watch/${item.episodeInfo.episode}${item.episodeInfo.season ? `?season=${item.episodeInfo.season}` : ''}`}
+                      href={`/series/${extractSeriesId(item.id)}/watch/${item.episodeInfo.episode}${item.episodeInfo.season ? `?season=${item.episodeInfo.season}` : ''}${item.progress > 0 ? `&time=${item.progress}` : ''}`}
                       className="block"
                     >
                       <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg border border-white/10 hover:border-blue-500/50 transition-all shadow-lg hover:shadow-blue-500/20 group">

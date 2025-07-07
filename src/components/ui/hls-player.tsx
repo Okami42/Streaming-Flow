@@ -18,7 +18,7 @@ export default function HLSPlayer({
   src,
   poster,
   className = "",
-  autoPlay = false,
+  autoPlay = true,
 }: HLSPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);

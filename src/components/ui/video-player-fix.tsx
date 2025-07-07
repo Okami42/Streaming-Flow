@@ -170,7 +170,7 @@ export default function VideoPlayer({
           src={videoSrc}
           poster={poster}
           controls
-          autoPlay
+          autoPlay={true}
           playsInline
           className="w-full h-full"
           onError={handleVideoError}

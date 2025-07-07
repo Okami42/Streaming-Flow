@@ -28,6 +28,15 @@ const specialAnimeIds: Record<string, string> = {
   // Ajouter d'autres mappings si nécessaire
 };
 
+// Liste des ID de films qui doivent être redirigés vers /series
+const filmIds: string[] = [
+  "the-batman",
+  "top-gun-maverick",
+  "dune",
+  "blade-runner-2049",
+  "pulp-fiction"
+];
+
 export default async function CataloguePage({ params }: PageProps) {
   // Utiliser les paramètres directement
   const rawId = params.id;
@@ -39,6 +48,12 @@ export default async function CataloguePage({ params }: PageProps) {
   const id = extractSeriesId(rawId);
   
   console.log("Catalogue page - ID extrait:", id);
+  
+  // Vérifier si c'est un film qui doit être redirigé
+  if (filmIds.includes(id)) {
+    console.log(`Catalogue page - Film détecté: ${id}, redirection vers /series/${id}`);
+    return redirect(`/series/${id}`);
+  }
   
   // Vérifier si c'est un ID spécial qui nécessite un traitement particulier
   if (specialAnimeIds[id]) {

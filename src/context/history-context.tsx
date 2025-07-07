@@ -14,6 +14,8 @@ interface HistoryContextType {
   clearHistory: () => void;
   updateWatchProgress: (id: string, progress: number) => void;
   updateReadProgress: (id: string, page: number) => void;
+  getWatchHistoryItem: (id: string) => WatchHistoryItem | undefined;
+  ensureMovieInHistory: (movieItem: WatchHistoryItem) => void;
 }
 
 const HistoryContext = createContext<HistoryContextType | undefined>(undefined);
@@ -106,6 +108,31 @@ export function HistoryProvider({ children }: { children: React.ReactNode }) {
     );
   };
 
+  // Nouvelle fonction pour récupérer un élément spécifique de l'historique
+  const getWatchHistoryItem = (id: string): WatchHistoryItem | undefined => {
+    return watchHistory.find(item => item.id === id);
+  };
+
+  // Nouvelle fonction spécifique pour les films qui garantit qu'un film est toujours
+  // présent dans l'historique avant de commencer la lecture
+  const ensureMovieInHistory = (movieItem: WatchHistoryItem): void => {
+    // Vérifier si l'élément existe déjà dans l'historique
+    const existingItem = watchHistory.find(item => item.id === movieItem.id);
+    
+    if (!existingItem) {
+      // Si l'élément n'existe pas, l'ajouter à l'historique
+      // avec une progression minimale pour éviter la remise à zéro
+      setWatchHistory(prev => [movieItem, ...prev]);
+      
+      // Sauvegarder immédiatement dans localStorage pour éviter les problèmes
+      // lors des rafraîchissements de page
+      if (mounted) {
+        const updatedHistory = [movieItem, ...watchHistory.filter(i => i.id !== movieItem.id)];
+        localStorage.setItem('animeWatchHistory', JSON.stringify(updatedHistory));
+      }
+    }
+  };
+
   const value = {
     history,
     watchHistory,
@@ -116,6 +143,8 @@ export function HistoryProvider({ children }: { children: React.ReactNode }) {
     clearHistory,
     updateWatchProgress,
     updateReadProgress,
+    getWatchHistoryItem,
+    ensureMovieInHistory,
   };
 
   return (

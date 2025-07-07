@@ -41,6 +41,24 @@ export const seriesData: Content[] = [
     ]
   },
   {
+    id: "the-batman",
+    title: "The Batman",
+    description: "Deux années à arpenter les rues en tant que Batman et à insuffler la peur chez les criminels ont mené Bruce Wayne au cœur des ténèbres de Gotham City. Avec seulement quelques alliés de confiance, Alfred Pennyworth et le lieutenant James Gordon, parmi le réseau corrompu de fonctionnaires et de personnalités de la ville, le justicier solitaire s'est imposé comme la seule incarnation de la vengeance parmi ses concitoyens. Lorsqu'un tueur s'en prend à l'élite de Gotham par une série de machinations sadiques, une piste d'indices cryptiques envoie le plus grand détective du monde sur une enquête dans la pègre, où il rencontre des personnages tels que Selina Kyle, alias Catwoman, Oswald Cobblepot, alias le Pingouin, Carmine Falcone et Edward Nashton, alias l'Homme-Mystère. Alors que les preuves s'accumulent et que l'ampleur des plans du coupable devient clair, Batman doit forger de nouvelles relations, démasquer le coupable et rétablir un semblant de justice au milieu de l'abus de pouvoir et de corruption sévissant à Gotham City depuis longtemps.",
+    imageUrl: "https://fr.web.img6.acsta.net/pictures/22/02/16/17/42/3125788.jpg",
+    bannerUrl: "https://media.gqmagazine.fr/photos/621f6a5c4e9eeb8e1c0c1a38/16:9/w_2560%2Cc_limit/MCDTHBA_EC020.jpg",
+    episodes: [
+      { id: 1, title: "The Batman", videoUrl: "https://cineburger.xyz/movies/The-Batman.mp4", duration: 176 * 60, imageUrl: "https://fr.web.img6.acsta.net/pictures/22/02/16/17/42/3125788.jpg" }
+    ],
+    status: "Terminée",
+    year: 2022,
+    studio: "Warner Bros.",
+    type: "Film",
+    genres: ["Action", "Crime", "Drame", "Super-héros"],
+    rating: 8.3,
+    language: "VF/VOSTFR",
+    seasons: 1
+  },
+  {
     id: "squid-game",
     title: "Squid Game",
     description: "Tentés par un prix alléchant en cas de victoire, des centaines de joueurs désargentés acceptent de s'affronter lors de jeux pour enfants apparemment inoffensifs, mais mortellement dangereux.",

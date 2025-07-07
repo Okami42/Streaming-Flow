@@ -23,7 +23,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-[#030711]/90 md:group-hover:bg-[#030711]/70 transition-all duration-500 z-10"></div>
           <div className="absolute inset-0">
             <CustomImage
-              src="/picture/ANIMECATEGIMAGE.png"
+              src="https://www.notebookcheck.biz/fileadmin/Notebooks/News/_nc4/lord-of-mysteries.JPG"
               alt="Fond animés"
               fill={true}
               className="object-cover object-center transition-transform duration-700 md:group-hover:scale-110"
@@ -49,7 +49,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-[#030711]/90 md:group-hover:bg-[#030711]/70 transition-all duration-500 z-10"></div>
           <div className="absolute inset-0">
             <CustomImage
-              src="/picture/serie-film.png"
+              src="https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/2meX1nMdScFOoV4370rqHWKmXhY.jpg"
               alt="Fond séries et films"
               fill={true}
               className="object-cover object-center transition-transform duration-700 md:group-hover:scale-110"

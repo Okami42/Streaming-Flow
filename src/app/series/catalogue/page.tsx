@@ -104,10 +104,10 @@ const seriesList: CatalogueSeries[] = [
   {
     id: "the-batman",
     title: "The Batman",
-    imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg",
+    imageUrl: "https://fr.web.img6.acsta.net/pictures/22/02/16/17/42/3125788.jpg",
     type: "Film",
     language: "VF",
-    time: "2h55"
+    time: "2h56"
   },
   {
     id: "top-gun-maverick",
