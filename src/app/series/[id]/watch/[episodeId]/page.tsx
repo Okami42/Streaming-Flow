@@ -12,6 +12,7 @@ import { useHistory } from "@/context/history-context";
 import { useFavorites } from "@/context/favorites-context";
 import { Content, Episode } from "@/lib/types";
 import React from "react";
+import { formatTimeExtended } from "@/lib/history";
 
 // Définir le type correct pour les paramètres de page Next.js
 interface PageProps {
@@ -45,8 +46,13 @@ export default function WatchPage({ params }: PageProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   
   // Hooks pour l'historique et les favoris
-  const { addToWatchHistory } = useHistory();
+  const { addToWatchHistory, watchHistory, updateWatchProgress } = useHistory();
   const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
+  
+  // État pour suivre le temps de lecture actuel
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [progressPercentage, setProgressPercentage] = useState(0);
   
   // Trouver la série
   const series = seriesData.find((s) => s.id === id);
@@ -89,6 +95,53 @@ export default function WatchPage({ params }: PageProps) {
   
   const { prevEpisode, nextEpisode, totalEpisodes } = getAdjacentEpisodes();
   
+  // Récupérer les informations de progression depuis l'historique
+  useEffect(() => {
+    const historyItemId = `${series.id}-${episodeId}${seasonNumber ? `-s${seasonNumber}` : ''}`;
+    const historyItem = watchHistory.find(item => item.id === historyItemId);
+    
+    if (historyItem) {
+      setCurrentTime(historyItem.progress);
+      setDuration(historyItem.duration);
+      setProgressPercentage((historyItem.progress / historyItem.duration) * 100);
+      
+      // Ne pas définir directement le currentTime ici, on le fera dans onLoadedMetadata
+      // pour éviter les pauses/reprises indésirables
+    }
+  }, [series.id, episodeId, seasonNumber, watchHistory]);
+  
+  // Mettre à jour la progression toutes les 5 secondes
+  useEffect(() => {
+    const updateInterval = setInterval(() => {
+      if (videoRef.current && !videoRef.current.paused) {
+        const newTime = Math.floor(videoRef.current.currentTime);
+        const videoDuration = Math.floor(videoRef.current.duration) || duration;
+        
+        setCurrentTime(newTime);
+        setDuration(videoDuration);
+        setProgressPercentage((newTime / videoDuration) * 100);
+        
+        // Mettre à jour dans l'historique
+        const historyItemId = `${series.id}-${episodeId}${seasonNumber ? `-s${seasonNumber}` : ''}`;
+        updateWatchProgress(historyItemId, newTime);
+      }
+    }, 5000);
+    
+    return () => clearInterval(updateInterval);
+  }, [series.id, episodeId, seasonNumber, duration, updateWatchProgress]);
+  
+  // Gérer les événements de la vidéo
+  const handleVideoTimeUpdate = () => {
+    if (videoRef.current) {
+      const newTime = Math.floor(videoRef.current.currentTime);
+      const videoDuration = Math.floor(videoRef.current.duration);
+      
+      setCurrentTime(newTime);
+      setDuration(videoDuration);
+      setProgressPercentage((newTime / videoDuration) * 100);
+    }
+  };
+  
   // Ajouter à l'historique
   useEffect(() => {
     // Utiliser une référence pour éviter des mises à jour en cascade
@@ -97,8 +150,8 @@ export default function WatchPage({ params }: PageProps) {
       title: series.title,
       imageUrl: episode.imageUrl || series.imageUrl,
       lastWatchedAt: new Date().toISOString(),
-      progress: 0,
-      duration: episode.duration || 1800,
+      progress: currentTime || 0,
+      duration: duration || episode.duration || 1800,
       episodeInfo: {
         season: seasonNumber || 1,
         episode: parseInt(episodeId),
@@ -113,7 +166,7 @@ export default function WatchPage({ params }: PageProps) {
     }, 100);
     
     return () => clearTimeout(timer);
-  }, [series.id, episodeId, seasonNumber]); // Dépendances réduites
+  }, [series.id, episodeId, seasonNumber, currentTime, duration]);
 
   // Effet pour mettre à jour la clé du lecteur quand on change d'épisode
   useEffect(() => {
@@ -254,7 +307,9 @@ export default function WatchPage({ params }: PageProps) {
           </h1>
           
           <div className="text-xs sm:text-sm text-gray-400 mb-2 sm:mb-4">
-            Épisode {episode.id} / {totalEpisodes}
+            <span>Épisode {episode.id} / {totalEpisodes}</span>
+            
+            {/* Le temps de visionnage n'est plus affiché visuellement mais le système continue de fonctionner */}
           </div>
           
           {/* Lecteur vidéo */}
@@ -299,31 +354,50 @@ export default function WatchPage({ params }: PageProps) {
               
               <div className="w-full h-full" key={playerKey}>
                 {episode.videoUrl.includes('dood.wf') ? (
-                  <iframe 
-                    ref={addIframeRef}
-                    src={episode.videoUrl}
-                    className="w-full h-full" 
-                    frameBorder="0" 
-                    scrolling="no" 
-                    allowFullScreen
-                    sandbox="allow-same-origin allow-scripts"
-                    referrerPolicy="no-referrer"
-                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-                  ></iframe>
+                  <div className="relative w-full h-full">
+                    {currentTime > 0 && (
+                      <div className="absolute top-0 left-0 right-0 bg-black/80 text-white text-center py-2 z-10">
+                        Reprise à {formatTimeExtended(currentTime)}
+                      </div>
+                    )}
+                    <iframe 
+                      ref={addIframeRef}
+                      src={episode.videoUrl}
+                      className="w-full h-full" 
+                      frameBorder="0" 
+                      scrolling="no" 
+                      allowFullScreen
+                      sandbox="allow-same-origin allow-scripts"
+                      referrerPolicy="no-referrer"
+                      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                    ></iframe>
+                  </div>
                 ) : episode.videoUrl.includes('filemoon.sx') ? (
-                  <iframe 
-                    ref={addIframeRef}
-                    src={episode.videoUrl}
-                    className="w-full h-full" 
-                    frameBorder="0" 
-                    scrolling="no" 
-                    allowFullScreen
-                    sandbox="allow-same-origin allow-scripts allow-forms"
-                    referrerPolicy="no-referrer"
-                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-                  ></iframe>
+                  <div className="relative w-full h-full">
+                    {currentTime > 0 && (
+                      <div className="absolute top-0 left-0 right-0 bg-black/80 text-white text-center py-2 z-10">
+                        Reprise à {formatTimeExtended(currentTime)}
+                      </div>
+                    )}
+                    <iframe 
+                      ref={addIframeRef}
+                      src={episode.videoUrl}
+                      className="w-full h-full" 
+                      frameBorder="0" 
+                      scrolling="no" 
+                      allowFullScreen
+                      sandbox="allow-same-origin allow-scripts allow-forms"
+                      referrerPolicy="no-referrer"
+                      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                    ></iframe>
+                  </div>
                 ) : episode.videoUrl.includes('iframe.mediadelivery.net') ? (
                   <div className="relative w-full h-full flex items-center justify-center bg-[#030711]">
+                    {currentTime > 0 && (
+                      <div className="absolute top-0 left-0 right-0 bg-black/80 text-white text-center py-2 z-10">
+                        Reprise à {formatTimeExtended(currentTime)}
+                      </div>
+                    )}
                     <iframe 
                       ref={addIframeRef}
                       src={episode.videoUrl}
@@ -338,6 +412,11 @@ export default function WatchPage({ params }: PageProps) {
                   </div>
                 ) : episode.videoUrl.includes('beerscloud.com') ? (
                   <div className="relative w-full h-full flex items-center justify-center bg-[#030711]">
+                    {currentTime > 0 && (
+                      <div className="absolute top-0 left-0 right-0 bg-black/80 text-white text-center py-2 z-10">
+                        Reprise à {formatTimeExtended(currentTime)}
+                      </div>
+                    )}
                     <iframe 
                       ref={addIframeRef}
                       src={episode.videoUrl}
@@ -351,34 +430,48 @@ export default function WatchPage({ params }: PageProps) {
                     ></iframe>
                   </div>
                 ) : !episode.videoUrl.includes('http') ? (
-                  <iframe 
-                    ref={addIframeRef}
-                    src={`https://video.sibnet.ru/shell.php?videoid=${episode.videoUrl}&skin=4&share=1`}
-                    className="absolute inset-0"
-                    frameBorder="0" 
-                    scrolling="no" 
-                    allowFullScreen
-                    allow="fullscreen; autoplay"
-                    referrerPolicy="no-referrer"
-                    style={{ 
-                      width: '100%',
-                      height: '100%',
-                      border: 'none',
-                      zIndex: 1
-                    }}
-                  ></iframe>
+                  <div className="relative w-full h-full">
+                    {currentTime > 0 && (
+                      <div className="absolute top-0 left-0 right-0 bg-black/80 text-white text-center py-2 z-10">
+                        Reprise à {formatTimeExtended(currentTime)}
+                      </div>
+                    )}
+                    <iframe 
+                      ref={addIframeRef}
+                      src={`https://video.sibnet.ru/shell.php?videoid=${episode.videoUrl}&skin=4&share=1`}
+                      className="absolute inset-0"
+                      frameBorder="0" 
+                      scrolling="no" 
+                      allowFullScreen
+                      allow="fullscreen; autoplay"
+                      referrerPolicy="no-referrer"
+                      style={{ 
+                        width: '100%',
+                        height: '100%',
+                        border: 'none',
+                        zIndex: 1
+                      }}
+                    ></iframe>
+                  </div>
                 ) : episode.videoUrl.includes('vidmoly.to') ? (
-                  <iframe 
-                    ref={addIframeRef}
-                    src={episode.videoUrl}
-                    className="w-full h-full" 
-                    frameBorder="0" 
-                    scrolling="no" 
-                    allowFullScreen
-                    allow="autoplay; fullscreen"
-                    referrerPolicy="no-referrer"
-                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-                  ></iframe>
+                  <div className="relative w-full h-full">
+                    {currentTime > 0 && (
+                      <div className="absolute top-0 left-0 right-0 bg-black/80 text-white text-center py-2 z-10">
+                        Reprise à {formatTimeExtended(currentTime)}
+                      </div>
+                    )}
+                    <iframe 
+                      ref={addIframeRef}
+                      src={episode.videoUrl}
+                      className="w-full h-full" 
+                      frameBorder="0" 
+                      scrolling="no" 
+                      allowFullScreen
+                      allow="autoplay; fullscreen"
+                      referrerPolicy="no-referrer"
+                      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                    ></iframe>
+                  </div>
                 ) : episode.videoUrl.endsWith('.mp4') || episode.videoUrl.includes('cloudflarestorage') ? (
                   <video 
                     ref={videoRef}
@@ -388,6 +481,18 @@ export default function WatchPage({ params }: PageProps) {
                     autoPlay 
                     playsInline
                     style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                    onTimeUpdate={handleVideoTimeUpdate}
+                    onLoadedMetadata={(e) => {
+                      // Définir la position de lecture au chargement de la vidéo
+                      // mais seulement une fois que la vidéo est chargée
+                      if (currentTime > 0 && e.currentTarget) {
+                        const video = e.currentTarget;
+                        // Utiliser une seule opération pour éviter les pauses/reprises
+                        video.currentTime = currentTime;
+                        // Mettre à jour les valeurs affichées
+                        handleVideoTimeUpdate();
+                      }
+                    }}
                   ></video>
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center">

@@ -94,10 +94,10 @@ export default function Header() {
                     onClick={() => setMenuOpen(false)}
                   >
                     <User className="h-4 w-4 mr-3 text-white/70" />
-                    <span>Connexion</span>
+                    <span>Profil</span>
                   </Link>
                   <Link 
-                    href="/historique" 
+                    href="/profil?tab=history" 
                     className="flex items-center px-4 py-3 text-sm text-white hover:bg-[#252525] transition-colors"
                     onClick={() => setMenuOpen(false)}
                   >
@@ -105,7 +105,7 @@ export default function Header() {
                     <span>Historique</span>
                   </Link>
                   <Link 
-                    href="/watchlist" 
+                    href="/profil?tab=favorites" 
                     className="flex items-center px-4 py-3 text-sm text-white hover:bg-[#252525] transition-colors"
                     onClick={() => setMenuOpen(false)}
                   >

@@ -11,17 +11,29 @@ import { useHistory } from "@/context/history-context";
 import { useFavorites } from "@/context/favorites-context";
 import { Button } from "@/components/ui/button";
 import { Pencil, User } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function ProfilePage() {
   const { currentTheme } = useTheme();
   const { clearHistory } = useHistory();
   const { favorites, clearFavorites } = useFavorites();
+  const searchParams = useSearchParams();
+  const [activeTab, setActiveTab] = useState("history");
+  
+  // Récupérer l'onglet depuis l'URL
+  useEffect(() => {
+    const tabParam = searchParams.get("tab");
+    if (tabParam === "history" || tabParam === "favorites" || tabParam === "notifications") {
+      setActiveTab(tabParam);
+    }
+  }, [searchParams]);
 
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
 
-      <main className="flex-grow">
+      <main className="flex-grow pt-20">
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col md:flex-row gap-8">
             {/* Sidebar */}
@@ -62,7 +74,7 @@ export default function ProfilePage() {
 
             {/* Main content */}
             <div className="flex-1">
-              <Tabs defaultValue="history" className="w-full">
+              <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                 <TabsList className="bg-[#151a2a] border border-gray-800 w-full mb-6 p-1 rounded-md">
                   <TabsTrigger
                     value="history"
@@ -97,7 +109,7 @@ export default function ProfilePage() {
                     </Button>
                   </div>
 
-                  <HistoryList />
+                  <HistoryList limit={20} />
                 </TabsContent>
 
                 <TabsContent value="favorites">

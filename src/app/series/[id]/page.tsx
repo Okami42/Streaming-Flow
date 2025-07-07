@@ -247,9 +247,12 @@ export default function SeriesPage({ params }: PageProps) {
                 // Description de l'épisode depuis notre nouveau fichier avec gestion des saisons
                 const description = getEpisodeDescription(series.id, episode.id, selectedSeason);
                 
+                // S'assurer que l'image est bien passée au composant
+                console.log(`Episode ${episode.id}, image: ${episode.imageUrl}`);
+                
                 return (
                   <EpisodeCard
-                    key={episode.id}
+                    key={`${series.id}-${selectedSeason}-${episode.id}`}
                     id={episode.id}
                     title={episode.title}
                     description={description}

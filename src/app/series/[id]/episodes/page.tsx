@@ -175,10 +175,11 @@ export default function SeriesEpisodesPage({ params }: PageProps) {
               
               return (
                 <EpisodeCard
-                  key={episode.id}
+                  key={`${series.id}-${selectedSeason}-${episode.id}`}
                   id={episode.id}
                   title={title}
                   description={description}
+                  imageUrl={episode.imageUrl}
                   duration={duration}
                   date="17 sept. 2021"
                   seasonNumber={hasMultipleSeasons ? selectedSeason : undefined}

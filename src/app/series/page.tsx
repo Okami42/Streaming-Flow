@@ -1,11 +1,38 @@
+"use client";
+
 import React from "react";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
-import { Clock, Plus, Sparkles, Star, Play, Film } from "lucide-react";
+import { Clock, Plus, Sparkles, Star, Play, Film, History } from "lucide-react";
 import Link from "next/link";
 import CustomImage from "@/components/ui/custom-image";
 import ContentSection from "@/components/ContentSection";
+import { useHistory } from "@/context/history-context";
+import { calculateProgress, getRelativeTime, formatTimeExtended } from "@/lib/history";
+import { seriesData } from "@/lib/seriesData";
+
+// Fonction pour extraire l'ID de la série à partir de l'ID de l'historique
+const extractSeriesId = (historyId: string): string => {
+  // Liste des séries connues
+  const knownSeriesIds = ["squid-game", "demon-slayer", "jujutsu-kaisen", "vinland-saga", "akudama-drive"];
+  
+  // Chercher si l'un des IDs connus est présent dans l'ID de l'historique
+  for (const seriesId of knownSeriesIds) {
+    if (historyId.startsWith(seriesId)) {
+      return seriesId;
+    }
+  }
+  
+  // Si aucun ID connu n'est trouvé, retourner la partie avant le premier tiret
+  return historyId.split('-')[0];
+};
+
+// Fonction pour obtenir l'image de la série à partir de l'ID de la série
+const getSeriesImage = (seriesId: string): string => {
+  const series = seriesData.find(s => s.id === seriesId);
+  return series ? series.imageUrl : '/placeholder-image.jpg';
+};
 
 // Styles pour l'animation des étoiles
 const starStyles = `
@@ -80,6 +107,12 @@ const starStyles = `
 `;
 
 export default function SeriesPage() {
+  // Utiliser le hook d'historique pour accéder aux derniers épisodes regardés
+  const { watchHistory } = useHistory();
+  
+  // Récupérer les 5 derniers épisodes regardés (ou moins s'il y en a moins)
+  const recentlyWatched = watchHistory.slice(0, 5);
+  
   // Données temporaires pour les séries et films (à remplacer par de vraies données par la suite)
   const featuredSeries = {
     id: "breaking-bad",
@@ -263,55 +296,71 @@ export default function SeriesPage() {
         </div>
 
         <div className="container mx-auto px-4 py-8">
-          {/* Série à la une */}
+          {/* Reprendre ma lecture */}
           <div className="mb-12 p-6 rounded-xl bg-gradient-to-r from-[#151a2a] to-[#0c1222] border border-white/5">
             <div className="flex items-center gap-2 mb-4">
-              <Star className="h-5 w-5 text-blue-500" />
-              <h2 className="text-xl font-bold text-white">Série à la une</h2>
+              <History className="h-5 w-5 text-blue-500" />
+              <h2 className="text-xl font-bold text-white">Reprendre ma lecture</h2>
             </div>
-            <div className="flex flex-col md:flex-row gap-6 items-center">
-              <div className="w-full md:w-1/4 lg:w-1/5">
-                <Link href={`/series/${featuredSeries.id}`} className="block">
-                  <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg border-2 border-blue-500/20 hover:border-blue-500/50 transition-all shadow-lg hover:shadow-blue-500/20">
-                    <CustomImage
-                      src={featuredSeries.imageUrl}
-                      alt={featuredSeries.title}
-                      fill={true}
-                      className="object-cover"
-                      priority
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-60 transition-opacity duration-300"></div>
+            
+            {recentlyWatched.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                {recentlyWatched.map((item) => (
+                  <div key={item.id} className="flex flex-col">
+                    <Link 
+                      href={`/series/${extractSeriesId(item.id)}/watch/${item.episodeInfo.episode}${item.episodeInfo.season ? `?season=${item.episodeInfo.season}` : ''}`}
+                      className="block"
+                    >
+                      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg border border-white/10 hover:border-blue-500/50 transition-all shadow-lg hover:shadow-blue-500/20 group">
+                        <CustomImage
+                          src={getSeriesImage(extractSeriesId(item.id))}
+                          alt={item.title}
+                          fill={true}
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-60 transition-opacity duration-300"></div>
+                        
+                        {/* Progress bar */}
+                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20">
+                          <div 
+                            className="h-full bg-blue-500" 
+                            style={{ width: `${calculateProgress(item)}%` }}
+                          ></div>
+                        </div>
+                        
+                        {/* Play button overlay */}
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <div className="bg-blue-500/80 p-3 rounded-full">
+                            <Play className="h-8 w-8 text-white" />
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                    
+                    <div className="mt-2">
+                      <h3 className="text-sm font-medium text-white line-clamp-1">{item.title}</h3>
+                      <p className="text-xs text-gray-400">
+                        S{item.episodeInfo.season} E{item.episodeInfo.episode} - {item.episodeInfo.title}
+                      </p>
+                      <div className="flex justify-between items-center mt-1">
+                        <span className="text-xs text-gray-500">{getRelativeTime(item.lastWatchedAt)}</span>
+                        <span className="text-xs text-blue-400">{formatTimeExtended(item.progress)} / {formatTimeExtended(item.duration)}</span>
+                      </div>
+                    </div>
                   </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <p className="text-gray-400">Vous n'avez pas encore regardé de séries</p>
+                <Link href="/series/catalogue" className="mt-4 inline-block">
+                  <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                    Découvrir des séries
+                  </Button>
                 </Link>
               </div>
-              <div className="flex-1">
-                <h3 className="text-2xl font-bold text-white mb-2">{featuredSeries.title}</h3>
-                <p className="text-gray-300 mb-4">
-                  {featuredSeries.description}
-                </p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {featuredSeries.genres.map((tag) => (
-                    <span key={tag} className="inline-block px-2 py-1 text-xs bg-[#151a2a] text-gray-300 rounded-md">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex gap-4">
-                  <Link href={`/series/${featuredSeries.id}`}>
-                    <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0">
-                      <Play className="mr-2 h-4 w-4" />
-                      Regarder
-                    </Button>
-                  </Link>
-                  <Link href="/series/catalogue">
-                    <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
-                      Voir le catalogue
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </div>
+            )}
           </div>
 
           {/* Sections avec fonds dégradés */}

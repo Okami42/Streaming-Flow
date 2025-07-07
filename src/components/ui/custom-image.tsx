@@ -18,34 +18,45 @@ export default function CustomImage({
 }: CustomImageProps) {
   const [error, setError] = useState(false);
   const [imgSrc, setImgSrc] = useState(src);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  // Mettre à jour imgSrc quand src change
+  useEffect(() => {
+    setImgSrc(src);
+    setError(false);
+    setIsLoading(true);
+  }, [src]);
   
   // Déterminer si l'image est externe (commence par http ou https)
   const isExternalImage = typeof src === 'string' && (src.startsWith('http://') || src.startsWith('https://'));
   
   // Si c'est une image externe, désactiver l'optimisation par défaut sauf indication contraire
   const shouldUnoptimize = unoptimized || isExternalImage;
-  
-  // Pour le débogage
-  useEffect(() => {
-    if (isExternalImage) {
-      console.log(`Image externe chargée: ${src}`);
-    }
-  }, [src, isExternalImage]);
 
   const handleError = () => {
     console.error(`Erreur de chargement d'image: ${src}`);
     setError(true);
     setImgSrc(fallbackSrc);
   };
+  
+  const handleLoad = () => {
+    setIsLoading(false);
+  };
 
   return (
+    <div className="relative w-full h-full">
+      {isLoading && (
+        <div className="absolute inset-0 bg-gray-800 animate-pulse" />
+      )}
     <NextImage
       alt={alt}
       src={error ? fallbackSrc : imgSrc}
-      className={className}
+        className={`${className} ${isLoading ? 'opacity-0' : 'opacity-100 transition-opacity duration-300'}`}
       onError={handleError}
+        onLoad={handleLoad}
       unoptimized={shouldUnoptimize}
       {...props}
     />
+    </div>
   );
 }

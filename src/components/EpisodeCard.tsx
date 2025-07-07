@@ -17,13 +17,23 @@ interface EpisodeCardProps {
 }
 
 // Fonction pour générer une image d'épisode si aucune n'est fournie
-function getEpisodeImage(seriesId: string, episodeId: number, customImage?: string): string {
+function getEpisodeImage(seriesId: string, episodeId: number, seasonNumber?: number, customImage?: string): string {
   // Si une URL d'image personnalisée est fournie, l'utiliser en priorité
-  if (customImage) return customImage;
+  if (customImage) {
+    // Ajouter un paramètre de version pour éviter le cache du navigateur
+    return customImage.includes('?') ? `${customImage}&v=2` : `${customImage}?v=2`;
+  }
   
   // Fallback sur des images génériques par défaut
   if (seriesId === "squid-game") {
-    return `https://via.placeholder.com/640x360.png?text=Squid+Game+Episode+${episodeId}`;
+    // Utiliser des images différentes selon la saison
+    if (seasonNumber === 2) {
+      // Image spécifique pour la saison 2
+      return `https://media.themoviedb.org/t/p/w500_and_h282_face/tWwP30pufZhWDSxN4qxER7gMbLR.jpg?v=2`;
+    } else {
+      // Image pour la saison 1
+      return `https://image.tmdb.org/t/p/original/vMFJS9LIUUAmQ1thq4vJ7iHKwRz.jpg?v=1`;
+    }
   } else if (seriesId === "breaking-bad") {
     return `https://via.placeholder.com/640x360.png?text=Breaking+Bad+Episode+${episodeId}`;
   } else if (seriesId === "game-of-thrones") {
@@ -89,8 +99,16 @@ export default function EpisodeCard({
   // Construire l'URL de visionnage
   const watchUrl = `/series/${seriesId}/watch/${id}${seasonNumber ? `?season=${seasonNumber}` : ''}`;
   
-  // Générer l'image de l'épisode si aucune n'est fournie
-  const episodeImage = getEpisodeImage(seriesId, id, imageUrl);
+  // Utiliser l'image fournie si elle existe
+  let episodeImage = imageUrl;
+  
+  // Si aucune image n'est fournie, utiliser la fonction getEpisodeImage comme fallback
+  if (!episodeImage) {
+    episodeImage = getEpisodeImage(seriesId, id, seasonNumber);
+  }
+  
+  // Créer une clé stable pour l'image (sans Date.now())
+  const imageKey = `episode-image-${seriesId}-${id}-${seasonNumber || 0}`;
   
   // Formatter la durée pour l'affichage
   const formattedDuration = formatDuration(duration);
@@ -105,6 +123,7 @@ export default function EpisodeCard({
             alt={title}
             fill={true}
             className="object-cover transition-transform duration-500 hover:scale-105"
+            key={imageKey}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/80"></div>
           

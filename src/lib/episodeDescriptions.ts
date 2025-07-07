@@ -34,6 +34,14 @@ const episodeDescriptions: SeriesDescriptions = {
       5: "Kang No-eul se fait des ennemis à cause de ses actions irresponsables. La tension est à son comble quand les joueurs restants votent pour décider s'ils passeront au tour suivant.",
       6: "Jun-ho et son équipe s'apprêtent à intervenir sur une île suspecte. Alors que les enjeux monétaires et les tensions s'accroissent, les joueurs se divisent en deux factions rivales.",
       7: "Les derniers participants élaborent des stratégies pour survivre à la nuit, qui promet d'être sanglante. Gi-hun propose un plan risqué pour lequel il va avoir besoin de fidèles alliés."
+    },
+    3: {
+      1: "No-eul prend des risques pour infiltrer une opération dangereuse. Un nouveau jeu est annoncé : un cache-cache avec des clés pour les uns et des couteaux pour les autres.",
+      2: "Alors que le jeu reprend, Gi-hun tient absolument à affronter Kang Dae-ho. Kim Jun-hee se retrouve soudain dans une situation critique qui met sa détermination à rude épreuve.",
+      3: "L'équipe de Jun-ho est sur le point de trouver l'île. Jang Geum-ja supplie Gi-hun d'aider Jun-hee. Les VIP étudient une proposition cruelle.",
+      4: "Gi-hun soutient Jun-hee alors que la tension monte, mais cette dernière doit prendre une décision cruciale. Avant l'épreuve finale, le maître du jeu donne un ultimatum à Gi-hun.",
+      5: "No-eul essaie de prendre l'avantage lors des négociations, mais son plan se retourne contre elle. L'intégrité morale de Gi-hun est testée... Jusqu'où ira-t-il ?",
+      6: "Alors que Jun-ho se hâte de rejoindre l'île, la tension est à son comble pendant la manche finale. Les joueurs sont dans une situation impossible lors des dernières minutes du jeu."
     }
   },
   

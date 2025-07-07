@@ -153,35 +153,35 @@ export const seriesData: Content[] = [
             title: "Un monde juste", 
             videoUrl: "https://cineburger.xyz/series/Squid-Game/S01/Squid-Game-S01-E05.mp4", 
             duration: 52 * 60,
-            imageUrl: "https://image.tmdb.org/t/p/original/A5SZMEDnvLCHdT9wDfzg3jmNi4U.jpg"
+            imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/2pE9f6drlF7y9rwUw6dh1w6jF5M.jpg"
           },
           { 
             id: 6, 
             title: "Gganbu", 
             videoUrl: "https://cineburger.xyz/series/Squid-Game/S01/Squid-Game-S01-E06.mp4", 
             duration: 62 * 60,
-            imageUrl: "https://image.tmdb.org/t/p/original/uu4TgyyW259aOZHN0Ew4TEcNZQz.jpg"
+            imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/cohCCQzTe2ncdQczJDUsO0vzxPR.jpg"
           },
           { 
             id: 7, 
             title: "VIP", 
             videoUrl: "https://cineburger.xyz/series/Squid-Game/S01/Squid-Game-S01-E07.mp4", 
             duration: 58 * 60,
-            imageUrl: "https://image.tmdb.org/t/p/original/A5SZMEDnvLCHdT9wDfzg3jmNi4U.jpg"
+            imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/4pVfv4HaM5QpFJTHm19p2UI0StN.jpg"
           },
           { 
             id: 8, 
             title: "Leader", 
             videoUrl: "https://cineburger.xyz/series/Squid-Game/S01/Squid-Game-S01-E08.mp4", 
             duration: 33 * 60 ,
-            imageUrl: "https://image.tmdb.org/t/p/original/kYezBjgH3QI2U4Z6D1rQPIUyZJP.jpg"
+            imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/lOgFVmykN9qlpAoiBSIV2lu7XCS.jpg"
           },
           { 
             id: 9, 
             title: "Finale", 
             videoUrl: "https://cineburger.xyz/series/Squid-Game/S01/Squid-Game-S01-E09.mp4", 
             duration: 56 * 60,
-            imageUrl: "https://image.tmdb.org/t/p/original/qFx5XKzD9LXw3OXlbMWOu4OGp7r.jpg"
+            imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/sKeQbHeEUQLyoSdopa0QXm604cz.jpg"
           }
         ]
       },
@@ -194,56 +194,49 @@ export const seriesData: Content[] = [
             title: "Le retour", 
             videoUrl: "https://cineburger.xyz/series/Squid-Game/S02/Squid-Game-S02-E01.mp4",
             duration: 55 * 60, // 55min
-            imageUrl: "https://image.tmdb.org/t/p/original/pJXYAUKXwGTJr8Lx84iuGMZpVM7.jpg"
+            imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/tWwP30pufZhWDSxN4qxER7gMbLR.jpg"
           },
           { 
             id: 2, 
-            title: "Nouveau jeu", 
-            videoUrl: "https://exemple.com/squid-game-s2-2",
-            duration: 55 * 60, // 55min
-            imageUrl: "https://image.tmdb.org/t/p/original/7dFZJ2ZJJdcmkp05B9NWlqTJ5tq.jpg"
+            title: "La fête d'Halloween", 
+            videoUrl: "https://cineburger.xyz/series/Squid-Game/S02/Squid-Game-S02-E02.mp4",
+            duration: 52 * 60, // 55min
+            imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/6D0kAkjdYCNz3wOigChITrezNig.jpg"
           },
           { 
             id: 3, 
             title: "Les règles changent", 
-            videoUrl: "https://exemple.com/squid-game-s2-3",
-            duration: 55 * 60, // 55min
-            imageUrl: "https://image.tmdb.org/t/p/original/2OMB0Xs8nTPxwT1KQ5KpCR5UkGs.jpg"
+            videoUrl: "https://cineburger.xyz/series/Squid-Game/S02/Squid-Game-S02-E03.mp4",
+            duration: 62 * 60, // 55min
+            imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/yL7phVQmwbBr0IVrDnqsNiPrpwQ.jpg"
           },
           { 
             id: 4, 
-            title: "Alliances fragiles", 
-            videoUrl: "https://exemple.com/squid-game-s2-4",
-            duration: 55 * 60, // 55min
-            imageUrl: "https://image.tmdb.org/t/p/original/1fGTAYwJjdLLJVxS0wU0nNDe3RL.jpg"
+            title: "Six Jambes", 
+            videoUrl: "https://cineburger.xyz/series/Squid-Game/S02/Squid-Game-S02-E04.mp4",
+            duration: 63 * 60, // 55min
+            imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/hU4SUCvTWVhqMyk81t4zmvQg79u.jpg"
           },
           { 
             id: 5, 
-            title: "Le grand test", 
-            videoUrl: "https://exemple.com/squid-game-s2-5",
-            duration: 58 * 60, // 58min
-            imageUrl: "https://image.tmdb.org/t/p/original/8ozLnbAhxOSQxPKQKs3XCCsNwGW.jpg"
+            title: "Un jeu de plus", 
+            videoUrl: "https://cineburger.xyz/series/Squid-Game/S02/Squid-Game-S02-E05.mp4",
+            duration: 77 * 60, // 58min
+            imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/575R0zTaCUtmLjLSsBp3hLl1DQn.jpg"
           },
           { 
             id: 6, 
-            title: "Confrontation", 
-            videoUrl: "https://exemple.com/squid-game-s2-6",
-            duration: 62 * 60, // 1h02
-            imageUrl: "https://image.tmdb.org/t/p/original/3NTAbAiao4JLzFQw6YxP1YZppM8.jpg"
+            title: "O X", 
+            videoUrl: "https://cineburger.xyz/series/Squid-Game/S02/Squid-Game-S02-E06.mp4",
+            duration: 53 * 60, // 1h02
+            imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/wtyv4jqlZjz9VAcNKkFb8uJtnQW.jpg"
           },
           { 
             id: 7, 
-            title: "Le masque tombe", 
-            videoUrl: "https://exemple.com/squid-game-s2-7",
-            duration: 59 * 60, // 59min
-            imageUrl: "https://image.tmdb.org/t/p/original/8LHSDyRlM9mJXYpN3Jeqh7C8YpQ.jpg"
-          },
-          { 
-            id: 8, 
-            title: "Dernière chance", 
-            videoUrl: "https://exemple.com/squid-game-s2-8",
-            duration: 65 * 60, // 1h05
-            imageUrl: "https://image.tmdb.org/t/p/original/pJXYAUKXwGTJr8Lx84iuGMZpVM7.jpg"
+            title: "Amis ou ennemis", 
+            videoUrl: "https://cineburger.xyz/series/Squid-Game/S02/Squid-Game-S02-E07.mp4",
+            duration: 61 * 60, // 59min
+            imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/qZH5NZPA2N9ykpDd0dOQTmVJiVR.jpg"
           }
         ]
       },
@@ -253,52 +246,45 @@ export const seriesData: Content[] = [
         episodes: [
           { 
             id: 1, 
-            title: "La fin justifie les moyens", 
-            videoUrl: "https://exemple.com/squid-game-s3-1",
+            title: "Clés et poignards", 
+            videoUrl: "https://cineburger.xyz/series/Squid-Game/S03/Squid-Game-S03-E01.mp4",
             duration: 58 * 60, // 58min
-            imageUrl: "https://image.tmdb.org/t/p/original/3TpMBcAE26ZeKRJ0nt79IrSY9Np.jpg"
+            imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/2xqny2WLuT25vwo2lSbspp09jlz.jpg"
           },
           { 
             id: 2, 
             title: "Derrière le voile", 
-            videoUrl: "https://exemple.com/squid-game-s3-2",
-            duration: 54 * 60, // 54min
-            imageUrl: "https://image.tmdb.org/t/p/original/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg"
+            videoUrl: "https://cineburger.xyz/series/Squid-Game/S03/Squid-Game-S03-E02.mp4",
+            duration: 60 * 60, // 54min
+            imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/eFlIKUPGoWMLKjvMxpfYQT5Lmcv.jpg"
           },
           { 
             id: 3, 
-            title: "Le système s'effondre", 
-            videoUrl: "https://exemple.com/squid-game-s3-3",
+            title: "Ce n'est pas ta faute", 
+            videoUrl: "https://cineburger.xyz/series/Squid-Game/S03/Squid-Game-S03-E03.mp4",
             duration: 61 * 60, // 1h01
-            imageUrl: "https://image.tmdb.org/t/p/original/qVygtf2vU15L2yKS4Ke44U4oMdD.jpg"
+            imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/gd9QhGKwkoFUfRo6hosINt9UERM.jpg"
           },
           { 
             id: 4, 
-            title: "Ceux qui tirent les ficelles", 
-            videoUrl: "https://exemple.com/squid-game-s3-4",
-            duration: 57 * 60, // 57min
-            imageUrl: "https://image.tmdb.org/t/p/original/bAQ8O5Uw6FedtlCbJTutenzPVKd.jpg"
+            title: "222", 
+            videoUrl: "https://cineburger.xyz/series/Squid-Game/S03/Squid-Game-S03-E04.mp4",
+            duration: 67 * 60, // 57min
+            imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7MpBNso3Ym21Oly3HuoPgGpKxG5.jpg"
           },
           { 
             id: 5, 
-            title: "Révélations", 
-            videoUrl: "https://exemple.com/squid-game-s3-5",
+            title: "○△□", 
+            videoUrl: "https://cineburger.xyz/series/Squid-Game/S03/Squid-Game-S03-E05.mp4",
             duration: 63 * 60, // 1h03
-            imageUrl: "https://image.tmdb.org/t/p/original/A3bsT0m1um6tvcmlIzQTJv0CoNe.jpg"
+            imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/mYhwcWgHnQnpZMD1OuhyDiOhV73.jpg"
           },
           { 
             id: 6, 
-            title: "Le dernier jeu", 
-            videoUrl: "https://exemple.com/squid-game-s3-6",
-            duration: 72 * 60, // 1h12
-            imageUrl: "https://image.tmdb.org/t/p/original/7dFZJ2ZJJdcmkp05B9NWlqTJ5tq.jpg"
-          },
-          { 
-            id: 7, 
-            title: "Conclusion", 
-            videoUrl: "https://exemple.com/squid-game-s3-7",
-            duration: 68 * 60, // 1h08
-            imageUrl: "https://image.tmdb.org/t/p/original/8ozLnbAhxOSQxPKQKs3XCCsNwGW.jpg"
+            title: "Les êtres humains sont...", 
+            videoUrl: "https://cineburger.xyz/series/Squid-Game/S03/Squid-Game-S03-E06.mp4",
+            duration: 56 * 60, // 1h12
+            imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/vzYGUdGRm1bl7WoPmhZd8bSh6gN.jpg"
           }
         ]
       }
@@ -328,8 +314,8 @@ export const seriesData: Content[] = [
     id: "game-of-thrones",
     title: "Game of Thrones",
     description: "Sur le continent de Westeros, le roi Robert Baratheon gouverne le Royaume des Sept Couronnes depuis plus de dix-sept ans. Mais des complots se trament pour prendre le pouvoir.",
-    imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
-    bannerUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
+    imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg",
+    bannerUrl: "https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/2OMB0ynKlyIenMJWI2Dy9IWT4c.jpg",
     episodes: [
       { id: 1, title: "Winter Is Coming", videoUrl: "https://exemple.com/got1" },
       { id: 2, title: "The Kingsroad", videoUrl: "https://exemple.com/got2" },
@@ -342,7 +328,130 @@ export const seriesData: Content[] = [
     genres: ["Fantastique", "Drame", "Action"],
     rating: 9.2,
     language: "VF/VOSTFR",
-    seasons: 8
+    seasons: 8,
+    seasonsList: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        episodes: [
+          { id: 1, title: "Winter Is Coming", videoUrl: "https://exemple.com/got/s01e01", duration: 62 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 2, title: "The Kingsroad", videoUrl: "https://exemple.com/got/s01e02", duration: 56 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 3, title: "Lord Snow", videoUrl: "https://exemple.com/got/s01e03", duration: 58 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 4, title: "Cripples, Bastards, and Broken Things", videoUrl: "https://exemple.com/got/s01e04", duration: 56 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 5, title: "The Wolf and the Lion", videoUrl: "https://exemple.com/got/s01e05", duration: 55 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 6, title: "A Golden Crown", videoUrl: "https://exemple.com/got/s01e06", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 7, title: "You Win or You Die", videoUrl: "https://exemple.com/got/s01e07", duration: 58 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 8, title: "The Pointy End", videoUrl: "https://exemple.com/got/s01e08", duration: 59 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 9, title: "Baelor", videoUrl: "https://exemple.com/got/s01e09", duration: 57 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 10, title: "Fire and Blood", videoUrl: "https://exemple.com/got/s01e10", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" }
+        ]
+      },
+      {
+        seasonNumber: 2,
+        title: "Saison 2",
+        episodes: [
+          { id: 1, title: "The North Remembers", videoUrl: "https://exemple.com/got/s02e01", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 2, title: "The Night Lands", videoUrl: "https://exemple.com/got/s02e02", duration: 54 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 3, title: "What Is Dead May Never Die", videoUrl: "https://exemple.com/got/s02e03", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 4, title: "Garden of Bones", videoUrl: "https://exemple.com/got/s02e04", duration: 51 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 5, title: "The Ghost of Harrenhal", videoUrl: "https://exemple.com/got/s02e05", duration: 55 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 6, title: "The Old Gods and the New", videoUrl: "https://exemple.com/got/s02e06", duration: 54 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 7, title: "A Man Without Honor", videoUrl: "https://exemple.com/got/s02e07", duration: 56 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 8, title: "The Prince of Winterfell", videoUrl: "https://exemple.com/got/s02e08", duration: 54 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 9, title: "Blackwater", videoUrl: "https://exemple.com/got/s02e09", duration: 55 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 10, title: "Valar Morghulis", videoUrl: "https://exemple.com/got/s02e10", duration: 64 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" }
+        ]
+      },
+      {
+        seasonNumber: 3,
+        title: "Saison 3",
+        episodes: [
+          { id: 1, title: "Valar Dohaeris", videoUrl: "https://exemple.com/got/s03e01", duration: 55 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 2, title: "Dark Wings, Dark Words", videoUrl: "https://exemple.com/got/s03e02", duration: 56 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 3, title: "Walk of Punishment", videoUrl: "https://exemple.com/got/s03e03", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 4, title: "And Now His Watch Is Ended", videoUrl: "https://exemple.com/got/s03e04", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 5, title: "Kissed by Fire", videoUrl: "https://exemple.com/got/s03e05", duration: 57 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 6, title: "The Climb", videoUrl: "https://exemple.com/got/s03e06", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 7, title: "The Bear and the Maiden Fair", videoUrl: "https://exemple.com/got/s03e07", duration: 58 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 8, title: "Second Sons", videoUrl: "https://exemple.com/got/s03e08", duration: 56 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 9, title: "The Rains of Castamere", videoUrl: "https://exemple.com/got/s03e09", duration: 51 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 10, title: "Mhysa", videoUrl: "https://exemple.com/got/s03e10", duration: 63 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" }
+        ]
+      },
+      {
+        seasonNumber: 4,
+        title: "Saison 4",
+        episodes: [
+          { id: 1, title: "Two Swords", videoUrl: "https://exemple.com/got/s04e01", duration: 58 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 2, title: "The Lion and the Rose", videoUrl: "https://exemple.com/got/s04e02", duration: 52 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 3, title: "Breaker of Chains", videoUrl: "https://exemple.com/got/s04e03", duration: 57 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 4, title: "Oathkeeper", videoUrl: "https://exemple.com/got/s04e04", duration: 55 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 5, title: "First of His Name", videoUrl: "https://exemple.com/got/s04e05", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 6, title: "The Laws of Gods and Men", videoUrl: "https://exemple.com/got/s04e06", duration: 51 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 7, title: "Mockingbird", videoUrl: "https://exemple.com/got/s04e07", duration: 52 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 8, title: "The Mountain and the Viper", videoUrl: "https://exemple.com/got/s04e08", duration: 52 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 9, title: "The Watchers on the Wall", videoUrl: "https://exemple.com/got/s04e09", duration: 51 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 10, title: "The Children", videoUrl: "https://exemple.com/got/s04e10", duration: 65 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" }
+        ]
+      },
+      {
+        seasonNumber: 5,
+        title: "Saison 5",
+        episodes: [
+          { id: 1, title: "The Wars to Come", videoUrl: "https://exemple.com/got/s05e01", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 2, title: "The House of Black and White", videoUrl: "https://exemple.com/got/s05e02", duration: 56 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 3, title: "High Sparrow", videoUrl: "https://exemple.com/got/s05e03", duration: 60 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 4, title: "Sons of the Harpy", videoUrl: "https://exemple.com/got/s05e04", duration: 51 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 5, title: "Kill the Boy", videoUrl: "https://exemple.com/got/s05e05", duration: 57 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 6, title: "Unbowed, Unbent, Unbroken", videoUrl: "https://exemple.com/got/s05e06", duration: 54 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 7, title: "The Gift", videoUrl: "https://exemple.com/got/s05e07", duration: 59 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 8, title: "Hardhome", videoUrl: "https://exemple.com/got/s05e08", duration: 61 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 9, title: "The Dance of Dragons", videoUrl: "https://exemple.com/got/s05e09", duration: 52 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 10, title: "Mother's Mercy", videoUrl: "https://exemple.com/got/s05e10", duration: 60 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" }
+        ]
+      },
+      {
+        seasonNumber: 6,
+        title: "Saison 6",
+        episodes: [
+          { id: 1, title: "The Red Woman", videoUrl: "https://exemple.com/got/s06e01", duration: 50 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 2, title: "Home", videoUrl: "https://exemple.com/got/s06e02", duration: 54 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 3, title: "Oathbreaker", videoUrl: "https://exemple.com/got/s06e03", duration: 52 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 4, title: "Book of the Stranger", videoUrl: "https://exemple.com/got/s06e04", duration: 59 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 5, title: "The Door", videoUrl: "https://exemple.com/got/s06e05", duration: 57 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 6, title: "Blood of My Blood", videoUrl: "https://exemple.com/got/s06e06", duration: 52 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 7, title: "The Broken Man", videoUrl: "https://exemple.com/got/s06e07", duration: 51 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 8, title: "No One", videoUrl: "https://exemple.com/got/s06e08", duration: 59 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 9, title: "Battle of the Bastards", videoUrl: "https://exemple.com/got/s06e09", duration: 60 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 10, title: "The Winds of Winter", videoUrl: "https://exemple.com/got/s06e10", duration: 68 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" }
+        ]
+      },
+      {
+        seasonNumber: 7,
+        title: "Saison 7",
+        episodes: [
+          { id: 1, title: "Dragonstone", videoUrl: "https://exemple.com/got/s07e01", duration: 59 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 2, title: "Stormborn", videoUrl: "https://exemple.com/got/s07e02", duration: 59 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 3, title: "The Queen's Justice", videoUrl: "https://exemple.com/got/s07e03", duration: 63 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 4, title: "The Spoils of War", videoUrl: "https://exemple.com/got/s07e04", duration: 50 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 5, title: "Eastwatch", videoUrl: "https://exemple.com/got/s07e05", duration: 59 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 6, title: "Beyond the Wall", videoUrl: "https://exemple.com/got/s07e06", duration: 70 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 7, title: "The Dragon and the Wolf", videoUrl: "https://exemple.com/got/s07e07", duration: 80 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" }
+        ]
+      },
+      {
+        seasonNumber: 8,
+        title: "Saison 8",
+        episodes: [
+          { id: 1, title: "Winterfell", videoUrl: "https://exemple.com/got/s08e01", duration: 54 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 2, title: "A Knight of the Seven Kingdoms", videoUrl: "https://exemple.com/got/s08e02", duration: 58 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 3, title: "The Long Night", videoUrl: "https://exemple.com/got/s08e03", duration: 82 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 4, title: "The Last of the Starks", videoUrl: "https://exemple.com/got/s08e04", duration: 78 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 5, title: "The Bells", videoUrl: "https://exemple.com/got/s08e05", duration: 78 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 6, title: "The Iron Throne", videoUrl: "https://exemple.com/got/s08e06", duration: 80 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" }
+        ]
+      }
+    ]
   },
   {
     id: "stranger-things",

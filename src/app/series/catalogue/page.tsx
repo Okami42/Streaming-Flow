@@ -56,7 +56,7 @@ const seriesList: CatalogueSeries[] = [
   {
     id: "game-of-thrones",
     title: "Game of Thrones",
-    imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg",
+    imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg",
     type: "Série",
     language: "VF",
     time: "8 saisons"
