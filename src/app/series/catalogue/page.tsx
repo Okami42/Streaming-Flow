@@ -108,6 +108,14 @@ const seriesList: CatalogueSeries[] = [
     type: "Film",
     language: "VF",
     time: "2h55"
+  },
+  {
+    id: "top-gun-maverick",
+    title: "Top Gun: Maverick",
+    imageUrl: "https://fr.web.img4.acsta.net/pictures/22/03/29/15/12/0827894.jpg",
+    type: "Film",
+    language: "VF",
+    time: "2h11"
   }
 ];
 

@@ -13,6 +13,7 @@ import { useFavorites } from "@/context/favorites-context";
 import { Content, Episode } from "@/lib/types";
 import React from "react";
 import { formatTimeExtended } from "@/lib/history";
+import { extractSeriesId } from "@/lib/utils";
 
 // Définir le type correct pour les paramètres de page Next.js
 interface PageProps {
@@ -31,8 +32,11 @@ export default function WatchPage({ params }: PageProps) {
   
   // Utiliser React.use() pour accéder aux paramètres
   const unwrappedParams = React.use(params) as RouteParams;
-  const id = unwrappedParams.id;
+  const rawId = unwrappedParams.id;
   const episodeId = unwrappedParams.episodeId;
+  
+  // Utiliser extractSeriesId pour s'assurer que l'ID est correctement extrait
+  const id = extractSeriesId(rawId);
   
   const seasonParam = searchParams.get('season');
   const seasonNumber = seasonParam ? parseInt(seasonParam) : undefined;
@@ -53,6 +57,7 @@ export default function WatchPage({ params }: PageProps) {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [progressPercentage, setProgressPercentage] = useState(0);
+  // Supprimer les flags qui causent des problèmes
   
   // Trouver la série
   const series = seriesData.find((s) => s.id === id);
@@ -104,9 +109,7 @@ export default function WatchPage({ params }: PageProps) {
       setCurrentTime(historyItem.progress);
       setDuration(historyItem.duration);
       setProgressPercentage((historyItem.progress / historyItem.duration) * 100);
-      
       // Ne pas définir directement le currentTime ici, on le fera dans onLoadedMetadata
-      // pour éviter les pauses/reprises indésirables
     }
   }, [series.id, episodeId, seasonNumber, watchHistory]);
   
@@ -117,6 +120,7 @@ export default function WatchPage({ params }: PageProps) {
         const newTime = Math.floor(videoRef.current.currentTime);
         const videoDuration = Math.floor(videoRef.current.duration) || duration;
         
+        // Mise à jour simple des états
         setCurrentTime(newTime);
         setDuration(videoDuration);
         setProgressPercentage((newTime / videoDuration) * 100);
@@ -125,49 +129,25 @@ export default function WatchPage({ params }: PageProps) {
         const historyItemId = `${series.id}-${episodeId}${seasonNumber ? `-s${seasonNumber}` : ''}`;
         updateWatchProgress(historyItemId, newTime);
       }
-    }, 5000);
+    }, 5000); // Intervalle plus long pour éviter les mises à jour trop fréquentes
     
     return () => clearInterval(updateInterval);
   }, [series.id, episodeId, seasonNumber, duration, updateWatchProgress]);
   
-  // Gérer les événements de la vidéo
+  // Gérer les événements de la vidéo - simplifier pour éviter les boucles
   const handleVideoTimeUpdate = () => {
+    // Ne pas mettre à jour trop souvent pour éviter les boucles
     if (videoRef.current) {
+      // Mise à jour occasionnelle pour l'affichage uniquement
       const newTime = Math.floor(videoRef.current.currentTime);
-      const videoDuration = Math.floor(videoRef.current.duration);
-      
-      setCurrentTime(newTime);
-      setDuration(videoDuration);
-      setProgressPercentage((newTime / videoDuration) * 100);
+      if (Math.abs(newTime - currentTime) > 5) { // Seulement si le changement est significatif
+        setCurrentTime(newTime);
+        setDuration(Math.floor(videoRef.current.duration));
+        setProgressPercentage((newTime / videoRef.current.duration) * 100);
+      }
     }
   };
   
-  // Ajouter à l'historique
-  useEffect(() => {
-    // Utiliser une référence pour éviter des mises à jour en cascade
-    const historyItem = {
-      id: `${series.id}-${episodeId}${seasonNumber ? `-s${seasonNumber}` : ''}`,
-      title: series.title,
-      imageUrl: episode.imageUrl || series.imageUrl,
-      lastWatchedAt: new Date().toISOString(),
-      progress: currentTime || 0,
-      duration: duration || episode.duration || 1800,
-      episodeInfo: {
-        season: seasonNumber || 1,
-        episode: parseInt(episodeId),
-        title: episode.title
-      },
-      type: 'Anime' as const
-    };
-    
-    // Utiliser un timeout pour éviter les mises à jour trop rapides
-    const timer = setTimeout(() => {
-      addToWatchHistory(historyItem);
-    }, 100);
-    
-    return () => clearTimeout(timer);
-  }, [series.id, episodeId, seasonNumber, currentTime, duration]);
-
   // Effet pour mettre à jour la clé du lecteur quand on change d'épisode
   useEffect(() => {
     // Créer la clé une seule fois au montage du composant pour cet épisode
@@ -201,6 +181,7 @@ export default function WatchPage({ params }: PageProps) {
       // Nettoyer la vidéo directe si elle existe
       const currentVideoRef = videoRef.current;
       if (currentVideoRef) {
+        // Pause et nettoyage de la vidéo
         currentVideoRef.pause();
         currentVideoRef.src = '';
         currentVideoRef.load();
@@ -210,6 +191,32 @@ export default function WatchPage({ params }: PageProps) {
       iframeRefs.current = [];
     };
   }, [id, episodeId, seasonNumber]);
+
+  // Ajouter à l'historique
+  useEffect(() => {
+    // Utiliser une référence pour éviter des mises à jour en cascade
+    const historyItem = {
+      id: `${series.id}-${episodeId}${seasonNumber ? `-s${seasonNumber}` : ''}`,
+      title: series.title,
+      imageUrl: episode.imageUrl || series.imageUrl,
+      lastWatchedAt: new Date().toISOString(),
+      progress: currentTime || 0,
+      duration: duration || episode.duration || 1800,
+      episodeInfo: {
+        season: seasonNumber || 1,
+        episode: parseInt(episodeId),
+        title: episode.title
+      },
+      type: 'Anime' as const
+    };
+    
+    // Utiliser un timeout pour éviter les mises à jour trop rapides
+    const timer = setTimeout(() => {
+      addToWatchHistory(historyItem);
+    }, 100);
+    
+    return () => clearTimeout(timer);
+  }, [series.id, episodeId, seasonNumber, currentTime, duration, addToWatchHistory]);
 
   // Ajouter une fonction pour gérer l'ajout/retrait des favoris
   const handleFavoriteToggle = () => {
@@ -472,7 +479,7 @@ export default function WatchPage({ params }: PageProps) {
                       style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
                     ></iframe>
                   </div>
-                ) : episode.videoUrl.endsWith('.mp4') || episode.videoUrl.includes('cloudflarestorage') ? (
+                ) : episode.videoUrl.endsWith('.mp4') || episode.videoUrl.includes('cloudflarestorage') || episode.videoUrl.includes('cineburger.xyz') ? (
                   <video 
                     ref={videoRef}
                     src={episode.videoUrl} 

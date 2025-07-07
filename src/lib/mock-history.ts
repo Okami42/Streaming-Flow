@@ -2,58 +2,58 @@ import { WatchHistoryItem, ReadHistoryItem } from './history';
 
 export const mockWatchHistory: WatchHistoryItem[] = [
   {
-    id: 'demon-slayer-s1e19',
-    title: 'Demon Slayer',
-    imageUrl: 'https://ext.same-assets.com/3039906599/884967313.jpeg',
+    id: 'squid-game-s1e19',
+    title: 'Squid Game',
+    imageUrl: 'https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/2meX1nMdScFOoV4370rqHWKmXhY.jpg',
     lastWatchedAt: new Date(Date.now() - 1000 * 60 * 30).toISOString(), // 30 minutes ago
     progress: 843, // 14:03
     duration: 1440, // 24:00
     episodeInfo: {
       season: 1,
-      episode: 19,
-      title: 'Hinokami',
+      episode: 9,
+      title: 'Finale',
     },
     type: 'Anime',
   },
   {
-    id: 'jujutsu-kaisen-s2e15',
-    title: 'Jujutsu Kaisen',
-    imageUrl: 'https://ext.same-assets.com/2879165773/327560351.jpeg',
+    id: 'breaking-bad-s1e15',
+    title: 'Breaking Bad',
+    imageUrl: 'https://fr.web.img5.acsta.net/pictures/19/06/18/12/11/3956503.jpg',
     lastWatchedAt: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(), // 2 hours ago
     progress: 720, // 12:00
     duration: 1440, // 24:00
     episodeInfo: {
-      season: 2,
-      episode: 15,
-      title: 'Le domaine de l\'expansion',
+      season: 1,
+      episode: 3,
+      title: 'Le sac est dans la rivière',
     },
     type: 'Anime',
   },
   {
-    id: 'vinland-saga-s1e10',
-    title: 'Vinland Saga',
-    imageUrl: 'https://ext.same-assets.com/4165707166/2193428669.jpeg',
+    id: 'game-of-thrones-s1e10',
+    title: 'Game of Thrones',
+    imageUrl: 'https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg',
     lastWatchedAt: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(), // 1 day ago
     progress: 1200, // 20:00
     duration: 1500, // 25:00
     episodeInfo: {
       season: 1,
       episode: 10,
-      title: 'Ragnarok',
+      title: 'De feu et de sang',
     },
     type: 'Anime',
   },
   {
-    id: 'akudama-drive-s1e5',
-    title: 'Akudama Drive',
-    imageUrl: 'https://ext.same-assets.com/3410839635/1638134647.jpeg',
+    id: 'adventure-time-s1e5',
+    title: 'Adventure Time',
+    imageUrl: 'https://m.media-amazon.com/images/M/MV5BMjE2MzE1MDI2M15BMl5BanBnXkFtZTgwNzUyODQxMDE@._V1_.jpg',
     lastWatchedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3).toISOString(), // 3 days ago
     progress: 600, // 10:00
     duration: 1380, // 23:00
     episodeInfo: {
       season: 1,
       episode: 5,
-      title: 'Sharp',
+      title: 'Le roi muet',
     },
     type: 'Anime',
   },

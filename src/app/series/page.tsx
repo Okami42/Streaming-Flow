@@ -14,14 +14,13 @@ import { seriesData } from "@/lib/seriesData";
 
 // Fonction pour extraire l'ID de la série à partir de l'ID de l'historique
 const extractSeriesId = (historyId: string): string => {
-  // Liste des séries connues
-  const knownSeriesIds = ["squid-game", "demon-slayer", "jujutsu-kaisen", "vinland-saga", "akudama-drive"];
+  // Liste des séries connues avec des tirets dans leur ID
+  const knownSeriesWithHyphens = ["game-of-thrones", "breaking-bad", "squid-game", "stranger-things", "the-boys", "blade-runner-2049", "adventure-time", "top-gun-maverick"];
   
-  // Chercher si l'un des IDs connus est présent dans l'ID de l'historique
-  for (const seriesId of knownSeriesIds) {
-    if (historyId.startsWith(seriesId)) {
-      return seriesId;
-    }
+  // Vérifier d'abord si l'ID correspond à une série connue avec des tirets
+  const matchedSeries = knownSeriesWithHyphens.find(id => historyId.startsWith(id));
+  if (matchedSeries) {
+    return matchedSeries;
   }
   
   // Si aucun ID connu n'est trouvé, retourner la partie avant le premier tiret
@@ -187,7 +186,7 @@ export default function SeriesPage() {
     {
       id: "top-gun-maverick",
       title: "Top Gun: Maverick",
-      imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
+      imageUrl: "https://fr.web.img4.acsta.net/pictures/22/03/29/15/12/0827894.jpg",
       time: "2h10",
       type: "Film",
       language: "VF"

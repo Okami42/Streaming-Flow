@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import CustomImage from "@/components/ui/custom-image";
 import { useFavorites } from "@/context/favorites-context";
+import { extractSeriesId } from "@/lib/utils";
 
 // Définir le type correct pour les paramètres de page Next.js
 interface PageProps {
@@ -24,7 +25,10 @@ interface RouteParams {
 export default function AnimePage({ params }: PageProps) {
   // Utiliser React.use() pour accéder aux paramètres
   const unwrappedParams = React.use(params) as RouteParams;
-  const animeId = unwrappedParams.id;
+  const rawAnimeId = unwrappedParams.id;
+  
+  // Utiliser extractSeriesId pour s'assurer que l'ID est correctement extrait
+  const animeId = extractSeriesId(rawAnimeId);
   const anime = getAnimeById(animeId);
 
   if (!anime) {

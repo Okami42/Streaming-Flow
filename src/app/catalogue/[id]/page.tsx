@@ -1,24 +1,9 @@
-import AnimePageClient from "./AnimePageClient";
-import { ErrorBoundary } from 'react-error-boundary';
-import { getAnimeById } from "@/lib/animeData";
-import { notFound } from "next/navigation";
+import { getAnimeById, getAllAnimes } from "@/lib/animeData";
+import { getSeriesById } from "@/lib/seriesData";
+import { notFound, redirect } from "next/navigation";
 import React from "react";
-
-// Composant d'erreur séparé dans un fichier à part pour éviter l'erreur
-function MyFallbackComponent({ error }: { error: Error }) {
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-[#030711] text-white">
-      <h1 className="text-xl font-bold text-red-500 mb-4">Une erreur est survenue</h1>
-      <p className="mb-4 text-gray-300">{error.message}</p>
-      <button 
-        onClick={() => window.location.reload()}
-        className="px-4 py-2 bg-pink-600 hover:bg-pink-700 rounded-md transition-colors"
-      >
-        Réessayer
-      </button>
-    </div>
-  );
-}
+import AnimePageClient from "./AnimePageClient";
+import { extractSeriesId } from "@/lib/utils";
 
 // Définir le type correct pour les paramètres de page Next.js
 interface PageProps {
@@ -30,20 +15,89 @@ interface RouteParams {
   id: string;
 }
 
-export default async function AnimePage({ params }: PageProps) {
+// Liste des mappings d'ID spéciaux pour les animes qui ont des problèmes
+const specialAnimeIds: Record<string, string> = {
+  "solo-leveling": "solo-leveling",
+  "kuroko-no-basket": "kuroko-no-basket",
+  "jujutsu-kaisen": "jujutsu-kaisen",
+  "vinland-saga": "vinland-saga",
+  "demon-slayer": "demon-slayer",
+  "death-note": "death-note",
+  "akudama-drive": "akudama-drive",
+  "frieren": "frieren",
+  // Ajouter d'autres mappings si nécessaire
+};
+
+export default async function CataloguePage({ params }: PageProps) {
   // Utiliser les paramètres directement
-  const id = params.id;
+  const rawId = params.id;
   
-  // Récupérer l'anime par son ID (getAnimeById gère déjà le cas de solo-leveling-2)
-  const anime = getAnimeById(id);
-
-  if (!anime) {
-    return notFound();
+  // Log pour déboguer
+  console.log("Catalogue page - ID reçu:", rawId);
+  
+  // Utiliser extractSeriesId pour s'assurer que l'ID est correctement extrait
+  const id = extractSeriesId(rawId);
+  
+  console.log("Catalogue page - ID extrait:", id);
+  
+  // Vérifier si c'est un ID spécial qui nécessite un traitement particulier
+  if (specialAnimeIds[id]) {
+    console.log(`Catalogue page - Cas spécial pour ${id}`);
+    const anime = getAnimeById(specialAnimeIds[id]);
+    if (anime) {
+      return (
+        <div>
+          <AnimePageClient anime={anime} />
+        </div>
+      );
+    }
   }
-
-  return (
-    <div>
-      <AnimePageClient anime={anime} />
-    </div>
+  
+  // D'abord, essayer de récupérer un anime
+  const anime = getAnimeById(id);
+  console.log("Catalogue page - Anime trouvé:", anime ? "oui" : "non");
+  
+  if (anime) {
+    return (
+      <div>
+        <AnimePageClient anime={anime} />
+      </div>
+    );
+  }
+  
+  // Essayer de trouver un anime avec un ID similaire
+  const allAnimes = getAllAnimes();
+  const similarAnime = allAnimes.find(a => 
+    a.id.toLowerCase().includes(id.toLowerCase()) || 
+    id.toLowerCase().includes(a.id.toLowerCase())
   );
+  
+  if (similarAnime) {
+    console.log(`Catalogue page - Anime similaire trouvé: ${similarAnime.id}`);
+    return (
+      <div>
+        <AnimePageClient anime={similarAnime} />
+      </div>
+    );
+  }
+  
+  // Ensuite, vérifier si c'est une série ou un film
+  const series = getSeriesById(id);
+  console.log("Catalogue page - Série trouvée:", series ? "oui" : "non");
+  
+  if (series) {
+    // Si c'est Top Gun Maverick, rediriger vers la page des séries
+    if (id === "top-gun-maverick") {
+      console.log("Catalogue page - Redirection de Top Gun Maverick vers /series");
+      return redirect(`/series/${id}`);
+    }
+    
+    // Pour les autres séries/films, rediriger vers la page de série
+    console.log("Catalogue page - Redirection vers /series");
+    return redirect(`/series/${id}`);
+  }
+  
+  // Si aucun contenu n'est trouvé, afficher une page 404
+  console.log("Catalogue page - Contenu non trouvé, affichage 404");
+  return notFound();
 }

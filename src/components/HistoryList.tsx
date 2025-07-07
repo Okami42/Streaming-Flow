@@ -2,6 +2,7 @@
 
 import { useHistory } from "@/context/history-context";
 import { calculateProgress, formatTime, getRelativeTime } from "@/lib/history";
+import { extractSeriesId } from "@/lib/utils";
 import { Trash2, Play } from "lucide-react";
 import CustomImage from "./ui/custom-image";
 import Link from "next/link";
@@ -41,20 +42,19 @@ export default function HistoryList({ limit = 5 }: { limit?: number }) {
           // C'est un élément de type vidéo
           progressPercentage = calculateProgress(item.progress, item.duration);
           
-          // Extraire l'ID de la série et l'ID de l'épisode
-          const parts = item.id.split('-');
-          const seriesId = parts.length >= 2 ? `${parts[0]}-${parts[1]}` : parts[0];
-          const episodeId = item.episodeInfo.episode;
+          // Utiliser la fonction utilitaire pour extraire l'ID de la série
+          const seriesId = extractSeriesId(item.id);
           
-          // TOUJOURS inclure le paramètre de saison, même pour la saison 1
+          // Utiliser les informations d'épisode stockées dans l'item
+          const episodeId = item.episodeInfo.episode;
           const seasonNumber = item.episodeInfo.season;
           const seasonParam = `?season=${seasonNumber}`;
           
-          // Utiliser toujours le chemin /series pour tous les éléments
+          // Construire l'URL complète
           watchUrl = `/series/${seriesId}/watch/${episodeId}${seasonParam}`;
           
           // Debug pour vérifier la construction de l'URL
-          console.log(`Constructing URL for ${item.id}: Season=${seasonNumber}, Episode=${episodeId}, URL=${watchUrl}`);
+          console.log(`URL construite pour ${item.id}: SeriesID=${seriesId}, Season=${seasonNumber}, Episode=${episodeId}, URL=${watchUrl}`);
         }
         
         return (

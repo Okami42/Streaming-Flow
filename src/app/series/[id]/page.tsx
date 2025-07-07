@@ -13,6 +13,7 @@ import { Content, Episode, Season } from "@/lib/types";
 import { useFavorites } from "@/context/favorites-context";
 import EpisodeCard from "@/components/EpisodeCard";
 import episodeDescriptions, { getEpisodeDescription } from "@/lib/episodeDescriptions";
+import { extractSeriesId } from "@/lib/utils";
 
 // Définir le type correct pour les paramètres de page Next.js
 interface PageProps {
@@ -30,7 +31,10 @@ export default function SeriesPage({ params }: PageProps) {
   
   // Utiliser React.use() pour accéder aux paramètres
   const unwrappedParams = React.use(params) as RouteParams;
-  const seriesId = unwrappedParams.id;
+  const rawSeriesId = unwrappedParams.id;
+  
+  // Utiliser la fonction extractSeriesId pour s'assurer que l'ID est correctement extrait
+  const seriesId = extractSeriesId(rawSeriesId);
   const series = seriesData.find((item) => item.id === seriesId);
 
   if (!series) {
@@ -160,6 +164,12 @@ export default function SeriesPage({ params }: PageProps) {
                       </span>
                     </div>
                   </div>
+                  
+                  {/* Synopsis déplacé ici */}
+                  <div className="mb-4">
+                    <p className="text-gray-300">{series.description}</p>
+                  </div>
+                  
                   <Button 
                     variant="outline" 
                     size="sm"
@@ -176,12 +186,6 @@ export default function SeriesPage({ params }: PageProps) {
         </div>
 
         <div className="container mx-auto px-4 py-8">
-          {/* Description */}
-          <div className="bg-[#0f172a] rounded-xl p-6 mb-8 border border-white/5">
-            <h2 className="text-xl font-bold text-white mb-4">Synopsis</h2>
-            <p className="text-gray-300">{series.description}</p>
-          </div>
-
           {/* Liste des épisodes */}
           <div className="bg-[#0f172a] rounded-xl p-6 border border-white/5">
             <div className="flex justify-between items-center mb-6">

@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Content, Episode, Season } from "@/lib/types";
 import EpisodeCard from "@/components/EpisodeCard";
+import { extractSeriesId } from "@/lib/utils";
 
 // Définir le type correct pour les paramètres de page Next.js
 interface PageProps {
@@ -27,7 +28,10 @@ export default function SeriesEpisodesPage({ params }: PageProps) {
   
   // Utiliser React.use() pour accéder aux paramètres
   const unwrappedParams = React.use(params) as RouteParams;
-  const seriesId = unwrappedParams.id;
+  const rawSeriesId = unwrappedParams.id;
+  
+  // Utiliser extractSeriesId pour s'assurer que l'ID est correctement extrait
+  const seriesId = extractSeriesId(rawSeriesId);
   const series = seriesData.find((item) => item.id === seriesId);
   
   if (!series) {

@@ -40,13 +40,15 @@ export function HistoryProvider({ children }: { children: React.ReactNode }) {
     if (savedWatchHistory) {
       setWatchHistory(JSON.parse(savedWatchHistory));
     } else {
-      setWatchHistory(mockWatchHistory);
+      // Ne pas charger les données fictives par défaut
+      setWatchHistory([]);
     }
 
     if (savedReadHistory) {
       setReadHistory(JSON.parse(savedReadHistory));
     } else {
-      setReadHistory(mockReadHistory);
+      // Ne pas charger les données fictives par défaut
+      setReadHistory([]);
     }
 
     setMounted(true);

@@ -60,6 +60,98 @@ const episodeDescriptions: SeriesDescriptions = {
     }
   },
   
+  "game-of-thrones": {
+    1: {
+      1: "Ned Stark, seigneur de Winterfell, se voit confier la charge de Main du Roi par son vieil ami le roi Robert Baratheon. À Winterfell, la famille royale est accueillie et des tensions apparaissent. De l'autre côté du Détroit, les derniers héritiers Targaryen cherchent à reconquérir le trône.",
+      2: "Alors que Bran reste dans le coma, Ned part pour Port-Réal avec ses filles. Jon Snow se dirige vers le Mur pour rejoindre la Garde de Nuit. Daenerys doit s'adapter à sa nouvelle vie de Khaleesi.",
+      3: "Arrivé à Port-Réal, Ned commence son enquête sur la mort de Jon Arryn. Catelyn suit secrètement son mari pour lui révéler ses soupçons. Jon fait ses premiers pas difficiles à la Garde de Nuit.",
+      4: "Ned poursuit son enquête et découvre que le roi a un fils illégitime. Tyrion, sur le chemin du retour, est capturé par Catelyn qui le soupçonne d'avoir tenté de tuer Bran.",
+      5: "À Port-Réal, Ned est confronté au roi Robert sur la question des Targaryen. Catelyn emmène Tyrion à l'Est. Bran reçoit un cadeau spécial avant de commencer une nouvelle vie.",
+      6: "Tyrion demande un jugement par combat pour prouver son innocence. À Port-Réal, Ned fait une découverte choquante sur les enfants royaux. Au-delà du Détroit, Viserys devient de plus en plus désespéré.",
+      7: "Suite à la blessure du roi Robert, Ned se retrouve régent temporaire. Il confronte Cersei avec ses découvertes. À l'Est, Drogo promet de conquérir les Sept Royaumes pour son fils à naître.",
+      8: "Avec le roi Robert mort, Ned refuse de reconnaître Joffrey comme héritier légitime. Robb Stark rassemble les bannières du Nord pour marcher vers le Sud. Jon Snow fait un choix difficile.",
+      9: "Tyrion mène sa première bataille. Robb affronte l'armée Lannister. À Port-Réal, le sort de Ned est scellé lors d'une audience publique.",
+      10: "Après l'exécution de Ned, la guerre des cinq rois commence. Robb est proclamé Roi du Nord. Daenerys fait face à une terrible perte mais aussi à la naissance d'un miracle."
+    },
+    2: {
+      1: "Alors que la guerre fait rage dans les Sept Royaumes, Tyrion arrive à Port-Réal pour servir comme Main du Roi. Daenerys et ses suivants traversent le désert rouge. Jon Snow et la Garde de Nuit font face aux dangers au-delà du Mur.",
+      2: "Theon retourne sur les Îles de Fer et retrouve sa famille. Arya, déguisée en garçon, voyage vers le Nord. Tyrion réorganise le conseil restreint et se débarrasse d'un homme dangereux.",
+      3: "Catelyn tente de forger une alliance avec Renly Baratheon. Tyrion teste la loyauté des membres du conseil. Theon doit choisir entre sa famille de sang et celle qui l'a élevé.",
+      4: "Joffrey punit Sansa pour les victoires de Robb. Tyrion découvre le plan de défense de Cersei. Catelyn propose un échange de prisonniers. Jon découvre un secret inquiétant chez Craster.",
+      5: "Les hommes de la Garde de Nuit font face à une mutinerie. Daenerys rencontre un riche marchand qui pourrait être la clé de son avenir. Theon s'empare de Winterfell.",
+      6: "Theon consolide son contrôle sur Winterfell. Jon est fait prisonnier par les sauvageons. À Port-Réal, Tyrion et Cersei se préparent pour l'attaque imminente de Stannis Baratheon.",
+      7: "Jaime est escorté vers Port-Réal par Brienne. Arya reçoit une surprise de Jaqen H'ghar. Robb est confronté à une trahison. Theon poursuit Bran et Rickon.",
+      8: "Le roi Stannis arrive enfin à Port-Réal avec son armée. Tyrion et la famille royale se préparent pour la bataille. Jon est mis à l'épreuve par Qhorin Mimain.",
+      9: "Tyrion et les Lannister combattent pour leur vie alors que la flotte de Stannis attaque Port-Réal. La bataille de la Néra s'annonce sanglante et décisive.",
+      10: "Après la bataille, Joffrey récompense ses alliés. Tyrion se réveille dans une nouvelle position. Daenerys entre dans une ville mystérieuse. Au-delà du Mur, une armée de morts s'avance."
+    },
+    3: {
+      1: "Jon rencontre Mance Rayder, le roi d'au-delà du Mur. Daenerys arrive à Astapor pour acheter une armée. Tyrion demande une récompense. Petyr Baelish fait une offre à Sansa.",
+      2: "Brienne et Jaime sont capturés. Arya rencontre la Fraternité sans Bannières. Theon est torturé par des inconnus. Tyrion prend de nouvelles responsabilités.",
+      3: "Tyrion obtient un nouveau titre. Daenerys rencontre le propriétaire des Immaculés. Les hommes de la Garde de Nuit se rebellent. Jaime fait face à une situation difficile.",
+      4: "La Garde de Nuit fait face à une mutinerie. Daenerys libère les esclaves d'Astapor. Jaime révèle un secret à Brienne. Varys raconte son histoire à Tyrion.",
+      5: "Robb doit faire face à une rébellion. Jon et les sauvageons escaladent le Mur. Jaime tente de négocier sa libération. Tyrion découvre le coût de son mariage.",
+      6: "Tyrion et Sansa se marient. Daenerys rencontre les dirigeants de Yunkai. Melisandre révèle un secret à Gendry. Brienne fait face à un ours.",
+      7: "Daenerys rencontre les mercenaires de Yunkai. Robb négocie avec Walder Frey. Jon est mis à l'épreuve par les sauvageons. Bran découvre un nouveau pouvoir.",
+      8: "Daenerys attend la réponse de Yunkai. Robb présente ses excuses à Lord Frey. Jon fait face à la plus grande épreuve de sa loyauté. Bran découvre une nouvelle capacité.",
+      9: "Robb et Catelyn arrivent aux Jumeaux pour le mariage d'Edmure. Jon fait face à sa plus grande épreuve. Bran se rapproche de sa destination.",
+      10: "Joffrey défie Tywin. Bran raconte une légende. La Garde de Nuit fait face à son plus grand défi. Daenerys attend de voir comment sa dernière conquête la recevra."
+    },
+    4: {
+      1: "Tyrion accueille un invité à Port-Réal. Jon est jugé pour ses actions. Daenerys marche vers Meereen avec sa nouvelle armée. Arya retrouve un visage familier.",
+      2: "Tyrion offre son aide à un suspect. Joffrey et Margaery célèbrent leur union. Jaime et Cersei se retrouvent. Stannis perd patience avec Davos.",
+      3: "Tyrion considère ses options. Tywin offre un partenariat. Daenerys conquiert une nouvelle ville. Jon organise la défense de Châteaunoir.",
+      4: "Daenerys équilibre justice et miséricorde. Jaime demande à Brienne de remplir un serment. Jon organise la défense du Mur. Cersei et Tywin complotent.",
+      5: "Jon mène un groupe de volontaires. Bran et sa compagnie trouvent refuge. Daenerys apprend à gouverner. Tyrion fait face à son père dans un procès pour sa vie.",
+      6: "Tyrion fait face à son accusateur. Daenerys reçoit des nouvelles inquiétantes. Jon est appelé à défendre le Mur. Brienne suit une nouvelle piste.",
+      7: "Tyrion obtient un visiteur inattendu. Ramsay démontre sa valeur à son père. Petyr et Sansa arrivent au Val d'Arryn. Jon et les frères jurés sont confrontés à leur plus grand défi.",
+      8: "Mole's Town reçoit des visiteurs inattendus. Littlefinger est interrogé. Ramsay tente de prouver sa valeur à son père. Tyrion est jugé par combat.",
+      9: "Jon Snow et la Garde de Nuit font face à leur plus grand défi. Au nord du Mur, une bataille épique s'engage contre l'armée des sauvageons.",
+      10: "Les circonstances changent après la bataille au Mur. Daenerys fait face à de dures réalités. Bran apprend une vérité stupéfiante. Un voyageur arrive à une destination."
+    },
+    5: {
+      1: "Cersei et Jaime ajustent leur vie après la mort de leur père. Jon est courtisé par Stannis. Une prophétie hante Cersei. Daenerys fait face à une nouvelle menace.",
+      2: "Arya arrive à Braavos. Jaime et Bronn se dirigent vers Dorne. Ellaria Sand cherche vengeance. Stannis tente de gagner le soutien du Nord.",
+      3: "Jon prend une décision audacieuse en tant que Lord Commandant. Daenerys est confrontée à un choix difficile. Cersei nomme un nouveau Grand Moineau. Arya commence son entraînement.",
+      4: "Les Moineaux prennent le contrôle de Port-Réal. Jaime et Bronn approchent de Dorne. Ellaria et les Aspics des Sables planifient leur vengeance. Melisandre voit une vision dans les flammes.",
+      5: "Jon forme une alliance controversée. Stannis continue sa marche. Jaime et Bronn atteignent leur destination. Arya progresse dans son entraînement. Jorah et Tyrion voyagent ensemble.",
+      6: "Arya fait ses premiers pas dans sa nouvelle vie. Sansa confronte une vérité douloureuse. Stannis maintient sa résolution malgré les obstacles. Jaime fait face à un dilemme.",
+      7: "Jon prépare une mission dangereuse. Arya progresse dans son entraînement. Stannis fait face à des défis sur sa route vers Winterfell. Daenerys est confrontée à une situation périlleuse.",
+      8: "Jon revient à Châteaunoir. Arya fait une rencontre. Daenerys assiste à des jeux traditionnels. Stannis fait face à une décision déchirante.",
+      9: "Stannis marche vers Winterfell. Jon revient au Mur. Arya croise un visage familier. Daenerys assiste à des jeux de combat à Meereen.",
+      10: "Stannis marche vers Winterfell. Jon fait face aux conséquences de ses actions. Cersei cherche le pardon. Daenerys est entourée d'étrangers."
+    },
+    6: {
+      1: "À Châteaunoir, Thorne défend ses actions. Daenerys rencontre un chef Dothraki. Cersei reçoit des nouvelles de Myrcella. Ramsay fait face au deuil.",
+      2: "Bran s'entraîne avec le Corneille à trois yeux. À Port-Réal, Jaime confronte le Grand Moineau. Arya continue son entraînement. Ramsay reçoit un cadeau.",
+      3: "Daenerys rencontre son futur. Bran visite le passé. Tommen confronte le Grand Moineau. Arya se voit offrir une seconde chance. Ramsay reçoit un cadeau des Omble.",
+      4: "Tyrion frappe un accord avec les maîtres. Jon et Sansa discutent de leur avenir. Theon retrouve sa sœur. Cersei et Olenna planifient contre les Moineaux.",
+      5: "Tyrion cherche un nouvel allié. Jon prépare une bataille pour le Nord. Arya est mise à l'épreuve. Jorah dévoile un secret à Daenerys.",
+      6: "Une ancienne ennemie revient. Les acteurs interprètent des événements récents. Arya fait face à un choix. Jaime affronte le Grand Moineau.",
+      7: "Le Limier trouve un nouveau but. Jaime parle avec Brienne. Cersei choisit la violence. Tyrion conseille Daenerys.",
+      8: "Brienne arrive à Vivesaigues. Arya planifie son avenir. Cersei et Olenna discutent de leur avenir. Jaime fait face au Silure.",
+      9: "Jon et Sansa affrontent Ramsay Bolton dans la bataille pour Winterfell. La bataille des bâtards déterminera le sort du Nord.",
+      10: "Cersei fait face à son procès. Daenerys prépare son retour à Westeros. Bran découvre un secret crucial. Jon est reconnu par les seigneurs du Nord."
+    },
+    7: {
+      1: "Jon organise la défense du Nord. Cersei cherche à renforcer ses alliances. Daenerys revient sur sa terre natale. Arya planifie sa vengeance.",
+      2: "Daenerys reçoit un visiteur inattendu. Jon fait face à une rébellion. Sam risque sa carrière et sa vie. Cersei trouve un nouvel allié.",
+      3: "Daenerys tient conseil. Cersei rend justice à ses ennemis. Jaime apprend de ses erreurs. Jon reçoit un visiteur inattendu.",
+      4: "Daenerys attaque les forces Lannister. Arya retourne à Winterfell. Jon et Daenerys se préparent pour leur rencontre.",
+      5: "Daenerys exige loyauté. Jon propose une solution audacieuse. Tyrion médite sur les conséquences. Cersei reçoit une proposition.",
+      6: "Jon et ses compagnons partent au-delà du Mur à la recherche d'une preuve. Daenerys et Tyrion discutent de l'avenir. Arya se confronte à Sansa.",
+      7: "Une réunion cruciale a lieu à Port-Réal, où tous les principaux protagonistes se rencontrent pour discuter de la menace commune venant du Nord."
+    },
+    8: {
+      1: "Les forces de Daenerys et Jon arrivent à Winterfell. Dans le Nord, des nouvelles inquiétantes forcent Jon à prendre une décision difficile.",
+      2: "Jaime doit répondre de ses actes. Tyrion évalue sa loyauté. Jon révèle sa véritable identité à Daenerys. La Bataille de Winterfell approche.",
+      3: "La bataille de Winterfell commence. L'armée des morts affronte les vivants dans un combat épique pour la survie de l'humanité.",
+      4: "Les survivants célèbrent leur victoire et pleurent leurs morts. Daenerys et Cersei se préparent pour une confrontation finale.",
+      5: "Daenerys apporte le feu et le sang à Port-Réal. Cersei observe la destruction de sa ville. Les civils tentent désespérément d'échapper au carnage.",
+      6: "Les conséquences de la guerre se font sentir dans tout Westeros. Un nouveau dirigeant est choisi et le sort des Sept Royaumes est décidé."
+    }
+  },
+  
   "adventure-time": {
     1: {
       1: "Finn et Jake partent à la recherche d'une princesse disparue dans le Royaume de la Glace.",
@@ -70,6 +162,11 @@ const episodeDescriptions: SeriesDescriptions = {
       6: "BMO est possédé par un virus informatique maléfique qui menace de le reprogrammer.",
       7: "Finn rencontre son héros, Billy le héros légendaire, et apprend une vérité troublante sur le Lich.",
       8: "Jake et Lady Rainicorn annoncent une nouvelle qui va changer leur vie pour toujours."
+    }
+  },
+  "top-gun-maverick": {
+    1: {
+      1: "Après plus de 30 ans de service en tant que l'un des meilleurs aviateurs de la Marine, Pete 'Maverick' Mitchell est à sa place."
     }
   }
 };

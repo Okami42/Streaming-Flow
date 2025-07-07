@@ -33,3 +33,32 @@ export function getProxiedStreamUrl(url: string): string {
   // Sinon, retourner l'URL originale
   return url;
 }
+
+/**
+ * Extrait correctement l'ID d'une série à partir d'un ID complet
+ * @param fullId L'ID complet (ex: "game-of-thrones-s1e1")
+ * @returns L'ID de la série (ex: "game-of-thrones")
+ */
+export function extractSeriesId(fullId: string): string {
+  // Liste des séries connues avec des tirets dans leur ID
+  const knownSeriesWithHyphens = [
+    "game-of-thrones", 
+    "breaking-bad", 
+    "squid-game", 
+    "stranger-things", 
+    "the-boys", 
+    "blade-runner-2049", 
+    "adventure-time",
+    "top-gun-maverick"
+  ];
+  
+  // Vérifier d'abord si l'ID correspond à une série connue avec des tirets
+  const matchedSeries = knownSeriesWithHyphens.find(id => fullId.startsWith(id));
+  if (matchedSeries) {
+    return matchedSeries;
+  }
+  
+  // Sinon, utiliser la première partie de l'ID (avant le premier tiret)
+  const parts = fullId.split('-');
+  return parts[0];
+}
