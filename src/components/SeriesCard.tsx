@@ -34,17 +34,23 @@ export function SeriesCard({ id, title, imageUrl, type, language, time }: Series
           </div>
         </div>
         
-        <div className="absolute inset-x-0 bottom-0 p-4">
-          <h3 className="text-white font-medium text-sm line-clamp-2 mb-2">{title}</h3>
-          
-          {time && (
-            <div className="text-gray-300 text-xs mb-3">{time}</div>
-          )}
-          
-          <button className="flex items-center justify-center gap-1 w-full py-1.5 rounded-md bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0 transition-transform">
+        {/* Bouton de lecture au milieu (optionnel, apparaît au survol) */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <button className="flex items-center justify-center gap-1 px-4 py-2 rounded-md bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white text-xs transform translate-y-2 group-hover:translate-y-0 transition-transform">
             <Play className="h-3 w-3" />
             Regarder
           </button>
+        </div>
+        
+        {/* Titre et saisons tout en bas à gauche */}
+        <div className="absolute bottom-0 left-0 p-4 pb-6">
+          <div className="flex flex-col items-start justify-start">
+            <h3 className="text-white font-medium text-sm line-clamp-2 mb-1">{title}</h3>
+            
+            {time && (
+              <div className="text-gray-300 text-xs">{time}</div>
+            )}
+          </div>
         </div>
       </div>
     </Link>

@@ -8,9 +8,32 @@ import { useState, useRef, useEffect } from "react";
 
 export default function Header() {
   const pathname = usePathname();
-  const isSeriesSection = pathname.startsWith("/series");
+  const isSeriesSection = pathname?.startsWith("/series") || false;
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
+
+  // Effet de montage pour s'assurer que tout est correctement chargé côté client
+  useEffect(() => {
+    setMounted(true);
+    
+    // Forcer le rendu du header sur mobile
+    if (window.innerWidth < 768) {
+      // S'assurer que le header est visible
+      if (headerRef.current) {
+        headerRef.current.style.visibility = 'visible';
+        headerRef.current.style.opacity = '1';
+      }
+      
+      // Forcer la recalculation des styles après le premier rendu
+      setTimeout(() => {
+        if (headerRef.current) {
+          headerRef.current.style.transform = 'translateZ(0)';
+        }
+      }, 100);
+    }
+  }, []);
 
   // Fermer le menu quand on clique ailleurs
   useEffect(() => {
@@ -20,14 +43,46 @@ export default function Header() {
       }
     }
     
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+    if (mounted) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }
+  }, [mounted]);
+
+  // Gérer la visibilité sur scroll pour mobile
+  useEffect(() => {
+    if (!mounted) return;
+    
+    const handleScroll = () => {
+      if (!headerRef.current) return;
+      
+      // Assurer que le header reste visible en haut, même après un scroll
+      if (window.scrollY > 10) {
+        headerRef.current.classList.add('scrolled');
+      } else {
+        headerRef.current.classList.remove('scrolled');
+      }
     };
-  }, []);
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [mounted]);
+
+  // Si pas encore monté, retourner un placeholder pour éviter le saut de contenu
+  if (!mounted) {
+    return (
+      <header className="fixed top-0 left-0 right-0 z-50 pt-6 pb-2 h-16"></header>
+    );
+  }
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 pt-6 pb-2 bg-gradient-to-b from-[#030711]/90 to-transparent backdrop-blur-sm">
+    <header 
+      ref={headerRef}
+      className="fixed top-0 left-0 right-0 z-50 pt-6 pb-2 bg-gradient-to-b from-[#030711]/90 to-transparent backdrop-blur-sm will-change-transform"
+      style={{ WebkitBackfaceVisibility: 'hidden' }}
+    >
       <div className="container mx-auto flex items-center justify-between px-6">
         {/* Navigation gauche */}
         <div className="flex items-center space-x-6 md:space-x-10">
@@ -118,6 +173,16 @@ export default function Header() {
           </div>
         </div>
       </div>
+      
+      {/* Ajouter un style CSS pour assurer que le header reste visible sur mobile */}
+      <style jsx>{`
+        @media (max-width: 767px) {
+          header.scrolled {
+            background: rgba(3, 7, 17, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+          }
+        }
+      `}</style>
     </header>
   );
 }

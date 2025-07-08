@@ -64,7 +64,7 @@ const seriesList: CatalogueSeries[] = [
   {
     id: "stranger-things",
     title: "Stranger Things",
-    imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BMjg2NmM0MTEtYWY2Yy00NmFlLTllNTMtMjVkZjEwMGVlNzdjXkEyXkFqcGc@._V1_.jpg",
     type: "Série",
     language: "VF",
     time: "4 saisons"
