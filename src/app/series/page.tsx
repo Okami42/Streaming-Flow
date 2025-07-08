@@ -147,7 +147,7 @@ export default function SeriesPage() {
     {
       id: "game-of-thrones",
       title: "Game of Thrones",
-      imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
+      imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg",
       time: "8 saisons",
       type: "Série",
       language: "VF"
@@ -155,7 +155,7 @@ export default function SeriesPage() {
     {
       id: "stranger-things",
       title: "Stranger Things",
-      imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
+      imageUrl: "https://m.media-amazon.com/images/M/MV5BMjg2NmM0MTEtYWY2Yy00NmFlLTllNTMtMjVkZjEwMGVlNzdjXkEyXkFqcGc@._V1_.jpg",
       time: "4 saisons",
       type: "Série",
       language: "VF"
@@ -163,7 +163,7 @@ export default function SeriesPage() {
     {
       id: "the-boys",
       title: "The Boys",
-      imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
+      imageUrl: "https://preview.redd.it/2kzjj8l0om391.jpg?width=1080&crop=smart&auto=webp&s=ed395a06a8e56d954a7d9d0904db51064b01bcd9",
       time: "3 saisons",
       type: "Série",
       language: "VF"
@@ -171,7 +171,7 @@ export default function SeriesPage() {
     {
       id: "the-witcher",
       title: "The Witcher",
-      imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
+      imageUrl: "https://m.media-amazon.com/images/M/MV5BMTQ5MDU5MTktMDZkMy00NDU1LWIxM2UtODg5OGFiNmRhNDBjXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
       time: "2 saisons",
       type: "Série",
       language: "VF"
@@ -179,7 +179,7 @@ export default function SeriesPage() {
     {
       id: "peaky-blinders",
       title: "Peaky Blinders",
-      imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
+      imageUrl: "https://medias.boutique.lab.arte.tv/prod/10878_vod_thumb_82796.jpg",
       time: "6 saisons",
       type: "Série",
       language: "VF"
@@ -188,14 +188,6 @@ export default function SeriesPage() {
   
   // Exemples de films récents
   const recentFilms = [
-    {
-      id: "dune",
-      title: "Dune",
-      imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
-      time: "2h35",
-      type: "Film",
-      language: "VF"
-    },
     {
       id: "the-batman",
       title: "The Batman",
@@ -215,7 +207,7 @@ export default function SeriesPage() {
     {
       id: "no-time-to-die",
       title: "No Time to Die",
-      imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
+      imageUrl: "https://play-lh.googleusercontent.com/KHagyirtj9vkyR3blrdw-TFADcSFYh4pBJQHQTz2YbT_vSGwweA4SIh7jZWvHB7jj2W16lOVow-yUer0qTI",
       time: "2h43",
       type: "Film",
       language: "VF"
@@ -223,7 +215,7 @@ export default function SeriesPage() {
     {
       id: "everything-everywhere",
       title: "Everything Everywhere All at Once",
-      imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
+      imageUrl: "https://www.ecranlarge.com/content/uploads/2022/08/6nufhbqf1ujvh6sm1eumd86njz2-393.jpg",
       time: "2h19",
       type: "Film",
       language: "VF"
@@ -235,23 +227,15 @@ export default function SeriesPage() {
     {
       id: "the-godfather",
       title: "Le Parrain",
-      imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
+      imageUrl: "https://cinemalegyptis.org/app/uploads/sites/2/2022/09/LE-PARRAIN-aff.jpg",
       time: "2h55",
-      type: "Film",
-      language: "VF"
-    },
-    {
-      id: "pulp-fiction",
-      title: "Pulp Fiction",
-      imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
-      time: "2h34",
       type: "Film",
       language: "VF"
     },
     {
       id: "shawshank-redemption",
       title: "Les Évadés",
-      imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
+      imageUrl: "https://cinecdote.com/images/da84e44c50e624360de87060dfb8ca43.jpg",
       time: "2h22",
       type: "Film",
       language: "VF"
@@ -259,7 +243,7 @@ export default function SeriesPage() {
     {
       id: "fight-club",
       title: "Fight Club",
-      imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
+      imageUrl: "https://storage.googleapis.com/pod_public/1300/262697.jpg",
       time: "2h19",
       type: "Film",
       language: "VF"
@@ -267,7 +251,7 @@ export default function SeriesPage() {
     {
       id: "matrix",
       title: "Matrix",
-      imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
+      imageUrl: "https://fr.web.img4.acsta.net/c_310_420/medias/04/34/49/043449_af.jpg",
       time: "2h16",
       type: "Film",
       language: "VF"
