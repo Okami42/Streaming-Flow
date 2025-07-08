@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { notFound, useSearchParams } from "next/navigation";
 import { seriesData } from "@/lib/seriesData";
 import { Button } from "@/components/ui/button";
-import { Clock, Calendar, Star, Building, Film, Tag, ChevronDown, Heart } from "lucide-react";
+import { Clock, Calendar, Star, Building, Film, Tag, ChevronDown, Heart, Play } from "lucide-react";
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -103,7 +103,7 @@ export default function SeriesPage({ params }: PageProps) {
 
       <main className="flex-grow pt-20">
         {/* Bannière */}
-        <div className="relative h-[50vh] w-full overflow-hidden">
+        <div className="relative h-[80vh] sm:h-[50vh] w-full overflow-hidden">
           <div className="absolute inset-0">
             <CustomImage
               src={series.bannerUrl}
@@ -112,12 +112,12 @@ export default function SeriesPage({ params }: PageProps) {
               className="object-cover"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#030711] via-[#030711]/80 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#030711] via-[#030711]/80 to-black/60"></div>
           </div>
-          <div className="absolute bottom-0 left-0 w-full px-4 pb-12 md:px-8">
+          <div className="absolute bottom-0 left-0 w-full px-4 pb-6 sm:pb-12 md:px-8">
             <div className="container mx-auto">
               <div className="flex flex-col md:flex-row gap-6 items-end">
-                <div className="relative w-[180px] h-[240px] shrink-0 rounded-lg overflow-hidden border-2 border-blue-500/30 shadow-lg shadow-blue-500/10">
+                <div className="relative w-[140px] sm:w-[180px] h-[200px] sm:h-[240px] shrink-0 rounded-lg overflow-hidden border-2 border-blue-500/30 shadow-lg shadow-blue-500/10">
                   <CustomImage
                     src={series.imageUrl}
                     alt={series.title}
@@ -127,7 +127,7 @@ export default function SeriesPage({ params }: PageProps) {
                   />
                 </div>
                 <div className="flex-1">
-                  <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">
                     {series.title}
                   </h1>
                   <div className="flex flex-wrap gap-2 mb-4">
@@ -143,23 +143,23 @@ export default function SeriesPage({ params }: PageProps) {
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
                     <div className="flex items-center gap-2">
                       <Star className="h-4 w-4 text-yellow-500" />
-                      <span className="text-sm text-gray-300">
+                      <span className="text-xs sm:text-sm text-gray-300">
                         {series.rating}/10
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Calendar className="h-4 w-4 text-blue-500" />
-                      <span className="text-sm text-gray-300">{series.year}</span>
+                      <span className="text-xs sm:text-sm text-gray-300">{series.year}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Building className="h-4 w-4 text-purple-500" />
-                      <span className="text-sm text-gray-300">
+                      <span className="text-xs sm:text-sm text-gray-300">
                         {series.studio}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Film className="h-4 w-4 text-pink-500" />
-                      <span className="text-sm text-gray-300">
+                      <span className="text-xs sm:text-sm text-gray-300">
                         {series.type}
                       </span>
                     </div>
@@ -167,18 +167,28 @@ export default function SeriesPage({ params }: PageProps) {
                   
                   {/* Synopsis déplacé ici */}
                   <div className="mb-4">
-                    <p className="text-gray-300 line-clamp-3 sm:line-clamp-none">{series.description}</p>
+                    <p className="text-gray-300 text-xs sm:text-sm line-clamp-3 sm:line-clamp-none">{series.description}</p>
                   </div>
                   
                   <Button 
                     variant="outline" 
                     size="sm"
                     onClick={handleFavoriteToggle}
-                    className={`mt-2 ${isSeriesFavorite ? 'bg-red-500/10 border-red-500/30 text-red-400 hover:bg-red-500/20' : 'bg-transparent border-gray-700 text-gray-300 hover:bg-gray-800/50'}`}
+                    className={`mt-1 sm:mt-2 text-xs sm:text-sm ${isSeriesFavorite ? 'bg-red-500/10 border-red-500/30 text-red-400 hover:bg-red-500/20' : 'bg-transparent border-gray-700 text-gray-300 hover:bg-gray-800/50'}`}
                   >
-                    <Heart className={`h-4 w-4 mr-2 ${isSeriesFavorite ? 'fill-red-500' : ''}`} />
+                    <Heart className={`h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 ${isSeriesFavorite ? 'fill-red-500' : ''}`} />
                     {isSeriesFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'}
                   </Button>
+                  
+                  {/* Mobile "Reprendre" button similar to second image */}
+                  <div className="block sm:hidden mt-4">
+                    <Link 
+                      href={`/series/${series.id}/watch/1${hasMultipleSeasons ? `?season=${selectedSeason}` : ''}`}
+                      className="flex items-center justify-center gap-2 w-full py-3 rounded-md bg-red-600 text-white text-sm font-medium"
+                    >
+                      <Play className="h-4 w-4" /> Reprendre (S1:E4)
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -187,11 +197,11 @@ export default function SeriesPage({ params }: PageProps) {
 
         <div className="container mx-auto px-4 py-8">
           {/* Liste des épisodes */}
-          <div className="bg-[#0f172a] rounded-xl p-6 border border-white/5">
-            <div className="flex justify-between items-center mb-6">
+          <div className="bg-[#0f172a] rounded-xl p-4 sm:p-6 border border-white/5">
+            <div className="flex flex-wrap justify-between items-center mb-4 sm:mb-6">
               {series.type === "Série" ? (
-                <div className="flex items-center gap-4">
-                  <h2 className="text-xl font-bold text-white">
+                <div className="flex items-center gap-2 sm:gap-4">
+                  <h2 className="text-lg sm:text-xl font-bold text-white">
                     {getSelectedSeasonTitle()}
                   </h2>
                   
@@ -199,19 +209,19 @@ export default function SeriesPage({ params }: PageProps) {
                   {hasMultipleSeasons && (
                     <div className="relative">
                       <button 
-                        className="flex items-center gap-2 px-3 py-1.5 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                        className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700"
                         onClick={() => setIsSeasonMenuOpen(!isSeasonMenuOpen)}
                       >
                         Changer de saison
-                        <ChevronDown className="h-4 w-4" />
+                        <ChevronDown className="h-3 w-3 sm:h-4 sm:w-4" />
                       </button>
                       
                       {isSeasonMenuOpen && (
-                        <div className="absolute z-10 mt-1 w-48 bg-[#151a2a] rounded-md shadow-lg py-1 border border-white/10">
+                        <div className="absolute z-10 mt-1 w-40 sm:w-48 bg-[#151a2a] rounded-md shadow-lg py-1 border border-white/10">
                           {series.seasonsList?.map((season) => (
                             <button
                               key={season.seasonNumber}
-                              className="block w-full text-left px-4 py-2 text-sm text-gray-200 hover:bg-blue-600/20"
+                              className="block w-full text-left px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm text-gray-200 hover:bg-blue-600/20"
                               onClick={() => {
                                 setSelectedSeason(season.seasonNumber);
                                 setIsSeasonMenuOpen(false);
@@ -226,12 +236,22 @@ export default function SeriesPage({ params }: PageProps) {
                   )}
                 </div>
               ) : (
-                <h2 className="text-xl font-bold text-white">Regarder</h2>
+                <h2 className="text-lg sm:text-xl font-bold text-white">Regarder</h2>
               )}
+              
+              {/* Mobile tabs */}
+              <div className="w-full sm:hidden flex mt-3 border-b border-white/10">
+                <button className="px-4 py-2 text-sm text-blue-400 border-b-2 border-blue-500">
+                  Épisodes
+                </button>
+                <button className="px-4 py-2 text-sm text-gray-400">
+                  Synopsis
+                </button>
+              </div>
               
               {/* Bouton pour voir tous les épisodes */}
               {series.type === "Série" && (
-                <Link href={`/series/${series.id}/episodes${hasMultipleSeasons ? `?season=${selectedSeason}` : ''}`}>
+                <Link href={`/series/${series.id}/episodes${hasMultipleSeasons ? `?season=${selectedSeason}` : ''}`} className="hidden sm:block">
                   <Button 
                     variant="outline"
                     className="border-blue-500/30 text-blue-400 hover:bg-blue-500/10"
