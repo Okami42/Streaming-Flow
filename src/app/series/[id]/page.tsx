@@ -101,23 +101,23 @@ export default function SeriesPage({ params }: PageProps) {
     <div className="flex flex-col min-h-screen bg-[#030711]">
       <Header />
 
-      <main className="flex-grow pt-20">
+      <main className="flex-grow pt-24 sm:pt-20">
         {/* Bannière */}
-        <div className="relative h-[80vh] sm:h-[50vh] w-full overflow-hidden">
+        <div className="relative min-h-[500px] h-[90vh] sm:h-[50vh] w-full overflow-hidden">
           <div className="absolute inset-0">
             <CustomImage
-              src={series.bannerUrl}
+              src={series.bannerUrl || series.imageUrl}
               alt={`Bannière ${series.title}`}
               fill={true}
-              className="object-cover"
+              className="object-cover object-center"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#030711] via-[#030711]/80 to-black/60"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#030711] via-[#030711]/70 to-black/50"></div>
           </div>
           <div className="absolute bottom-0 left-0 w-full px-4 pb-6 sm:pb-12 md:px-8">
             <div className="container mx-auto">
-              <div className="flex flex-col md:flex-row gap-6 items-end">
-                <div className="relative w-[140px] sm:w-[180px] h-[200px] sm:h-[240px] shrink-0 rounded-lg overflow-hidden border-2 border-blue-500/30 shadow-lg shadow-blue-500/10">
+              <div className="flex flex-col md:flex-row gap-4 sm:gap-6 items-start md:items-end">
+                <div className="relative w-[120px] sm:w-[180px] h-[180px] sm:h-[240px] shrink-0 rounded-lg overflow-hidden border-2 border-blue-500/30 shadow-lg shadow-blue-500/10 mt-4 sm:mt-0">
                   <CustomImage
                     src={series.imageUrl}
                     alt={series.title}
@@ -239,14 +239,11 @@ export default function SeriesPage({ params }: PageProps) {
                 <h2 className="text-lg sm:text-xl font-bold text-white">Regarder</h2>
               )}
               
-              {/* Mobile tabs */}
+              {/* Mobile tabs - removing synopsis tab as requested */}
               <div className="w-full sm:hidden flex mt-3 border-b border-white/10">
-                <button className="px-4 py-2 text-sm text-blue-400 border-b-2 border-blue-500">
+                <div className="px-4 py-2 text-sm text-blue-400 border-b-2 border-blue-500">
                   Épisodes
-                </button>
-                <button className="px-4 py-2 text-sm text-gray-400">
-                  Synopsis
-                </button>
+                </div>
               </div>
               
               {/* Bouton pour voir tous les épisodes */}
