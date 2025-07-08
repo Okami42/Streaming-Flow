@@ -60,6 +60,50 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" suppressHydrationWarning>
+      {/* Script de débogage Eruda pour mobile */}
+      <Script id="eruda-debug" strategy="beforeInteractive">
+        {`
+          (function() {
+            // Uniquement sur mobile
+            if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+              var script = document.createElement('script');
+              script.src = "//cdn.jsdelivr.net/npm/eruda";
+              document.head.appendChild(script);
+              script.onload = function() {
+                eruda.init();
+                
+                // Intercepter les erreurs d'image
+                const originalFetch = window.fetch;
+                window.fetch = function(...args) {
+                  const url = args[0];
+                  if (typeof url === 'string' && (url.endsWith('.jpg') || url.endsWith('.png') || url.endsWith('.webp'))) {
+                    console.log('[DEBUG IMAGE] Chargement:', url);
+                  }
+                  return originalFetch.apply(this, args).then(
+                    response => {
+                      if (typeof url === 'string' && (url.endsWith('.jpg') || url.endsWith('.png') || url.endsWith('.webp'))) {
+                        if (!response.ok) {
+                          console.error('[DEBUG IMAGE] Erreur:', url, response.status);
+                        } else {
+                          console.log('[DEBUG IMAGE] Succès:', url);
+                        }
+                      }
+                      return response;
+                    },
+                    error => {
+                      if (typeof url === 'string' && (url.endsWith('.jpg') || url.endsWith('.png') || url.endsWith('.webp'))) {
+                        console.error('[DEBUG IMAGE] Erreur fetch:', url, error);
+                      }
+                      throw error;
+                    }
+                  );
+                };
+              };
+            }
+          })();
+        `}
+      </Script>
+      
       <Script id="videojs-error-fix" strategy="afterInteractive">
         {`
           // Solution complète pour les erreurs Sibnet, videojs, VAST et sécurité

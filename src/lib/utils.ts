@@ -63,3 +63,12 @@ export function extractSeriesId(fullId: string): string {
   const parts = fullId.split('-');
   return parts[0];
 }
+
+// Fonction pour détecter si l'utilisateur est sur mobile
+export function isMobileDevice(): boolean {
+  if (typeof window === 'undefined') return false;
+  
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+}
