@@ -33,9 +33,12 @@ export default function SeriesPage({ params }: PageProps) {
   const unwrappedParams = React.use(params) as RouteParams;
   const rawSeriesId = unwrappedParams.id;
   
-  // Utiliser la fonction extractSeriesId pour s'assurer que l'ID est correctement extrait
-  const seriesId = extractSeriesId(rawSeriesId);
-  const series = seriesData.find((item) => item.id === seriesId);
+  // Rechercher directement la série par ID sans utiliser extractSeriesId
+  const series = seriesData.find((item) => 
+    item.id === rawSeriesId || 
+    // Essayer aussi avec l'ID complet si la recherche directe échoue
+    rawSeriesId.startsWith(item.id + "-")
+  );
 
   if (!series) {
     notFound();

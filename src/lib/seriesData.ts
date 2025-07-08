@@ -321,7 +321,7 @@ export const seriesData: Content[] = [
         seasonNumber: 1,
         title: "Saison 1",
         episodes: [
-          { id: 1, title: "L'envers et l'endroit", videoUrl: "5432812" },
+          { id: 1, title: "L'envers et l'endroit", videoUrl: "5432812", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w227_and_h127_bestv2/qgKsxcwvkDbAIjUceuDrv2AgtOF.jpg" },
           { id: 2, title: "Prisonniers de l'amour", videoUrl: "5432813" },
           { id: 3, title: "La baguette enchantée", videoUrl: "5432814" },
           { id: 4, title: "Les deux personnes que j'aime le plus", videoUrl: "5432815" },
@@ -726,6 +726,56 @@ export const seriesData: Content[] = [
     rating: 8.3,
     language: "VF/VOSTFR",
     runtime: "2h11"
+  },
+  {
+    id: "south-park",
+    title: "South Park",
+    description: "Quatre jeunes écoliers, Stan Marsh, Kyle Broflovski, Eric Cartman et Kenny McCormick, vivent dans la petite ville de South Park dans le Colorado. Ces enfants au langage fleuri sont confrontés à des phénomènes paranormaux, des controverses politiques et des célébrités, et vivent des aventures surréalistes dans leur petite ville enneigée.",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BZjNhODYzZGItZWQ3Ny00ZjViLTkxMTUtM2EzN2RjYjU2OGZiXkEyXkFqcGdeQXVyMTI5MTc0OTIy._V1_.jpg",
+    bannerUrl: "https://media.ouest-france.fr/v1/pictures/MjAxOTA5OGQwZmZjOWYwZjYwNDc5NWNiZThhOTM5YjZlZmQyM2Q?width=630&height=354&focuspoint=51%2C93&cropresize=1&client_id=bpeditorial&sign=19ad65459cdc5a6d67e85def3c0b33a91cc121a31cd29a83b9d3e127b00dc317",
+    episodes: [
+      { id: 1, title: "Cartman a une sonde anale", videoUrl: "https://cineburger.xyz/series/South-Park/S01/South-Park-S01-E01.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/wyTnRBcrpqUZOZ8A7ee5huP8CRB.jpg" },
+    ],
+    status: "En cours",
+    year: 1997,
+    studio: "Comedy Central",
+    type: "Série",
+    genres: ["Animation", "Comédie", "Satire", "Adulte"],
+    rating: 8.7,
+    language: "VF/VOSTFR",
+    seasons: 26,
+    seasonsList: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        episodes: [
+          { id: 1, title: "Cartman a une sonde anale", videoUrl: "https://cineburger.xyz/series/South-Park/S01/South-Park-S01-E01.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/wyTnRBcrpqUZOZ8A7ee5huP8CRB.jpg" },
+          { id: 2, title: "Volcano", videoUrl: "https://cineburger.xyz/series/South-Park/S01/South-Park-S01-E02.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/lYmeXWjI066iq0X1fIrblqZCYKt.jpg" },
+          { id: 3, title: "Muscle Plus 4000", videoUrl: "https://cineburger.xyz/series/South-Park/S01/South-Park-S01-E03.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/a7yTSmSZo6I6Kfilp8lCoM4WNS9.jpg" },
+          { id: 4, title: "Une promenade complètement folle avec Al Super Gay", videoUrl: "https://cineburger.xyz/series/South-Park/S01/South-Park-S01-E04.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/t9hC9wJ5myAAgWxr3kRXOBm0lnG.jpg" },
+          { id: 5, title: "Un éléphant fait l'amour à un cochon", videoUrl: "https://cineburger.xyz/series/South-Park/S01/South-Park-S01-E05.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/d1WcwEenW5mzZp70qW5XKzez3DM.jpg" },
+          { id: 6, title: "La Mort", videoUrl: "https://cineburger.xyz/series/South-Park/S01/South-Park-S01-E06.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/1MZTw8zfvg4jjGoZ5OLfMFa4hDy.jpg" },
+          { id: 7, title: "Conjonctivite", videoUrl: "https://cineburger.xyz/series/South-Park/S01/South-Park-S01-E07.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/A21RE0u8zaqKH7XmrTuMeVXRoGL.jpg" },
+          { id: 8, title: "Le Petit Éthernopien", videoUrl: "https://cineburger.xyz/series/South-Park/S01/South-Park-S01-E08.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/tKS2bV3qUEMuQShcjObLPcjBlDl.jpg" },
+          { id: 9, title: "Monsieur Hankey, le petit caca Noël", videoUrl: "https://cineburger.xyz/series/South-Park/S01/South-Park-S01-E09.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/kJUySO9RugdeRt7TKUxwkAMzO5z.jpg" },
+          { id: 10, title: "Damien", videoUrl: "https://cineburger.xyz/series/South-Park/S01/South-Park-S01-E10.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/y4RmQsHt8g11r4Y0emlbnfdh4Y9.jpg" },
+          { id: 11, title: "Chirurgie esthétique", videoUrl: "https://cineburger.xyz/series/South-Park/S01/South-Park-S01-E11.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/dc4ogNYa36zsa1exqLJ7zF5PmDO.jpg" },
+          { id: 12, title: "Mecha Streisand", videoUrl: "https://cineburger.xyz/series/South-Park/S01/South-Park-S01-E12.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/yiB6DKOyOQQFuBtslck4fBSfsn4.jpg" },
+          { id: 13, title: "La mère de Cartman est une folle du cul", videoUrl: "https://cineburger.xyz/series/South-Park/S01/South-Park-S01-E13.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/o3ZZ3QJYNZBiBCb1ZYfmgKgCmLm.jpg" }
+        ]
+      },
+      {
+        seasonNumber: 2,
+        title: "Saison 2",
+        episodes: [
+          { id: 1, title: "Terrance et Philippe au cinéma", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E01.mp4", duration: 22 * 60, imageUrl: "https://m.media-amazon.com/images/M/MV5BZjNhODYzZGItZWQ3Ny00ZjViLTkxMTUtM2EzN2RjYjU2OGZiXkEyXkFqcGdeQXVyMTI5MTc0OTIy._V1_.jpg" },
+          { id: 2, title: "La mère de Cartman est une folle du cul", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E02.mp4", duration: 22 * 60, imageUrl: "https://m.media-amazon.com/images/M/MV5BZjNhODYzZGItZWQ3Ny00ZjViLTkxMTUtM2EzN2RjYjU2OGZiXkEyXkFqcGdeQXVyMTI5MTc0OTIy._V1_.jpg" },
+          { id: 3, title: "Combustion spontanée", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E03.mp4", duration: 22 * 60, imageUrl: "https://m.media-amazon.com/images/M/MV5BZjNhODYzZGItZWQ3Ny00ZjViLTkxMTUtM2EzN2RjYjU2OGZiXkEyXkFqcGdeQXVyMTI5MTc0OTIy._V1_.jpg" },
+          { id: 4, title: "Le plan d'urgence de Cartman", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E04.mp4", duration: 22 * 60, imageUrl: "https://m.media-amazon.com/images/M/MV5BZjNhODYzZGItZWQ3Ny00ZjViLTkxMTUtM2EzN2RjYjU2OGZiXkEyXkFqcGdeQXVyMTI5MTc0OTIy._V1_.jpg" },
+          { id: 5, title: "Poulet érotique", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E05.mp4", duration: 22 * 60, imageUrl: "https://m.media-amazon.com/images/M/MV5BZjNhODYzZGItZWQ3Ny00ZjViLTkxMTUtM2EzN2RjYjU2OGZiXkEyXkFqcGdeQXVyMTI5MTc0OTIy._V1_.jpg" }
+        ]
+      }
+    ]
   }
 ];
 

@@ -23,7 +23,8 @@ const nextConfig = {
       'preview.redd.it',
       'medias.boutique.lab.arte.tv',
       'play-lh.googleusercontent.com',
-      'www.ecranlarge.com'
+      'www.ecranlarge.com',
+      'www.denofgeek.com'
     ],
     remotePatterns: [
       {

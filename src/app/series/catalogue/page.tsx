@@ -94,6 +94,14 @@ const seriesList: CatalogueSeries[] = [
     time: "6 saisons"
   },
   {
+    id: "south-park",
+    title: "South Park",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BZjNhODYzZGItZWQ3Ny00ZjViLTkxMTUtM2EzN2RjYjU2OGZiXkEyXkFqcGdeQXVyMTI5MTc0OTIy._V1_.jpg",
+    type: "Série",
+    language: "VF",
+    time: "26 saisons"
+  },
+  {
     id: "no-time-to-die",
     title: "No Time to Die",
     imageUrl: "https://play-lh.googleusercontent.com/KHagyirtj9vkyR3blrdw-TFADcSFYh4pBJQHQTz2YbT_vSGwweA4SIh7jZWvHB7jj2W16lOVow-yUer0qTI",

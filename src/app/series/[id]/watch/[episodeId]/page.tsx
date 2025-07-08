@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import React, { useState, useEffect, useRef } from "react";
+import { useRouter, useSearchParams, notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Header from "@/components/Header";
@@ -10,11 +10,15 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { seriesData } from "@/lib/seriesData";
 import { useHistory } from "@/context/history-context";
 import { useFavorites } from "@/context/favorites-context";
-import { Content, Episode } from "@/lib/types";
-import React from "react";
+import { Content, Episode, Season } from "@/lib/types";
 import { formatTimeExtended } from "@/lib/history";
 import { extractSeriesId } from "@/lib/utils";
 import { WatchHistoryItem } from "@/lib/history";
+import CustomImage from "@/components/ui/custom-image";
+import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Maximize, Minimize, X } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { getEpisodeDescription } from "@/lib/episodeDescriptions";
+import { getProxiedStreamUrl } from "@/lib/utils";
 
 // Définir le type correct pour les paramètres de page Next.js
 interface PageProps {
@@ -27,29 +31,34 @@ interface RouteParams {
   episodeId: string;
 }
 
-export default function WatchPage({ params }: PageProps) {
+export default function SeriesWatchPage({ params, searchParams: queryParams }: PageProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const timeParam = searchParams.get('time') ? parseInt(searchParams.get('time') || '0') : 0;
   
   // Utiliser React.use() pour accéder aux paramètres
   const unwrappedParams = React.use(params) as RouteParams;
   const rawId = unwrappedParams.id;
   const episodeId = unwrappedParams.episodeId;
   
-  // Utiliser extractSeriesId pour s'assurer que l'ID est correctement extrait
-  const id = extractSeriesId(rawId);
+  // Rechercher directement la série par ID sans utiliser extractSeriesId
+  const series = seriesData.find((item) => 
+    item.id === rawId || 
+    // Essayer aussi avec l'ID complet si la recherche directe échoue
+    rawId.startsWith(item.id + "-")
+  );
+
+  if (!series) {
+    notFound();
+  }
   
   const seasonParam = searchParams.get('season');
   const seasonNumber = seasonParam ? parseInt(seasonParam) : undefined;
   
-  // Récupérer le temps de lecture depuis l'URL si présent
-  const timeParam = searchParams.get('time');
-  const initialTimeFromURL = timeParam ? parseInt(timeParam) : undefined;
-  
   // État pour détecter le mode plein écran
   const [isFullScreen, setIsFullScreen] = useState(false);
   // Clé unique pour forcer le rechargement du lecteur vidéo
-  const [playerKey, setPlayerKey] = useState(`${id}-${episodeId}-${seasonNumber || 0}`);
+  const [playerKey, setPlayerKey] = useState(`${rawId}-${episodeId}-${seasonNumber || 0}`);
   // Référence aux iframes pour nettoyage
   const iframeRefs = useRef<HTMLIFrameElement[]>([]);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -59,17 +68,11 @@ export default function WatchPage({ params }: PageProps) {
   const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
   
   // État pour suivre le temps de lecture actuel
-  const [currentTime, setCurrentTime] = useState(initialTimeFromURL || 0);
+  const [currentTime, setCurrentTime] = useState(timeParam);
   const [duration, setDuration] = useState(0);
   const [progressPercentage, setProgressPercentage] = useState(0);
   // Supprimer les flags qui causent des problèmes
   
-  // Trouver la série
-  const series = seriesData.find((s) => s.id === id);
-  if (!series) {
-    return <div>Série non trouvée</div>;
-  }
-
   // Vérifier si la série a plusieurs saisons
   const hasMultipleSeasons = series.seasonsList && series.seasonsList.length > 1;
 
@@ -203,12 +206,12 @@ export default function WatchPage({ params }: PageProps) {
   // Charger la progression du film au montage du composant
   useEffect(() => {
     // Si le temps est déjà défini dans l'URL, l'utiliser en priorité
-    if (initialTimeFromURL && initialTimeFromURL > 0) {
-      setCurrentTime(initialTimeFromURL);
+    if (timeParam > 0) {
+      setCurrentTime(timeParam);
       
       // Pour les films, sauvegarder immédiatement ce temps dans le localStorage
       if (series.type === "Film") {
-        saveFilmProgressToLocalStorage(initialTimeFromURL);
+        saveFilmProgressToLocalStorage(timeParam);
       }
       return;
     }
@@ -217,7 +220,7 @@ export default function WatchPage({ params }: PageProps) {
     if (series.type === "Film") {
       loadFilmProgressFromLocalStorage();
     }
-  }, [series.type, initialTimeFromURL]);
+  }, [series.type, timeParam]);
   
   // Récupérer les informations de progression depuis l'historique
   useEffect(() => {
@@ -288,7 +291,7 @@ export default function WatchPage({ params }: PageProps) {
   // Effet pour mettre à jour la clé du lecteur quand on change d'épisode
   useEffect(() => {
     // Créer la clé une seule fois au montage du composant pour cet épisode
-    const uniqueKey = `${id}-${episodeId}-${seasonNumber || 0}-${Math.random().toString(36).substring(2, 9)}`;
+    const uniqueKey = `${rawId}-${episodeId}-${seasonNumber || 0}-${Math.random().toString(36).substring(2, 9)}`;
     setPlayerKey(uniqueKey);
     
     // Nettoyer les iframes précédents
@@ -327,7 +330,7 @@ export default function WatchPage({ params }: PageProps) {
       // Réinitialiser les références
       iframeRefs.current = [];
     };
-  }, [id, episodeId, seasonNumber]);
+  }, [rawId, episodeId, seasonNumber]);
 
   // Ajouter un gestionnaire pour les messages des iframes
   useEffect(() => {
@@ -756,8 +759,8 @@ export default function WatchPage({ params }: PageProps) {
                       // Pour les films, essayer de charger la progression depuis le localStorage ou l'URL
                       if (series.type === "Film") {
                         // Si le temps est défini dans l'URL, l'utiliser en priorité
-                        if (initialTimeFromURL && initialTimeFromURL > 0) {
-                          video.currentTime = initialTimeFromURL;
+                        if (timeParam > 0) {
+                          video.currentTime = timeParam;
                         } else {
                           // Sinon, essayer de charger depuis le localStorage
                           const savedProgress = loadFilmProgressFromLocalStorage();

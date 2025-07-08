@@ -12,25 +12,61 @@ import { useHistory } from "@/context/history-context";
 import { calculateProgress, getRelativeTime, formatTimeExtended } from "@/lib/history";
 import { seriesData } from "@/lib/seriesData";
 
-// Fonction pour extraire l'ID de la série à partir de l'ID de l'historique
-const extractSeriesId = (historyId: string): string => {
-  // Liste des séries connues avec des tirets dans leur ID
-  const knownSeriesWithHyphens = ["game-of-thrones", "breaking-bad", "squid-game", "stranger-things", "the-boys", "blade-runner-2049", "adventure-time", "top-gun-maverick", "the-batman"];
+// Fonction pour obtenir l'image de la série à partir de l'ID de la série
+const getSeriesImage = (historyId: string): string => {
+  // Extraire l'ID de base de la série à partir de l'ID d'historique
+  // Format typique: "series-id-s1e1" ou "series-id-1"
+  const parts = historyId.split('-');
+  let seriesId = parts[0]; // Par défaut, prendre la première partie
   
-  // Vérifier d'abord si l'ID correspond à une série connue avec des tirets
-  const matchedSeries = knownSeriesWithHyphens.find(id => historyId.startsWith(id));
-  if (matchedSeries) {
-    return matchedSeries;
+  // Vérifier si l'ID pourrait contenir des tirets (comme "game-of-thrones")
+  const potentialSeriesIds = [];
+  // Essayer différentes combinaisons pour les séries avec tirets
+  if (parts.length > 1) {
+    potentialSeriesIds.push(`${parts[0]}-${parts[1]}`); // ex: "game-of-thrones"
+    if (parts.length > 2) {
+      potentialSeriesIds.push(`${parts[0]}-${parts[1]}-${parts[2]}`); // ex: "lord-of-rings"
+    }
   }
   
-  // Si aucun ID connu n'est trouvé, retourner la partie avant le premier tiret
-  return historyId.split('-')[0];
-};
-
-// Fonction pour obtenir l'image de la série à partir de l'ID de la série
-const getSeriesImage = (seriesId: string): string => {
+  // Chercher d'abord avec les IDs potentiels qui contiennent des tirets
+  for (const potentialId of potentialSeriesIds) {
+    const series = seriesData.find(s => s.id === potentialId);
+    if (series) {
+      return series.imageUrl;
+    }
+  }
+  
+  // Si aucune correspondance n'est trouvée, essayer avec l'ID simple
   const series = seriesData.find(s => s.id === seriesId);
   return series ? series.imageUrl : '/placeholder-image.jpg';
+};
+
+// Fonction auxiliaire pour extraire l'ID de série à partir d'un ID d'historique
+const getSeriesIdFromHistoryId = (historyId: string): string => {
+  const parts = historyId.split('-');
+  
+  // Vérifier si l'ID pourrait contenir des tirets (comme "game-of-thrones")
+  if (parts.length > 1) {
+    // Essayer avec le format "game-of-thrones"
+    const potentialId = `${parts[0]}-${parts[1]}`;
+    const series = seriesData.find(s => s.id === potentialId);
+    if (series) {
+      return potentialId;
+    }
+    
+    // Essayer avec le format à trois parties si disponible
+    if (parts.length > 2) {
+      const potentialId3 = `${parts[0]}-${parts[1]}-${parts[2]}`;
+      const series3 = seriesData.find(s => s.id === potentialId3);
+      if (series3) {
+        return potentialId3;
+      }
+    }
+  }
+  
+  // Par défaut, retourner la première partie
+  return parts[0];
 };
 
 // Styles pour l'animation des étoiles
@@ -115,7 +151,28 @@ export default function SeriesPage() {
     const uniqueEntries = new Map();
     
     watchHistory.forEach(item => {
-      const seriesId = extractSeriesId(item.id);
+      // Extraire l'ID de base de la série à partir de l'ID d'historique
+      const parts = item.id.split('-');
+      let seriesId = parts[0]; // Par défaut, prendre la première partie
+      
+      // Vérifier si l'ID pourrait contenir des tirets (comme "game-of-thrones")
+      if (parts.length > 1) {
+        // Essayer avec le format "game-of-thrones"
+        const potentialId = `${parts[0]}-${parts[1]}`;
+        const series = seriesData.find(s => s.id === potentialId);
+        if (series) {
+          seriesId = potentialId;
+        }
+        
+        // Essayer avec le format à trois parties si disponible
+        if (parts.length > 2) {
+          const potentialId3 = `${parts[0]}-${parts[1]}-${parts[2]}`;
+          const series3 = seriesData.find(s => s.id === potentialId3);
+          if (series3) {
+            seriesId = potentialId3;
+          }
+        }
+      }
       
       // Si cette série/film n'est pas encore dans notre Map, ou si cette entrée est plus récente
       if (!uniqueEntries.has(seriesId) || 
@@ -321,12 +378,12 @@ export default function SeriesPage() {
                   {recentlyWatched.map((item) => (
                     <div key={item.id} className="flex-shrink-0 w-[140px]">
                       <Link 
-                        href={`/series/${extractSeriesId(item.id)}/watch/${item.episodeInfo.episode}${item.episodeInfo.season ? `?season=${item.episodeInfo.season}` : ''}${item.progress > 0 ? `&time=${item.progress}` : ''}`}
+                        href={`/series/${getSeriesIdFromHistoryId(item.id)}/watch/${item.episodeInfo.episode}${item.episodeInfo.season ? `?season=${item.episodeInfo.season}` : ''}${item.progress > 0 ? `&time=${item.progress}` : ''}`}
                         className="block"
                       >
                         <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg border border-white/10 hover:border-blue-500/50 transition-all shadow-lg hover:shadow-blue-500/20 group">
                           <CustomImage
-                            src={getSeriesImage(extractSeriesId(item.id))}
+                            src={getSeriesImage(item.id)}
                             alt={item.title}
                             fill={true}
                             className="object-cover"
@@ -381,12 +438,12 @@ export default function SeriesPage() {
                   {recentlyWatched.map((item) => (
                     <div key={item.id} className="flex flex-col">
                       <Link 
-                        href={`/series/${extractSeriesId(item.id)}/watch/${item.episodeInfo.episode}${item.episodeInfo.season ? `?season=${item.episodeInfo.season}` : ''}${item.progress > 0 ? `&time=${item.progress}` : ''}`}
+                        href={`/series/${getSeriesIdFromHistoryId(item.id)}/watch/${item.episodeInfo.episode}${item.episodeInfo.season ? `?season=${item.episodeInfo.season}` : ''}${item.progress > 0 ? `&time=${item.progress}` : ''}`}
                         className="block"
                       >
                         <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg border border-white/10 hover:border-blue-500/50 transition-all shadow-lg hover:shadow-blue-500/20 group">
                           <CustomImage
-                            src={getSeriesImage(extractSeriesId(item.id))}
+                            src={getSeriesImage(item.id)}
                             alt={item.title}
                             fill={true}
                             className="object-cover"

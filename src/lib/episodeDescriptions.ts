@@ -164,6 +164,72 @@ const episodeDescriptions: SeriesDescriptions = {
       8: "Jake et Lady Rainicorn annoncent une nouvelle qui va changer leur vie pour toujours."
     }
   },
+  "south-park": {
+    1: {
+      1: "Cartman raconte à ses amis qu'il a été enlevé par des extraterrestres, mais personne ne le croit. Pendant ce temps, le Chef tente de mettre en garde les enfants contre les visiteurs de l'espace.",
+      2: "Jimbo, l'oncle de Stan, et son vieux copain de la guerre du Viêt Nam, Ned, emmènent Stan, Kenny, Kyle et Cartman chasser dans les montagnes",
+      3: "L’enseignant de l’école élémentaire de South Park, M. Garrison annonce que Cartman a remporté le concours national de rédaction Sauvons notre planète, à la grande colère de sa camarade de classe, Wendy Testaburger, qui le soupçonne aussitôt de tricherie.",
+      4: "Sparky, le nouveau chien de Stan, a suivi son maître jusqu'à l’arrêt de bus. Comme Stan affirme que Sparky est le chien le plus féroce de South Park, Cartman parie que Sylvester, un autre chien de la ville, est plus féroce.",
+      5: "Les enfants cherchent à créer des éléphants de lait (croisement entre un éléphant et un cochon de lait), ils s'adressent au généticien de la ville mais celui-ci est un brin foldingue…",
+      6: "Marvin Marsh, le grand-père de Stan, veut absolument mourir. Il demande à son petit-fils de l'aider. Entretemps, les parents partent en guerre contre les programmes télévisés vulgaires et scatologiques...",
+      7: "Kenny meurt, écrasé par la station Mir. À la morgue, la sauce Worcestershire d'un des employés tombe accidentellement dans le réservoir servant au liquide d'embaumement, ce qui transforme Kenny en zombie. ",
+      8: "Pensant recevoir une montre à quartz, les enfants envoient cinq dollars en Éthiopie mais reçoivent en fait un enfant du pays.",
+      9: "Kyle se sent exclu pendant la période de Noël car il est juif. Pendant ce temps, Cartman est visité par Mr. Hankey, le petit caca Noël, mais personne ne le croit.",
+      10: "Les parents de South Park, inquiets de l'influence de Terrance et Philippe sur leurs enfants, font pression pour que l'émission soit annulée.",
+      11: "Cartman prétend avoir des visions de la Vierge Marie qui lui parle. Pendant ce temps, un cheval s'échappe d'une ferme et terrorise la ville.",
+      12: "Barbra Streisand arrive à South Park à la recherche d'un artefact ancien qui la transformera en un monstre mécanique géant.",
+      13: "Cartman ignore qui est son père. Alphonse Mephisto veut bien l'aider mais les recherches coûtent 3 000 $."
+    },
+    2: {
+      1: "Le film de Terrance et Philippe sort au cinéma, et les garçons font tout pour le voir malgré son classement R.",
+      2: "Cartman découvre l'identité de son père, mais sa mère refuse de lui dire la vérité.",
+      3: "Les habitants de South Park commencent à exploser spontanément, et le maire charge Stan et Kyle de résoudre le mystère.",
+      4: "Cartman se fait passer pour un enfant handicapé mental pour participer aux Jeux Paralympiques et gagner de l'argent.",
+      5: "Les garçons découvrent un poulet géant qui hypnotise les gens et les force à agir de manière érotique.",
+      6: "Les garçons créent un club secret pour échapper aux filles, mais Wendy est déterminée à y entrer.",
+      7: "Après avoir vu un documentaire sur les vaches, les garçons décident de libérer toutes les vaches d'une ferme locale.",
+      8: "Chef aide les garçons à créer un groupe de musique pour participer à un concours de talents, mais ils deviennent rapidement célèbres pour les mauvaises raisons.",
+      9: "Cartman se fait enlever par des extraterrestres qui lui implantent une sonde anale. Quand il revient, personne ne le croit.",
+      10: "Les garçons découvrent que leur professeur, M. Garrison, mène une double vie secrète le week-end."
+    },
+    3: {
+      1: "Les garçons participent à un tournoi de dodgeball et se retrouvent à représenter les États-Unis dans un championnat international.",
+      2: "Cartman prétend avoir des super pouvoirs après avoir reçu un coup à la tête, et commence à combattre le crime sous le nom de 'The Coon'.",
+      3: "Les garçons découvrent un parc d'attractions abandonné et décident de le remettre en état pour gagner de l'argent.",
+      4: "Kenny contracte une maladie mortelle rare et les garçons tentent de réaliser tous ses derniers souhaits avant qu'il ne meure.",
+      5: "Butters est envoyé dans un camp de redressement pour enfants difficiles après que ses parents l'aient surpris en train de regarder une émission interdite.",
+      6: "Cartman hérite d'un million de dollars et le dépense entièrement en un mois, puis tente désespérément de récupérer l'argent.",
+      7: "Un nouveau magasin Walmart ouvre à South Park et hypnotise les habitants pour qu'ils y fassent leurs achats, menaçant les commerces locaux.",
+      8: "Les garçons créent leur propre réseau de télévision sur internet et deviennent rapidement célèbres pour leur contenu controversé.",
+      9: "Cartman se fait passer pour un voyant psychique et commence à résoudre des crimes pour la police locale.",
+      10: "Les garçons partent en camping dans les bois et se retrouvent poursuivis par le légendaire Homme-Ours-Cochon."
+    },
+    4: {
+      1: "Les garçons découvrent que les gnomes voleurs de slips existent réellement et qu'ils dirigent une entreprise secrète sous la ville.",
+      2: "Cartman devient accro à KFC et commence à vendre du poulet illégalement après la fermeture du restaurant local.",
+      3: "Les garçons créent un film d'horreur amateur qui est accidentellement pris pour un documentaire réel sur des événements paranormaux.",
+      4: "Kenny obtient un emploi dans une animalerie locale et découvre que le propriétaire maltraite les animaux.",
+      5: "Les parents de South Park deviennent obsédés par un nouveau jeu de société, négligeant complètement leurs enfants.",
+      6: "Butters est confondu avec un chien errant et envoyé à la fourrière, où il doit survivre parmi les animaux.",
+      7: "Les garçons découvrent une conspiration impliquant les dentistes de la ville qui implantent des dispositifs de contrôle mental.",
+      8: "Cartman prétend être possédé par le fantôme d'une star de cinéma décédée pour attirer l'attention.",
+      9: "Les garçons sont kidnappés par un culte qui croit que Kenny est leur prophète réincarné.",
+      10: "La ville est envahie par des hippies organisant un festival de musique, et Cartman forme une équipe anti-hippies pour les arrêter."
+    },
+    5: {
+      1: "Les garçons découvrent un portail vers une dimension parallèle dans le placard de Stan.",
+      2: "Cartman devient le nouveau présentateur du journal télévisé de l'école et utilise sa position pour diffuser de la propagande.",
+      3: "Kenny commence à travailler comme super-héros la nuit, protégeant South Park des criminels.",
+      4: "Les garçons créent accidentellement une intelligence artificielle qui prend le contrôle de tous les appareils électroniques de la ville.",
+      5: "Butters est envoyé dans un camp d'été pour enfants perturbés et organise une révolte avec les autres campeurs.",
+      6: "Les garçons découvrent que leur professeur de musique est en réalité un ancien rockeur célèbre qui se cache.",
+      7: "Cartman devient accro à un jeu vidéo en ligne et refuse de quitter sa chambre pendant des semaines.",
+      8: "Les garçons sont coincés à l'école pendant une tempête de neige et doivent survivre avec des ressources limitées.",
+      9: "Kenny développe une allergie mortelle qui le fait mourir chaque fois qu'il entend quelqu'un dire un mot spécifique.",
+      10: "Les garçons découvrent un complot gouvernemental impliquant des extraterrestres vivant secrètement à South Park."
+    }
+  },
+  
   "top-gun-maverick": {
     1: {
       1: "Après plus de 30 ans de service en tant que l'un des meilleurs aviateurs de la Marine, Pete 'Maverick' Mitchell est à sa place."

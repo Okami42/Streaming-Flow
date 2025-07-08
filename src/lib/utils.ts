@@ -50,7 +50,8 @@ export function extractSeriesId(fullId: string): string {
     "blade-runner-2049", 
     "adventure-time",
     "top-gun-maverick",
-    "the-batman"
+    "the-batman",
+    "south-park"
   ];
   
   // Vérifier d'abord si l'ID correspond à une série connue avec des tirets
