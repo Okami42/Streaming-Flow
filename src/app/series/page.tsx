@@ -11,6 +11,7 @@ import ContentSection from "@/components/ContentSection";
 import { useHistory } from "@/context/history-context";
 import { calculateProgress, getRelativeTime, formatTimeExtended } from "@/lib/history";
 import { seriesData } from "@/lib/seriesData";
+import { Content } from "@/lib/types";
 
 // Fonction pour obtenir l'image de la série à partir de l'ID de la série
 const getSeriesImage = (historyId: string): string => {
@@ -144,6 +145,27 @@ const starStyles = `
 export default function SeriesPage() {
   // Utiliser le hook d'historique pour accéder aux derniers épisodes regardés
   const { watchHistory } = useHistory();
+  const [currentSlide, setCurrentSlide] = React.useState(0);
+  
+  // Featured series for the carousel from seriesData
+  const featuredSeries = React.useMemo(() => {
+    return [
+      seriesData.find(item => item.id === "squid-game"),
+      seriesData.find(item => item.id === "game-of-thrones"),
+      seriesData.find(item => item.id === "breaking-bad"),
+      seriesData.find(item => item.id === "the-boys"),
+      seriesData.find(item => item.id === "the-batman")
+    ].filter((item): item is Content => Boolean(item));
+  }, []);
+  
+  // Auto-rotate carousel
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % featuredSeries.length);
+    }, 5000);
+    
+    return () => clearInterval(timer);
+  }, [featuredSeries.length]);
   
   // Filtrer l'historique pour éviter les duplications
   const filteredHistory = React.useMemo(() => {
@@ -189,15 +211,6 @@ export default function SeriesPage() {
   
   // Récupérer les 5 derniers épisodes regardés (ou moins s'il y en a moins)
   const recentlyWatched = filteredHistory.slice(0, 5);
-  
-  // Données temporaires pour les séries et films (à remplacer par de vraies données par la suite)
-  const featuredSeries = {
-    id: "breaking-bad",
-    title: "Breaking Bad",
-    description: "Un professeur de chimie atteint d'un cancer du poumon inopérable se lance dans la fabrication et la vente de méthamphétamine pour assurer l'avenir financier de sa famille.",
-    imageUrl: "https://fr.web.img5.acsta.net/pictures/19/06/18/12/11/3956503.jpg",
-    genres: ["Drame", "Crime", "Thriller"]
-  };
   
   // Exemples de séries populaires
   const popularSeries = [
@@ -321,39 +334,201 @@ export default function SeriesPage() {
       <Header />
 
       <main className="flex-grow">
-        {/* Hero section avec okastreamtextbanner.png */}
-        <div className="relative h-[300px] md:h-[400px] lg:h-[500px] w-full overflow-hidden">
-          {/* Background image */}
-          <div className="absolute inset-0">
-            <CustomImage
-              src="/picture/okastreamtextbanner.png"
-              alt="Séries et Films"
-              fill
-              priority
-              className="object-cover"
-            />
+        {/* Dynamic Hero Carousel */}
+        <div className="relative h-[400px] md:h-[550px] lg:h-[700px] w-full overflow-hidden">
+          {/* Desktop version - unchanged */}
+          <div className="hidden md:block w-full h-full">
+            {featuredSeries.map((series, index) => (
+              <div 
+                key={`desktop-${series.id}`}
+                className={`absolute inset-0 transition-opacity duration-1000 ${
+                  index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+                }`}
+              >
+                {/* Background image */}
+                <div className="absolute inset-0">
+                  <CustomImage
+                    src={series.bannerUrl || series.imageUrl}
+                    alt={series.title}
+                    fill
+                    priority={index === 0}
+                    className="object-cover object-center scale-110 transform transition-transform duration-10000 ease-in-out"
+                    style={{ transform: index === currentSlide ? 'scale(1.05)' : 'scale(1)' }}
+                  />
 
-            {/* Overlay gradients */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/60 to-black/30" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#030711] via-transparent to-transparent" />
-
-            {/* Animated particle effect */}
-            <div className="absolute inset-0 opacity-30">
-              <div className="stars-container">
-                <div className="star"></div>
-                <div className="star"></div>
-                <div className="star"></div>
-                <div className="star"></div>
-                <div className="star"></div>
-                <div className="star"></div>
-                <div className="star"></div>
-                <div className="star"></div>
+                  {/* Overlay gradients - removed blur */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#030711] via-[#030711]/60 to-transparent" />
+                  
+                  {/* Removed pattern overlay */}
+                </div>
+                
+                {/* Content - enhanced with better positioning and styling */}
+                <div className="absolute inset-0 flex items-center z-20">
+                  <div className="container mx-auto px-6 md:px-8">
+                    <div className="max-w-xl md:max-w-2xl lg:max-w-3xl">
+                      {/* Remove the info bar above the title */}
+                      
+                      <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-6 text-white leading-tight">
+                        {series.title}
+                      </h1>
+                      
+                      {/* Rating and genre info in the style of the reference image */}
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="flex items-center bg-black/50 px-3 py-1 rounded-full">
+                          <span className="text-yellow-400 mr-1">★</span>
+                          <span className="text-white font-medium">{series.rating}/10</span>
+                        </div>
+                        
+                        {series.genres.slice(0, 2).map((genre: string, idx: number) => (
+                          <span key={genre} className="text-white px-3 py-1 bg-black/50 rounded-full">
+                            {genre}
+                          </span>
+                        ))}
+                        
+                        <span className="text-white px-3 py-1 bg-black/50 rounded-full">
+                          {series.type === "Film" ? (series.runtime || "2h00") : `${series.seasons} saisons`}
+                        </span>
+                      </div>
+                      
+                      <p className="text-base md:text-lg text-gray-300 mb-6 md:mb-8 line-clamp-3 md:line-clamp-4 max-w-3xl">
+                        {series.description}
+                      </p>
+                      
+                      <div className="flex flex-wrap gap-2 mb-6 md:mb-8">
+                        {series.genres.slice(0, 4).map((genre: string) => (
+                          <span key={genre} className="text-xs md:text-sm px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors duration-300">
+                            {genre}
+                          </span>
+                        ))}
+                      </div>
+                      
+                      <div className="flex gap-4">
+                        <Link href={`/series/${series.id}`}>
+                          <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white border-0 px-4 py-2 h-auto text-sm">
+                            <Play className="h-4 w-4 mr-2" /> Regarder
+                          </Button>
+                        </Link>
+                        <Link href={`/series/${series.id}`}>
+                          <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 px-4 py-2 h-auto text-sm">
+                            <Plus className="h-4 w-4 mr-2" /> Détails
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
+            ))}
+            
+            {/* Prev/Next buttons for desktop */}
+            <button 
+              className="absolute left-6 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/40 hover:bg-black/60 text-white transition-all duration-300 backdrop-blur-sm"
+              onClick={() => setCurrentSlide((prev) => (prev - 1 + featuredSeries.length) % featuredSeries.length)}
+              aria-label="Previous slide"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+            
+            <button 
+              className="absolute right-6 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/40 hover:bg-black/60 text-white transition-all duration-300 backdrop-blur-sm"
+              onClick={() => setCurrentSlide((prev) => (prev + 1) % featuredSeries.length)}
+              aria-label="Next slide"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </button>
+          </div>
+          
+          {/* Mobile version - styled like the second image */}
+          <div className="md:hidden w-full h-full pt-16">
+            {featuredSeries.map((series, index) => (
+              <div 
+                key={`mobile-${series.id}`}
+                className={`absolute inset-0 transition-opacity duration-1000 ${
+                  index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+                }`}
+              >
+                {/* Background image - full height for mobile */}
+                <div className="absolute inset-0">
+                  <CustomImage
+                    src={series.bannerUrl || series.imageUrl}
+                    alt={series.title}
+                    fill
+                    priority={index === 0}
+                    className="object-cover object-center"
+                  />
+                  
+                  {/* Dark overlay for better text visibility - removed blur effect */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30" />
+                </div>
+                
+                {/* Content positioned at the bottom for mobile */}
+                <div className="absolute inset-x-0 bottom-0 z-20 p-6 pb-10">
+                  <div className="text-center">
+                    <h1 className="text-3xl font-bold text-white mb-2">
+                      {series.title}
+                    </h1>
+                    
+                    {/* Age rating badge if available */}
+                    <div className="flex items-center justify-center gap-3 mb-3">
+                      {series.rating && (
+                        <span className="bg-gray-800/80 text-white text-xs px-2 py-1 rounded">
+                          {series.rating >= 16 ? "16+" : "13+"}
+                        </span>
+                      )}
+                      
+                      {/* Rating with star */}
+                      <div className="flex items-center">
+                        <span className="text-yellow-400 mr-1">★</span>
+                        <span className="text-white text-sm">{series.rating}/10</span>
+                      </div>
+                      
+                      {/* Duration/Seasons */}
+                      <span className="text-white text-sm">
+                        {series.type === "Film" ? (series.runtime || "2h56") : `${series.seasons} saisons`}
+                      </span>
+                    </div>
+                    
+                    {/* Genres with slashes between them */}
+                    <div className="mb-4 text-sm text-white/90">
+                      {series.genres.slice(0, 3).join(" / ")}
+                    </div>
+                    
+                    {/* Single "Voir la fiche" button */}
+                    <Link href={`/series/${series.id}`} className="inline-block">
+                      <Button variant="outline" className="border-white/30 bg-black/40 text-white hover:bg-white/10 px-5 py-2 h-auto text-sm rounded-full">
+                        <svg className="h-4 w-4 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        Voir la fiche
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+            
+            {/* Mobile navigation dots */}
+            <div className="absolute bottom-3 left-0 right-0 z-20 flex justify-center gap-2">
+              {featuredSeries.map((_, index) => (
+                <button
+                  key={`dot-${index}`}
+                  className={`w-2 h-2 rounded-full transition-colors ${
+                    index === currentSlide ? "bg-white" : "bg-white/30"
+                  }`}
+                  onClick={() => setCurrentSlide(index)}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
             </div>
           </div>
-
-          {/* Bottom glow effect */}
-          <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-500 to-transparent"></div>
+          
+          {/* Bottom glow effect - enhanced */}
+          <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-blue-500 to-transparent z-20 opacity-80"></div>
         </div>
 
         <div className="container mx-auto px-4 py-8">

@@ -80,7 +80,7 @@ export default function Header() {
   return (
     <header 
       ref={headerRef}
-      className="fixed top-0 left-0 right-0 z-50 pt-6 pb-2 bg-gradient-to-b from-[#030711]/90 to-transparent backdrop-blur-sm will-change-transform"
+      className="fixed top-0 left-0 right-0 z-50 pt-6 pb-2 bg-gradient-to-b from-[#030711]/90 to-transparent will-change-transform"
       style={{ WebkitBackfaceVisibility: 'hidden' }}
     >
       <div className="container mx-auto flex items-center justify-between px-6">
@@ -120,7 +120,7 @@ export default function Header() {
           {/* Bouton de recherche avec cadre */}
           <Link 
             href={isSeriesSection ? "/series/catalogue" : "/catalogue"}
-            className="relative bg-black/40 backdrop-blur-sm rounded-md flex items-center justify-center h-10 px-3 sm:px-4 hover:bg-black/60 transition-colors shadow-md"
+            className="relative bg-black/40 rounded-md flex items-center justify-center h-10 px-3 sm:px-4 hover:bg-black/60 transition-colors shadow-md"
           >
             <Search className="h-5 w-5 text-white" />
             <span className="text-white text-base hidden sm:inline ml-2">Rechercher</span>
@@ -129,7 +129,7 @@ export default function Header() {
           {/* Menu burger avec dropdown */}
           <div className="relative" ref={menuRef}>
             <button 
-              className="bg-black/40 backdrop-blur-sm rounded-md flex items-center justify-center h-10 w-10 hover:bg-black/60 transition-colors shadow-md"
+              className="bg-black/40 rounded-md flex items-center justify-center h-10 w-10 hover:bg-black/60 transition-colors shadow-md"
               onClick={() => setMenuOpen(!menuOpen)}
             >
               <div className="flex flex-col space-y-1.5">

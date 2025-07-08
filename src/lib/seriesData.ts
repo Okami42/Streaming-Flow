@@ -45,7 +45,7 @@ export const seriesData: Content[] = [
     title: "The Batman",
     description: "Deux années à arpenter les rues en tant que Batman et à insuffler la peur chez les criminels ont mené Bruce Wayne au cœur des ténèbres de Gotham City. Avec seulement quelques alliés de confiance, Alfred Pennyworth et le lieutenant James Gordon, parmi le réseau corrompu de fonctionnaires et de personnalités de la ville, le justicier solitaire s'est imposé comme la seule incarnation de la vengeance parmi ses concitoyens. Lorsqu'un tueur s'en prend à l'élite de Gotham par une série de machinations sadiques, une piste d'indices cryptiques envoie le plus grand détective du monde sur une enquête dans la pègre, où il rencontre des personnages tels que Selina Kyle, alias Catwoman, Oswald Cobblepot, alias le Pingouin, Carmine Falcone et Edward Nashton, alias l'Homme-Mystère. Alors que les preuves s'accumulent et que l'ampleur des plans du coupable devient clair, Batman doit forger de nouvelles relations, démasquer le coupable et rétablir un semblant de justice au milieu de l'abus de pouvoir et de corruption sévissant à Gotham City depuis longtemps.",
     imageUrl: "https://fr.web.img6.acsta.net/pictures/22/02/16/17/42/3125788.jpg",
-    bannerUrl: "https://media.gqmagazine.fr/photos/621f6a5c4e9eeb8e1c0c1a38/16:9/w_2560%2Cc_limit/MCDTHBA_EC020.jpg",
+    bannerUrl: "https://images.prismic.io/batman-escape/Zo64SB5LeNNTxAG2_the-batman-mise-en-avant.webp?auto=format,compress",
     episodes: [
       { id: 1, title: "The Batman", videoUrl: "https://cineburger.xyz/movies/The-Batman.mp4", duration: 176 * 60, imageUrl: "https://fr.web.img6.acsta.net/pictures/22/02/16/17/42/3125788.jpg" }
     ],
@@ -121,7 +121,7 @@ export const seriesData: Content[] = [
     title: "Breaking Bad",
     description: "Un professeur de chimie atteint d'un cancer du poumon inopérable se lance dans la fabrication et la vente de méthamphétamine pour assurer l'avenir financier de sa famille.",
     imageUrl: "https://fr.web.img5.acsta.net/pictures/19/06/18/12/11/3956503.jpg",
-    bannerUrl: "https://fr.web.img5.acsta.net/pictures/19/06/18/12/11/3956503.jpg",
+    bannerUrl: "https://www.cravate-avenue.com/img/cms/Articles%20mode/BREAKING_BADS/Breaking%20Bad.jpg",
     episodes: [
       { id: 1, title: "Chute Libre", videoUrl: "https://iframe.mediadelivery.net/play/404680/688c681c-b7ba-4652-b81e-013e6064ba9e" },
       { id: 2, title: "Cat's in the Bag...", videoUrl: "https://exemple.com/video2" },
@@ -254,7 +254,7 @@ export const seriesData: Content[] = [
     title: "The Boys",
     description: "Dans un monde où les super-héros sont devenus corrompus et se comportent plus comme des célébrités que des héros, The Boys, un groupe de justiciers, décide de les combattre.",
     imageUrl: "https://preview.redd.it/2kzjj8l0om391.jpg?width=1080&crop=smart&auto=webp&s=ed395a06a8e56d954a7d9d0904db51064b01bcd9",
-    bannerUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg?ex=67e02242&is=67ded0c2&hm=47e57b54f9274ad3af12ac099065f4288ebc3b3cdbc98a006d93325d753e46ed&=&format=webp",
+    bannerUrl: "https://www.justgeek.fr/wp-content/uploads/2023/03/The-Boys-Saison-4-Infos.jpg",
     episodes: [
       { id: 1, title: "The Name of the Game", videoUrl: "https://exemple.com/tb1" },
       { id: 2, title: "Cherry", videoUrl: "https://exemple.com/tb2" },
