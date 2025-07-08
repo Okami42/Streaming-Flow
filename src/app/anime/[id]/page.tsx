@@ -75,6 +75,8 @@ export default function AnimePage({ params }: PageProps) {
               fill={true}
               className="object-cover"
               priority
+              loading="eager"
+              unoptimized
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#030711] via-[#030711]/80 to-transparent"></div>
           </div>
@@ -88,6 +90,8 @@ export default function AnimePage({ params }: PageProps) {
                     fill={true}
                     className="object-cover"
                     priority
+                    loading="eager"
+                    unoptimized
                   />
                 </div>
                 <div className="flex-1">

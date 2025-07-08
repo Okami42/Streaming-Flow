@@ -347,6 +347,8 @@ export default function SeriesPage() {
                             fill={true}
                             className="object-cover"
                             sizes="140px"
+                            loading="eager"
+                            unoptimized={true}
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-60 transition-opacity duration-300"></div>
                           
@@ -405,6 +407,8 @@ export default function SeriesPage() {
                             fill={true}
                             className="object-cover"
                             sizes="(max-width: 768px) 100vw, 33vw"
+                            loading="eager"
+                            unoptimized
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-60 transition-opacity duration-300"></div>
                           

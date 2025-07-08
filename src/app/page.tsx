@@ -27,6 +27,8 @@ export default function Home() {
               alt="Fond animés"
               fill={true}
               className="object-cover object-center transition-transform duration-700 md:group-hover:scale-110"
+              loading="eager"
+              unoptimized
             />
           </div>
           <div className="absolute inset-0 flex flex-col items-center justify-center z-20 transition-all duration-500 md:group-hover:translate-y-[-10px]">
@@ -53,6 +55,8 @@ export default function Home() {
               alt="Fond séries et films"
               fill={true}
               className="object-cover object-center transition-transform duration-700 md:group-hover:scale-110"
+              loading="eager"
+              unoptimized
             />
           </div>
           <div className="absolute inset-0 flex flex-col items-center justify-center z-20 transition-all duration-500 md:group-hover:translate-y-[-10px]">

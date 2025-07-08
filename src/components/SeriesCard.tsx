@@ -19,6 +19,8 @@ export function SeriesCard({ id, title, imageUrl, type, language, time }: Series
           src={imageUrl}
           alt={title}
           fill
+          loading="eager"
+          unoptimized
           className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
