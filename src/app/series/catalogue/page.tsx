@@ -88,7 +88,7 @@ const seriesList: CatalogueSeries[] = [
   {
     id: "peaky-blinders",
     title: "Peaky Blinders",
-    imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg",
+    imageUrl: "https://medias.boutique.lab.arte.tv/prod/10878_vod_thumb_82796.jpg",
     type: "Série",
     language: "VF", 
     time: "6 saisons"
