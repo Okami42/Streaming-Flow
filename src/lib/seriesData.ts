@@ -732,7 +732,7 @@ export const seriesData: Content[] = [
     title: "South Park",
     description: "Quatre jeunes écoliers, Stan Marsh, Kyle Broflovski, Eric Cartman et Kenny McCormick, vivent dans la petite ville de South Park dans le Colorado. Ces enfants au langage fleuri sont confrontés à des phénomènes paranormaux, des controverses politiques et des célébrités, et vivent des aventures surréalistes dans leur petite ville enneigée.",
     imageUrl: "https://m.media-amazon.com/images/M/MV5BZjNhODYzZGItZWQ3Ny00ZjViLTkxMTUtM2EzN2RjYjU2OGZiXkEyXkFqcGdeQXVyMTI5MTc0OTIy._V1_.jpg",
-    bannerUrl: "https://media.ouest-france.fr/v1/pictures/MjAxOTA5OGQwZmZjOWYwZjYwNDc5NWNiZThhOTM5YjZlZmQyM2Q?width=630&height=354&focuspoint=51%2C93&cropresize=1&client_id=bpeditorial&sign=19ad65459cdc5a6d67e85def3c0b33a91cc121a31cd29a83b9d3e127b00dc317",
+    bannerUrl: "https://upload.wikimedia.org/wikipedia/it/2/2b/South_park.JPG",
     episodes: [
       { id: 1, title: "Cartman a une sonde anale", videoUrl: "https://cineburger.xyz/series/South-Park/S01/South-Park-S01-E01.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/wyTnRBcrpqUZOZ8A7ee5huP8CRB.jpg" },
     ],
