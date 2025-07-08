@@ -30,11 +30,8 @@ export default function CustomImage({
   // Déterminer si l'image est externe (commence par http ou https)
   const isExternalImage = typeof src === 'string' && (src.startsWith('http://') || src.startsWith('https://'));
   
-  // Si c'est une image externe, désactiver l'optimisation par défaut sauf indication contraire
-  const shouldUnoptimize = true; // Force unoptimized for all images to fix mobile display issues
-  
-  // Force eager loading for mobile
-  const loadingProp = props.loading || 'eager';
+  // Toujours désactiver l'optimisation pour les images externes
+  const shouldUnoptimize = true;
 
   const handleError = () => {
     console.error(`Erreur de chargement d'image: ${src}`);
@@ -51,16 +48,16 @@ export default function CustomImage({
       {isLoading && (
         <div className="absolute inset-0 bg-gray-800 animate-pulse" />
       )}
-      <NextImage
-        alt={alt}
-        src={error ? fallbackSrc : imgSrc}
-        className={`${className} ${isLoading ? 'opacity-0' : 'opacity-100 transition-opacity duration-300'}`}
-        onError={handleError}
-        onLoad={handleLoad}
-        unoptimized={shouldUnoptimize}
-        loading={loadingProp}
-        {...props}
-      />
+    <NextImage
+      alt={alt}
+      src={error ? fallbackSrc : imgSrc}
+      className={`${className} ${isLoading ? 'opacity-0' : 'opacity-100 transition-opacity duration-300'}`}
+      onError={handleError}
+      onLoad={handleLoad}
+      unoptimized={shouldUnoptimize}
+      loading="eager"
+      {...props}
+    />
     </div>
   );
 }

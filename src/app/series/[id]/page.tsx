@@ -114,6 +114,7 @@ export default function SeriesPage({ params }: PageProps) {
               sizes="100vw"
               loading="eager"
               unoptimized={true}
+              fallbackSrc="/placeholder-banner.jpg"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#030711] via-[#030711]/70 to-black/50"></div>
           </div>
@@ -129,6 +130,8 @@ export default function SeriesPage({ params }: PageProps) {
                     priority
                     sizes="(max-width: 768px) 120px, 180px"
                     loading="eager"
+                    unoptimized={true}
+                    fallbackSrc="/placeholder-poster.jpg"
                   />
                 </div>
                 <div className="flex-1">

@@ -76,7 +76,8 @@ export default function AnimePage({ params }: PageProps) {
               className="object-cover"
               priority
               loading="eager"
-              unoptimized
+              unoptimized={true}
+              fallbackSrc="/placeholder-banner.jpg"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#030711] via-[#030711]/80 to-transparent"></div>
           </div>
@@ -91,7 +92,8 @@ export default function AnimePage({ params }: PageProps) {
                     className="object-cover"
                     priority
                     loading="eager"
-                    unoptimized
+                    unoptimized={true}
+                    fallbackSrc="/placeholder-poster.jpg"
                   />
                 </div>
                 <div className="flex-1">
