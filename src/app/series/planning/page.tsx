@@ -1,5 +1,5 @@
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import SeriesFooter from "@/components/SeriesFooter";
 import { SeriesCard, SeriesProps } from "@/components/SeriesCard";
 import { CalendarDays } from "lucide-react";
 import { popularSeries, recentFilms, classicFilms } from "@/lib/seriesData";
@@ -96,7 +96,7 @@ export default function SeriesPlanningPage() {
         </div>
       </main>
 
-      <Footer />
+      <SeriesFooter />
     </div>
   );
 } 

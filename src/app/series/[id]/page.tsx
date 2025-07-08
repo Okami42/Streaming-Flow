@@ -6,7 +6,7 @@ import { seriesData } from "@/lib/seriesData";
 import { Button } from "@/components/ui/button";
 import { Clock, Calendar, Star, Building, Film, Tag, ChevronDown, Heart } from "lucide-react";
 import Link from "next/link";
-import Footer from "@/components/Footer";
+import SeriesFooter from "@/components/SeriesFooter";
 import Header from "@/components/Header";
 import CustomImage from "@/components/ui/custom-image";
 import { Content, Episode, Season } from "@/lib/types";
@@ -273,7 +273,7 @@ export default function SeriesPage({ params }: PageProps) {
         </div>
       </main>
 
-      <Footer />
+      <SeriesFooter />
     </div>
   );
 } 

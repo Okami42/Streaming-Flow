@@ -14,6 +14,8 @@ export default function CustomImage({
   className,
   fallbackSrc = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjMyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=',
   unoptimized = false,
+  priority,
+  loading,
   ...props
 }: CustomImageProps) {
   const [error, setError] = useState(false);
@@ -83,6 +85,17 @@ export default function CustomImage({
     setIsLoading(false);
   };
 
+  // Déterminer les propriétés loading et priority
+  // Si priority est fourni explicitement, on l'utilise
+  // Sinon, on utilise notre logique mobile
+  const shouldPrioritize = priority !== undefined ? priority : isMobile;
+  
+  // On ne définit pas loading si priority est true
+  // car ces propriétés sont mutuellement exclusives
+  const loadingProp = shouldPrioritize 
+    ? undefined 
+    : (loading !== undefined ? loading : (isMobile ? "eager" : "lazy"));
+
   return (
     <div className="relative w-full h-full">
       {isLoading && (
@@ -95,8 +108,8 @@ export default function CustomImage({
         onError={handleError}
         onLoad={handleLoad}
         unoptimized={shouldUnoptimize}
-        priority={isMobile} // Donner la priorité aux images sur mobile
-        loading={isMobile ? "eager" : props.loading || "lazy"} // Forcer le chargement eager sur mobile
+        priority={shouldPrioritize}
+        loading={loadingProp}
         {...props}
       />
     </div>

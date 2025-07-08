@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import SeriesFooter from "@/components/SeriesFooter";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { seriesData } from "@/lib/seriesData";
 import { useHistory } from "@/context/history-context";
@@ -494,10 +494,7 @@ export default function WatchPage({ params }: PageProps) {
               {/* Boutons de navigation sur le lecteur - mode normal */}
               {!isFullScreen && (
                 <div className="absolute top-0 left-0 right-0 flex justify-between items-center p-2 sm:p-4 z-20">
-                  <Link href={`/series/${series.id}${seasonNumber ? `?season=${seasonNumber}` : ''}`} className="flex items-center text-white bg-black/50 hover:bg-black/70 transition-colors px-2 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm">
-                    <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
-                    Retourner sur la fiche
-                  </Link>
+                  <div></div> {/* Élément vide pour maintenir le flex justify-between */}
                   
                   <div className="flex items-center space-x-2">
                     {/* Bouton Épisode suivant - visible aussi en mode normal */}
@@ -514,10 +511,7 @@ export default function WatchPage({ params }: PageProps) {
               {/* Boutons de navigation en mode plein écran */}
               {isFullScreen && (
                 <div className="absolute top-4 left-0 right-0 flex justify-between items-center px-4 z-[9999]">
-                  <Link href={`/series/${series.id}${seasonNumber ? `?season=${seasonNumber}` : ''}`} className="flex items-center text-white bg-black/70 hover:bg-black/90 transition-colors px-3 py-2 rounded-full text-sm shadow-lg">
-                    <ChevronLeft className="h-4 w-4 mr-1" />
-                    Retourner sur la fiche
-                  </Link>
+                  <div></div> {/* Élément vide pour maintenir le flex justify-between */}
                   
                   {nextEpisode && (
                     <Link href={`/series/${series.id}/watch/${nextEpisode.id}${seasonNumber ? `?season=${seasonNumber}` : ''}`} className="flex items-center text-white bg-black/70 hover:bg-black/90 transition-colors px-3 py-2 rounded-full text-sm shadow-lg">
@@ -899,7 +893,7 @@ export default function WatchPage({ params }: PageProps) {
         </div>
       </main>
 
-      <Footer />
+      <SeriesFooter />
       
       {/* CSS pour optimiser l'affichage en plein écran */}
       <style jsx global>{`

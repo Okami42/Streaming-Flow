@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import SeriesFooter from "@/components/SeriesFooter";
 import { SeriesCard } from "@/components/SeriesCard";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
@@ -124,7 +124,7 @@ export default function SeriesSearchPage() {
         </div>
       </main>
 
-      <Footer />
+      <SeriesFooter />
     </div>
   );
 } 

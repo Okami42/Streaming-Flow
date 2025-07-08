@@ -1,7 +1,7 @@
 "use client";
 
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import SeriesFooter from "@/components/SeriesFooter";
 import { SeriesCard } from "@/components/SeriesCard";
 import Link from "next/link";
 import { useState } from "react";
@@ -72,7 +72,7 @@ const seriesList: CatalogueSeries[] = [
   {
     id: "the-boys",
     title: "The Boys",
-    imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg",
+    imageUrl: "https://preview.redd.it/2kzjj8l0om391.jpg?width=1080&crop=smart&auto=webp&s=ed395a06a8e56d954a7d9d0904db51064b01bcd9",
     type: "Série",
     language: "VF",
     time: "3 saisons"
@@ -80,7 +80,7 @@ const seriesList: CatalogueSeries[] = [
   {
     id: "the-witcher",
     title: "The Witcher",
-    imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BMTQ5MDU5MTktMDZkMy00NDU1LWIxM2UtODg5OGFiNmRhNDBjXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
     type: "Série",
     language: "VF",
     time: "2 saisons"
@@ -88,15 +88,15 @@ const seriesList: CatalogueSeries[] = [
   {
     id: "peaky-blinders",
     title: "Peaky Blinders",
-    imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg",
+    imageUrl: "https://medias.boutique.lab.arte.tv/prod/10878_vod_thumb_82796.jpg",
     type: "Série",
     language: "VF", 
     time: "6 saisons"
   },
   {
-    id: "dune",
-    title: "Dune",
-    imageUrl: "https://media.discordapp.net/attachments/1322574128397680743/1353020740278157322/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg",
+    id: "no-time-to-die",
+    title: "No Time to Die",
+    imageUrl: "https://play-lh.googleusercontent.com/KHagyirtj9vkyR3blrdw-TFADcSFYh4pBJQHQTz2YbT_vSGwweA4SIh7jZWvHB7jj2W16lOVow-yUer0qTI",
     type: "Film",
     language: "VF",
     time: "2h35"
@@ -208,7 +208,7 @@ export default function SeriesCataloguePage() {
         </div>
       </main>
 
-      <Footer />
+      <SeriesFooter />
     </div>
   );
 } 

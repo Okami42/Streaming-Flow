@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Footer from "@/components/Footer";
+import SeriesFooter from "@/components/SeriesFooter";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { Clock, Plus, Sparkles, Star, Play, Film, History } from "lucide-react";
@@ -495,7 +495,7 @@ export default function SeriesPage() {
         </div>
       </main>
 
-      <Footer />
+      <SeriesFooter />
     </div>
   );
 } 
