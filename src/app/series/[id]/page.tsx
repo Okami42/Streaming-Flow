@@ -167,7 +167,7 @@ export default function SeriesPage({ params }: PageProps) {
                   
                   {/* Synopsis déplacé ici */}
                   <div className="mb-4">
-                    <p className="text-gray-300">{series.description}</p>
+                    <p className="text-gray-300 line-clamp-3 sm:line-clamp-none">{series.description}</p>
                   </div>
                   
                   <Button 
@@ -243,7 +243,7 @@ export default function SeriesPage({ params }: PageProps) {
             </div>
             
             {/* Nouvelle grille d'épisodes avec le composant EpisodeCard */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
               {getEpisodesToDisplay().map((episode: Episode) => {
                 // Utiliser la durée de l'épisode directement depuis les données
                 const duration = episode.duration || "55 min"; // Fallback uniquement si pas de durée

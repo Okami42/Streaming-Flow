@@ -318,69 +318,137 @@ export default function SeriesPage() {
         <div className="container mx-auto px-4 py-8">
           {/* Reprendre ma lecture */}
           <div className="mb-12 p-6 rounded-xl bg-gradient-to-r from-[#151a2a] to-[#0c1222] border border-white/5">
-            <div className="flex items-center gap-2 mb-4">
-              <History className="h-5 w-5 text-blue-500" />
-              <h2 className="text-xl font-bold text-white">Reprendre ma lecture</h2>
-            </div>
-            
-            {recentlyWatched.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                {recentlyWatched.map((item) => (
-                  <div key={item.id} className="flex flex-col">
-                    <Link 
-                      href={`/series/${extractSeriesId(item.id)}/watch/${item.episodeInfo.episode}${item.episodeInfo.season ? `?season=${item.episodeInfo.season}` : ''}${item.progress > 0 ? `&time=${item.progress}` : ''}`}
-                      className="block"
-                    >
-                      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg border border-white/10 hover:border-blue-500/50 transition-all shadow-lg hover:shadow-blue-500/20 group">
-                        <CustomImage
-                          src={getSeriesImage(extractSeriesId(item.id))}
-                          alt={item.title}
-                          fill={true}
-                          className="object-cover"
-                          sizes="(max-width: 768px) 100vw, 33vw"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-60 transition-opacity duration-300"></div>
-                        
-                        {/* Progress bar */}
-                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20">
-                          <div 
-                            className="h-full bg-blue-500" 
-                            style={{ width: `${calculateProgress(item)}%` }}
-                          ></div>
-                        </div>
-                        
-                        {/* Play button overlay */}
-                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <div className="bg-blue-500/80 p-3 rounded-full">
-                            <Play className="h-8 w-8 text-white" />
+            {/* Mobile view: Title and content on same line */}
+            <div className="flex flex-col md:hidden">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <History className="h-5 w-5 text-blue-500" />
+                  <h2 className="text-xl font-bold text-white">Reprendre ma lecture</h2>
+                </div>
+                {recentlyWatched.length > 0 && (
+                  <Link href="/series/history" className="text-xs text-blue-400 hover:text-blue-300">
+                    Voir tout
+                  </Link>
+                )}
+              </div>
+              
+              {recentlyWatched.length > 0 ? (
+                <div className="flex overflow-x-auto pb-2 gap-3 scrollbar-hide">
+                  {recentlyWatched.map((item) => (
+                    <div key={item.id} className="flex-shrink-0 w-[140px]">
+                      <Link 
+                        href={`/series/${extractSeriesId(item.id)}/watch/${item.episodeInfo.episode}${item.episodeInfo.season ? `?season=${item.episodeInfo.season}` : ''}${item.progress > 0 ? `&time=${item.progress}` : ''}`}
+                        className="block"
+                      >
+                        <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg border border-white/10 hover:border-blue-500/50 transition-all shadow-lg hover:shadow-blue-500/20 group">
+                          <CustomImage
+                            src={getSeriesImage(extractSeriesId(item.id))}
+                            alt={item.title}
+                            fill={true}
+                            className="object-cover"
+                            sizes="140px"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-60 transition-opacity duration-300"></div>
+                          
+                          {/* Progress bar */}
+                          <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20">
+                            <div 
+                              className="h-full bg-blue-500" 
+                              style={{ width: `${calculateProgress(item)}%` }}
+                            ></div>
+                          </div>
+                          
+                          {/* Play button overlay */}
+                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div className="bg-blue-500/80 p-2 rounded-full">
+                              <Play className="h-6 w-6 text-white" />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </Link>
-                    
-                    <div className="mt-2">
-                      <h3 className="text-sm font-medium text-white line-clamp-1">{item.title}</h3>
-                      <p className="text-xs text-gray-400">
-                        S{item.episodeInfo.season} E{item.episodeInfo.episode} - {item.episodeInfo.title}
-                      </p>
-                      <div className="flex justify-between items-center mt-1">
-                        <span className="text-xs text-gray-500">{getRelativeTime(item.lastWatchedAt)}</span>
-                        <span className="text-xs text-blue-400">{formatTimeExtended(item.progress)} / {formatTimeExtended(item.duration)}</span>
+                      </Link>
+                      
+                      <div className="mt-2">
+                        <h3 className="text-xs font-medium text-white line-clamp-1">{item.title}</h3>
+                        <p className="text-xs text-gray-400 line-clamp-1">
+                          S{item.episodeInfo.season} E{item.episodeInfo.episode}
+                        </p>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-4">
+                  <p className="text-gray-400 text-sm">Vous n'avez pas encore regardé de séries</p>
+                </div>
+              )}
+            </div>
+            
+            {/* Desktop view: Original layout */}
+            <div className="hidden md:block">
+              <div className="flex items-center gap-2 mb-4">
+                <History className="h-5 w-5 text-blue-500" />
+                <h2 className="text-xl font-bold text-white">Reprendre ma lecture</h2>
               </div>
-            ) : (
-              <div className="text-center py-8">
-                <p className="text-gray-400">Vous n'avez pas encore regardé de séries</p>
-                <Link href="/series/catalogue" className="mt-4 inline-block">
-                  <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
-                    Découvrir des séries
-                  </Button>
-                </Link>
-              </div>
-            )}
+              
+              {recentlyWatched.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                  {recentlyWatched.map((item) => (
+                    <div key={item.id} className="flex flex-col">
+                      <Link 
+                        href={`/series/${extractSeriesId(item.id)}/watch/${item.episodeInfo.episode}${item.episodeInfo.season ? `?season=${item.episodeInfo.season}` : ''}${item.progress > 0 ? `&time=${item.progress}` : ''}`}
+                        className="block"
+                      >
+                        <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg border border-white/10 hover:border-blue-500/50 transition-all shadow-lg hover:shadow-blue-500/20 group">
+                          <CustomImage
+                            src={getSeriesImage(extractSeriesId(item.id))}
+                            alt={item.title}
+                            fill={true}
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-60 transition-opacity duration-300"></div>
+                          
+                          {/* Progress bar */}
+                          <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20">
+                            <div 
+                              className="h-full bg-blue-500" 
+                              style={{ width: `${calculateProgress(item)}%` }}
+                            ></div>
+                          </div>
+                          
+                          {/* Play button overlay */}
+                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div className="bg-blue-500/80 p-3 rounded-full">
+                              <Play className="h-8 w-8 text-white" />
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                      
+                      <div className="mt-2">
+                        <h3 className="text-sm font-medium text-white line-clamp-1">{item.title}</h3>
+                        <p className="text-xs text-gray-400">
+                          S{item.episodeInfo.season} E{item.episodeInfo.episode} - {item.episodeInfo.title}
+                        </p>
+                        <div className="flex justify-between items-center mt-1">
+                          <span className="text-xs text-gray-500">{getRelativeTime(item.lastWatchedAt)}</span>
+                          <span className="text-xs text-blue-400">{formatTimeExtended(item.progress)} / {formatTimeExtended(item.duration)}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <p className="text-gray-400">Vous n'avez pas encore regardé de séries</p>
+                  <Link href="/series/catalogue" className="mt-4 inline-block">
+                    <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                      Découvrir des séries
+                    </Button>
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Sections avec fonds dégradés */}

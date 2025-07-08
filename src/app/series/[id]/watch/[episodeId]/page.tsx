@@ -478,7 +478,7 @@ export default function WatchPage({ params }: PageProps) {
             </Link>
           </div>
           
-          <h1 className="text-lg sm:text-2xl font-bold text-white mb-1 sm:mb-2 line-clamp-2">
+          <h1 className="text-lg sm:text-2xl font-bold text-white mb-1 sm:mb-2 line-clamp-1 sm:line-clamp-2">
             {series.title} - {seasonNumber ? `Saison ${seasonNumber}` : ''} Épisode {episode.id}: {episode.title}
           </h1>
           

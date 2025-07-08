@@ -142,7 +142,7 @@ export default function SeriesEpisodesPage({ params }: PageProps) {
           </div>
           
           {/* Grille des épisodes */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
             {getEpisodesToDisplay().map((episode: Episode, index) => {
               // Déterminer la durée à afficher (simulé pour la démo)
               let duration = "55 min";

@@ -139,9 +139,10 @@ export default function EpisodeCard({
         </div>
         
         {/* Contenu textuel */}
-        <div className="p-4">
-          <h3 className="font-bold text-white text-base mb-2">{title}</h3>
-          <p className="text-gray-300 text-sm" style={{ minHeight: '60px' }}>{description}</p>
+        <div className="p-2 sm:p-4">
+          <h3 className="font-bold text-white text-sm sm:text-base mb-1 sm:mb-2">{title}</h3>
+          {/* Mobile: truncated description, Desktop: full description */}
+          <p className="text-gray-300 text-xs sm:text-sm line-clamp-2 md:line-clamp-none" style={{ minHeight: '30px', maxHeight: '80px' }}>{description}</p>
         </div>
       </div>
     </Link>
