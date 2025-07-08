@@ -1,0 +1,282 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 35% 5%;
+    --foreground: 0 0% 98%;
+    --card: 222 30% 8%;
+    --card-foreground: 0 0% 98%;
+    --popover: 222 30% 8%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 325 80% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 225 30% 15%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 225 30% 15%;
+    --muted-foreground: 240 5% 75%;
+    --accent: 325 80% 50%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 225 20% 20%;
+    --input: 225 20% 20%;
+    --ring: 325 80% 50%;
+    --radius: 0.5rem;
+
+    /* Anime Sama Custom Colors */
+    --anime-dark: 222 35% 5%;
+    --anime-card: 222 30% 8%;
+    --anime-accent: 325 80% 50%;
+    --anime-blue: 210 80% 55%;
+    --anime-gradient-start: 325 80% 50%;
+    --anime-gradient-end: 210 80% 55%;
+
+    /* Theme variables (dynamically set by JS) */
+    --theme-primary: #EC4899;
+    --theme-secondary: #3B82F6;
+    --theme-bg-from: #EC4899;
+    --theme-bg-to: #3B82F6;
+    --theme-button-from: #EC4899;
+    --theme-button-to: #BE185D;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-[#030711] text-foreground;
+    background-image:
+      radial-gradient(circle at center, rgba(77, 26, 127, 0.05) 0%, transparent 70%),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+      repeating-linear-gradient(transparent, transparent 1px, rgba(26, 32, 70, 0.3) 1px, rgba(26, 32, 70, 0.3) 2px);
+  }
+}
+
+@layer utilities {
+  /* Masquer la barre de défilement tout en gardant la fonctionnalité de défilement */
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .hide-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  /* Alternative class name for consistency with our component */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+}
+
+@layer components {
+  .anime-card {
+    @apply bg-[#0F1729] rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 border border-[#1a1f35];
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+
+  .anime-card:hover {
+    box-shadow: 0 0 15px rgba(236, 72, 153, 0.3);
+  }
+
+  .anime-button {
+    @apply bg-[#1a1f35] text-white text-xs rounded-md px-2.5 py-1 hover:bg-[#272e47] transition-colors;
+  }
+
+  .section-title {
+    display: inline-block;
+    color: transparent;
+    background-clip: text;
+    background-image: linear-gradient(to right, var(--theme-primary), var(--theme-secondary));
+    font-weight: bold;
+  }
+
+  .glass-effect {
+    @apply backdrop-blur-md bg-white/5 border border-white/10 shadow-lg;
+  }
+
+  .anime-hover-card {
+    @apply relative overflow-hidden;
+  }
+
+  .anime-hover-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+    background-image: linear-gradient(to top, rgba(236, 72, 153, 0.8), transparent);
+    pointer-events: none;
+  }
+
+  .anime-hover-card:hover::after {
+    opacity: 1;
+  }
+
+  .primary-glow {
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    transition: box-shadow 0.3s;
+  }
+
+  .primary-glow:hover {
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.4);
+  }
+
+  .nav-link {
+    @apply relative uppercase text-sm font-medium text-white/90 hover:text-white transition-colors;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 2px;
+    background-image: linear-gradient(to right, var(--theme-primary), var(--theme-secondary));
+    transition: width 0.3s;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  /* Theme-specific buttons */
+  .theme-button {
+    color: white;
+    font-weight: 500;
+    background-image: linear-gradient(to right, var(--theme-button-from), var(--theme-button-to));
+  }
+
+  /* Progress bar */
+  .progress-bar {
+    @apply relative h-1 w-full bg-gray-700 rounded-full overflow-hidden;
+  }
+
+  .progress-bar-inner {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    border-radius: 9999px;
+    background-image: linear-gradient(to right, var(--theme-primary), var(--theme-secondary));
+  }
+
+  /* History item */
+  .history-item {
+    @apply bg-[#0F1729] rounded-lg border border-gray-800 overflow-hidden transition-all;
+  }
+
+  .history-item:hover {
+    border-color: rgba(236, 72, 153, 0.3);
+  }
+
+  /* Stars animation */
+  .stars-container {
+    @apply absolute inset-0;
+    perspective: 500px;
+    animation: rotate 200s infinite linear;
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: perspective(500px) rotateZ(0deg) rotateX(0deg);
+    }
+    100% {
+      transform: perspective(500px) rotateZ(360deg) rotateX(360deg);
+    }
+  }
+
+  .star {
+    @apply absolute bg-white rounded-full;
+    width: 2px;
+    height: 2px;
+    opacity: 0;
+    animation-name: twinkle;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  .star:nth-child(1) {
+    top: 10%;
+    left: 20%;
+    animation-duration: 4s;
+    animation-delay: 0s;
+  }
+
+  .star:nth-child(2) {
+    top: 40%;
+    left: 50%;
+    animation-duration: 6s;
+    animation-delay: 1s;
+  }
+
+  .star:nth-child(3) {
+    top: 25%;
+    left: 80%;
+    animation-duration: 3s;
+    animation-delay: 2s;
+  }
+
+  .star:nth-child(4) {
+    top: 60%;
+    left: 30%;
+    animation-duration: 5s;
+    animation-delay: 1.5s;
+  }
+
+  .star:nth-child(5) {
+    top: 75%;
+    left: 60%;
+    animation-duration: 4.5s;
+    animation-delay: 0.5s;
+  }
+
+  .star:nth-child(6) {
+    top: 15%;
+    left: 40%;
+    animation-duration: 5.5s;
+    animation-delay: 2.5s;
+  }
+
+  .star:nth-child(7) {
+    top: 55%;
+    left: 85%;
+    animation-duration: 3.5s;
+    animation-delay: 1.2s;
+  }
+
+  .star:nth-child(8) {
+    top: 80%;
+    left: 15%;
+    animation-duration: 4.2s;
+    animation-delay: 0.8s;
+  }
+
+  @keyframes twinkle {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+      box-shadow: 0 0 0 transparent;
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1);
+      box-shadow: 0 0 4px var(--theme-primary), 0 0 8px var(--theme-secondary);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.5);
+      box-shadow: 0 0 0 transparent;
+    }
+  }
+}
