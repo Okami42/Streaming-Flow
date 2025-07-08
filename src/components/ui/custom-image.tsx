@@ -22,13 +22,17 @@ export default function CustomImage({
   const [imgSrc, setImgSrc] = useState(src);
   const [isLoading, setIsLoading] = useState(true);
   
-  // Détecter si nous sommes sur mobile
+  // Détecter si nous sommes sur mobile ou Firefox
   const [isMobile, setIsMobile] = useState(false);
+  const [isFirefox, setIsFirefox] = useState(false);
   
   useEffect(() => {
     // Détecter si nous sommes sur mobile
     setIsMobile(window.innerWidth < 768 || 
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+    
+    // Détecter si nous sommes sur Firefox
+    setIsFirefox(navigator.userAgent.toLowerCase().indexOf('firefox') > -1);
       
     // Fonction pour vérifier si l'image est en cache
     const checkImageCache = async (url: string) => {
@@ -51,29 +55,43 @@ export default function CustomImage({
     
     // Précharger l'image si c'est une URL
     if (typeof src === 'string' && src.startsWith('http')) {
-      checkImageCache(src);
+      // Précharger l'image manuellement pour Firefox
+      if (isFirefox) {
+        const img = new Image();
+        img.src = src;
+        img.onload = () => {
+          setIsLoading(false);
+        };
+        img.onerror = () => {
+          console.error(`Erreur de chargement d'image Firefox: ${src}`);
+          setError(true);
+          setImgSrc(fallbackSrc);
+        };
+      } else {
+        checkImageCache(src);
+      }
     }
-  }, [src]);
+  }, [src, fallbackSrc]);
   
   // Mettre à jour imgSrc quand src change
   useEffect(() => {
     setImgSrc(src);
     setError(false);
     
-    // Sur mobile, ne pas montrer l'état de chargement si l'image est déjà dans le DOM
+    // Sur mobile ou Firefox, ne pas montrer l'état de chargement si l'image est déjà dans le DOM
     // Cela évite le clignotement lors de l'actualisation
-    if (isMobile && document.querySelector(`img[src="${src}"]`)) {
+    if ((isMobile || isFirefox) && document.querySelector(`img[src="${src}"]`)) {
       setIsLoading(false);
     } else {
       setIsLoading(true);
     }
-  }, [src, isMobile]);
+  }, [src, isMobile, isFirefox]);
   
   // Déterminer si l'image est externe (commence par http ou https)
   const isExternalImage = typeof src === 'string' && (src.startsWith('http://') || src.startsWith('https://'));
   
-  // Si c'est une image externe, désactiver l'optimisation par défaut sauf indication contraire
-  const shouldUnoptimize = unoptimized || isExternalImage;
+  // Si c'est une image externe ou Firefox, désactiver l'optimisation par défaut sauf indication contraire
+  const shouldUnoptimize = unoptimized || isExternalImage || isFirefox;
 
   const handleError = () => {
     console.error(`Erreur de chargement d'image: ${src}`);
@@ -87,14 +105,14 @@ export default function CustomImage({
 
   // Déterminer les propriétés loading et priority
   // Si priority est fourni explicitement, on l'utilise
-  // Sinon, on utilise notre logique mobile
-  const shouldPrioritize = priority !== undefined ? priority : isMobile;
+  // Sinon, on utilise notre logique mobile/Firefox
+  const shouldPrioritize = priority !== undefined ? priority : (isMobile || isFirefox);
   
   // On ne définit pas loading si priority est true
   // car ces propriétés sont mutuellement exclusives
   const loadingProp = shouldPrioritize 
     ? undefined 
-    : (loading !== undefined ? loading : (isMobile ? "eager" : "lazy"));
+    : (loading !== undefined ? loading : (isMobile || isFirefox ? "eager" : "lazy"));
 
   return (
     <div className="relative w-full h-full">

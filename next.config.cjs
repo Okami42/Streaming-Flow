@@ -13,7 +13,17 @@ const nextConfig = {
       'static1.srcdn.com',
       'static1.colliderimages.com',
       'via.placeholder.com',
-      'image.tmdb.org'
+      'image.tmdb.org',
+      'images.unsplash.com',
+      'fr.web.img5.acsta.net',
+      'fr.web.img6.acsta.net',
+      'fr.web.img4.acsta.net',
+      'media.senscritique.com',
+      'm.media-amazon.com',
+      'preview.redd.it',
+      'medias.boutique.lab.arte.tv',
+      'play-lh.googleusercontent.com',
+      'www.ecranlarge.com'
     ],
     remotePatterns: [
       {
@@ -67,6 +77,10 @@ const nextConfig = {
           {
             key: 'Access-Control-Allow-Origin',
             value: '*'
+          },
+          {
+            key: 'Cross-Origin-Resource-Policy',
+            value: 'cross-origin'
           }
         ],
       },
