@@ -442,21 +442,120 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
     const videoContainer = document.getElementById('video-container');
     if (!videoContainer) return;
 
-    if (!document.fullscreenElement) {
-      if (videoContainer.requestFullscreen) {
-        videoContainer.requestFullscreen();
-      } else if ((videoContainer as any).webkitRequestFullscreen) {
-        (videoContainer as any).webkitRequestFullscreen();
-      } else if ((videoContainer as any).msRequestFullscreen) {
-        (videoContainer as any).msRequestFullscreen();
+    // Rechercher d'abord l'élément vidéo ou iframe à l'intérieur du conteneur
+    // iOS nécessite que l'élément vidéo/iframe soit directement mis en plein écran
+    const videoElement = videoContainer.querySelector('video') as HTMLVideoElement & {
+      webkitEnterFullscreen?: () => void;
+      webkitSupportsFullscreen?: boolean;
+      webkitDisplayingFullscreen?: boolean;
+    };
+    const iframeElement = videoContainer.querySelector('iframe');
+    const targetElement = videoElement || iframeElement || videoContainer;
+
+    try {
+      // Vérifier si on est sur iOS
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+      
+      // Solution spécifique pour Safari sur iOS
+      if (isIOS || isSafari) {
+        if (videoElement) {
+          // Vérifier si la vidéo est déjà en plein écran (Safari)
+          const isVideoFullscreen = videoElement.webkitDisplayingFullscreen;
+          
+          if (!isVideoFullscreen) {
+            // Activer le plein écran sur l'élément vidéo
+            if (videoElement.webkitEnterFullscreen) {
+              videoElement.webkitEnterFullscreen();
+              return;
+            } else if (videoElement.webkitSupportsFullscreen) {
+              // Alternative pour certaines versions
+              videoElement.play().then(() => {
+                setTimeout(() => {
+                  if (videoElement.webkitEnterFullscreen) {
+                    videoElement.webkitEnterFullscreen();
+                  }
+                }, 100);
+              }).catch(err => {
+                console.error("Erreur lors de la lecture vidéo pour plein écran:", err);
+              });
+              return;
+            }
+          }
+        }
+        
+        // Solution pour les iframes sur iOS
+        if (iframeElement) {
+          // S'assurer que l'iframe a les bons attributs
+          iframeElement.setAttribute('allowFullscreen', 'true');
+          iframeElement.setAttribute('allow', 'fullscreen; autoplay');
+          
+          // Tenter de mettre l'iframe en plein écran
+          try {
+            if (iframeElement.requestFullscreen) {
+              iframeElement.requestFullscreen();
+              return;
+            }
+          } catch (e) {
+            console.log("Erreur lors de la tentative de plein écran sur l'iframe:", e);
+            
+            // Si l'iframe contient une URL, essayer de l'ouvrir directement
+            // Cela peut déclencher le plein écran natif du navigateur sur iOS
+            const iframeSrc = iframeElement.getAttribute('src');
+            if (iframeSrc) {
+              // Stocker l'état actuel pour pouvoir revenir
+              localStorage.setItem('lastWatchPosition', JSON.stringify({
+                series: series.id,
+                episode: episodeId,
+                season: seasonNumber,
+                time: currentTime
+              }));
+              
+              // Ouvrir l'URL dans un nouvel onglet
+              window.open(iframeSrc, '_blank');
+              return;
+            }
+          }
+        }
       }
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if ((document as any).webkitExitFullscreen) {
-        (document as any).webkitExitFullscreen();
-      } else if ((document as any).msExitFullscreen) {
-        (document as any).msExitFullscreen();
+      
+      // Approche standard pour les autres navigateurs
+      if (!document.fullscreenElement && 
+          !(document as any).webkitFullscreenElement && 
+          !(document as any).mozFullScreenElement &&
+          !(document as any).msFullscreenElement) {
+        
+        // Méthodes standard pour les autres navigateurs
+        if (targetElement.requestFullscreen) {
+          targetElement.requestFullscreen();
+        } else if ((targetElement as any).webkitRequestFullscreen) {
+          (targetElement as any).webkitRequestFullscreen();
+        } else if ((targetElement as any).mozRequestFullScreen) {
+          (targetElement as any).mozRequestFullScreen();
+        } else if ((targetElement as any).msRequestFullscreen) {
+          (targetElement as any).msRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if ((document as any).webkitExitFullscreen) {
+          (document as any).webkitExitFullscreen();
+        } else if ((document as any).mozCancelFullScreen) {
+          (document as any).mozCancelFullScreen();
+        } else if ((document as any).msExitFullscreen) {
+          (document as any).msExitFullscreen();
+        }
+      }
+    } catch (error) {
+      console.error("Erreur lors du passage en plein écran:", error);
+      
+      // Fallback pour iOS - tenter d'utiliser l'API de l'élément vidéo directement
+      if (videoElement && videoElement.webkitEnterFullscreen) {
+        try {
+          videoElement.webkitEnterFullscreen();
+        } catch (e) {
+          console.error("Échec du fallback pour le plein écran:", e);
+        }
       }
     }
   };
@@ -497,7 +596,16 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
               {/* Boutons de navigation sur le lecteur - mode normal */}
               {!isFullScreen && (
                 <div className="absolute top-0 left-0 right-0 flex justify-between items-center p-2 sm:p-4 z-20">
-                  <div></div> {/* Élément vide pour maintenir le flex justify-between */}
+                  <div>
+                    {/* Bouton Plein écran - en haut à gauche - visible uniquement sur mobile */}
+                    <button 
+                      onClick={toggleFullScreen}
+                      className="md:hidden flex items-center text-white bg-black/50 hover:bg-black/70 transition-colors px-2 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm"
+                    >
+                      <Maximize className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+                      Plein écran
+                    </button>
+                  </div>
                   
                   <div className="flex items-center space-x-2">
                     {/* Bouton Épisode suivant - visible aussi en mode normal */}
@@ -514,7 +622,16 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
               {/* Boutons de navigation en mode plein écran */}
               {isFullScreen && (
                 <div className="absolute top-4 left-0 right-0 flex justify-between items-center px-4 z-[9999]">
-                  <div></div> {/* Élément vide pour maintenir le flex justify-between */}
+                  <div>
+                    {/* Bouton Plein écran - en haut à gauche en mode plein écran - visible uniquement sur mobile */}
+                    <button 
+                      onClick={toggleFullScreen}
+                      className="md:hidden flex items-center text-white bg-black/70 hover:bg-black/90 transition-colors px-3 py-2 rounded-full text-sm shadow-lg"
+                    >
+                      <Maximize className="h-4 w-4 mr-1" />
+                      Quitter
+                    </button>
+                  </div>
                   
                   {nextEpisode && (
                     <Link href={`/series/${series.id}/watch/${nextEpisode.id}${seasonNumber ? `?season=${seasonNumber}` : ''}`} className="flex items-center text-white bg-black/70 hover:bg-black/90 transition-colors px-3 py-2 rounded-full text-sm shadow-lg">
@@ -528,27 +645,7 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
               <div className="w-full h-full" key={playerKey}>
                 {episode.videoUrl.includes('dood.wf') ? (
                   <div className="relative w-full h-full">
-                    {currentTime > 0 && (
-                      <div className="absolute top-0 left-0 right-0 bg-black/80 text-white text-center py-2 z-10">
-                        Reprise à {formatTimeExtended(currentTime)}
-                        <button 
-                          className="ml-2 px-2 py-1 bg-blue-600 rounded text-xs"
-                          onClick={() => {
-                            // Tentative d'accéder à l'iframe et de définir le temps
-                            try {
-                              const iframe = iframeRefs.current[0];
-                              if (iframe && iframe.contentWindow) {
-                                iframe.contentWindow.postMessage({ action: 'seek', time: currentTime }, '*');
-                              }
-                            } catch (e) {
-                              console.log("Impossible de contrôler la vidéo dans l'iframe");
-                            }
-                          }}
-                        >
-                          Reprendre
-                        </button>
-                      </div>
-                    )}
+                    {/* Suppression du message de reprise */}
                     <iframe 
                       ref={addIframeRef}
                       src={`${episode.videoUrl}${episode.videoUrl.includes('?') ? '&' : '?'}currentTime=${currentTime}&autoplay=0`}
@@ -556,34 +653,14 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
                       frameBorder="0" 
                       scrolling="no" 
                       allowFullScreen
-                      sandbox="allow-same-origin allow-scripts"
+                      allow="fullscreen; autoplay; picture-in-picture"
                       referrerPolicy="no-referrer"
                       style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
                     ></iframe>
                   </div>
                 ) : episode.videoUrl.includes('filemoon.sx') ? (
                   <div className="relative w-full h-full">
-                    {currentTime > 0 && (
-                      <div className="absolute top-0 left-0 right-0 bg-black/80 text-white text-center py-2 z-10">
-                        Reprise à {formatTimeExtended(currentTime)}
-                        <button 
-                          className="ml-2 px-2 py-1 bg-blue-600 rounded text-xs"
-                          onClick={() => {
-                            // Tentative d'accéder à l'iframe et de définir le temps
-                            try {
-                              const iframe = iframeRefs.current[0];
-                              if (iframe && iframe.contentWindow) {
-                                iframe.contentWindow.postMessage({ action: 'seek', time: currentTime }, '*');
-                              }
-                            } catch (e) {
-                              console.log("Impossible de contrôler la vidéo dans l'iframe");
-                            }
-                          }}
-                        >
-                          Reprendre
-                        </button>
-                      </div>
-                    )}
+                    {/* Suppression du message de reprise */}
                     <iframe 
                       ref={addIframeRef}
                       src={`${episode.videoUrl}${episode.videoUrl.includes('?') ? '&' : '?'}currentTime=${currentTime}&autoplay=0`}
@@ -591,34 +668,14 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
                       frameBorder="0" 
                       scrolling="no" 
                       allowFullScreen
-                      sandbox="allow-same-origin allow-scripts allow-forms"
+                      allow="fullscreen; autoplay; picture-in-picture"
                       referrerPolicy="no-referrer"
                       style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
                     ></iframe>
                   </div>
                 ) : episode.videoUrl.includes('iframe.mediadelivery.net') ? (
                   <div className="relative w-full h-full flex items-center justify-center bg-[#030711]">
-                    {currentTime > 0 && (
-                      <div className="absolute top-0 left-0 right-0 bg-black/80 text-white text-center py-2 z-10">
-                        Reprise à {formatTimeExtended(currentTime)}
-                        <button 
-                          className="ml-2 px-2 py-1 bg-blue-600 rounded text-xs"
-                          onClick={() => {
-                            // Tentative d'accéder à l'iframe et de définir le temps
-                            try {
-                              const iframe = iframeRefs.current[0];
-                              if (iframe && iframe.contentWindow) {
-                                iframe.contentWindow.postMessage({ action: 'seek', time: currentTime }, '*');
-                              }
-                            } catch (e) {
-                              console.log("Impossible de contrôler la vidéo dans l'iframe");
-                            }
-                          }}
-                        >
-                          Reprendre
-                        </button>
-                      </div>
-                    )}
+                    {/* Suppression du message de reprise */}
                     <iframe 
                       ref={addIframeRef}
                       src={`${episode.videoUrl}${episode.videoUrl.includes('?') ? '&' : '?'}currentTime=${currentTime}&autoplay=0`}
@@ -626,34 +683,14 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
                       frameBorder="0" 
                       scrolling="no" 
                       allowFullScreen
-                      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen"
                       referrerPolicy="no-referrer"
                       style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
                     ></iframe>
                   </div>
                 ) : episode.videoUrl.includes('beerscloud.com') ? (
                   <div className="relative w-full h-full flex items-center justify-center bg-[#030711]">
-                    {currentTime > 0 && (
-                      <div className="absolute top-0 left-0 right-0 bg-black/80 text-white text-center py-2 z-10">
-                        Reprise à {formatTimeExtended(currentTime)}
-                        <button 
-                          className="ml-2 px-2 py-1 bg-blue-600 rounded text-xs"
-                          onClick={() => {
-                            // Tentative d'accéder à l'iframe et de définir le temps
-                            try {
-                              const iframe = iframeRefs.current[0];
-                              if (iframe && iframe.contentWindow) {
-                                iframe.contentWindow.postMessage({ action: 'seek', time: currentTime }, '*');
-                              }
-                            } catch (e) {
-                              console.log("Impossible de contrôler la vidéo dans l'iframe");
-                            }
-                          }}
-                        >
-                          Reprendre
-                        </button>
-                      </div>
-                    )}
+                    {/* Suppression du message de reprise */}
                     <iframe 
                       ref={addIframeRef}
                       src={`${episode.videoUrl}${episode.videoUrl.includes('?') ? '&' : '?'}currentTime=${currentTime}&autoplay=0`}
@@ -661,34 +698,14 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
                       frameBorder="0" 
                       scrolling="no" 
                       allowFullScreen
-                      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen"
                       referrerPolicy="no-referrer"
                       style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
                     ></iframe>
                   </div>
                 ) : !episode.videoUrl.includes('http') ? (
                   <div className="relative w-full h-full">
-                    {currentTime > 0 && (
-                      <div className="absolute top-0 left-0 right-0 bg-black/80 text-white text-center py-2 z-10">
-                        Reprise à {formatTimeExtended(currentTime)}
-                        <button 
-                          className="ml-2 px-2 py-1 bg-blue-600 rounded text-xs"
-                          onClick={() => {
-                            // Tentative d'accéder à l'iframe et de définir le temps
-                            try {
-                              const iframe = iframeRefs.current[0];
-                              if (iframe && iframe.contentWindow) {
-                                iframe.contentWindow.postMessage({ action: 'seek', time: currentTime }, '*');
-                              }
-                            } catch (e) {
-                              console.log("Impossible de contrôler la vidéo dans l'iframe");
-                            }
-                          }}
-                        >
-                          Reprendre
-                        </button>
-                      </div>
-                    )}
+                    {/* Suppression du message de reprise */}
                     <iframe 
                       ref={addIframeRef}
                       src={`https://video.sibnet.ru/shell.php?videoid=${episode.videoUrl}&skin=4&share=1${currentTime > 0 ? `&start=${currentTime}` : ''}&autoplay=0`}
@@ -696,7 +713,7 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
                       frameBorder="0" 
                       scrolling="no" 
                       allowFullScreen
-                      allow="fullscreen"
+                      allow="fullscreen; autoplay; picture-in-picture"
                       referrerPolicy="no-referrer"
                       style={{ 
                         width: '100%',
@@ -708,27 +725,7 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
                   </div>
                 ) : episode.videoUrl.includes('vidmoly.to') ? (
                   <div className="relative w-full h-full">
-                    {currentTime > 0 && (
-                      <div className="absolute top-0 left-0 right-0 bg-black/80 text-white text-center py-2 z-10">
-                        Reprise à {formatTimeExtended(currentTime)}
-                        <button 
-                          className="ml-2 px-2 py-1 bg-blue-600 rounded text-xs"
-                          onClick={() => {
-                            // Tentative d'accéder à l'iframe et de définir le temps
-                            try {
-                              const iframe = iframeRefs.current[0];
-                              if (iframe && iframe.contentWindow) {
-                                iframe.contentWindow.postMessage({ action: 'seek', time: currentTime }, '*');
-                              }
-                            } catch (e) {
-                              console.log("Impossible de contrôler la vidéo dans l'iframe");
-                            }
-                          }}
-                        >
-                          Reprendre
-                        </button>
-                      </div>
-                    )}
+                    {/* Suppression du message de reprise */}
                     <iframe 
                       ref={addIframeRef}
                       src={`${episode.videoUrl}${episode.videoUrl.includes('?') ? '&' : '?'}currentTime=${currentTime}&autoplay=0`}
@@ -736,7 +733,7 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
                       frameBorder="0" 
                       scrolling="no" 
                       allowFullScreen
-                      allow="autoplay; fullscreen"
+                      allow="autoplay; fullscreen; picture-in-picture"
                       referrerPolicy="no-referrer"
                       style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
                     ></iframe>
@@ -749,6 +746,8 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
                     controls 
                     autoPlay={true} 
                     playsInline
+                    webkit-playsinline="true"
+                    x-webkit-airplay="allow"
                     style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
                     onTimeUpdate={handleVideoTimeUpdate}
                     onLoadedMetadata={(e) => {
@@ -773,36 +772,7 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
                         video.currentTime = currentTime;
                       }
                       
-                      // Ajouter une notification pour indiquer que la vidéo a repris à un certain point
-                      if ((series.type === "Film" && video.currentTime > 0) || (currentTime > 0)) {
-                        const notificationTime = series.type === "Film" ? video.currentTime : currentTime;
-                        const notification = document.createElement('div');
-                        notification.className = 'absolute top-0 left-0 right-0 bg-black/80 text-white text-center py-2 z-10';
-                        notification.textContent = `Reprise à ${formatTimeExtended(notificationTime)}`;
-                        notification.style.animation = 'fadeOut 3s forwards';
-                        
-                        // Ajouter une animation CSS pour faire disparaître la notification
-                        const style = document.createElement('style');
-                        style.textContent = `
-                          @keyframes fadeOut {
-                            0% { opacity: 1; }
-                            70% { opacity: 1; }
-                            100% { opacity: 0; visibility: hidden; }
-                          }
-                        `;
-                        document.head.appendChild(style);
-                        
-                        // Ajouter la notification au conteneur de la vidéo
-                        const videoContainer = video.parentElement;
-                        if (videoContainer) {
-                          videoContainer.appendChild(notification);
-                          // Supprimer la notification après l'animation
-                          setTimeout(() => {
-                            notification.remove();
-                            style.remove();
-                          }, 3000);
-                        }
-                      }
+                      // Suppression de la notification "Reprise à"
                     }}
                     onPlay={() => {
                       // Pour les films, sauvegarder l'état de lecture au démarrage
