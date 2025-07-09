@@ -30,6 +30,14 @@ const seriesList: CatalogueSeries[] = [
     time: "1 saison"
   },
   {
+    id: "fight-club",
+    title: "Fight Club",
+    imageUrl: "https://storage.googleapis.com/pod_public/1300/262697.jpg",
+    type: "Film",
+    language: "VF",
+    time: "2h19"
+  },
+  {
     id: "euphoria",
     title: "Euphoria",
     imageUrl: "https://musicart.xboxlive.com/7/f7155100-0000-0000-0000-000000000002/504/image.jpg",

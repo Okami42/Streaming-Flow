@@ -144,15 +144,6 @@ export const seriesData: Content[] = [
     bannerUrl: "https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/2OMB0ynKlyIenMJWI2Dy9IWT4c.jpg",
     episodes: [
       { id: 1, title: "Winter Is Coming", videoUrl: "https://cineburger.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E01.mp4", duration: 62 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-      { id: 2, title: "The Kingsroad", videoUrl: "https://cineburger.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E02.mp4", duration: 56 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-      { id: 3, title: "Lord Snow", videoUrl: "https://cineburger.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E03.mp4", duration: 58 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-      { id: 4, title: "Cripples, Bastards, and Broken Things", videoUrl: "https://cineburger.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E04.mp4", duration: 56 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-      { id: 5, title: "The Wolf and the Lion", videoUrl: "https://cineburger.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E05.mp4", duration: 55 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-      { id: 6, title: "A Golden Crown", videoUrl: "https://cineburger.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E06.mp4", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-      { id: 7, title: "You Win or You Die", videoUrl: "https://cineburger.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E07.mp4", duration: 58 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-      { id: 8, title: "The Pointy End", videoUrl: "https://cineburger.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E08.mp4", duration: 59 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-      { id: 9, title: "Baelor", videoUrl: "https://cineburger.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E09.mp4", duration: 57 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-      { id: 10, title: "Fire and Blood", videoUrl: "https://cineburger.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E10.mp4", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" }
     ],
     status: "Terminée",
     year: 2011,
@@ -228,6 +219,24 @@ export const seriesData: Content[] = [
         ]
       }
     ]
+  },
+  {
+    id: "fight-club",
+    title: "Fight Club",
+    description: "Le narrateur, sans identité précise, vit seul, travaille seul, dort seul, mange seul ses plateaux‐repas pour une personne comme beaucoup d’autres personnes seules qui connaissent la misère humaine, morale et sexuelle. C’est pourquoi il va devenir membre du Fight club, un lieu clandestin où il va pouvoir retrouver sa virilité, l’échange et la communication. Ce club est dirigé par Tyler Durden, une sorte d’anarchiste entre gourou et philosophe qui prêche l’amour de son prochain.",
+    imageUrl: "https://storage.googleapis.com/pod_public/1300/262697.jpg",
+    bannerUrl: "https://c4.wallpaperflare.com/wallpaper/995/81/141/fight-club-edward-norton-brad-pitt-movies-wallpaper-preview.jpg",
+    episodes: [
+      { id: 1, title: "Fight Club", videoUrl: "https://cineburger.xyz/movies/Fight-Club.mp4", duration: 139 * 60, imageUrl: "https://media.newyorker.com/photos/5dbafcc91b4a6700085a7a9b/master/w_2560%2Cc_limit/Baker-FightClub.jpg" },
+    ],
+    status: "En cours",
+    year: 2016,
+    studio: "Netflix",
+    type: "Film",
+    genres: ["Horreur", "Science-fiction", "Drame"],
+    rating: 8.7,
+    language: "VF/VOSTFR",
+    seasons: 1
   },
   {
     id: "stranger-things",
@@ -312,9 +321,8 @@ export const seriesData: Content[] = [
     imageUrl: "https://m.media-amazon.com/images/I/81YoIbnTKZL._AC_UF1000,1000_QL80_.jpg",
     bannerUrl: "/picture/okastreamtextbanner.png",
     episodes: [
-      { id: 1, title: "L'envers et l'endroit (S1E1)", videoUrl: "https://video.sibnet.ru/shell.php?videoid=5432812" },
-      { id: 2, title: "Prisonniers de l'amour (S1E2)", videoUrl: "https://video.sibnet.ru/shell.php?videoid=5432813" },
-      { id: 3, title: "La baguette enchantée (S1E3)", videoUrl: "https://video.sibnet.ru/shell.php?videoid=5432814" }
+      { id: 1, title: "L'envers et l'endroit (S1E1)", videoUrl: "https://video.sibnet.ru/shell.php?videoid=5432812"},
+
     ],
     seasonsList: [
       {
@@ -385,7 +393,7 @@ export const seriesData: Content[] = [
         seasonNumber: 3,
         title: "Saison 3",
         episodes: [
-          { id: 1, title: "Conquête de la citadelle rouge", videoUrl: "5432865" },
+          { id: 1, title: "Conquête de la citadelle rouge", videoUrl: "5432865" }, 
           { id: 2, title: "Souvenir d'un souvenir", videoUrl: "5432866" },
           { id: 3, title: "Trop jeune", videoUrl: "5432867" },
           { id: 4, title: "Le monstre", videoUrl: "5432868" },
@@ -410,7 +418,7 @@ export const seriesData: Content[] = [
           { id: 23, title: "Le roi ver", videoUrl: "5432888" },
           { id: 24, title: "Une histoire de personnages", videoUrl: "5432889" },
           { id: 25, title: "Le rêve d'un ami", videoUrl: "5432890" },
-          { id: 26, title: "Le retour à la normalité", videoUrl: "5432891" }
+          { id: 26, title: "Le retour à la normalité", videoUrl: "5432891" }, 
         ]
       },
       {
