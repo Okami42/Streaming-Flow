@@ -768,11 +768,47 @@ export const seriesData: Content[] = [
         seasonNumber: 2,
         title: "Saison 2",
         episodes: [
-          { id: 1, title: "Terrance et Philippe au cinéma", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E01.mp4", duration: 22 * 60, imageUrl: "https://m.media-amazon.com/images/M/MV5BZjNhODYzZGItZWQ3Ny00ZjViLTkxMTUtM2EzN2RjYjU2OGZiXkEyXkFqcGdeQXVyMTI5MTc0OTIy._V1_.jpg" },
-          { id: 2, title: "La mère de Cartman est une folle du cul", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E02.mp4", duration: 22 * 60, imageUrl: "https://m.media-amazon.com/images/M/MV5BZjNhODYzZGItZWQ3Ny00ZjViLTkxMTUtM2EzN2RjYjU2OGZiXkEyXkFqcGdeQXVyMTI5MTc0OTIy._V1_.jpg" },
-          { id: 3, title: "Combustion spontanée", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E03.mp4", duration: 22 * 60, imageUrl: "https://m.media-amazon.com/images/M/MV5BZjNhODYzZGItZWQ3Ny00ZjViLTkxMTUtM2EzN2RjYjU2OGZiXkEyXkFqcGdeQXVyMTI5MTc0OTIy._V1_.jpg" },
-          { id: 4, title: "Le plan d'urgence de Cartman", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E04.mp4", duration: 22 * 60, imageUrl: "https://m.media-amazon.com/images/M/MV5BZjNhODYzZGItZWQ3Ny00ZjViLTkxMTUtM2EzN2RjYjU2OGZiXkEyXkFqcGdeQXVyMTI5MTc0OTIy._V1_.jpg" },
-          { id: 5, title: "Poulet érotique", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E05.mp4", duration: 22 * 60, imageUrl: "https://m.media-amazon.com/images/M/MV5BZjNhODYzZGItZWQ3Ny00ZjViLTkxMTUtM2EzN2RjYjU2OGZiXkEyXkFqcGdeQXVyMTI5MTc0OTIy._V1_.jpg" }
+          { id: 1, title: "Jamais sans mon anus", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E01.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/m0KcV5PUOG5o3yZhB0KaHjcIji1.jpg" },
+          { id: 2, title: "La mère de Cartman est une folle du cul", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E02.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/xOzZ2tzuwDUJd2rpUygJ5y7Y50m.jpg" },
+          { id: 3, title: "Le Zizi de Ike", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E03.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/wEkwYuIi8qqlCcM8MU4ETD1ZM67.jpg" },
+          { id: 4, title: "Le Charmeur de poules", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E04.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/80LRIHjHCbvNaTccLKhKiR2VhL.jpg" },
+          { id: 5, title: "Le Foetus siamo-maxillaire", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E05.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/t8ZQRnmcVC9uY2OXUXyScGhUewG.jpg" },
+          { id: 6, title: "La Grenouille Mexicaine hypnotique du sud du Sri Lanka ", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E06.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/nt1gQTBApn6x6poUw4rQHP9Pr32.jpg" },
+          { id: 7, title: "La Ville au bord de l'éternité", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E07.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/ySIsZoKV0mkdI5sg7sQfpaOanMz.jpg" },
+          { id: 8, title: "L'été, ça craint", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E08.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/xmPPK1HXy4y33qZbGPnfAnp87vz.jpg" },
+          { id: 9, title: "Boulettes du chef au chocolat salé", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E09.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/fOv538Hn5oO0bZnp6tXV9DBvKku.jpg" },
+          { id: 10, title: "Varicelle", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E10.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/n3LabHAsMyxX2HLI0Suwnh6Xaf.jpg" },
+          { id: 11, title: "Roger Ebert devrait manger moins gras", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E11.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/fPwMwmx88rnRwEtewU2gSw6hb5e.jpg" },
+          { id: 12, title: "La Garçonnière ", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E12.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/oRO144eJw29KtgFv2CnZfLMMmpb.jpg" },
+          { id: 13, title: "Les Journées vaches", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E13.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/1XORaE2fBLEpqyWq7EC7nnUdWRE.jpgg" },
+          { id: 14, title: "Chef Aid", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E14.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/50CZRjwqH7mhbYt4dHMUjxBUpKy.jpg" },
+          { id: 15, title: "Poisson sanglant", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E15.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/qCbM4SsN5socXGLDBvlP63BS6wq.jpg" },
+          { id: 16, title: "Joyeux Noël Charlie Manson!", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E16.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/AdCwM8y7EIx1QHdBzFUsCpEdj0p.jpg" },
+          { id: 17, title: "Gnomes", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E17.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/ryUuDDlM65gBpVrz613FnhAbyvU.jpg" },
+          { id: 18, title: "L'Homme des glaces", videoUrl: "https://cineburger.xyz/series/South-Park/S02/South-Park-S02-E18.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/huvs4cXgabd5evTs1GJZ70lfMd6.jpg" }
+        ]
+      },
+      {
+        seasonNumber: 3,
+        title: "Saison 3",
+        episodes: [
+          { id: 1, title: "Tropicale schtropicale", videoUrl: "5526894", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/dTw3Mxd6AuMLZluSxLSRsKZAvJq.jpg" },
+          { id: 2, title: "Combustion spontanée", videoUrl: "5526895", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/gzzckIipGJj4ndtJb37tluEWvXy.jpg" },
+          { id: 3, title: "La Maman de Chef", videoUrl: "5526896", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/tBnyZoSvCGpbqdC8YhUzLy152iw.jpg" },
+          { id: 4, title: "Les Jakovasaures", videoUrl: "5526897", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/lT4jy5gmez9TyCgZ1Q7n6lpAFye.jpg" },
+          { id: 5, title: "Tweek contre Craig", videoUrl: "5526898", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/qEubXJV27aj7fZn3v43X9l7J68x.jpg" },
+          { id: 6, title: "Le Panda du harcèlement sexuel", videoUrl: "5526899", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/z5foC91cIxUCtDjjb6trEb5f32w.jpg" },
+          { id: 7, title: "Orgie de chat", videoUrl: "5526901", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/5iAo7KsuMyi5SerssqzYm719Qho.jpg" },
+          { id: 8, title: "Deux hommes nus dans un jacuzzi", videoUrl: "5526903", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/eCv6sgdzCi41vTFf3aIH1GxxdZ7.jpg" },
+          { id: 9, title: "Les Scouts juifs", videoUrl: "5526904", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/z8s2KERCsoYhDOcURlA42R8BzLd.jpg" },
+          { id: 10, title: "Korn et le mystère mystérieux des pirates fantômes", videoUrl: "5526905", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/x4gHZXWZahXpJuTSZTt7XaN9nry.jpg" },
+          { id: 11, title: "Chinpokomon", videoUrl: "5526906", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/a0FyuZZDjFuHSyljQlh9rzTV2G3.jpg" },
+          { id: 12, title: "Les Comptines du singe batteur", videoUrl: "5526907", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/9pQF743Fd9ywI950YsMF8ugtRkI.jpg" },
+          { id: 13, title: "Éthernopiens dans l'espace", videoUrl: "5526908", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/hPJX9kIPKMMMR7vjmdxXIRjm1A8.jpg" },
+          { id: 14, title: "Médaille de connerie avec palme", videoUrl: "5526910", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/6lLynL5VIJ6gSOyEndl7k30yfcx.jpg" },
+          { id: 15, title: "Les Chants de Noël de Monsieur Hankey", videoUrl: "5526911", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/9Cna6t5Amu0j48ibL3R04KZSdyR.jpg" },
+          { id: 16, title: "Dieu es-tu là ? C'est Jésus à l'appareil", videoUrl: "5526912", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/uE3Tpl2ykYyaBN1BlN4LFRc1Chh.jpg" },
+          { id: 17, title: "Le Bruit marron", videoUrl: "5526913", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/5yLJtSBLvEatuyzHvt6rfzaAmWD.jpg" }
         ]
       }
     ]
