@@ -849,14 +849,14 @@ export const seriesData: Content[] = [
         seasonNumber: 2,
         title: "Saison 2",
         episodes: [
-          { id: 1, title: "Trying to Get to Heaven Before They Close the Door", videoUrl: "5689332", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/k3mmsHeFwm8OiQrEHCrvRRzQCqm.jpg" },
-          { id: 2, title: "Out of Touch", videoUrl: "5689333", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/uRkgH1bJ5OwP1QV7bDWmTdIuN3z.jpg" },
-          { id: 3, title: "Ruminations: Big and Little Bullys", videoUrl: "5689334", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/5oheZay2ftkmIELPRo3Vc98gTed.jpg" },
-          { id: 4, title: "You Who Cannot See, Think of Those Who Can", videoUrl: "5689335", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/1rWzMWRqBHcqNB8FoW3aZcRzUNm.jpg" },
-          { id: 5, title: "Stand Still Like the Hummingbird", videoUrl: "5689336", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/mI4C0W7aAgxidWGJ79rv6OQoVi7.jpg" },
-          { id: 6, title: "A Thousand Little Trees of Blood", videoUrl: "5689337", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/okNKRtZbMh9OMz2ZXhBHAZGsnc1.jpg" },
-          { id: 7, title: "The Theater and Its Double", videoUrl: "5689338", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/8x5vLcS9F9yDpKJZgEcXFiqgEV5.jpg" },
-          { id: 8, title: "All My Life, My Heart Has Yearned for a Thing I Cannot Name", videoUrl: "5689339", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/mFzGNDiUdEIlx6Xk34OcYLJMW59.jpg" }
+          { id: 1, title: "Essayons d'aller au paradis avant qu'ils ne ferment les portes", videoUrl: "https://cineburger.xyz/series/Euphoria/S02/Euphoria-S02-E01.mp4", duration: 61 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/8rW1LANR14YRkT8poSziWOiRa5U.jpg" },
+          { id: 2, title: "Hors de portée", videoUrl: "https://cineburger.xyz/series/Euphoria/S02/Euphoria-S02-E02.mp4", duration: 57 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/8SVh38IfkMbqSaPEoauR8tl8gDu.jpg" },
+          { id: 3, title: "Ruminations : petites et grosses brutes", videoUrl: "https://cineburger.xyz/series/Euphoria/S02/Euphoria-S02-E03.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/nibFSc6mQLHeFAkfKEifnObtYRR.jpg" },
+          { id: 4, title: "Vous, qui ne pouvez pas voir, pensez à ceux qui peuvent voir", videoUrl: "https://cineburger.xyz/series/Euphoria/S02/Euphoria-S02-E04.mp4", duration: 61 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/nuTsLlLNacklbITyQPRvKOAtXlg.jpg" },
+          { id: 5, title: "Aussi stable qu'un colibri", videoUrl: "https://cineburger.xyz/series/Euphoria/S02/Euphoria-S02-E05.mp4", duration: 53 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/g90PNNYusg548V8wncsK4lUb1rY.jpg" },
+          { id: 6, title: "Mille petits arbres de sang", videoUrl: "https://cineburger.xyz/series/Euphoria/S02/Euphoria-S02-E06.mp4", duration: 57 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/a4FJJ4jPpYc34jmtXzgm2uAS6V7.jpg" },
+          { id: 7, title: "Théâtre et son double", videoUrl: "https://cineburger.xyz/series/Euphoria/S02/Euphoria-S02-E07.mp4", duration: 58 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/1qXV8oAPhIqkqaNouwb9JC28SfV.jpg" },
+          { id: 8, title: "La confusion de masse", videoUrl: "https://cineburger.xyz/series/Euphoria/S02/Euphoria-S02-E08.mp4", duration: 61 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/po4G5fgneIoiuk7TWlvcusWM1HS.jpg" }
         ]
       }
     ]
