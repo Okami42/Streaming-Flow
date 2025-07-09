@@ -812,6 +812,54 @@ export const seriesData: Content[] = [
         ]
       }
     ]
+  },
+  {
+    id: "euphoria",
+    title: "Euphoria",
+    description: "Rue Bennett, 17 ans, sort de désintoxication et cherche à donner un sens à sa vie. Elle rencontre Jules, une fille récemment arrivée en ville après le divorce de ses parents, et qui, comme Rue, cherche sa place dans le monde. Euphoria met en lumière des adolescents confrontés à des problèmes d'identité, de traumatismes, de drogues, d'amitié, d'amour et de sexualité.",
+    imageUrl: "https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/9KnIzPCv9XpWA0MqmwiKBZvV1Sj.jpg",
+    bannerUrl: "https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/9KnIzPCv9XpWA0MqmwiKBZvV1Sj.jpg",
+    episodes: [
+      { id: 1, title: "Pilot", videoUrl: "5689324", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/gFKbSajchVycm8LXOi7Y4tTQlYA.jpg" }
+    ],
+    status: "En cours",
+    year: 2019,
+    studio: "HBO",
+    type: "Série",
+    genres: ["Drame", "Adolescent"],
+    rating: 8.4,
+    language: "VF/VOSTFR",
+    seasons: 2,
+    seasonsList: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        episodes: [
+          { id: 1, title: "Pilote", videoUrl: "https://cineburger.xyz/series/Euphoria/S01/Euphoria-S01-E01.mp4", duration: 54 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/u59av3aNA9zLXxBvy40hAQzJ2Hw.jpg" },
+          { id: 2, title: "Cascade comme mon papa", videoUrl: "https://cineburger.xyz/series/Euphoria/S01/Euphoria-S01-E02.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/4NCKs8RMxevYrBzuqGI4usEprUL.jpg" },
+          { id: 3, title: "Célèbre inconnue", videoUrl: "https://cineburger.xyz/series/Euphoria/S01/Euphoria-S01-E03.mp4", duration: 57 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/5mimFhtPvrIlmEdRsevtnCSSvon.jpg" },
+          { id: 4, title: "Shook Ones, Pt. II", videoUrl: "https://cineburger.xyz/series/Euphoria/S01/Euphoria-S01-E04.mp4", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/CkshIxWHj1yI0Xqh84dgDfAAfG.jpg" },
+          { id: 5, title: "'03 Bonnie et Clyde", videoUrl: "https://cineburger.xyz/series/Euphoria/S01/Euphoria-S01-E05.mp48", duration: 53 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/3ff187LdnqgrrOQWlzGShPR5sLS.jpg"},
+          { id: 6, title: "The Next Episode", videoUrl: "https://cineburger.xyz/series/Euphoria/S01/Euphoria-S01-E06.mp4", duration: 50 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/40TkPAIhEhZkSOB7EIeaysAb6Ni.jpg" },
+          { id: 7, title: "Les Tribulations d'une dépressive qui essaie de pisser", videoUrl: "https://cineburger.xyz/series/Euphoria/S01/Euphoria-S01-E07.mp4", duration: 59 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/vMQsSORQsV2tfUw1ezyGiCbO6l8.jpg" },
+          { id: 8, title: "Répands du sel derrière toi", videoUrl: "https://cineburger.xyz/series/Euphoria/S01/Euphoria-S01-E08.mp4", duration: 65 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/kLsHM3fxgYMPw4Cwg3oZDAnenV2.jpg" }
+        ]
+      },
+      {
+        seasonNumber: 2,
+        title: "Saison 2",
+        episodes: [
+          { id: 1, title: "Trying to Get to Heaven Before They Close the Door", videoUrl: "5689332", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/k3mmsHeFwm8OiQrEHCrvRRzQCqm.jpg" },
+          { id: 2, title: "Out of Touch", videoUrl: "5689333", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/uRkgH1bJ5OwP1QV7bDWmTdIuN3z.jpg" },
+          { id: 3, title: "Ruminations: Big and Little Bullys", videoUrl: "5689334", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/5oheZay2ftkmIELPRo3Vc98gTed.jpg" },
+          { id: 4, title: "You Who Cannot See, Think of Those Who Can", videoUrl: "5689335", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/1rWzMWRqBHcqNB8FoW3aZcRzUNm.jpg" },
+          { id: 5, title: "Stand Still Like the Hummingbird", videoUrl: "5689336", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/mI4C0W7aAgxidWGJ79rv6OQoVi7.jpg" },
+          { id: 6, title: "A Thousand Little Trees of Blood", videoUrl: "5689337", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/okNKRtZbMh9OMz2ZXhBHAZGsnc1.jpg" },
+          { id: 7, title: "The Theater and Its Double", videoUrl: "5689338", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/8x5vLcS9F9yDpKJZgEcXFiqgEV5.jpg" },
+          { id: 8, title: "All My Life, My Heart Has Yearned for a Thing I Cannot Name", videoUrl: "5689339", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/mFzGNDiUdEIlx6Xk34OcYLJMW59.jpg" }
+        ]
+      }
+    ]
   }
 ];
 
@@ -829,7 +877,8 @@ export const popularSeries = [
   seriesData.find(item => item.id === "game-of-thrones"),
   seriesData.find(item => item.id === "stranger-things"),
   seriesData.find(item => item.id === "the-boys"),
-  seriesData.find(item => item.id === "adventure-time")
+  seriesData.find(item => item.id === "adventure-time"),
+  seriesData.find(item => item.id === "euphoria")
 ].filter(Boolean);
 
 // Films classiques

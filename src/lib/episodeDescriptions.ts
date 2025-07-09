@@ -234,6 +234,29 @@ const episodeDescriptions: SeriesDescriptions = {
     1: {
       1: "Après plus de 30 ans de service en tant que l'un des meilleurs aviateurs de la Marine, Pete 'Maverick' Mitchell est à sa place."
     }
+  },
+  
+  "euphoria": {
+    1: {
+      1: "Rue, 17 ans, sort de désintoxication sans aucune intention de rester sobre. Elle rencontre Jules, une fille transgenre récemment arrivée en ville suite au divorce de ses parents, et se sent immédiatement attirée par elle.",
+      2: "Au lendemain d'une soirée mouvementée, Rue fait face à Jules qui la questionne sur sa rechute. Nate est préoccupé par l'activité en ligne de Jules et McKay fait face aux pressions de l'université.",
+      3: "Kat se lance dans une nouvelle quête audacieuse, tandis que Maddy découvre une activité suspecte sur le téléphone de Nate. Cassie est tiraillée entre ses sentiments pour McKay et ses interactions avec Daniel.",
+      4: "Gia, Jules et Rue se rendent à la kermesse. Tandis que Nate juge la tenue de Maddy déplacée, McKay ne présente pas Cassie comme sa petite amie, ce qui ne manque pas de blesser la jeune femme.",
+      5: "i Rue est aux anges depuis qu'elle s'est rapprochée de Jules, cette dernière semble de plus en plus mal à l'aise. Après la kermesse, des marques de strangulation sont remarquées sur le cou de Maddy.",
+      6: "À la fête d'Halloween du lycée, Rue teste la loyauté de Jules, Kat explore sa nouvelle personnalité, et Cassie et Maddy discutent de leurs relations tendues.",
+      7: "Après une cure de désintoxication, Rue, 17 ans, fait la connaissance de Jules, qui vient d'emménager. Les deux ados se soutiennent et explorent leur sexualité...",
+      8: "La grossesse pousse Cassie à se rapprocher de sa mère. Tout comme ses camarades, elle doit à présent faire des choix"
+    },
+    2: {
+      1: "Rue et Jules se retrouvent à la fête du Nouvel An, mais les tensions sont palpables. Cassie cherche à faire face à sa rupture avec McKay, tandis que Lexi se lie avec Fezco.",
+      2: "Nate et Cassie entament une relation secrète alors que Rue met en place un plan audacieux. Jules s'interroge sur sa relation avec Rue.",
+      3: "Cal se confronte à son passé. Lexi commence à travailler sur sa pièce de théâtre, tandis que Rue continue de lutter contre son addiction.",
+      4: "La pièce de théâtre de Lexi prend forme, exposant les secrets et les tensions du groupe. Cassie s'isole de plus en plus à cause de sa relation avec Nate.",
+      5: "Rue atteint son point de rupture. Jules et Elliot se rapprochent, tandis que la famille de Rue organise une intervention.",
+      6: "Rue affronte les conséquences de ses actions. Maddy découvre la vérité sur Cassie et Nate, déclenchant un conflit explosif.",
+      7: "La pièce de Lexi est enfin présentée, révélant des vérités inconfortables. Les tensions atteignent leur paroxysme entre les différents personnages.",
+      8: "Les conséquences de la pièce de Lexi se font sentir. Rue commence son chemin vers la guérison, tandis que Nate prend une décision qui changera la vie de plusieurs personnes."
+    }
   }
 };
 

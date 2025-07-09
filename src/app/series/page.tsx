@@ -154,7 +154,7 @@ export default function SeriesPage() {
       seriesData.find(item => item.id === "game-of-thrones"),
       seriesData.find(item => item.id === "breaking-bad"),
       seriesData.find(item => item.id === "the-boys"),
-      seriesData.find(item => item.id === "the-batman")
+      seriesData.find(item => item.id === "euphoria")
     ].filter((item): item is Content => Boolean(item));
   }, []);
   

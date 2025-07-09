@@ -30,6 +30,14 @@ const seriesList: CatalogueSeries[] = [
     time: "1 saison"
   },
   {
+    id: "euphoria",
+    title: "Euphoria",
+    imageUrl: "https://musicart.xboxlive.com/7/f7155100-0000-0000-0000-000000000002/504/image.jpg",
+    type: "Série",
+    language: "VF",
+    time: "2 saisons"
+  },
+  {
     id: "breaking-bad",
     title: "Breaking Bad",
     imageUrl: "https://fr.web.img5.acsta.net/pictures/19/06/18/12/11/3956503.jpg",
