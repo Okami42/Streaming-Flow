@@ -1017,6 +1017,24 @@ export const seriesData: Content[] = [
     rating: 8.8,
     language: "VF/VOSTFR",
     runtime: "2h28"
+  },
+  {
+    id: "world-war-z",
+    title: "World War Z",
+    description: "Un jour comme les autres, Gerry Lane et sa famille se retrouvent coincés dans un embouteillage monstre sur leur trajet quotidien. Ancien enquêteur des Nations Unies, Lane comprend immédiatement que la situation est inhabituelle. Tandis que les hélicoptères de la police sillonnent le ciel et que les motards quadrillent les rues, la ville bascule dans le chaos... Les gens s'en prennent violemment les uns aux autres et un virus mortel semble se propager. Les êtres humains contaminés deviennent en quelques secondes de redoutables zombies, qui se jettent sur leurs victimes. Aucun pays n'est épargné – une pandémie de zombies déferlant sur la planète menace l'humanité d'extinction. Lane se lance alors dans une course contre la montre pour protéger sa famille et tenter de comprendre ce mystère, afin de trouver un moyen d'enrayer la menace.",
+    imageUrl: "https://thumb.canalplus.pro/http/unsafe/600x800/img-hapi.canalplus.pro:80/ServiceImage/ImageID/103873072",
+    bannerUrl: "https://www.heyuguys.com/?attachment_id=188260",
+    episodes: [
+      { id: 1, title: "World War Z (Film complet)", videoUrl: "https://cineburger.xyz/movies/World-War-Z.mp4", duration: 116 * 60, imageUrl: "https://thumb.canalplus.pro/http/unsafe/600x800/img-hapi.canalplus.pro:80/ServiceImage/ImageID/103873072" }
+    ],
+    status: "Terminé",
+    year: 2013,
+    studio: "Paramount Pictures",
+    type: "Film",
+    genres: ["Action", "Horreur", "Science-fiction", "Thriller"],
+    rating: 7.0,
+    language: "VF/VOSTFR",
+    runtime: "1h56"
   }
 ];
 
@@ -1028,6 +1046,7 @@ export const recentFilms = [
   seriesData.find(item => item.id === "top-gun-maverick"),
   seriesData.find(item => item.id === "coco"),
   seriesData.find(item => item.id === "inception"),
+  seriesData.find(item => item.id === "world-war-z")
 ].filter(Boolean);
 
 // Séries populaires
