@@ -1,6 +1,7 @@
 // Fichier contenant toutes les descriptions des épisodes pour chaque série
 // Organisé par ID de série, puis par saison, puis par épisode
 import { Content } from './types';
+import { seriesData } from './seriesData';
 
 interface EpisodeDescription {
   [episodeId: number]: string;
@@ -317,7 +318,6 @@ export default episodeDescriptions;
 // Fonction utilitaire pour récupérer la description d'un épisode
 export function getEpisodeDescription(seriesId: string, episodeId: number, seasonNumber: number = 1): string {
   // Vérifier si c'est un film en cherchant dans seriesData
-  const { seriesData } = require('./seriesData');
   const series = seriesData.find((s: Content) => s.id === seriesId);
   
   // Si c'est un film, ne pas afficher "Description non disponible"
