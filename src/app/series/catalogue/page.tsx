@@ -118,6 +118,14 @@ const seriesList: CatalogueSeries[] = [
     time: "26 saisons"
   },
   {
+    id: "world-war-z",
+    title: "World War Z",
+    imageUrl: "https://thumb.canalplus.pro/http/unsafe/600x800/img-hapi.canalplus.pro:80/ServiceImage/ImageID/103873072",
+    type: "Film",
+    language: "VF",
+    time: "1h56"
+  },
+  {
     id: "no-time-to-die",
     title: "No Time to Die",
     imageUrl: "https://play-lh.googleusercontent.com/KHagyirtj9vkyR3blrdw-TFADcSFYh4pBJQHQTz2YbT_vSGwweA4SIh7jZWvHB7jj2W16lOVow-yUer0qTI",
