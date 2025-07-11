@@ -2,11 +2,9 @@
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import ThemeSwitcher from "@/components/ThemeSwitcher";
 import HistoryList from "@/components/HistoryList";
 import FavoritesList from "@/components/FavoritesList";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useTheme } from "@/context/theme-context";
 import { useHistory } from "@/context/history-context";
 import { useFavorites } from "@/context/favorites-context";
 import { Button } from "@/components/ui/button";
@@ -15,7 +13,6 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function ProfilePage() {
-  const { currentTheme } = useTheme();
   const { clearHistory } = useHistory();
   const { favorites, clearFavorites } = useFavorites();
   const searchParams = useSearchParams();
@@ -54,20 +51,6 @@ export default function ProfilePage() {
                     Éditer le profil
                     <Pencil className="h-4 w-4 ml-2" />
                   </Button>
-                </div>
-              </div>
-
-              <div className="bg-[#0F1729] p-6 rounded-lg border border-gray-800">
-                <h3 className="text-sm font-semibold text-white mb-4">Personnalisation</h3>
-
-                <div className="space-y-4">
-                  <div>
-                    <label className="text-sm text-gray-400 block mb-2">Thème</label>
-                    <ThemeSwitcher />
-                    <p className="mt-2 text-xs text-gray-500">
-                      Couleur actuelle : {currentTheme.name}
-                    </p>
-                  </div>
                 </div>
               </div>
             </div>

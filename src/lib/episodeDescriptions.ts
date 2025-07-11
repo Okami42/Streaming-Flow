@@ -265,6 +265,49 @@ const episodeDescriptions: SeriesDescriptions = {
       7: "La pièce de Lexi est enfin présentée, révélant des vérités inconfortables. Les tensions atteignent leur paroxysme entre les différents personnages.",
       8: "Les conséquences de la pièce de Lexi se font sentir. Rue commence son chemin vers la guérison, tandis que Nate prend une décision qui changera la vie de plusieurs personnes."
     }
+  },
+  
+  "the-boys": {
+    1: {
+      1: "Lorsqu'un super-héros tue l'amour de sa vie, Hughie Campbell, vendeur de matériel informatique, s'allie à Billy Butcher, un justicier qui n'a qu'une obsession, buter tous les super-héros corrompus",
+      2: "Un super-héros se fait choper par la bande, Stella se venge, Le Protecteur se lâche et un sénateur s'encanaille.",
+      3: "C'est la course du siècle. A-Train et Onde de Choc se battent pour le titre de l'Homme le plus rapide du monde. Du côté des justiciers, la bande est enfin au complet, et ça, ça fait du bien.",
+      4: "Dans cet épisode si particulier de The Boys… on voit du sang, du gore, des détournements d'avion, de la folie, des fantômes et une femme très mystérieuse.",
+      5: "La bande se dirige vers l'expo de l'Espérance pour suivre une piste prometteuse dans leur guerre contre les Supers. Il se peut qu'il y ait... PEUT-ÊTRE... un bébé meurtrier, mais tu devras le regarder",
+      6: "Stella fait face aux conséquences de ses révélations à l'exposition Believe et s'affirme face à Madelyn. La Crème explique aux autres membres du groupe ce que lui et Butcher ont découvert à l'hôpital",
+      7: "Ne jamais faire confiance à un super-héros au bout du rouleau - les Boys apprennent cette leçon à la dure. Pendant ce temps, Le Protecteur plonge dans son passé, Stella découvre que l'amour, ça fait mal",
+      8: "C'est le grand final de la saison ! Tout est résolu ! Les secrets sont révélés ! Les conflits sont… conflictuels ! Des personnages explosent, et bien plus encore !"
+    },
+    2: {
+      1: "La situation est plus que délicate pour les Boys : Butcher, qui reste introuvable, a été accusé du meurtre de Madelyn. Ils sont accusés de terrorisme et tous recherchés. Contraints de rester caché",
+      2: "Butcher est de retour, ce qui ne plait pas à Hughie. Le Protecteur décide de passer du temps avec son fils, Ryan, sous le regard impuissant de Becca. L'Homme-Poisson reste chez l'Aigle qui lui présente sa marraine",
+      3: "Les Boys doivent gérer la garde du Super-Terroriste, Kenji, le frère de Kimiko, le temps de le remettre à la CIA, tout en restant discret étant toujours recherchés eux même en tant que terroristes",
+      4: "Road-Trip ! Les Boys se rendent en Caroline du Nord pour suivre la piste d’une mystérieuse Super nommée Liberty. Saviez-vous que l’on peut identifier un serial-killer par son type de barre chocolatée préférée ?",
+      5: "VoughtStudios est heureux d'annoncer que le tournage de #LAubedesSept a commencé. 12 ans de films VCU l'y ont conduit. Si vous aimez les films sur Un Héros, vous adorerez un film sur Sept Héros.",
+      6: "Le Sage Grove Center® se consacre à la prise en charge des personnes souffrant de maladies mentales. Nos bienveillants médecins et conseillers fournissent des services personnalisés pour que chaque patient puisse croquer la vie à pleine dent",
+      7: "La mascarade de commission d’enquête contre Vought initiée par Victoria Neuman se tiendra dans 3 JOURS. La laisserons-nous incriminer les Super-héros qui nous protègent ? Aux armes, citoyens, et rejoignez-nous contre cette flagrante politique partisane",
+      8: "*** Alerte Super-vilain *** Ceci est une notification du Département de la Sécurité intérieure. Une alerte au super-vilain est en cours dans les environs. Veuillez être vigilant et signaler toute personne ou activité suspecte"
+    },
+    3: {
+      1: "Après sa scandaleuse liaison avec Stormfront, le Protecteur fait son mea culpa publiquement lors de l'avant-première du nouveau film sur les 'Sept' au Lamplighter Memorial Theater de la Tour Vought.",
+      2: "Hughie partage ses récentes découvertes sur Vic avec Stella. De son côté, celle-ci est une fois de plus contrariée par le Protecteur. Toujours hanté par ses démons, Butcher peine à garder le contrôle",
+      3: "Le discours du Protecteur lui permet - contre toute attente - de voir sa côte de popularité remonter. Et son assurance aussi. Stella et le Protecteur doivent s'entendre sur le choix des recrues qui intègreront les Sept.",
+      4: "Acculée encore une fois dans ses retranchements lorsque le Protecteur annonce publiquement qu'ils sont en couple, Stella cherche des alliés pour contrer les agissements de cet adversaire imprévisible.",
+      5: "Butcher, la Crème et les autres sont abasourdis par leur découverte en Russie. Après les récents changements au sein du Conseil d'administration de Vought, l'Homme-poisson prend la tête de la section Analyse Criminelle.",
+      6: "Ayant découvert qui est derrière les dernières attaques, le Protecteur espère que l'information, qui pourrait être fatale pour Vought, ne fuitera pas. Sachant qu'il est l'un des prochains sur la liste, Black Noir,",
+      7: "Suite à la publication de sa vidéo sur les réseaux sociaux, Stella est discréditée par Vought. Butcher et Hughie continuent de s'injecter du V provisoire pour pouvoir se défendre face à leurs adversaires.",
+      8: "L'opinion publique est divisée après les déclarations du Protecteur sur le live Instagram de Stella, et les actions de Vought s'effondrent. Hughie ressent de plus en plus les effets secondaires du V provisoire."
+    },
+    4: {
+      1: "Le monde est au bord du gouffre. Victoria Neuman est plus proche que jamais du Bureau Oval et sous la coupe musclée du Protecteur, qui consolide son pouvoir. Butcher, qui n’a plus que quelques mois à vivre,",
+      2: "Vous saviez que les mondialistes mettaient des produits chimiques dans la nourriture pour nous rendre homos, que Dakota Bob était un démon venu tout droit de l'enfer et que la lune n'existait pas ?",
+      3: "En décembre à la Vought Coin Arena, l'histoire de Noël est présentée telle qu'elle devait être contée : sur la glace. Billets disponibles sur VoughtSurGlace.com.",
+      4: "Vought News Network est fière de présenter sa nouvelle série #Véritéexplosive ! Suivez la présentatrice Firecracker et ses célèbres invités pour la première de six heures en direct où ils dénoncent les Parties Adrénochromes de Stella !",
+      5: "Votre attention #superfans ! Cette année à #V52, découvrez A-Train en direct et en personne qui vous fera découvrir un avant-goût de son histoire vraie et passionnante : LA FORMATION D'A-TRAIN ! V52 : Proposé par les fans, pour les fans !",
+      6: "Les Services Pénitentiaires Vernon se proposent d'aider activement leurs prisonniers afin qu'ils réussissent leur réinsertion. Chez Vernon, ce n'est pas une question de détention, mais de famille.",
+      7: "Salut, les jeunes ! Votre voisin, votre oncle, ou même vos parents essaient de détruire l'Amérique ? Découvrez comment l'empêcher sur l'Avenue V Christmas Special ! Si vous voyez quelque chose, dénoncez-le !",
+      8: "À tous les patriotes ! Nous devons empêcher que ces élections truquées soient confirmées demain ! Mettons fin au projet anti-Sage de Bob Singer ! PRÉPAREZ-VOUS À LA GUERRE ! #LàOùUnSeulVaVoughtVa"
+    }
   }
 };
 

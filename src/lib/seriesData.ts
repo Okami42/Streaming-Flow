@@ -223,7 +223,7 @@ export const seriesData: Content[] = [
   {
     id: "fight-club",
     title: "Fight Club",
-    description: "Le narrateur, sans identité précise, vit seul, travaille seul, dort seul, mange seul ses plateaux‐repas pour une personne comme beaucoup d’autres personnes seules qui connaissent la misère humaine, morale et sexuelle. C’est pourquoi il va devenir membre du Fight club, un lieu clandestin où il va pouvoir retrouver sa virilité, l’échange et la communication. Ce club est dirigé par Tyler Durden, une sorte d’anarchiste entre gourou et philosophe qui prêche l’amour de son prochain.",
+    description: "Le narrateur, sans identité précise, vit seul, travaille seul, dort seul, mange seul ses plateaux‐repas pour une personne comme beaucoup d'autres personnes seules qui connaissent la misère humaine, morale et sexuelle. C'est pourquoi il va devenir membre du Fight club, un lieu clandestin où il va pouvoir retrouver sa virilité, l'échange et la communication. Ce club est dirigé par Tyler Durden, une sorte d'anarchiste entre gourou et philosophe qui prêche l'amour de son prochain.",
     imageUrl: "https://storage.googleapis.com/pod_public/1300/262697.jpg",
     bannerUrl: "https://c4.wallpaperflare.com/wallpaper/995/81/141/fight-club-edward-norton-brad-pitt-movies-wallpaper-preview.jpg",
     episodes: [
@@ -261,22 +261,76 @@ export const seriesData: Content[] = [
   {
     id: "the-boys",
     title: "The Boys",
-    description: "Dans un monde où les super-héros sont devenus corrompus et se comportent plus comme des célébrités que des héros, The Boys, un groupe de justiciers, décide de les combattre.",
+    description: "Dans un monde où les super-héros sont devenus des célébrités corrompues par leur statut et abusant de leurs pouvoirs, The Boys, un groupe de justiciers, s'engage dans une quête héroïque pour révéler la vérité sur The Seven et Vought, le conglomérat qui couvre leurs sales secrets.",
     imageUrl: "https://preview.redd.it/2kzjj8l0om391.jpg?width=1080&crop=smart&auto=webp&s=ed395a06a8e56d954a7d9d0904db51064b01bcd9",
-    bannerUrl: "https://www.justgeek.fr/wp-content/uploads/2023/03/The-Boys-Saison-4-Infos.jpg",
-    episodes: [
-      { id: 1, title: "The Name of the Game", videoUrl: "https://exemple.com/tb1" },
-      { id: 2, title: "Cherry", videoUrl: "https://exemple.com/tb2" },
-      { id: 3, title: "Get Some", videoUrl: "https://exemple.com/tb3" }
-    ],
+    bannerUrl: "https://preview.redd.it/2kzjj8l0om391.jpg?width=1080&crop=smart&auto=webp&s=ed395a06a8e56d954a7d9d0904db51064b01bcd9",
+    episodes: [],
     status: "En cours",
     year: 2019,
-    studio: "Amazon",
+    studio: "Amazon Prime Video",
     type: "Série",
-    genres: ["Action", "Comédie", "Crime"],
+    genres: ["Action", "Comédie", "Drame", "Super-héros"],
     rating: 8.7,
     language: "VF/VOSTFR",
-    seasons: 3
+    seasons: 4,
+    seasonsList: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        episodes: [
+          { id: 1, title: "La Règle du jeu", videoUrl: "https://cineburger.xyz/series/The-Boys/S01/The-Boys-S01-E01.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/83vFYTHtCqWwaDtZluSU8bmnFYG.jpg" },
+          { id: 2, title: "Cerise", videoUrl: "https://cineburger.xyz/series/The-Boys/S01/The-Boys-S01-E02.mp4", duration: 59 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/1XzqWHBFvddrO2sazXzaCTtFEeA.jpg" },
+          { id: 3, title: "Prends ça", videoUrl: "https://cineburger.xyz/series/The-Boys/S01/The-Boys-S01-E03.mp4", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/mF7TK7LMbWhlLz1Q5M1662TiKvP.jpg" },
+          { id: 4, title: "La Fille", videoUrl: "https://cineburger.xyz/series/The-Boys/S01/The-Boys-S01-E04.mp4", duration: 56 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/4wq1ZX7GYEFhSttQoTFJ4WyqV22.jpg" },
+          { id: 5, title: "Des Bleus à L'âme", videoUrl: "https://cineburger.xyz/series/The-Boys/S01/The-Boys-S01-E05.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/1ST4xchcR2s1JQUV23ryOBVrWbN.jpg" },
+          { id: 6, title: "Les Innocents", videoUrl: "https://cineburger.xyz/series/The-Boys/S01/The-Boys-S01-E06.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/pqz0Xvf7gpXwagUoaHxBqmyv6D5.jpg" },
+          { id: 7, title: "D'un autre monde", videoUrl: "https://cineburger.xyz/series/The-Boys/S01/The-Boys-S01-E07.mp4", duration: 56 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/cx7dCZVzCX9pAyC6zE6lC6jkuyF.jpg" },
+          { id: 8, title: "On ne prend plus de gants", videoUrl: "https://cineburger.xyz/series/The-Boys/S01/The-Boys-S01-E08.mp4", duration: 66 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/vNYs1oSMXa1V3KKWLPvtOy6UQWC.jpg" }
+        ]
+      },
+      {
+        seasonNumber: 2,
+        title: "Saison 2",
+        episodes: [
+          { id: 1, title: "Comme à la fête foraine", videoUrl: "https://cineburger.xyz/series/The-Boys/S02/The-Boys-S02-E01.mp4", duration: 65 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/fPjcJ11PKsDYxP6adYg5nkN4Tza.jpg" },
+          { id: 2, title: "Préparation propre et planification", videoUrl: "https://cineburger.xyz/series/The-Boys/S02/The-Boys-S02-E02.mp4", duration: 62 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/m6LSiAimRiST07sC0vsUDITojT3.jpg" },
+          { id: 3, title: "La charge de la brigade légère", videoUrl: "https://cineburger.xyz/series/The-Boys/S02/The-Boys-S02-E03.mp4", duration: 61 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/k3LtS7Xj2qXlJz00lFIfBPpmjgD.jpg" },
+          { id: 4, title: "Rien de tel dans le monde entier", videoUrl: "https://cineburger.xyz/series/The-Boys/S02/The-Boys-S02-E04.mp4", duration: 70 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/6cAdAEomp2I0JwSYNcobAB1NIdm.jpg" },
+          { id: 5, title: "Quand faut y aller, faut y aller", videoUrl: "https://cineburger.xyz/series/The-Boys/S02/The-Boys-S02-E05.mp4", duration: 63 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/pn5adU2bTuMvBUZoEx2qDmSS8dv.jpg" },
+          { id: 6, title: "On ne prend plus de gants", videoUrl: "https://cineburger.xyz/series/The-Boys/S02/The-Boys-S02-E06.mp4", duration: 66 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/5ZTRa0V3QFYX2ridnY9wh0FsvId.jpg" },
+          { id: 7, title: "Le fils du boulanger", videoUrl: "https://cineburger.xyz/series/The-Boys/S02/The-Boys-S02-E07.mp4", duration: 56 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/8OJpTYvdGaTkzxU9oZnx0TaTaOt.jpg" },
+          { id: 8, title: "Les innocents", videoUrl: "https://cineburger.xyz/series/The-Boys/S02/The-Boys-S02-E08.mp4", duration: 70 * 60, imageUrl: "https://media.themoviedb.org/t/p/w227_and_h127_bestv2/w44GW7Zv808V1nsr1NY6Y3I8r8B.jpg" }
+        ]
+      },
+      {
+        seasonNumber: 3,
+        title: "Saison 3",
+        episodes: [
+          { id: 1, title: "Retour de bâton", videoUrl: "https://cineburger.xyz/series/The-Boys/S03/The-Boys-S03-E01.mp4", duration: 64 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/yeAHbQ11ExTFWg34gnP4dGNwfk5.jpg" },
+          { id: 2, title: "Le seul homme dans le ciel", videoUrl: "https://cineburger.xyz/series/The-Boys/S03/The-Boys-S03-E02.mp4", duration: 62 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/nht3uPi9fjInTCa8JF45nCmETgt.jpg" },
+          { id: 3, title: "Côte de barbarie", videoUrl: "https://cineburger.xyz/series/The-Boys/S03/The-Boys-S03-E03.mp4", duration: 63 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/v0NmiGE6FntSSGN4RXDTd2ylMwF.jpg" },
+          { id: 4, title: "Glorieux plan quinquennal", videoUrl: "https://cineburger.xyz/series/The-Boys/S03/The-Boys-S03-E04.mp4", duration: 62 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/adNh9TIlLKh0uUug3KOiuhFINAh.jpg" },
+          { id: 5, title: "Dernier regard sur un monde de mensonges", videoUrl: "https://cineburger.xyz/series/The-Boys/S03/The-Boys-S03-E05.mp4", duration: 63 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/m5hFjth3uqHRdDQmFr4xDhMPyzc.jpg" },
+          { id: 6, title: "Hérogasme", videoUrl: "https://cineburger.xyz/series/The-Boys/S03/The-Boys-S03-E06.mp4", duration: 63 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/xmGw9EVZ6jSeWz0K9vyfim3KvhZ.jpg" },
+          { id: 7, title: "La chandelle qui éclaire la chambre à coucher", videoUrl: "https://cineburger.xyz/series/The-Boys/S03/The-Boys-S03-E07.mp4", duration: 67 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/cG7G0XyW0KQ1oeYY06KnaP1n8PR.jpg" },
+          { id: 8, title: "L'Instant vieux blancs déchainés", videoUrl: "https://cineburger.xyz/series/The-Boys/S03/The-Boys-S03-E08.mp4", duration: 64 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/pxqOE021uJtQHOdT09WmFsXyy3V.jpg" }
+        ]
+      },
+      {
+        seasonNumber: 4,
+        title: "Saison 4",
+        episodes: [
+          { id: 1, title: "Le département des sales tours à gogo", videoUrl: "https://cineburger.xyz/series/The-Boys/S04/The-Boys-S04-E01.mp4", duration: 66 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7eGAjea8dawKURw6YJxMxC6qIm9.jpg" },
+          { id: 2, title: "La vie parmi les sceptiques", videoUrl: "https://cineburger.xyz/series/The-Boys/S04/The-Boys-S04-E02.mp4", duration: 62 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/4IZ7Hb8SPbHoCqL9iUWtlnusvLw.jpg" },
+          { id: 3, title: "On laisse l'alarme sonner", videoUrl: "https://cineburger.xyz/series/The-Boys/S04/The-Boys-S04-E03.mp4", duration: 61 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/kcHBZHSYyj0eYSDzCUTze11c5RX.jpg" },
+          { id: 4, title: "La sagesse des âges", videoUrl: "https://cineburger.xyz/series/The-Boys/S04/The-Boys-S04-E04.mp4", duration: 67 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/n4xTP8x24KeKNhCOSuBAHrUPSNw.jpg" },
+          { id: 5, title: "Fais attention au croquemitaine, mon fils", videoUrl: "https://cineburger.xyz/series/The-Boys/S04/The-Boys-S04-E05.mp4", duration: 69 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/fN600zA2tu32y69sWnny1NorT2o.jpg" },
+          { id: 6, title: "Sale affaire", videoUrl: "https://cineburger.xyz/series/The-Boys/S04/The-Boys-S04-E06.mp4", duration: 66 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/8f9qvnazMUHazsGL2BfeIRNWAeb.jpg" },
+          { id: 7, title: "La taupe", videoUrl: "https://cineburger.xyz/series/The-Boys/S04/The-Boys-S04-E07.mp4", duration: 65 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/xiR5QajJaM53KQDMgocMUDce4Yi.jpg" },
+          { id: 8, title: "Final de la saison quatre", videoUrl: "https://cineburger.xyz/series/The-Boys/S04/The-Boys-S04-E08.mp4", duration: 69 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/kv7DTgyuKz5gsSwfoH92Tnam0lA.jpg" }
+        ]
+      }
+    ]
   },
   {
     id: "dune",

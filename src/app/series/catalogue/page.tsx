@@ -91,7 +91,7 @@ const seriesList: CatalogueSeries[] = [
     imageUrl: "https://preview.redd.it/2kzjj8l0om391.jpg?width=1080&crop=smart&auto=webp&s=ed395a06a8e56d954a7d9d0904db51064b01bcd9",
     type: "Série",
     language: "VF",
-    time: "3 saisons"
+    time: "4 saisons"
   },
   {
     id: "the-witcher",
