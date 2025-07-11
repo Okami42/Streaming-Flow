@@ -922,6 +922,78 @@ export const seriesData: Content[] = [
         ]
       }
     ]
+  },
+  {
+    id: "joker",
+    title: "Joker",
+    description: "Dans les années 1980, à Gotham City, Arthur Fleck, un comédien de stand-up raté, est agressé alors qu'il erre dans les rues de la ville déguisé en clown. Méprisé de tous et bafoué, il bascule peu à peu dans la folie pour devenir le Joker, un dangereux tueur psychotique et le plus grand ennemi de Batman.",
+    imageUrl: "https://fr.web.img6.acsta.net/pictures/19/09/03/12/02/4765874.jpg",
+    bannerUrl: "https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/rlay2M5QYvi6igbGcFjq8jxeusY.jpg",
+    episodes: [
+      { id: 1, title: "Joker (Film complet)", videoUrl: "https://cineburger.xyz/movies/Joker.mp4", duration: 122 * 60, imageUrl: "https://fr.web.img6.acsta.net/pictures/19/09/03/12/02/4765874.jpg" }
+    ],
+    status: "Terminé",
+    year: 2019,
+    studio: "Warner Bros.",
+    type: "Film",
+    genres: ["Drame", "Thriller", "Crime"],
+    rating: 8.4,
+    language: "VF/VOSTFR",
+    runtime: "2h02"
+  },
+  {
+    id: "the-dark-knight",
+    title: "The Dark Knight : Le Chevalier noir",
+    description: "Batman entreprend de démanteler les dernières organisations criminelles de Gotham. Mais il se heurte bientôt à un nouveau génie du crime qui répand la terreur et le chaos dans la ville : le Joker, un criminel masqué et psychopathe particulièrement dangereux. Face à cette nouvelle menace, Batman doit surmonter ses limites pour sauver Gotham City.",
+    imageUrl: "https://fr.web.img6.acsta.net/medias/nmedia/18/63/97/89/18949761.jpg",
+    bannerUrl: "https://occ-0-6302-56.1.nflxso.net/dnm/api/v6/Z-WHgqd_TeJxSuha8aZ5WpyLcX8/AAAABcQRr9ijjGrk5Olr5Gi5Z7TL5qJb7FmsYHc8bbHmv8jHfmm1D02NsezjdKHKy_4pW8BuP4lpi1i_5_ucgSSVR4DI2bB9WrFETpoS.webp?r=24e 960w, https://occ-0-6302-56.1.nflxso.net/dnm/api/v6/Z-WHgqd_TeJxSuha8aZ5WpyLcX8/AAAABV0XXU0ThOokpNZ855SP8NWnbQpUpgbiV6VoesNjLZn_M83KN6AwM9cUqudY04ymMIEFaF5C0chHDHX_PWmkf7LLS9ny_ULKub3L.webp?r=24e 1280w, https://occ-0-6302-56.1.nflxso.net/dnm/api/v6/Z-WHgqd_TeJxSuha8aZ5WpyLcX8/AAAABaZjrUrIqxum1YM4tcINTzLXVXNkra8uTdYpO0snXTWPe1hy2zF_yXGmUlJZTTiVRU3OOiD7nVyF_mMEo5ajJwxuyzyTVjuRPHe5.webp?r=24e 1920w",
+    episodes: [
+      { id: 1, title: "The Dark Knight (Film complet)", videoUrl: "https://cineburger.xyz/movies/The-Dark-Knight-Le-Chevalier-noir.mp4", duration: 152 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/x5f2uTfw0Pqc5QI4ch5AHICee2o.jpg" }
+    ],
+    status: "Terminé",
+    year: 2008,
+    studio: "Warner Bros.",
+    type: "Film",
+    genres: ["Action", "Thriller", "Crime", "Super-héros"],
+    rating: 9.0,
+    language: "VF/VOSTFR",
+    runtime: "2h32"
+  },
+  {
+    id: "coco",
+    title: "Coco",
+    description: "Malgré la décision de sa famille de bannir la musique depuis des générations, Miguel rêve de devenir un musicien accompli comme son idole, Ernesto de la Cruz. Désespéré de prouver son talent, Miguel se retrouve dans le monde coloré et époustouflant des morts à la suite d'une mystérieuse chaîne d'événements. En chemin, il rencontre le charmant escroc Hector, et ensemble, ils partent pour un voyage extraordinaire pour découvrir la véritable histoire derrière l'histoire familiale de Miguel.",
+    imageUrl: "https://lumiere-a.akamaihd.net/v1/images/p_coco_19736_fd5fa537.jpeg?region=0%2C0%2C540%2C810",
+    bannerUrl: "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/askg3SMvhqEl4OL52YuvdtY40Yb.jpg",
+    episodes: [
+      { id: 1, title: "Coco (Film complet)", videoUrl: "https://cineburger.xyz/movies/Coco.mp4", duration: 105 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/askg3SMvhqEl4OL52YuvdtY40Yb.jpg" }
+    ],
+    status: "Terminé",
+    year: 2017,
+    studio: "Pixar Animation Studios",
+    type: "Film",
+    genres: ["Animation", "Aventure", "Comédie", "Famille", "Fantastique"],
+    rating: 8.4,
+    language: "VF/VOSTFR",
+    runtime: "1h45"
+  },
+  {
+    id: "inception",
+    title: "Inception",
+    description: "Dom Cobb est un voleur expérimenté, le meilleur dans l'art dangereux de l'extraction, voler les secrets les plus intimes enfouis au plus profond du subconscient durant une phase de rêve, lorsque l'esprit est le plus vulnérable. Les capacités de Cobb ont fait de lui un acteur convoité dans le monde trouble de l'espionnage industriel, mais elles ont aussi fait de lui un fugitif international qui a perdu tout ce qui lui est cher. Une chance de rédemption lui est offerte quand on lui propose un dernier travail : au lieu de subtiliser une idée, il doit en implanter une. S'ils réussissent, Cobb et son équipe auront réalisé le crime parfait.",
+    imageUrl: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/aej3LRUga5rhgkmRP6XMFw3ejbl.jpg",
+    bannerUrl: "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",
+    episodes: [
+      { id: 1, title: "Inception (Film complet)", videoUrl: "https://cineburger.xyz/movies/Inception.mp4", duration: 148 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/s3TBrRGB1iav7gFOCNx3H31MoES.jpg" }
+    ],
+    status: "Terminé",
+    year: 2010,
+    studio: "Warner Bros.",
+    type: "Film",
+    genres: ["Science-fiction", "Action", "Thriller"],
+    rating: 8.8,
+    language: "VF/VOSTFR",
+    runtime: "2h28"
   }
 ];
 
@@ -930,7 +1002,9 @@ export const recentFilms = [
   seriesData.find(item => item.id === "blade-runner-2049"),
   seriesData.find(item => item.id === "dune"),
   seriesData.find(item => item.id === "pulp-fiction"),
-  seriesData.find(item => item.id === "top-gun-maverick")
+  seriesData.find(item => item.id === "top-gun-maverick"),
+  seriesData.find(item => item.id === "coco"),
+  seriesData.find(item => item.id === "inception"),
 ].filter(Boolean);
 
 // Séries populaires
@@ -946,7 +1020,8 @@ export const popularSeries = [
 // Films classiques
 export const classicFilms = [
   seriesData.find(item => item.id === "blade-runner-2049"),
-  seriesData.find(item => item.id === "pulp-fiction")
+  seriesData.find(item => item.id === "pulp-fiction"),
+  seriesData.find(item => item.id === "the-dark-knight")
 ].filter(Boolean);
 
 // Fonction pour récupérer toutes les séries du catalogue

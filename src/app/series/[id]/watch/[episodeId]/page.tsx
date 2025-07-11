@@ -581,11 +581,15 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
           </div>
           
           <h1 className="text-lg sm:text-2xl font-bold text-white mb-1 sm:mb-2 line-clamp-2">
-            {series.title} - {seasonNumber ? `Saison ${seasonNumber}` : ''} Épisode {episode.id}: {episode.title}
+            {series.title} - {seasonNumber ? `Saison ${seasonNumber}` : ''} {series.type === "Film" ? '' : `Épisode ${episode.id}: `}{episode.title}
           </h1>
           
           <div className="text-xs sm:text-sm text-gray-400 mb-2 sm:mb-4">
-            <span>Épisode {episode.id} / {totalEpisodes}</span>
+            {series.type === "Film" ? (
+              <span>{series.runtime || "2h02"}</span>
+            ) : (
+              <span>Épisode {episode.id} / {totalEpisodes}</span>
+            )}
             
             {/* Le temps de visionnage n'est plus affiché visuellement mais le système continue de fonctionner */}
           </div>
@@ -609,7 +613,7 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
                   
                   <div className="flex items-center space-x-2">
                     {/* Bouton Épisode suivant - visible aussi en mode normal */}
-                    {nextEpisode && (
+                    {nextEpisode && series.type !== "Film" && (
                       <Link href={`/series/${series.id}/watch/${nextEpisode.id}${seasonNumber ? `?season=${seasonNumber}` : ''}`} className="flex items-center text-white bg-black/50 hover:bg-black/70 transition-colors px-2 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm">
                         Épisode suivant
                         <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 ml-1" />
@@ -633,7 +637,7 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
                     </button>
                   </div>
                   
-                  {nextEpisode && (
+                  {nextEpisode && series.type !== "Film" && (
                     <Link href={`/series/${series.id}/watch/${nextEpisode.id}${seasonNumber ? `?season=${seasonNumber}` : ''}`} className="flex items-center text-white bg-black/70 hover:bg-black/90 transition-colors px-3 py-2 rounded-full text-sm shadow-lg">
                       Épisode suivant
                       <ChevronRight className="h-4 w-4 ml-1" />

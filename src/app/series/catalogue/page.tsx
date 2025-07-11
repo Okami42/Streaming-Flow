@@ -126,12 +126,44 @@ const seriesList: CatalogueSeries[] = [
     time: "2h35"
   },
   {
+    id: "inception",
+    title: "Inception",
+    imageUrl: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/aej3LRUga5rhgkmRP6XMFw3ejbl.jpg",
+    type: "Film",
+    language: "VF",
+    time: "2h28"
+  },
+  {
+    id: "coco",
+    title: "Coco",
+    imageUrl: "https://lumiere-a.akamaihd.net/v1/images/p_coco_19736_fd5fa537.jpeg?region=0%2C0%2C540%2C810",
+    type: "Film",
+    language: "VF",
+    time: "1h45"
+  },
+  {
     id: "the-batman",
     title: "The Batman",
     imageUrl: "https://fr.web.img6.acsta.net/pictures/22/02/16/17/42/3125788.jpg",
     type: "Film",
     language: "VF",
     time: "2h56"
+  },
+  {
+    id: "the-dark-knight",
+    title: "The Dark Knight : Le Chevalier noir",
+    imageUrl: "https://fr.web.img6.acsta.net/medias/nmedia/18/63/97/89/18949761.jpg",
+    type: "Film",
+    language: "VF",
+    time: "2h32"
+  },
+  {
+    id: "joker",
+    title: "Joker",
+    imageUrl: "https://fr.web.img6.acsta.net/pictures/19/09/03/12/02/4765874.jpg",
+    type: "Film",
+    language: "VF",
+    time: "2h02"
   },
   {
     id: "top-gun-maverick",
