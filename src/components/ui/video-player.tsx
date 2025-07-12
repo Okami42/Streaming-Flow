@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Loader2 } from "lucide-react";
+import HLSPlayer from "../../../hls-player";
 
 interface VideoPlayerProps {
   sibnetId?: string;
@@ -25,7 +26,7 @@ export default function VideoPlayer({
 }: VideoPlayerProps) {
   const [isLoading, setIsLoading] = useState(true);
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const playerKey = `${sibnetId || ''}-${vidmolyId || ''}-${sendvidId || ''}-${beerscloudId || ''}-${Date.now()}`;
+  // Suppression de la clé dynamique qui causait le rechargement constant
   
   // Construction directe de l'URL Vidmoly - format standard
   const finalVidmolyUrl = vidmolyId 
@@ -36,6 +37,9 @@ export default function VideoPlayer({
   const beerscloudUrl = beerscloudId
     ? `https://beerscloud.com/iframe/${beerscloudId}`
     : null;
+  
+  // Vérifier si sibnetId est un lien m3u8
+  const isM3U8Link = sibnetId?.includes('.m3u8');
   
   // Gérer le chargement de l'iframe
   const handleIframeLoad = () => {
@@ -65,16 +69,26 @@ export default function VideoPlayer({
   }, [sibnetId, vidmolyId, sendvidId, beerscloudId]);
   
   return (
-    <div className={`w-full h-full relative ${className}`} style={{ overflow: 'hidden' }} key={playerKey}>      
+    <div className={`w-full h-full relative ${className}`} style={{ overflow: 'hidden' }}>      
       {/* Afficher un loader pendant le chargement */}
-      {isLoading && (
+      {isLoading && !isM3U8Link && (
         <div className="absolute inset-0 flex items-center justify-center bg-black z-10">
           <Loader2 className="w-6 h-6 sm:w-8 sm:h-8 animate-spin text-white" />
         </div>
       )}
       
-      {/* Lecteur Sibnet (natif) */}
-      {sibnetId && (
+      {/* Lecteur HLS pour les liens m3u8 */}
+      {sibnetId && isM3U8Link && (
+        <HLSPlayer
+          src={sibnetId}
+          poster={poster}
+          className="w-full h-full"
+          autoPlay={true}
+        />
+      )}
+      
+      {/* Lecteur Sibnet (natif) pour les ID Sibnet */}
+      {sibnetId && !isM3U8Link && (
         <iframe 
           ref={iframeRef}
           src={`https://video.sibnet.ru/shell.php?videoid=${sibnetId}&skin=4&share=1`}

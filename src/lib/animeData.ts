@@ -805,5 +805,28 @@ export const animes: Anime[] = [
         ]
       }
     ]
+  },
+  {
+    id: "gachiakuta",
+    title: "Gachiakuta",
+    originalTitle: "ガチアクタ",
+    description: "Rudo, un adolescent de la tribu des parias, vit dans les bidonvilles de la Sphère – une société flottante divisée bien au-dessus des nuages. Non seulement il appartient à une classe sociale inférieure opprimée par les riches citadins obsédés par la propreté et le gaspillage, mais ses pairs le méprisent pour être le fils d'un meurtrier décédé. Lorsqu'il est accusé à tort du meurtre de son père adoptif Regto, Rudo est jeté de la Sphère dans la Fosse, un immense dépotoir d'où personne n'est jamais revenu. Dans ce monde hostile, il rencontre Enjin, un membre de l'organisation des Nettoyeurs qui combattent les monstres nés des déchets, et se lance dans une quête de vengeance contre ceux qui l'ont condamné injustement.",
+    imageUrl: "https://cdn.statically.io/gh/Anime-Sama/IMG/img/contenu/gachiakuta.jpg",
+    bannerUrl: "/picture/okastreamtextbanner.png",
+    year: 2025,
+    type: "TV",
+    status: "En cours",
+    genres: ["Action", "Aventure", "Fantasy", "Dark Fantasy", "Drame"],
+    rating: 8.8,
+    seasons: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        year: 2025,
+        episodes: [
+          { number: 1, title: "Les objets dont on prend soin pourraient avoir une âme", duration: 1380, sibnetVostfrId: "https://prx-1281-p.vmwesa.online/hls2/01/01906/u8jv52sxa6hl_n/index-v1-a1.m3u8?t=PL5Z0KmYWlZH-4Mgcyu02X9WgtLi9gifwhtQ5Kxlrk0&s=1752322921&e=43200&v=&srv=bck-4000-ant-w&i=0.4&sp=0&asn=15557", sibnetVfId: "5806749" },
+        ]
+      }
+    ]
   }
 ];

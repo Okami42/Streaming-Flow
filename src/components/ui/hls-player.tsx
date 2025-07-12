@@ -11,7 +11,6 @@ interface HLSPlayerProps {
   poster?: string;
   className?: string;
   autoPlay?: boolean;
-  key?: string;
 }
 
 export default function HLSPlayer({
@@ -36,8 +35,7 @@ export default function HLSPlayer({
   const previewControlsActive = useRef(false);
   const [isPaused, setIsPaused] = useState(true);
   const [hlsSupported, setHlsSupported] = useState<boolean | null>(null);
-  // Clé unique pour forcer le rechargement du lecteur
-  const playerKey = `hls-${src}-${Date.now()}`;
+  // Suppression de la clé dynamique qui causait le rechargement constant
 
   // Formater le temps en MM:SS
   const formatTime = (time: number) => {
@@ -350,7 +348,6 @@ export default function HLSPlayer({
     <div 
       className={`relative w-full h-full ${className}`} 
       ref={videoContainerRef}
-      key={playerKey}
     >
       {/* Styles CSS personnalisés */}
       <style jsx>{videoStyle}</style>

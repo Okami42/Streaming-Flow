@@ -2,6 +2,14 @@ import { popularSeries, recentFilms, classicFilms } from "./seriesData";
 
 export const recentEpisodes = [
   {
+    id: "gachiakuta",
+    title: "Gachiakuta",
+    imageUrl: "https://cdn.statically.io/gh/Anime-Sama/IMG/img/contenu/gachiakuta.jpg",
+    time: "en cours de sortie",
+    type: "Anime",
+    language: "VOSTFR",
+  },
+  {
     id: "solo-leveling",
     title: "Solo Leveling",
     imageUrl: "https://img-cdn.thepublive.com/wion/media/post_attachments/files/web-story/900_1600/2024/3/26/1711469910345_sololeveling.jpg",
@@ -194,6 +202,13 @@ export const classicMovies = classicFilms.map(film => {
 }).filter(Boolean);
 
 export const hidden = [
+  {
+    id: "gachiakuta",
+    title: "Gachiakuta",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BZTg5YzFjNjYtODgxNi00YTUwLWI0MmMtOGJmZTU0Yzk1NDM0XkEyXkFqcGdeQXVyMzgxODM4NjM@._V1_.jpg",
+    type: "Anime",
+    language: "VOSTFR",
+  },
   {
     id: "akudama-drive",
     title: "Akudama Drive",
