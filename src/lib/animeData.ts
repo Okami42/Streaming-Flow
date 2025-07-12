@@ -810,7 +810,7 @@ export const animes: Anime[] = [
     id: "gachiakuta",
     title: "Gachiakuta",
     originalTitle: "ガチアクタ",
-    description: "Rudo, un adolescent de la tribu des parias, vit dans les bidonvilles de la Sphère – une société flottante divisée bien au-dessus des nuages. Non seulement il appartient à une classe sociale inférieure opprimée par les riches citadins obsédés par la propreté et le gaspillage, mais ses pairs le méprisent pour être le fils d'un meurtrier décédé. Lorsqu'il est accusé à tort du meurtre de son père adoptif Regto, Rudo est jeté de la Sphère dans la Fosse, un immense dépotoir d'où personne n'est jamais revenu. Dans ce monde hostile, il rencontre Enjin, un membre de l'organisation des Nettoyeurs qui combattent les monstres nés des déchets, et se lance dans une quête de vengeance contre ceux qui l'ont condamné injustement.",
+    description: "Rudo, un adolescent de la tribu des parias, vit dans les bidonvilles de la Sphère – une société flottante divisée bien au-dessus des nuages. Non seulement il appartient à une classe sociale inférieure opprimée par les riches citadins obsédés par la propreté et le gaspillage, mais ses pairs le méprisent pour être le fils d'un meurtrier décédé. Lorsqu'il est accusé à tort du meurtre de son père adoptif Regto, Rudo est jeté de la Sphère dans la Fosse.",
     imageUrl: "https://cdn.statically.io/gh/Anime-Sama/IMG/img/contenu/gachiakuta.jpg",
     bannerUrl: "/picture/okastreamtextbanner.png",
     year: 2025,
