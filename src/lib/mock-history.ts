@@ -2,7 +2,7 @@ import { WatchHistoryItem, ReadHistoryItem } from './history';
 
 export const mockWatchHistory: WatchHistoryItem[] = [
   {
-    id: 'squid-game-s1e19',
+    id: 'squid-game-s1e9',
     title: 'Squid Game',
     imageUrl: 'https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/2meX1nMdScFOoV4370rqHWKmXhY.jpg',
     lastWatchedAt: new Date(Date.now() - 1000 * 60 * 30).toISOString(), // 30 minutes ago
@@ -13,10 +13,10 @@ export const mockWatchHistory: WatchHistoryItem[] = [
       episode: 9,
       title: 'Finale',
     },
-    type: 'Anime',
+    type: 'Série',
   },
   {
-    id: 'breaking-bad-s1e15',
+    id: 'breaking-bad-s1e3',
     title: 'Breaking Bad',
     imageUrl: 'https://fr.web.img5.acsta.net/pictures/19/06/18/12/11/3956503.jpg',
     lastWatchedAt: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(), // 2 hours ago
@@ -27,7 +27,7 @@ export const mockWatchHistory: WatchHistoryItem[] = [
       episode: 3,
       title: 'Le sac est dans la rivière',
     },
-    type: 'Anime',
+    type: 'Série',
   },
   {
     id: 'game-of-thrones-s1e10',
@@ -41,7 +41,7 @@ export const mockWatchHistory: WatchHistoryItem[] = [
       episode: 10,
       title: 'De feu et de sang',
     },
-    type: 'Anime',
+    type: 'Série',
   },
   {
     id: 'adventure-time-s1e5',
@@ -56,6 +56,20 @@ export const mockWatchHistory: WatchHistoryItem[] = [
       title: 'Le roi muet',
     },
     type: 'Anime',
+  },
+  {
+    id: 'the-boys-s1e1',
+    title: 'The Boys',
+    imageUrl: 'https://preview.redd.it/2kzjj8l0om391.jpg?width=1080&crop=smart&auto=webp&s=ed395a06a8e56d954a7d9d0904db51064b01bcd9',
+    lastWatchedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2).toISOString(), // 2 days ago
+    progress: 500, // 8:20
+    duration: 1500, // 25:00
+    episodeInfo: {
+      season: 1,
+      episode: 1,
+      title: 'Premier épisode',
+    },
+    type: 'Série',
   },
 ];
 

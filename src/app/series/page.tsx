@@ -173,33 +173,18 @@ export default function SeriesPage() {
     const uniqueEntries = new Map();
     
     watchHistory.forEach(item => {
-      // Extraire l'ID de base de la série à partir de l'ID d'historique
-      const parts = item.id.split('-');
-      let seriesId = parts[0]; // Par défaut, prendre la première partie
+      // Vérifier si l'élément correspond à une série connue dans seriesData
+      // Nous utilisons l'ID pour faire la correspondance
+      const seriesId = getSeriesIdFromHistoryId(item.id);
+      const matchingSeries = seriesData.find(s => s.id === seriesId);
       
-      // Vérifier si l'ID pourrait contenir des tirets (comme "game-of-thrones")
-      if (parts.length > 1) {
-        // Essayer avec le format "game-of-thrones"
-        const potentialId = `${parts[0]}-${parts[1]}`;
-        const series = seriesData.find(s => s.id === potentialId);
-        if (series) {
-          seriesId = potentialId;
+      // Si nous trouvons une correspondance dans seriesData, c'est une série que nous voulons afficher
+      if (matchingSeries) {
+        // Si cette série n'est pas encore dans notre Map, ou si cette entrée est plus récente
+        if (!uniqueEntries.has(seriesId) || 
+            new Date(item.lastWatchedAt) > new Date(uniqueEntries.get(seriesId).lastWatchedAt)) {
+          uniqueEntries.set(seriesId, item);
         }
-        
-        // Essayer avec le format à trois parties si disponible
-        if (parts.length > 2) {
-          const potentialId3 = `${parts[0]}-${parts[1]}-${parts[2]}`;
-          const series3 = seriesData.find(s => s.id === potentialId3);
-          if (series3) {
-            seriesId = potentialId3;
-          }
-        }
-      }
-      
-      // Si cette série/film n'est pas encore dans notre Map, ou si cette entrée est plus récente
-      if (!uniqueEntries.has(seriesId) || 
-          new Date(item.lastWatchedAt) > new Date(uniqueEntries.get(seriesId).lastWatchedAt)) {
-        uniqueEntries.set(seriesId, item);
       }
     });
     
@@ -601,6 +586,11 @@ export default function SeriesPage() {
               ) : (
                 <div className="text-center py-4">
                   <p className="text-gray-400 text-sm">Vous n'avez pas encore regardé de séries</p>
+                  <Link href="/series/catalogue" className="mt-2 inline-block">
+                    <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10 text-xs">
+                      Découvrir des séries
+                    </Button>
+                  </Link>
                 </div>
               )}
             </div>
