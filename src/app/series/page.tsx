@@ -351,9 +351,11 @@ export default function SeriesPage() {
                     src={series.bannerUrl || series.imageUrl}
                     alt={series.title}
                     fill
-                    priority={index === 0}
+                    priority={true}
+                    unoptimized={true}
                     className="object-cover object-center scale-110 transform transition-transform duration-10000 ease-in-out"
                     style={{ transform: index === currentSlide ? 'scale(1.05)' : 'scale(1)' }}
+                    sizes="100vw"
                   />
 
                   {/* Overlay gradients - removed blur */}
@@ -458,8 +460,10 @@ export default function SeriesPage() {
                     src={series.bannerUrl || series.imageUrl}
                     alt={series.title}
                     fill
-                    priority={index === 0}
+                    priority={true}
+                    unoptimized={true}
                     className="object-cover object-center"
+                    sizes="100vw"
                   />
                   
                   {/* Dark overlay for better text visibility - removed blur effect */}

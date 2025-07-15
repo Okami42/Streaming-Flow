@@ -16,6 +16,8 @@ export default function CustomImage({
   unoptimized = false,
   priority,
   loading,
+  sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw',
+  quality = 85,
   ...props
 }: CustomImageProps) {
   const [error, setError] = useState(false);
@@ -28,50 +30,37 @@ export default function CustomImage({
   
   useEffect(() => {
     // Détecter si nous sommes sur mobile
-    setIsMobile(window.innerWidth < 768 || 
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
-    
-    // Détecter si nous sommes sur Firefox
-    setIsFirefox(navigator.userAgent.toLowerCase().indexOf('firefox') > -1);
+    const checkDeviceAndBrowser = () => {
+      setIsMobile(window.innerWidth < 768 || 
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
       
-    // Fonction pour vérifier si l'image est en cache
-    const checkImageCache = async (url: string) => {
-      if (typeof url !== 'string' || !url.startsWith('http')) return;
-      
-      try {
-        // Vérifier si l'image est dans le cache
-        const cache = await caches.open('image-cache');
-        const cachedResponse = await cache.match(url);
-        
-        if (!cachedResponse) {
-          // Si l'image n'est pas en cache, la précharger et l'ajouter au cache
-          const response = await fetch(url, { mode: 'no-cors' });
-          await cache.put(url, response);
-        }
-      } catch (err) {
-        console.log('Cache non disponible:', err);
-      }
+      // Détecter si nous sommes sur Firefox
+      setIsFirefox(navigator.userAgent.toLowerCase().indexOf('firefox') > -1);
     };
     
-    // Précharger l'image si c'est une URL
-    if (typeof src === 'string' && src.startsWith('http')) {
-      // Précharger l'image manuellement pour Firefox
-      if (isFirefox) {
-        const img = new Image();
-        img.src = src;
-        img.onload = () => {
-          setIsLoading(false);
-        };
-        img.onerror = () => {
-          console.error(`Erreur de chargement d'image Firefox: ${src}`);
-          setError(true);
-          setImgSrc(fallbackSrc);
-        };
-      } else {
-        checkImageCache(src);
+    checkDeviceAndBrowser();
+    
+    // Optimisation: Utiliser l'API Intersection Observer pour charger les images à la demande
+    if (typeof IntersectionObserver !== 'undefined' && !priority && !isMobile) {
+      const imgElement = document.querySelector(`img[alt="${alt}"]`);
+      if (imgElement) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              setIsLoading(false);
+              observer.disconnect();
+            }
+          });
+        }, {
+          rootMargin: '200px', // Préchargement avant que l'image soit visible
+          threshold: 0.01
+        });
+        
+        observer.observe(imgElement);
+        return () => observer.disconnect();
       }
     }
-  }, [src, fallbackSrc]);
+  }, [alt, priority, isMobile]);
   
   // Mettre à jour imgSrc quand src change
   useEffect(() => {
@@ -85,16 +74,29 @@ export default function CustomImage({
     } else {
       setIsLoading(true);
     }
-  }, [src, isMobile, isFirefox]);
+    
+    // Préchargement optimisé des images
+    if (typeof src === 'string' && src.startsWith('http')) {
+      if (priority || isMobile) {
+        const img = new Image();
+        img.src = src;
+        img.onload = () => setIsLoading(false);
+        img.onerror = () => {
+          console.error(`Erreur de chargement d'image: ${src}`);
+          setError(true);
+          setImgSrc(fallbackSrc);
+        };
+      }
+    }
+  }, [src, isMobile, isFirefox, priority, fallbackSrc]);
   
   // Déterminer si l'image est externe (commence par http ou https)
   const isExternalImage = typeof src === 'string' && (src.startsWith('http://') || src.startsWith('https://'));
   
   // Si c'est une image externe ou Firefox, désactiver l'optimisation par défaut sauf indication contraire
-  const shouldUnoptimize = unoptimized || isExternalImage || isFirefox;
+  const shouldUnoptimize = unoptimized || (isExternalImage && isFirefox);
 
   const handleError = () => {
-    console.error(`Erreur de chargement d'image: ${src}`);
     setError(true);
     setImgSrc(fallbackSrc);
   };
@@ -104,15 +106,16 @@ export default function CustomImage({
   };
 
   // Déterminer les propriétés loading et priority
-  // Si priority est fourni explicitement, on l'utilise
-  // Sinon, on utilise notre logique mobile/Firefox
-  const shouldPrioritize = priority !== undefined ? priority : (isMobile || isFirefox);
+  const shouldPrioritize = priority !== undefined ? priority : 
+    (isMobile || isFirefox || (typeof src === 'string' && src.includes('thumbnail')));
   
   // On ne définit pas loading si priority est true
-  // car ces propriétés sont mutuellement exclusives
   const loadingProp = shouldPrioritize 
     ? undefined 
-    : (loading !== undefined ? loading : (isMobile || isFirefox ? "eager" : "lazy"));
+    : (loading !== undefined ? loading : "lazy");
+
+  // Placeholder blurDataURL pour un meilleur LCP
+  const blurDataURL = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjMyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMxZTI5M2IiLz48L3N2Zz4=';
 
   return (
     <div className="relative w-full h-full">
@@ -128,6 +131,10 @@ export default function CustomImage({
         unoptimized={shouldUnoptimize}
         priority={shouldPrioritize}
         loading={loadingProp}
+        placeholder="blur"
+        blurDataURL={blurDataURL}
+        sizes={sizes}
+        quality={quality}
         {...props}
       />
     </div>

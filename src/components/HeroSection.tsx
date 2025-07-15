@@ -15,6 +15,7 @@ export default function HeroSection() {
           alt="Anime characters"
           fill
           priority
+          unoptimized={true}
           className="object-cover object-center sm:object-center"
           sizes="100vw"
         />

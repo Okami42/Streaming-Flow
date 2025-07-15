@@ -26,7 +26,10 @@ export default function Home() {
               src="https://www.notebookcheck.biz/fileadmin/Notebooks/News/_nc4/lord-of-mysteries.JPG"
               alt="Fond animés"
               fill={true}
+              priority={true}
+              unoptimized={true}
               className="object-cover object-center transition-transform duration-700 md:group-hover:scale-110"
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
           </div>
           <div className="absolute inset-0 flex flex-col items-center justify-center z-20 transition-all duration-500 md:group-hover:translate-y-[-10px]">
@@ -52,7 +55,10 @@ export default function Home() {
               src="https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/2meX1nMdScFOoV4370rqHWKmXhY.jpg"
               alt="Fond séries et films"
               fill={true}
+              priority={true}
+              unoptimized={true}
               className="object-cover object-center transition-transform duration-700 md:group-hover:scale-110"
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
           </div>
           <div className="absolute inset-0 flex flex-col items-center justify-center z-20 transition-all duration-500 md:group-hover:translate-y-[-10px]">

@@ -6,11 +6,15 @@ import { FavoritesProvider } from "@/context/favorites-context";
 import { Inter } from 'next/font/google';
 import Head from 'next/head';
 import Script from 'next/script';
+import FontOptimizer from "@/lib/font-optimization";
+import ScriptOptimizer from "@/lib/script-optimizer";
 
 // Utilisation de la police Inter de Google Fonts au lieu des fichiers locaux non disponibles
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
+  preload: true,
+  variable: '--font-inter',
 });
 
 export const metadata: Metadata = {
@@ -59,7 +63,31 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" suppressHydrationWarning>
+    <html lang="fr" suppressHydrationWarning className={`${inter.variable}`}>
+      <head>
+        {/* Preload des ressources critiques */}
+        <link
+          rel="preload"
+          href="/icon_logo_okami.png"
+          as="image"
+          type="image/png"
+        />
+        <link
+          rel="preconnect"
+          href="https://fonts.googleapis.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="dns-prefetch"
+          href="https://image.tmdb.org"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+      </head>
       <Script id="videojs-error-fix" strategy="afterInteractive">
         {`
           // Solution complète pour les erreurs Sibnet, videojs, VAST et sécurité
@@ -267,8 +295,9 @@ export default function RootLayout({
           });
         `}
       </Script>
-      <head />
-      <body className={inter.className}>
+      <body className={`min-h-screen font-sans antialiased ${inter.className}`}>
+        <FontOptimizer />
+        <ScriptOptimizer />
         <ThemeProvider>
           <HistoryProvider>
             <FavoritesProvider>
@@ -276,6 +305,48 @@ export default function RootLayout({
             </FavoritesProvider>
           </HistoryProvider>
         </ThemeProvider>
+        
+        {/* Script pour optimiser le chargement des images */}
+        <Script id="image-optimization" strategy="afterInteractive">
+          {`
+            // Optimisation du chargement des images
+            document.addEventListener('DOMContentLoaded', function() {
+              // Fonction pour vérifier si une image est dans le viewport
+              function isInViewport(el) {
+                const rect = el.getBoundingClientRect();
+                return (
+                  rect.top >= -300 &&
+                  rect.left >= -300 &&
+                  rect.bottom <= (window.innerHeight + 300) &&
+                  rect.right <= (window.innerWidth + 300)
+                );
+              }
+              
+              // Observer les images pour le lazy loading
+              if ('IntersectionObserver' in window) {
+                const lazyImageObserver = new IntersectionObserver((entries) => {
+                  entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                      const lazyImage = entry.target;
+                      if (lazyImage.dataset.src) {
+                        lazyImage.src = lazyImage.dataset.src;
+                        lazyImage.removeAttribute('data-src');
+                        lazyImage.classList.remove('lazy-image');
+                        lazyImage.classList.add('loaded');
+                        lazyImageObserver.unobserve(lazyImage);
+                      }
+                    }
+                  });
+                }, { rootMargin: '200px 0px' });
+                
+                // Observer toutes les images avec data-src
+                document.querySelectorAll('img[data-src]').forEach(img => {
+                  lazyImageObserver.observe(img);
+                });
+              }
+            });
+          `}
+        </Script>
       </body>
     </html>
   );
