@@ -10,7 +10,7 @@ export interface WatchHistoryItem {
     episode: number;
     title?: string;
   };
-  type: 'Anime' | 'Scans';
+  type: 'Anime' | 'Scans' | 'Série' | 'Film';
 }
 
 export interface ReadHistoryItem {
