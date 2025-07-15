@@ -54,6 +54,14 @@ const seriesList: CatalogueSeries[] = [
     time: "5 saisons"
   },
   {
+    id: "charlie",
+    title: "Charlie et la chocolaterie",
+    imageUrl: "https://www.lafilmotheque.fr/v3/content/uploads/2023/05/417c38cda676141ca9fdcac5efdf951ff46db147.jpeg",
+    type: "Film",
+    language: "VF",
+    time: "1h55"
+  },
+  {
     id: "squid-game",
     title: "Squid Game",
     imageUrl: "https://media.senscritique.com/media/000021637905/300/squid_game.png",

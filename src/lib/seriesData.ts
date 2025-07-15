@@ -1001,11 +1001,30 @@ export const seriesData: Content[] = [
     runtime: "1h45"
   },
   {
+    id: "charlie",
+    title:"Charlie et la chocolaterie",
+    description:"Charlie est un enfant issu d'une famille pauvre. Travaillant pour subvenir aux besoins des siens, il doit économiser chaque penny, et ne peut s'offrir les friandises dont raffolent les enfants de son âge. Pour obtenir son comptant de sucreries, il participe à un concours organisé par l'inquiétant Willy Wonka.",
+    imageUrl: "https://www.lafilmotheque.fr/v3/content/uploads/2023/05/417c38cda676141ca9fdcac5efdf951ff46db147.jpeg",
+    bannerUrl:"https://img.lemde.fr/2014/12/24/0/1/3069/2046/1440/960/60/0/05dad1c_11661-1m6i95v.JPEG",
+    episodes:[
+      {id:1, title:"Charlie et la chocolaterie (Film complet)", videoUrl:"https://cineburger.xyz/movies/Charlie-et-la-chocolaterie.mp4", duration:115*60, imageUrl:"https://img.lemde.fr/2014/12/24/0/1/3069/2046/1440/960/60/0/05dad1c_11661-1m6i95v.JPEG"}
+    ],
+    status:"Terminé",
+    year:2005,
+    studio:"Warner Bros.",
+    type:"Film",
+    genres:["Aventure", "Comédie", "Fantastique", "Famille"],
+    rating:7.5,
+    language:"VF",
+    runtime:"1h55"
+
+  },
+  {
     id: "inception",
     title: "Inception",
     description: "Dom Cobb est un voleur expérimenté, le meilleur dans l'art dangereux de l'extraction, voler les secrets les plus intimes enfouis au plus profond du subconscient durant une phase de rêve, lorsque l'esprit est le plus vulnérable. Les capacités de Cobb ont fait de lui un acteur convoité dans le monde trouble de l'espionnage industriel, mais elles ont aussi fait de lui un fugitif international qui a perdu tout ce qui lui est cher. Une chance de rédemption lui est offerte quand on lui propose un dernier travail : au lieu de subtiliser une idée, il doit en implanter une. S'ils réussissent, Cobb et son équipe auront réalisé le crime parfait.",
-    imageUrl: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/aej3LRUga5rhgkmRP6XMFw3ejbl.jpg",
-    bannerUrl: "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",
+    imageUrl:"https://www.themoviedb.org/t/p/w600_and_h900_bestv2/aej3LRUga5rhgkmRP6XMFw3ejbl.jpg",
+    bannerUrl:"https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",
     episodes: [
       { id: 1, title: "Inception (Film complet)", videoUrl: "https://cineburger.xyz/movies/Inception.mp4", duration: 148 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/s3TBrRGB1iav7gFOCNx3H31MoES.jpg" }
     ],
