@@ -53,6 +53,14 @@ const seriesList: CatalogueSeries[] = [
     language: "VF",
     time: "1h40"
    },
+   {
+    id: "chasse-gardee",
+    title: "Chasse gardée",
+    imageUrl: "https://www.francebleu.fr/s3/cruiser-production/2023/11/162e8141-4536-4e10-bf87-1a1d95ce1c33/1200x680_sc_chasse-gardee-120x160-hd-1.jpg",
+    type: "Film",
+    language: "VF",
+    time: "1h41"
+   },
   {
     id: "breaking-bad",
     title: "Breaking Bad",
@@ -68,6 +76,14 @@ const seriesList: CatalogueSeries[] = [
     type : "Série",
     language : "VF",
     time : "8 saisons"
+  },
+  {
+    id: "desperate-housewives",
+    title: "Desperate Housewives",
+    imageUrl: "https://fr.web.img4.acsta.net/c_225_300/pictures/18/10/29/17/57/1200682.jpg",
+    type: "Série",
+    language: "VF",
+    time: "8 saisons"
   },
   {
     id: "charlie",

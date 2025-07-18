@@ -117,6 +117,77 @@ export const seriesData: Content[] = [
     ]
   },
   {
+    id:"chasse-gardee",
+    title: "Chasse gardée",
+    description: "Dans un village sans histoire, une maison de rêve en pleine nature est à vendre. Pour Simon et Adelaïde, à l'étroit dans leur appartement parisien avec leurs deux enfants, c'est l'occasion idéale de faire le grand saut et de quitter l'enfer de la ville. Cependant, le rêve se transforme rapidement en cauchemar quand ils réalisent que leurs si sympathiques voisins utilisent leur jardin comme terrain de chasse. Entre voisins, la guerre est déclarée et tous les coups sont permis.",
+    imageUrl: "https://www.francebleu.fr/s3/cruiser-production/2023/11/162e8141-4536-4e10-bf87-1a1d95ce1c33/1200x680_sc_chasse-gardee-120x160-hd-1.jpg",
+    bannerUrl: "https://www.francebleu.fr/s3/cruiser-production/2023/11/162e8141-4536-4e10-bf87-1a1d95ce1c33/1200x680_sc_chasse-gardee-120x160-hd-1.jpg",
+    episodes: [
+      { id: 1, title: "Chasse gardée (Film Complet)", videoUrl: "https://pulse.topstrime.online/movie/1001026/7tin0q/master.m3u8", duration: 101 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7qU2vq1D3umZIzwqckwV0uGBibT.jpg" }
+    ],
+    status: "Terminée",
+    year: 2023,
+    studio: "Artus",
+    type: "Film",
+    genres: ["Comédie"],
+    rating: 5.9,
+    language: "VF",
+  },
+  {
+    id:"desperate-housewives",
+    title: "Desperate Housewives",
+    description: "Wisteria Lane est un lieu paisible où les habitants semblent mener une vie heureuse... en apparence seulement ! Car en y regardant de plus près, on découvre bien vite, dans l'intimité de chacun, que le bonheur n'est pas toujours au rendez-vous. Et peu à peu, les secrets remontent inévitablement à la surface, risquant de faire voler en éclat le vernis lisse de leur tranquille existence...",
+    imageUrl: "https://fr.web.img4.acsta.net/c_225_300/pictures/18/10/29/17/57/1200682.jpg",
+    bannerUrl: "htps://discorTRFG",
+    episodes: [],
+    status: "Terminée",
+    year: 2004,
+    studio: "ABC",
+    type: "Série",
+    genres: ["Drame", "Comédie", "Thriller"],
+    rating: 8.1,
+    language: "VF/VOSTFR",
+    seasons: 8,
+    seasonsList: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        episodes: [
+          { id: 1, title: "Ironie du sort", videoUrl: "https://cineburger.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E01.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/fBDCmuv3n1foogXajL2eNHH0VXX.jpg" },
+          { id: 2, title: "Premier round", videoUrl: "https://cineburger.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E02.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/vpJWRQO2yytwuqYE88PRQImZrNX.jpg" },
+          { id: 3, title: "Le Dîner", videoUrl: "https://cineburger.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E03.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/2dvnAfP08XRrXqva8yQJva6rMqF.jpg" },
+          { id: 4, title: "Amante, épouse et victime", videoUrl: "https://cineburger.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E04.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/yVYSOwyaIkwLjCboqs3DkrmDxQX.jpg" },
+          { id: 5, title: "La Peur au ventre", videoUrl: "https://cineburger.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E05.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/6HLMMe0YPOmETiKEeiaZ080jk1S.jpg" },
+          { id: 6, title: "Champ de bataille", videoUrl: "https://cineburger.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E06.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/p1VeVzSHdNz18xPG08oiRmxQB1K.jpg" },
+          { id: 7, title: "Chaque victoire a un prix", videoUrl: "https://cineburger.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E07.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/uBX2sCYJGVKpTRDxD833Zp5ZCI0.jpg" },
+          { id: 8, title: "Nous sommes tous des pécheurs", videoUrl: "https://cineburger.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E08.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/c23BDiGCawy6qzrysBL1ko9sGj7.jpg" },
+          { id: 9, title: "Démons intérieurs", videoUrl: "https://cineburger.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E09.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/xcOJ49DGxntutQlmPkoYywqQ1Uz.jpg" },
+          { id: 10, title: "Confiance perdue", videoUrl: "https://cineburger.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E10.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/bPeS2Mbj6sCaxHGYUqtCPueLG1I.jpg" },
+          { id: 11, title: "Un air de famille", videoUrl: "https://cineburger.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E11.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/EsEQQzmYUkvLhdZBnqzIQAxWmh.jpg" },
+          { id: 12, title: "Avant qu'il ne soit trop tard", videoUrl: "https://cineburger.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E12.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/psjb0jAdbkiQjGXHYYojzuZ4GYy.jpg" },
+          { id: 13, title: "Bienvenue au club", videoUrl: "https://cineburger.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E13.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/wPl3m023mMj2FToyclQ9QMT9mI0.jpg" },
+          { id: 14, title: "La Vérité cachée", videoUrl: "https://cineburger.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E14.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/DnST6260RRw5wKjkYXslLB7gtc.jpg" },
+          { id: 15, title: "Mieux vaut prévenir que guérir", videoUrl: "https://cineburger.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E15.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/55X2FoxOXDqVOpToBgQh4ucEQHI.jpg" },
+          { id: 16, title: "Un faible pour les scandales", videoUrl: "https://cineburger.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E16.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/nuvzgcfPPOAOf8Ly4UPEIfar6e8.jpg" },
+          { id: 17, title: "Honneur aux héros", videoUrl: "https://cineburger.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E17.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/guaPe31sPwotAkWj2E5DEhL3kge.jpg" },
+          { id: 18, title: "Les enfants chamboulent tout", videoUrl: "https://cineburger.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E18.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/avA7oHTTQ3SnUx0D4Z7P6q7eRd5.jpg" },
+          { id: 19, title: "Les Meilleures Intentions", videoUrl: "https://cineburger.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E19.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7WFRhqqTZx0oLhim2jHGvs3KcPG.jpg" },
+          { id: 20, title: "Obsession", videoUrl: "https://cineburger.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E20.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/gHgfSC0bIJzDZ6eC5MrIfImrqfR.jpg" },
+          { id: 21, title: "De s'honorer et de se chérir", videoUrl: "https://cineburger.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E21.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/63D47QroHOsdi7jFd4duglWxEJ5.jpg" },
+          { id: 22, title: "Rien n'est éternel", videoUrl: "https://cineburger.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E22.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/63xnU8q9REpze7UzSgRmT6WZOYb.jpg" },
+          { id: 23, title: "Une fin heureuse", videoUrl: "https://cineburger.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E23.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/18IawCEvSWjtO2nGZDxMJUbW00m.jpg" } 
+        ]
+      },
+      {
+        seasonNumber: 2,
+        title: "Saison 2",
+        episodes: [
+          { id: 1, title: "Premier épisode", videoUrl: "https://cineburger.xyz/series/Desperate-Housewives/S02/Desperate-Housewives-S02-E01.mp4", duration: 45 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7qU2vq1D3umZIzwqckwV0uGBibT.jpg" }
+        ]
+      }
+    ]
+  },
+  {
     id: "truc-en-plus",
     title: "Un p'ti truc en plus",
     description: "Pour échapper à la police, un père et son fils sont contraints de trouver refuge dans une colonie de vacances pour jeunes adultes en situation de handicap mental, endossant le rôle d’un éducateur et d’un pensionnaire. Le début des emmerdes et d’une formidable expérience humaine qui va les changer à jamais.",
