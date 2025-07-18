@@ -45,6 +45,14 @@ const seriesList: CatalogueSeries[] = [
     language: "VF",
     time: "2 saisons"
   },
+   {
+    id: "truc-en-plus",
+    title: "Un p'ti truc en plus",
+    imageUrl: "https://fr.web.img5.acsta.net/c_310_420/pictures/24/03/01/11/14/2965930.jpg",
+    type: "Film",
+    language: "VF",
+    time: "1h40"
+   },
   {
     id: "breaking-bad",
     title: "Breaking Bad",

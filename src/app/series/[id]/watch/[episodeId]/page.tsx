@@ -19,6 +19,14 @@ import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Maximize, Minimiz
 import { cn } from "@/lib/utils";
 import { getEpisodeDescription } from "@/lib/episodeDescriptions";
 import { getProxiedStreamUrl } from "@/lib/utils";
+import Script from 'next/script';
+
+// Déclaration de type pour window.Hls
+declare global {
+  interface Window {
+    Hls: any;
+  }
+}
 
 // Définir le type correct pour les paramètres de page Next.js
 interface PageProps {
@@ -749,6 +757,38 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
                       allow="autoplay; fullscreen; picture-in-picture"
                       referrerPolicy="no-referrer"
                       style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                    ></iframe>
+                  </div>
+                ) : episode.videoUrl.endsWith('.m3u8') || episode.videoUrl.includes('master.m3u8') ? (
+                  <div className="relative w-full h-full">
+                    <div className="absolute inset-0 flex items-center justify-center z-10 bg-black/80 loading-overlay transition-opacity duration-500">
+                      <div className="text-center">
+                        <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mb-4"></div>
+                        <p className="text-white text-lg font-medium">Chargement de la source...</p>
+                        <p className="text-gray-400 text-sm mt-2">Veuillez patienter pendant que la vidéo se charge</p>
+                        <p className="text-blue-400 text-sm mt-3">Cela prend entre 5 à 10 secondes</p>
+                      </div>
+                    </div>
+                    <iframe 
+                      src={`https://www.hlsplayer.org/play?url=${encodeURIComponent(episode.videoUrl)}`}
+                      className="w-full h-full" 
+                      frameBorder="0" 
+                      scrolling="no" 
+                      allowFullScreen
+                      allow="autoplay; fullscreen; picture-in-picture"
+                      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                      onLoad={() => {
+                        // Masquer le message de chargement quand l'iframe est chargée
+                        const loadingEl = document.querySelector('.loading-overlay');
+                        if (loadingEl) {
+                          loadingEl.classList.add('opacity-0');
+                          setTimeout(() => {
+                            if (loadingEl instanceof HTMLElement) {
+                              loadingEl.classList.add('hidden');
+                            }
+                          }, 500);
+                        }
+                      }}
                     ></iframe>
                   </div>
                 ) : episode.videoUrl.endsWith('.mp4') || episode.videoUrl.includes('cloudflarestorage') || episode.videoUrl.includes('cineburger.xyz') ? (

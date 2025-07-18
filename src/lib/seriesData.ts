@@ -117,13 +117,30 @@ export const seriesData: Content[] = [
     ]
   },
   {
+    id: "truc-en-plus",
+    title: "Un p'ti truc en plus",
+    description: "Pour échapper à la police, un père et son fils sont contraints de trouver refuge dans une colonie de vacances pour jeunes adultes en situation de handicap mental, endossant le rôle d’un éducateur et d’un pensionnaire. Le début des emmerdes et d’une formidable expérience humaine qui va les changer à jamais.",
+    imageUrl: "https://fr.web.img5.acsta.net/c_310_420/pictures/24/03/01/11/14/2965930.jpg",
+    bannerUrl: "https://m.media-amazon.com/images/S/aplus-media-library-service-media/46b8ebe4-8230-49fb-abea-520cc8051910.__CR87,0,1746,1080_PT0_SX970_V1___.jpg",
+    episodes: [
+      { id: 1, title: "Un p'ti truc en plus (Film Complet)", videoUrl: "https://pulse.topstrime.online/movie/1152014/master.m3u8", duration: 100 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/rTNMyZ5JcrfKnPamaYOo9wzq3m5.jpg" }
+    ],
+    status: "Terminée",
+    year: 2024,
+    studio: "Artus",
+    type: "Film",
+    genres: ["Comédie"],
+    rating: 7.1,
+    language: "VF",
+  },
+  {
     id: "breaking-bad",
     title: "Breaking Bad",
     description: "Un professeur de chimie atteint d'un cancer du poumon inopérable se lance dans la fabrication et la vente de méthamphétamine pour assurer l'avenir financier de sa famille.",
     imageUrl: "https://fr.web.img5.acsta.net/pictures/19/06/18/12/11/3956503.jpg",
     bannerUrl: "https://www.cravate-avenue.com/img/cms/Articles%20mode/BREAKING_BADS/Breaking%20Bad.jpg",
     episodes: [
-      { id: 1, title: "Chute Libre", videoUrl: "https://iframe.mediadelivery.net/play/404680/688c681c-b7ba-4652-b81e-013e6064ba9e" },
+      { id: 1, title: "Chute Libre", videoUrl: "https://pulse.topstrime.online/movie/1152014/master.m3u8" },
       { id: 2, title: "Cat's in the Bag...", videoUrl: "https://exemple.com/video2" },
       { id: 3, title: "...And the Bag's in the River", videoUrl: "https://exemple.com/video3" }
     ],
