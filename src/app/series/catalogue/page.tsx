@@ -54,6 +54,14 @@ const seriesList: CatalogueSeries[] = [
     time: "5 saisons"
   },
   {
+    id : "rick-and-morty",
+    title : "Rick et Morty",
+    imageUrl : "https://fr.web.img6.acsta.net/pictures/18/10/31/17/34/2348073.jpg",
+    type : "Série",
+    language : "VF",
+    time : "8 saisons"
+  },
+  {
     id: "charlie",
     title: "Charlie et la chocolaterie",
     imageUrl: "https://www.lafilmotheque.fr/v3/content/uploads/2023/05/417c38cda676141ca9fdcac5efdf951ff46db147.jpeg",

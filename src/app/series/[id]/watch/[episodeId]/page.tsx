@@ -82,7 +82,13 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
     const season = series.seasonsList?.find(s => s.seasonNumber === seasonNumber);
     episode = season?.episodes.find(ep => ep.id === parseInt(episodeId));
   } else {
-    episode = series.episodes.find(ep => ep.id === parseInt(episodeId));
+    // Si episodes est vide mais qu'il y a des saisons, utiliser la première saison
+    if (series.episodes.length === 0 && series.seasonsList && series.seasonsList.length > 0) {
+      const firstSeason = series.seasonsList[0];
+      episode = firstSeason.episodes.find(ep => ep.id === parseInt(episodeId));
+    } else {
+      episode = series.episodes.find(ep => ep.id === parseInt(episodeId));
+    }
   }
   
   if (!episode) {
@@ -95,6 +101,9 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
     if (hasMultipleSeasons && seasonNumber) {
       const season = series.seasonsList?.find(s => s.seasonNumber === seasonNumber);
       if (season) episodes = season.episodes;
+    } else if (series.episodes.length === 0 && series.seasonsList && series.seasonsList.length > 0) {
+      // Si episodes est vide mais qu'il y a des saisons, utiliser la première saison
+      episodes = series.seasonsList[0].episodes;
     }
     
     const totalEpisodes = episodes.length;

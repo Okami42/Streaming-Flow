@@ -899,6 +899,57 @@ export const seriesData: Content[] = [
     ]
   },
   {
+    id: "rick-and-morty",
+    title: "Rick et Morty",
+    description: "Rick et Morty est une série animée américaine créée par Justin Roiland et Dan Harmon. Elle suit les aventures de Rick Sanchez, un scientifique qui voyage dans l'espace et le temps avec son petit-fils Morty Smith, un adolescent qui l'accompagne dans ses aventures.",
+    imageUrl: "https://fr.web.img6.acsta.net/pictures/18/10/31/17/34/2348073.jpg",
+    bannerUrl: "https://blogscdn.thehut.net/wp-content/uploads/sites/499/2018/09/24160403/rick-and-morty.jpeg",
+    episodes: [],
+    status: "Terminé",
+    year: 2013,
+    studio: "Adult Swim",
+    type: "Série",
+    genres: ["Comédie", "Animation"],
+    rating: 8.7,
+    language: "VF",
+    seasons: 8,
+    seasonsList: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        episodes: [
+          { id: 1, title: "De la graine de héros", videoUrl: "https://cineburger.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E01.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/oWaKdUeMOlVZem3v9DWsdDGlTuY.jpg" },
+          { id: 2, title: "I, croquette", videoUrl: "https://cineburger.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E02.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/zsO5ylZLn7ihplZFqPmOz2v87R7.jpg" },
+          { id: 3, title: "Anatomy Park", videoUrl: "https://cineburger.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E03.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/3cp6QrExDBQUFGcOu43NBtaugNY.jpg" },
+          { id: 4, title: "M. Night Shaym-Aliens!", videoUrl: "https://cineburger.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E04.mp4", duration: 23 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/9hbDdbHeHIuquiwQ5zdux57nYTk.jpg" },
+          { id: 5, title: "La Boîte à larbins", videoUrl: "https://cineburger.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E05.mp4", duration: 23 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/9nh9ZpxOyCJMD73biS2h3CvHfm2.jpg" },
+          { id: 6, title: "É-Rick-xir d'amour", videoUrl: "https://cineburger.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E06.mp4", duration: 21 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/hY750JVvL7K9KQN9lcqPTqcUEkN.jpg" },
+          { id: 7, title: "Gazorpazorp junior", videoUrl: "https://cineburger.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E07.mp4", duration: 21 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/j7qn7TIOSQOHZBgVi4NKnTpIcgM.jpg" },
+          { id: 8, title: "Télé... visions", videoUrl: "https://  cineburger.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E08.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/HaTpHoQw2DWFAtHgGKn4gLOEaX.jpg" },
+          { id: 9, title: "La Petite Bou-Rick des horreurs", videoUrl: "https://cineburger.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E09.mp4", duration: 23 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/daA9q3U3ibIcm5OGuklySeIsQWV.jpg" },
+          { id: 10, title: "Rencontres du troisième Rick", videoUrl: "https://cineburger.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E10.mp4", duration: 23 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/8gOouaPQhfB8cC01sYyFLYgTcRq.jpg" },
+          { id: 11, title: "Ricksy Business", videoUrl: "https://cineburger.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E11.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/mLJbMSLaB8CZmr07GJGH9TiG4PL.jpg" },
+        ]
+      },
+      {
+        seasonNumber: 2,
+        title: "Saison 2",
+        episodes: [
+          { id: 1, title: "Effet Rick-ochet", videoUrl: "https://cineburger.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E01.mp4", duration: 23 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/49kPj1L8KkJAnhnqJIftr3fdXHt.jpg" },
+          { id: 2, title: "Prout, l'extra-terrestre", videoUrl: "https://cineburger.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E02.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/zsrtewu4jJPh4vB5ZDB9oW36tm8.jpg" },
+          { id: 3, title: "Assimilation auto-érotique", videoUrl: "https://cineburger.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E03.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/6zOHPMTvduupyEDqL8FnLGt6fxq.jpg" },
+          { id: 4, title: "Total Rickall", videoUrl: "https://cineburger.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E04.mp4", duration: 23 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/xVQqoLFSCzFtKp0OkW4PGPc7NtB.jpg" },
+          { id: 5, title: "On va vous faire schwifter", videoUrl: "https://cineburger.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E05.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/jBUDahgRdHQUrDGcd44ju2AllbV.jpg" },
+          { id: 6, title: "Les Ricks sont tombés sur la tête", videoUrl: "https://cineburger.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E06.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/9T5ZiW2qhqMRdx79q800SBYbxDv.jpg" },
+          { id: 7, title: "Mini Rick, méga hic", videoUrl: "https://cineburger.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E07.mp4", duration: 23 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/mmGdga7NBsz7CCZNVJrZ7bvzuOe.jpg" },
+          { id: 8, title: "Cable interdimensionnel 2: Tenter le destin", videoUrl: "https://cineburger.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E08.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/fm5rzPCXTLr1SlSmylBkNkZhF1P.jpg" },
+          { id: 9, title: "Qui est-ce qui purge, maintenant ?", videoUrl: "https://cineburger.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E09.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/uK0bpV9Oc07FfCsPk6BISqKj7bS.jpg" },
+          { id: 10, title: "Mariage à la squanchaise", videoUrl: "https://cineburger.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E10.mp4", duration: 23 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/tre38ZRSWjC1Z5f7AbI4TDo8w1t.jpg" }
+        ]
+      }
+    ]
+  },
+  {
     id: "euphoria",
     title: "Euphoria",
     description: "Rue Bennett, 17 ans, sort de désintoxication et cherche à donner un sens à sa vie. Elle rencontre Jules, une fille récemment arrivée en ville après le divorce de ses parents, et qui, comme Rue, cherche sa place dans le monde. Euphoria met en lumière des adolescents confrontés à des problèmes d'identité, de traumatismes, de drogues, d'amitié, d'amour et de sexualité.",

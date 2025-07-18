@@ -55,6 +55,13 @@ export default function SeriesEpisodesPage({ params }: PageProps) {
       const season = series.seasonsList?.find(s => s.seasonNumber === selectedSeason);
       return season ? season.episodes : [];
     }
+    
+    // Si episodes est vide mais qu'il y a des saisons, utiliser la première saison
+    if (series.episodes.length === 0 && series.seasonsList && series.seasonsList.length > 0) {
+      const firstSeason = series.seasonsList[0];
+      return firstSeason.episodes;
+    }
+    
     return series.episodes;
   };
 
