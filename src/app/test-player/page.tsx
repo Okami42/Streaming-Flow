@@ -1,77 +1,126 @@
 "use client";
 
 import React, { useState } from "react";
-import VideoPlayer from "@/components/ui/video-player";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import EnhancedHLSPlayer from "@/components/ui/enhanced-hls-player";
 
 export default function TestPlayerPage() {
-  const [currentPlayer, setCurrentPlayer] = useState<"sibnet" | "vidmoly">("vidmoly");
-  
-  // ID Vidmoly de test - c'est juste un exemple, vous pouvez le remplacer par un ID réel
-  const vidmolyId = "i835rhqdf94g"; // L'ID de "Kuroko's Basket Last Game" de votre catalogue
-  
-  // ID Sibnet de test - vous pouvez le remplacer par un ID réel
-  const sibnetId = "4738145"; // Un épisode de Kuroko's Basket de votre catalogue
-  
+  const [currentSource, setCurrentSource] = useState<string>("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isReady, setIsReady] = useState(false);
+
+  // Liste des flux de test
+  const testStreams = [
+    {
+      name: "Mux Test Stream (stable)",
+      url: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+    },
+    {
+      name: "Bbb 30s (stable)",
+      url: "https://test-streams.mux.dev/x36xhzz/url_0/193039199_mp4_h264_aac_hd_7.m3u8"
+    },
+    {
+      name: "Apple Advanced Stream (peut causer des désynchronisations)",
+      url: "https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8"
+    },
+    {
+      name: "Sintel Trailer (4k, peut causer des désynchronisations)",
+      url: "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"
+    }
+  ];
+
+  const handleSourceChange = (url: string) => {
+    setCurrentSource(url);
+    setErrorMessage(null);
+    setIsReady(false);
+  };
+
+  const handleError = (error: any) => {
+    console.error("Erreur de lecture:", error);
+    setErrorMessage(`Erreur: ${error.message || "Problème de lecture inconnu"}`);
+  };
+
+  const handleReady = () => {
+    setIsReady(true);
+    setErrorMessage(null);
+  };
+
   return (
-    <div className="min-h-screen bg-[#080D1A] text-white flex flex-col">
-      <Header />
+    <div className="container mx-auto py-8 px-4">
+      <h1 className="text-3xl font-bold mb-6 text-center">Test du Lecteur HLS Amélioré</h1>
       
-      <main className="flex-1 container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-8 text-center">Test du Nouveau Lecteur Vidéo</h1>
-        
-        <div className="flex justify-center mb-6 space-x-4">
-          <button 
-            onClick={() => setCurrentPlayer("vidmoly")}
-            className={`px-6 py-3 rounded-md ${
-              currentPlayer === "vidmoly" 
-                ? "bg-gradient-to-r from-pink-500 to-blue-500 text-white" 
-                : "bg-[#151A29] hover:bg-[#1E263F] text-white/80"
-            }`}
-          >
-            Lecteur Avancé (Vidmoly)
-          </button>
-          
-          <button 
-            onClick={() => setCurrentPlayer("sibnet")}
-            className={`px-6 py-3 rounded-md ${
-              currentPlayer === "sibnet" 
-                ? "bg-gradient-to-r from-pink-500 to-blue-500 text-white" 
-                : "bg-[#151A29] hover:bg-[#1E263F] text-white/80"
-            }`}
-          >
-            Lecteur Original (Sibnet)
-          </button>
+      <div className="mb-6">
+        <h2 className="text-xl font-semibold mb-2">Sélectionner un flux de test:</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {testStreams.map((stream) => (
+            <button
+              key={stream.url}
+              onClick={() => handleSourceChange(stream.url)}
+              className={`p-3 rounded-lg transition-colors ${
+                currentSource === stream.url
+                  ? "bg-pink-600 text-white"
+                  : "bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-black dark:text-white"
+              }`}
+            >
+              {stream.name}
+            </button>
+          ))}
         </div>
-        
-        <div className="w-full aspect-video max-w-5xl mx-auto bg-black rounded-lg overflow-hidden shadow-xl border border-[#1A1F35]">
-          <VideoPlayer 
-            vidmolyId={currentPlayer === "vidmoly" ? vidmolyId : undefined}
-            sibnetId={currentPlayer === "sibnet" ? sibnetId : undefined}
-            className="w-full h-full"
+      </div>
+      
+      <div className="mb-4">
+        <h2 className="text-xl font-semibold mb-2">URL personnalisée:</h2>
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={currentSource}
+            onChange={(e) => setCurrentSource(e.target.value)}
+            className="flex-1 p-2 border rounded dark:bg-gray-800 dark:border-gray-600"
+            placeholder="Entrez l'URL d'un flux HLS (m3u8)"
           />
+          <button
+            onClick={() => handleSourceChange(currentSource)}
+            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          >
+            Charger
+          </button>
         </div>
-        
-        <div className="mt-8 p-6 bg-[#151A29] rounded-lg border border-[#1A1F35] max-w-3xl mx-auto">
-          <h2 className="text-xl font-semibold mb-4 text-pink-500">Instructions :</h2>
-          
-          <ul className="space-y-2 list-disc pl-5">
-            <li>Basculez entre les deux lecteurs en utilisant les boutons ci-dessus</li>
-            <li>Le <span className="text-pink-500 font-medium">Lecteur Avancé</span> utilise notre nouveau composant avec Plyr.js</li>
-            <li>Le <span className="text-blue-500 font-medium">Lecteur Original</span> utilise l'iframe Sibnet standard</li>
-            <li>Testez les contrôles de son, la barre de progression et les autres fonctionnalités</li>
-          </ul>
-          
-          <div className="mt-6 p-4 bg-[#0D121E] rounded-md border border-pink-500/20">
-            <p className="text-sm text-white/70">
-              <span className="text-pink-500 font-bold">Note :</span> Pour utiliser ce lecteur dans votre application, il suffit d'utiliser le composant <code className="bg-[#1A1F35] px-1 rounded">VideoPlayer</code> comme d'habitude. Le changement est transparent pour les utilisateurs et les développeurs.
-            </p>
-          </div>
-        </div>
-      </main>
+      </div>
       
-      <Footer />
+      {errorMessage && (
+        <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+          {errorMessage}
+        </div>
+      )}
+      
+      {isReady && (
+        <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded">
+          Lecteur prêt ! La lecture peut commencer.
+        </div>
+      )}
+      
+      <div className="aspect-video w-full bg-black rounded-lg overflow-hidden shadow-xl">
+        <EnhancedHLSPlayer
+          src={currentSource}
+          className="w-full h-full"
+          autoPlay={true}
+          onError={handleError}
+          onReady={handleReady}
+        />
+      </div>
+      
+      <div className="mt-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
+        <h2 className="text-xl font-semibold mb-2">À propos du lecteur amélioré</h2>
+        <p className="mb-3">
+          Ce lecteur HLS intègre plusieurs mécanismes pour détecter et corriger automatiquement les problèmes de synchronisation audio/vidéo :
+        </p>
+        <ul className="list-disc pl-6 space-y-2">
+          <li>Détection automatique des décalages entre l'audio et la vidéo</li>
+          <li>Ajustement dynamique de la vitesse de lecture pour compenser les désynchronisations</li>
+          <li>Rechargement intelligent des segments en cas de problème</li>
+          <li>Configuration optimisée des buffers pour une lecture fluide</li>
+          <li>Gestion avancée des erreurs de chargement</li>
+        </ul>
+      </div>
     </div>
   );
 }
