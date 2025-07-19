@@ -70,6 +70,14 @@ const seriesList: CatalogueSeries[] = [
     time: "5 saisons"
   },
   {
+    id: "ete-jolie",
+    title: "L'été ou je suis devenue jolie",
+    imageUrl: "https://images.justwatch.com/poster/307003140/s718/the-summer-i-turned-pretty.jpg",
+    type: "Série",
+    language: "VF",
+    time: "2 saisons"
+  },
+  {
     id : "rick-and-morty",
     title : "Rick et Morty",
     imageUrl : "https://fr.web.img6.acsta.net/pictures/18/10/31/17/34/2348073.jpg",

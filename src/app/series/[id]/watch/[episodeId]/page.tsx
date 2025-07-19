@@ -20,6 +20,7 @@ import { cn } from "@/lib/utils";
 import { getEpisodeDescription } from "@/lib/episodeDescriptions";
 import { getProxiedStreamUrl } from "@/lib/utils";
 import Script from 'next/script';
+import Head from 'next/head';
 
 // Déclaration de type pour window.Hls
 declare global {
@@ -586,6 +587,18 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
 
   return (
     <div className="flex flex-col min-h-screen bg-[#030711]">
+      <Head>
+        <link rel="preconnect" href="https://www.hlsplayer.org" />
+        <link rel="preconnect" href={new URL(episode.videoUrl).origin} />
+        <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/hls.js@latest" />
+        {episode.videoUrl.endsWith('.m3u8') || episode.videoUrl.includes('master.m3u8') ? (
+          <meta name="referrer" content="no-referrer" />
+        ) : null}
+      </Head>
+      <Script
+        src="https://cdn.jsdelivr.net/npm/hls.js@latest"
+        strategy="beforeInteractive"
+      />
       <Header />
       
       <main className="flex-grow pt-20">
@@ -770,13 +783,14 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
                       </div>
                     </div>
                     <iframe 
-                      src={`https://www.hlsplayer.org/play?url=${encodeURIComponent(episode.videoUrl)}`}
+                      src={`https://www.hlsplayer.org/play?url=${encodeURIComponent(episode.videoUrl)}&autoplay=true&preload=auto&poster=${encodeURIComponent(episode.imageUrl || '')}&muted=false&loop=false&playsinline=true&quality=auto&startPosition=${currentTime}&lowLatency=true&enableWorker=true&debug=false&captions=false&audioTrack=fr&defaultAudioTrack=fr`}
                       className="w-full h-full" 
                       frameBorder="0" 
                       scrolling="no" 
                       allowFullScreen
                       allow="autoplay; fullscreen; picture-in-picture"
                       style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                      loading="eager"
                       onLoad={() => {
                         // Masquer le message de chargement quand l'iframe est chargée
                         const loadingEl = document.querySelector('.loading-overlay');

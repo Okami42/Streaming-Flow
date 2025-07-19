@@ -225,6 +225,45 @@ export const seriesData: Content[] = [
     seasons: 5
   },
   {
+    id: "ete-jolie",
+    title: "L'été où je suis devenue jolie (VOSTFR POUR LE MOMENT LA VF ARRIVE !)",
+    description: "Isabel 'Belly' Conklin passe ses étés à Cousin's Beach avec sa mère et son frère aîné, ainsi que le meilleur ami de sa mère et ses fils. Au cours d'un été bien précis, elle va connaître son premier amour mais aussi sa première peine de coeur.",
+    imageUrl: "https://images.justwatch.com/poster/307003140/s718/the-summer-i-turned-pretty.jpg",
+    bannerUrl: "https://images.justwatch.com/poster/307003140/s718/the-summer-i-turned-pretty.jpg",
+    episodes: [],
+    status: "En cours",
+    year: 2022,
+    studio: "Amazon Prime",
+    type: "Série",
+    genres: ["Comédie","Drame"],
+    rating: 8.2,
+    language: "VF",
+    seasons: 2,
+    seasonsList: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        episodes: [
+          { id: 1, title: "Premier épisode", videoUrl: "https://pulse.topstrime.online/tv/194766/S1/E1/master.m3u8", duration: 45 * 60, imageUrl: "" },
+          { id: 2, title: "Deuxième épisode", videoUrl: "https://pulse.topstrime.online/tv/194766/S1/E2/master.m3u8", duration: 45 * 60, imageUrl: "" },
+          { id: 3, title: "Troisième épisode", videoUrl: "https://pulse.topstrime.online/tv/194766/S1/E3/master.m3u8", duration: 45 * 60, imageUrl: "" },
+          { id: 4, title: "Quatrième épisode", videoUrl: "https://pulse.topstrime.online/tv/194766/S1/E4/master.m3u8", duration: 45 * 60, imageUrl: "" },
+          { id: 5, title: "Cinquième épisode", videoUrl: "https://pulse.topstrime.online/tv/194766/S1/E5/master.m3u8", duration: 45 * 60, imageUrl: "" },
+          { id: 6, title: "Sixième épisode", videoUrl: "https://pulse.topstrime.online/tv/194766/S1/E6/master.m3u8", duration: 45 * 60, imageUrl: "" },
+          { id: 7, title: "Septième épisode", videoUrl: "https://pulse.topstrime.online/tv/194766/S1/E7/master.m3u8", duration: 45 * 60, imageUrl: "" },
+
+        ]
+      },
+      {
+        seasonNumber: 2,
+        title: "Saison 2",
+        episodes: [
+          { id: 1, title: "Premier épisode", videoUrl: "https://cineburger.xyz/series/Été-Jolie/S02/Été-Jolie-S02-E01.mp4", duration: 45 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7qU2vq1D3umZIzwqckwV0uGBibT.jpg" }
+        ]
+      }
+    ]
+  },
+  {
     id: "game-of-thrones",
     title: "Game of Thrones",
     description: "Sur le continent de Westeros, le roi Robert Baratheon gouverne le Royaume des Sept Couronnes depuis plus de dix-sept ans. Mais des complots se trament pour prendre le pouvoir.",
