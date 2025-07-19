@@ -26,7 +26,8 @@ export default function VideoPlayer({
 }: VideoPlayerProps) {
   const [isLoading, setIsLoading] = useState(true);
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  // Suppression de la clé dynamique qui causait le rechargement constant
+  // Génération d'une clé unique pour forcer le rechargement du composant
+  const uniqueKey = sibnetId || vidmolyId || sendvidId || beerscloudId || Math.random().toString();
   
   // Construction directe de l'URL Vidmoly - format standard
   const finalVidmolyUrl = vidmolyId 
@@ -51,6 +52,11 @@ export default function VideoPlayer({
     setIsLoading(false);
   };
 
+  // Réinitialiser l'état de chargement quand la source change
+  useEffect(() => {
+    setIsLoading(true);
+  }, [sibnetId, vidmolyId, sendvidId, beerscloudId]);
+
   // Nettoyer l'iframe lors du démontage du composant
   useEffect(() => {
     return () => {
@@ -69,7 +75,7 @@ export default function VideoPlayer({
   }, [sibnetId, vidmolyId, sendvidId, beerscloudId]);
   
   return (
-    <div className={`w-full h-full relative ${className}`} style={{ overflow: 'hidden' }}>      
+    <div className={`w-full h-full relative ${className}`} style={{ overflow: 'hidden' }} key={uniqueKey}>      
       {/* Afficher un loader pendant le chargement */}
       {isLoading && !isM3U8Link && (
         <div className="absolute inset-0 flex items-center justify-center bg-black z-10">
@@ -84,6 +90,7 @@ export default function VideoPlayer({
           poster={poster}
           className="w-full h-full"
           autoPlay={true}
+          key={sibnetId}
         />
       )}
       
@@ -99,6 +106,7 @@ export default function VideoPlayer({
           allow="fullscreen; autoplay"
           onLoad={handleIframeLoad}
           onError={handleIframeError}
+          key={sibnetId}
           style={{ 
             display: isLoading ? 'none' : 'block',
             width: '100%',
@@ -123,6 +131,7 @@ export default function VideoPlayer({
           className="w-full h-full"
           onLoad={handleIframeLoad}
           onError={handleIframeError}
+          key={vidmolyId}
           style={{ 
             display: isLoading ? 'none' : 'block',
             position: 'absolute',
@@ -145,6 +154,7 @@ export default function VideoPlayer({
           allowFullScreen 
           onLoad={handleIframeLoad}
           onError={handleIframeError}
+          key={sendvidId}
           style={{ 
             display: isLoading ? 'none' : 'block',
             position: 'absolute',
@@ -168,6 +178,7 @@ export default function VideoPlayer({
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           onLoad={handleIframeLoad}
           onError={handleIframeError}
+          key={beerscloudId}
           style={{ 
             display: isLoading ? 'none' : 'block',
             position: 'absolute',
