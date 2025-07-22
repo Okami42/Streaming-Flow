@@ -32,38 +32,38 @@ interface ContentItem {
   imageUrl: string;
   time?: string;
   type: "Anime" | "Scans";
-  language: "VOSTFR" | "VF";
+  language: "VF & VO";
 }
 
 // Conversion des données pour garantir la compatibilité des types
 const typedTuesdayReleases = tuesdayReleases.map(item => ({
   ...item,
   type: item.type as "Anime" | "Scans",
-  language: item.language as "VOSTFR" | "VF"
+  language: item.language as "VF & VO"
 }));
 
 const typedRecentEpisodes = recentEpisodes.map(item => ({
   ...item,
   type: item.type as "Anime" | "Scans",
-  language: item.language as "VOSTFR" | "VF"
+  language: item.language as "VF & VO"
 }));
 
 const typedRecentScans = recentScans.map(item => ({
   ...item,
   type: item.type as "Anime" | "Scans",
-  language: item.language as "VOSTFR" | "VF"
+  language: item.language as "VF & VO"
 }));
 
 const typedClassics = classics.map(item => ({
   ...item,
   type: item.type as "Anime" | "Scans",
-  language: item.language as "VOSTFR" | "VF"
+  language: item.language as "VF & VO"
 }));
 
 const typedHidden = hidden.map(item => ({
   ...item,
   type: item.type as "Anime" | "Scans",
-  language: item.language as "VOSTFR" | "VF"
+  language: item.language as "VF & VO"
 }));
 
 // Fonction pour obtenir l'image de l'anime à partir de l'ID de l'anime

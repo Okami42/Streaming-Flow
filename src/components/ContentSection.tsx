@@ -12,7 +12,7 @@ interface ContentItem {
   imageUrl: string;
   time?: string;
   type: "Anime" | "Scans";
-  language: "VOSTFR" | "VF";
+  language: "VF & VO";
 }
 
 interface ContentSectionProps {
