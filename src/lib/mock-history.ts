@@ -94,16 +94,6 @@ export const mockReadHistory: ReadHistoryItem[] = [
     totalPages: 42,
     type: 'Scans',
   },
-  {
-    id: 'return-to-player-c23',
-    title: 'Return to Player',
-    imageUrl: 'https://ext.same-assets.com/844008929/3598158507.jpeg',
-    lastReadAt: new Date(Date.now() - 1000 * 60 * 60 * 48).toISOString(), // 2 days ago
-    chapter: 23,
-    page: 10,
-    totalPages: 27,
-    type: 'Scans',
-  },
 ];
 
 export const combinedHistory = [...mockWatchHistory, ...mockReadHistory].sort((a, b) => {

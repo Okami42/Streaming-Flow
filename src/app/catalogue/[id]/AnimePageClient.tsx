@@ -20,7 +20,7 @@ import { getProxiedStreamUrl } from "@/lib/utils";
 export default function AnimePageClient({ anime }: { anime: Anime | undefined }) {
   const [selectedEpisode, setSelectedEpisode] = useState(1);
   const [selectedSeason, setSelectedSeason] = useState<number | string>(1);
-  const [selectedLanguage, setSelectedLanguage] = useState<"vostfr" | "vf">("vostfr");
+  const [selectedLanguage, setSelectedLanguage] = useState<"vo" | "vf">("vo");
   const [isFollowing, setIsFollowing] = useState(false);
   
   // Récupérer les fonctions du hook useHistory
@@ -145,7 +145,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
     }
     
     // Uniquement si on démarre la lecture et que c'est l'épisode 1 en VOSTFR
-    if (selectedEpisode === 1 && selectedLanguage === "vostfr") {
+    if (selectedEpisode === 1 && selectedLanguage === "vo") {
       console.log("Démarrage du timer");
       
       // Variable pour suivre le dernier temps connu
@@ -221,7 +221,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
     setRenderKey(prev => prev + 1);
     
     // Uniquement pour les vidéos Sibnet (iframe)
-    if (selectedEpisode === 1 && selectedLanguage === "vostfr") {
+    if (selectedEpisode === 1 && selectedLanguage === "vo") {
       // Écouteur simplifié pour détecter les interactions qui pourraient indiquer une pause
       const detectPause = () => {
         // Attendre un court instant pour laisser le temps à la vidéo de se mettre en pause
@@ -461,7 +461,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
       
       try {
         // Pour l'épisode 1, on doit forcer la lecture de l'iframe
-        if (selectedEpisode === 1 && selectedLanguage === "vostfr") {
+        if (selectedEpisode === 1 && selectedLanguage === "vo") {
           console.log("Démarrage de la vidéo");
           
           // Force le focus sur l'iframe pour faciliter l'interaction
@@ -613,12 +613,12 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
     );
   }
 
-  const videoId = selectedLanguage === "vostfr"
+  const videoId = selectedLanguage === "vo"
     ? episode?.sibnetVostfrId
     : episode?.sibnetVfId;
     
   // Définir des sources mp4 de démonstration
-  const mp4Source = selectedLanguage === "vostfr"
+  const mp4Source = selectedLanguage === "vo"
     ? "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" 
     : "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
@@ -795,7 +795,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
             <div className="hidden md:block">
               <Tabs
                 value={selectedLanguage}
-                onValueChange={(value) => setSelectedLanguage(value as "vostfr" | "vf")}
+                onValueChange={(value) => setSelectedLanguage(value as "vo" | "vf")}
                 className="mb-4"
               >
 
@@ -809,10 +809,10 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                   </div>
                   <TabsList className="bg-[#151a2a] border border-white/10">
                     <TabsTrigger
-                      value="vostfr"
+                      value="vo"
                       className="data-[state=active]:bg-[#1a1f35] data-[state=active]:text-white"
                     >
-                      VOSTFR
+                      VO
                     </TabsTrigger>
                     {/* Ne pas afficher l'option VF pour Akudama Drive */}
                     {anime?.id !== "akudama-drive" && (
@@ -864,7 +864,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                   </div>
                 </div>
 
-                <TabsContent value="vostfr" className="mt-2">
+                <TabsContent value="vo" className="mt-2">
                   {/* Sélecteur d'épisode en style dropdown */}
                   <div className="mb-2 flex justify-between items-center md:hidden">
                     <select 
@@ -881,56 +881,46 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                   </div>
                   
                   {/* Tabs pour choisir le lecteur */}
-                  <div className="mb-4" key={`vostfr-container-${selectedEpisode}-${selectedSeason}`}>
-                    <Tabs defaultValue="lecteur1" className="w-full">
-                      <TabsList className={`grid w-full ${anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' ? 'grid-cols-2' : 'grid-cols-2'} bg-[#151a2a] mb-2 rounded-t-md border border-white/10 border-b-0`}>
-                        <TabsTrigger value="lecteur1" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/50 data-[state=active]:to-blue-500/50 data-[state=active]:text-white data-[state=active]:shadow-inner">Saison 1</TabsTrigger>
-                        <TabsTrigger value="lecteur2" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/50 data-[state=active]:to-blue-500/50 data-[state=active]:text-white data-[state=active]:shadow-inner">Saison 2</TabsTrigger>
-                      </TabsList>
-                      
-                      <TabsContent value="lecteur1" className="mt-0">
-                        {/* Lecteur spécifique pour Kuroko no Basket - Film */}
-                        {anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' ? (
-                          <div className="bg-black" style={{ width: '100%', height: '650px' }} key={`container-lecteur1-vostfr-${selectedEpisode}-${selectedSeason}`}>
-                            <VideoPlayer 
-                              vidmolyId={episode?.vidmolyVfId}
-                              className="w-full h-full"
-                            />
-                          </div>
-                        ) : (
-                          <div className="bg-black" style={{ width: '100%', height: '650px' }} key={`container-lecteur1-vostfr-${selectedEpisode}-${selectedSeason}`}>
-                            <VideoPlayer 
-                              sendvidId={episode?.sendvidId}
-                              sibnetId={episode?.sendvidId ? undefined : videoId}
-                              className="w-full h-full"
-                              key={`lecteur1-vostfr-${selectedEpisode}-${selectedSeason}`}
-                            />
-                          </div>
-                        )}
-                      </TabsContent>
-                      
-                      <TabsContent value="lecteur2" className="mt-0">
-                        {/* Lecteur 2 inversé : Sibnet pour Kuroko, Vidmoly pour les autres */}
-                        {anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' ? (
-                          <div className="bg-black" style={{ width: '100%', height: '650px' }} key={`container-lecteur2-vostfr-${selectedEpisode}-${selectedSeason}`}>
-                            <HLSPlayer 
-                              src={getProxiedStreamUrl("https://streaming23.animedigitalnetwork.fr/1744239835727-1046246-b5b12c6e209c9af33b8b9f56cc55e07b/video1_1080p/playlist.m3u8")}
-                              className="w-full h-full"
-                              poster={anime.bannerUrl || anime.imageUrl}
-                            />
-                          </div>
-                        ) : (
-                          <div className="bg-black" style={{ width: '100%', height: '650px' }} key={`container-lecteur2-vostfr-${selectedEpisode}-${selectedSeason}`}>
-                            <VideoPlayer 
-                              vidmolyId={episode?.vidmolyId}
-                              sibnetId={!episode?.vidmolyId ? videoId : undefined}
-                              className="w-full h-full"
-                              key={`lecteur2-vostfr-${selectedEpisode}-${selectedSeason}`}
-                            />
-                          </div>
-                        )}
-                      </TabsContent>
-                    </Tabs>
+                  <div className="mb-4" key={`vo-container-${selectedEpisode}-${selectedSeason}`}>
+                    {totalEpisodes <= 1 ? (
+                      // Lecteur unique sans tabs pour les animes avec un seul épisode
+                      <div className="bg-black" style={{ width: '100%', height: '650px' }} key={`container-lecteur-unique-vo-${selectedEpisode}-${selectedSeason}`}>
+                        <VideoPlayer 
+                          sendvidId={episode?.sendvidId}
+                          sibnetId={episode?.sendvidId ? undefined : videoId}
+                          className="w-full h-full"
+                          key={`lecteur-unique-vo-${selectedEpisode}-${selectedSeason}`}
+                        />
+                      </div>
+                    ) : (
+                      // Tabs pour les animes avec plusieurs épisodes
+                      <Tabs defaultValue="lecteur1" className="w-full">
+                        <TabsList className="grid w-full grid-cols-1 bg-[#151a2a] mb-2 rounded-t-md border border-white/10 border-b-0">
+                          <TabsTrigger value="lecteur1" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/50 data-[state=active]:to-blue-500/50 data-[state=active]:text-white data-[state=active]:shadow-inner">Lecteur 1</TabsTrigger>
+                        </TabsList>
+                        
+                        <TabsContent value="lecteur1" className="mt-0">
+                          {/* Lecteur spécifique pour Kuroko no Basket - Film */}
+                          {anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' ? (
+                            <div className="bg-black" style={{ width: '100%', height: '650px' }} key={`container-lecteur1-vo-${selectedEpisode}-${selectedSeason}`}>
+                              <VideoPlayer 
+                                vidmolyId={episode?.vidmolyVfId}
+                                className="w-full h-full"
+                              />
+                            </div>
+                          ) : (
+                            <div className="bg-black" style={{ width: '100%', height: '650px' }} key={`container-lecteur1-vo-${selectedEpisode}-${selectedSeason}`}>
+                              <VideoPlayer 
+                                sendvidId={episode?.sendvidId}
+                                sibnetId={episode?.sendvidId ? undefined : videoId}
+                                className="w-full h-full"
+                                key={`lecteur1-vo-${selectedEpisode}-${selectedSeason}`}
+                              />
+                            </div>
+                          )}
+                        </TabsContent>
+                      </Tabs>
+                    )}
                   </div>
                 </TabsContent>
 
@@ -952,43 +942,43 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                   
                   {/* Tabs pour choisir le lecteur */}
                   <div className="mb-4" key={`vf-container-${selectedEpisode}-${selectedSeason}`}>
-                    <Tabs defaultValue="lecteur1" className="w-full">
-                      <TabsList className={`grid w-full ${anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' ? 'grid-cols-2' : 'grid-cols-2'} bg-[#151a2a] mb-2 rounded-t-md border border-white/10 border-b-0`}>
-                        <TabsTrigger value="lecteur1" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/50 data-[state=active]:to-blue-500/50 data-[state=active]:text-white data-[state=active]:shadow-inner">Saison 1</TabsTrigger>
-                        <TabsTrigger value="lecteur2" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/50 data-[state=active]:to-blue-500/50 data-[state=active]:text-white data-[state=active]:shadow-inner">Saison 2</TabsTrigger>
-                      </TabsList>
-                      
-                      <TabsContent value="lecteur1" className="mt-0">
-                        {/* Lecteur style anime-sama.fr */}
-                        {anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' ? (
-                          <div className="bg-black" style={{ width: '100%', height: '650px' }} key={`container-lecteur1-vf-${selectedEpisode}-${selectedSeason}`}>
-                            <VideoPlayer 
-                              vidmolyId={episode?.vidmolyVfId}
-                              className="w-full h-full"
-                            />
-                          </div>
-                        ) : (
-                          <div className="bg-black" style={{ width: '100%', height: '650px' }} key={`container-lecteur1-vf-${selectedEpisode}-${selectedSeason}`}>
-                            <VideoPlayer 
-                              sibnetId={videoId}
-                              className="w-full h-full"
-                              key={`lecteur1-vf-${selectedEpisode}-${selectedSeason}`}
-                            />
-                          </div>
-                        )}
-                      </TabsContent>
-                      
-                      <TabsContent value="lecteur2" className="mt-0">
-                        {/* Lecteur style anime-sama.fr */}
-                        <div className="bg-black" style={{ width: '100%', height: '650px' }} key={`container-lecteur2-vf-${selectedEpisode}-${selectedSeason}`}>
-                          <VideoPlayer 
-                            vidmolyId={episode?.vidmolyVfId}
-                            className="w-full h-full"
-                            key={`lecteur2-vf-${selectedEpisode}-${selectedSeason}`}
-                          />
-                        </div>
-                      </TabsContent>
-                    </Tabs>
+                    {totalEpisodes <= 1 ? (
+                      // Lecteur unique sans tabs pour les animes avec un seul épisode
+                      <div className="bg-black" style={{ width: '100%', height: '650px' }} key={`container-lecteur-unique-vf-${selectedEpisode}-${selectedSeason}`}>
+                        <VideoPlayer 
+                          sibnetId={videoId}
+                          className="w-full h-full"
+                          key={`lecteur-unique-vf-${selectedEpisode}-${selectedSeason}`}
+                        />
+                      </div>
+                    ) : (
+                      // Tabs pour les animes avec plusieurs épisodes
+                      <Tabs defaultValue="lecteur1" className="w-full">
+                        <TabsList className="grid w-full grid-cols-1 bg-[#151a2a] mb-2 rounded-t-md border border-white/10 border-b-0">
+                          <TabsTrigger value="lecteur1" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/50 data-[state=active]:to-blue-500/50 data-[state=active]:text-white data-[state=active]:shadow-inner">Lecteur 1</TabsTrigger>
+                        </TabsList>
+                        
+                        <TabsContent value="lecteur1" className="mt-0">
+                          {/* Lecteur style anime-sama.fr */}
+                          {anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' ? (
+                            <div className="bg-black" style={{ width: '100%', height: '650px' }} key={`container-lecteur1-vf-${selectedEpisode}-${selectedSeason}`}>
+                              <VideoPlayer 
+                                vidmolyId={episode?.vidmolyVfId}
+                                className="w-full h-full"
+                              />
+                            </div>
+                          ) : (
+                            <div className="bg-black" style={{ width: '100%', height: '650px' }} key={`container-lecteur1-vf-${selectedEpisode}-${selectedSeason}`}>
+                              <VideoPlayer 
+                                sibnetId={videoId}
+                                className="w-full h-full"
+                                key={`lecteur1-vf-${selectedEpisode}-${selectedSeason}`}
+                              />
+                            </div>
+                          )}
+                        </TabsContent>
+                      </Tabs>
+                    )}
                   </div>
                 </TabsContent>
               </Tabs>
@@ -1016,68 +1006,74 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                 )}
                 
                 {/* Sélecteur de langue VO/VF */}
-                <select
-                  value={selectedLanguage}
-                  onChange={(e) => setSelectedLanguage(e.target.value as "vostfr" | "vf")}
-                  className="bg-[#151a2a] text-white border border-gray-700 rounded-md px-4 py-2 w-1/2"
-                >
-                  <option value="vostfr">VO</option>
-                  <option value="vf">VF</option>
-                </select>
+                {totalEpisodes > 1 && (
+                  <select
+                    value={selectedLanguage}
+                    onChange={(e) => setSelectedLanguage(e.target.value as "vo" | "vf")}
+                    className="bg-[#151a2a] text-white border border-gray-700 rounded-md px-4 py-2 w-1/2"
+                  >
+                    <option value="vo">VO</option>
+                    <option value="vf">VF</option>
+                  </select>
+                )}
               </div>
               
               {/* Sélecteur d'épisode en style dropdown */}
-              <div className="mb-2 flex justify-between items-center">
-                <select 
-                  value={selectedEpisode}
-                  onChange={(e) => setSelectedEpisode(Number(e.target.value))}
-                  className="bg-[#151a2a] text-white border border-gray-700 rounded-md px-4 py-2 w-full"
-                >
-                  {episodesToShow.map((ep) => (
-                    <option key={ep.number} value={ep.number}>
-                      ÉPISODE {ep.number} - {ep.title}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              {totalEpisodes > 1 && (
+                <div className="mb-2 flex justify-between items-center">
+                  <select 
+                    value={selectedEpisode}
+                    onChange={(e) => setSelectedEpisode(Number(e.target.value))}
+                    className="bg-[#151a2a] text-white border border-gray-700 rounded-md px-4 py-2 w-full"
+                  >
+                    {episodesToShow.map((ep) => (
+                      <option key={ep.number} value={ep.number}>
+                        ÉPISODE {ep.number} - {ep.title}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
               
               {/* Lecteur vidéo */}
               <div className="bg-black" style={{ width: '100%', height: '250px' }}>
                 <VideoPlayer 
                   sendvidId={episode?.sendvidId}
                   sibnetId={episode?.sendvidId ? undefined : videoId}
-                  vidmolyId={selectedLanguage === "vostfr" ? episode?.vidmolyId : episode?.vidmolyVfId}
+                  vidmolyId={selectedLanguage === "vo" ? episode?.vidmolyId : episode?.vidmolyVfId}
                   className="w-full h-full"
                   key={`mobile-player-${selectedEpisode}-${selectedSeason}-${selectedLanguage}`}
                 />
               </div>
               
               {/* Navigation des épisodes */}
-              <div className="flex justify-between items-center mt-2 px-2">
-                <button 
-                  onClick={() => setSelectedEpisode(prev => Math.max(1, prev - 1))}
-                  disabled={selectedEpisode <= 1}
-                  className="p-2 text-white disabled:opacity-50"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="m15 18-6-6 6-6"/>
-                  </svg>
-                </button>
-                
-                <div className="text-white text-sm">
-                  Épisode {selectedEpisode}/{totalEpisodes}
+              {totalEpisodes > 1 && (
+                <div className="flex justify-between items-center mt-2 px-2">
+                  <button 
+                    onClick={() => setSelectedEpisode(prev => Math.max(1, prev - 1))}
+                    disabled={selectedEpisode <= 1}
+                    className="p-2 text-white disabled:opacity-50"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="m15 18-6-6 6-6"/>
+                    </svg>
+                  </button>
+                  
+                  <div className="text-white text-sm">
+                    Épisode {selectedEpisode}/{totalEpisodes}
+                  </div>
+                  
+                  <button 
+                    onClick={() => setSelectedEpisode(prev => Math.min(totalEpisodes, prev + 1))}
+                    disabled={selectedEpisode >= totalEpisodes}
+                    className="p-2 text-white disabled:opacity-50"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="m9 18 6-6-6-6"/>
+                    </svg>
+                  </button>
                 </div>
-                
-                <button 
-                  onClick={() => setSelectedEpisode(prev => Math.min(totalEpisodes, prev + 1))}
-                  disabled={selectedEpisode >= totalEpisodes}
-                  className="p-2 text-white disabled:opacity-50"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="m9 18 6-6-6-6"/>
-                  </svg>
-                </button>
-              </div>
+              )}
             </div>
           </div>
 

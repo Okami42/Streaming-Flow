@@ -15,7 +15,7 @@ interface CatalogueAnime {
   title: string;
   imageUrl: string;
   type: "Anime" | "Scans";
-  language: "VOSTFR" | "VF" | "VF & VOSTFR";
+  language: "VO" | "VF" | "VF & VO";
 }
 
 const animes: CatalogueAnime[] = [
@@ -24,105 +24,98 @@ const animes: CatalogueAnime[] = [
     title: "Akira",
     imageUrl: "https://m.media-amazon.com/images/M/MV5BM2ZiZTk1ODgtMTZkNS00NTYxLWIxZTUtNWExZGYwZTRjODViXkEyXkFqcGdeQXVyMTE2MzA3MDM@._V1_.jpg",
     type: "Anime",
-    language: "VF & VOSTFR",
+    language: "VF & VO",
   },
   {
     id: "nagatoro",
     title: "Arrête de me chauffer Nagatoro",
     imageUrl: "https://fr.web.img2.acsta.net/pictures/21/03/24/17/22/3948943.jpg",
     type: "Anime",
-    language: "VF & VOSTFR",
+    language: "VF & VO",
   },
   {
     id: "welcome-demon-school-teacher",
     title: "Welcome, Demon-School Teacher!",
-    imageUrl: "https://ext.same-assets.com/3692778002/4215009052.jpeg",
+    imageUrl: "https://www.nautiljon.com/images/anime/00/90/youkai_gakkou_no_sensei_hajimemashita_12409.webp",
     type: "Anime",
-    language: "VF & VOSTFR",
+    language: "VF & VO",
   },
   {
     id: "solo-leveling",
     title: "Solo Leveling",
     imageUrl: "https://img-cdn.thepublive.com/wion/media/post_attachments/files/web-story/900_1600/2024/3/26/1711469910345_sololeveling.jpg",
     type: "Anime",
-    language: "VF & VOSTFR",
+    language: "VF & VO",
   },
   {
     id: "unnamed-memory",
     title: "Unnamed Memory",
-    imageUrl: "https://ext.same-assets.com/3309958097/2676309700.jpeg",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BY2Q5NTRiYTgtZjJmOS00YjQ0LWE2MmQtMjE5MmM3ODQ5ZDg2XkEyXkFqcGc@._V1_.jpg",
     type: "Anime",
-    language: "VF & VOSTFR",
+    language: "VF & VO",
   },
   {
     id: "failure-skill-nut-master",
     title: "Failure Skill 'Nut Master'",
-    imageUrl: "https://ext.same-assets.com/2175864690/3344234865.jpeg",
+    imageUrl: "https://www.nautiljon.com/images/anime/00/06/hazure_skill_kinomi_master_skill_no_mi_tabetara_shinu_wo_mugen_ni_taberareru_you_ni_natta_ken_ni_tsuite_12760.webp",
     type: "Anime",
-    language: "VF & VOSTFR",
+    language: "VF & VO",
   },
   {
     id: "amagami-san-chi-no-enmusubi",
     title: "Amagami-san Chi no Enmusubi",
     imageUrl: "https://ext.same-assets.com/4236370899/4066221021.jpeg",
     type: "Anime",
-    language: "VF & VOSTFR",
-  },
-  {
-    id: "return-to-player",
-    title: "Return to Player",
-    imageUrl: "https://ext.same-assets.com/844008929/3598158507.jpeg",
-    type: "Anime",
-    language: "VF & VOSTFR",
+    language: "VF & VO",
   },
   {
     id: "demon-slayer",
     title: "Demon Slayer",
     imageUrl: "https://ext.same-assets.com/3039906599/884967313.jpeg",
     type: "Anime",
-    language: "VF & VOSTFR",
+    language: "VF & VO",
   },
   {
     id: "jujutsu-kaisen",
     title: "Jujutsu Kaisen",
     imageUrl: "https://ext.same-assets.com/2879165773/327560351.jpeg",
     type: "Anime",
-    language: "VF & VOSTFR",
+    language: "VF & VO",
   },
   {
     id: "akudama-drive",
     title: "Akudama Drive",
     imageUrl: "https://ext.same-assets.com/3410839635/1638134647.jpeg",
     type: "Anime",
-    language: "VOSTFR",
+    language: "VF & VO",
   },
   {
     id: "kuroko-no-basket",
     title: "Kuroko no Basket",
-    imageUrl: "https://images.justwatch.com/poster/181383869/s166/kuroko-no-basket.avif",
+    imageUrl: "https://images.justwatch.com/poster/181383869/s718/kuroko-no-basket.jpg",
     type: "Anime",
-    language: "VF & VOSTFR",
+    language: "VF & VO",
   },
   {
     id: "vinland-saga",
     title: "Vinland Saga",
     imageUrl: "https://ext.same-assets.com/4165707166/2193428669.jpeg",
     type: "Anime",
-    language: "VF & VOSTFR",
+    language: "VF & VO",
   },
   {
     id: "death-note",
     title: "Death Note",
     imageUrl: "https://m.media-amazon.com/images/M/MV5BNjRiNmNjMmMtN2U2Yi00ODgxLTk3OTMtMmI1MTI1NjYyZTEzXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_.jpg",
     type: "Anime",
-    language: "VF & VOSTFR",
+    language: "VF & VO",
   },
   {
     id: "frieren",
     title: "Frieren",
     imageUrl: "https://fr.web.img6.acsta.net/pictures/23/09/11/15/28/0344154.jpg",
     type: "Anime",
-    language: "VOSTFR",
+    language: "VF & VO",
   },
 ];
 
@@ -135,7 +128,7 @@ const genres = [
 export default function CataloguePage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
-  const [languageFilter, setLanguageFilter] = useState<"VOSTFR" | "VF" | "VF & VOSTFR" | "">("");
+  const [languageFilter, setLanguageFilter] = useState<"VO" | "VF" | "VF & VO" | "">("");
 
   const toggleGenre = (genre: string) => {
     if (selectedGenres.includes(genre)) {

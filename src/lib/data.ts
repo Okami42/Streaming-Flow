@@ -49,14 +49,6 @@ export const recentEpisodes = [
     type: "Anime",
     language: "VOSTFR",
   },
-  {
-    id: "return-to-player",
-    title: "Return to Player",
-    imageUrl: "https://ext.same-assets.com/844008929/3598158507.jpeg",
-    time: "Il y a 1j",
-    type: "Anime",
-    language: "VOSTFR",
-  },
 ];
 
 // Ajout des derniers épisodes de séries

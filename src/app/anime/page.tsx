@@ -181,7 +181,7 @@ export default function AnimePage() {
                   {recentlyWatched.map((item) => (
                     <div key={item.id} className="flex-shrink-0 w-[140px]">
                       <Link 
-                        href={`/catalogue/${getAnimeIdFromHistoryId(item.id)}`}
+                        href={`/catalogue/${getAnimeIdFromHistoryId(item.id)}?season=${item.episodeInfo.season}&episode=${item.episodeInfo.episode}`}
                         className="block"
                       >
                         <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg border border-white/10 hover:border-blue-500/50 transition-all shadow-lg hover:shadow-blue-500/20 group">
@@ -233,7 +233,7 @@ export default function AnimePage() {
                   {recentlyWatched.map((item) => (
                     <div key={item.id} className="flex flex-col">
                       <Link 
-                        href={`/catalogue/${getAnimeIdFromHistoryId(item.id)}`}
+                        href={`/catalogue/${getAnimeIdFromHistoryId(item.id)}?season=${item.episodeInfo.season}&episode=${item.episodeInfo.episode}`}
                         className="block"
                       >
                         <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg border border-white/10 hover:border-blue-500/50 transition-all shadow-lg hover:shadow-blue-500/20 group">
