@@ -110,8 +110,8 @@ export const seriesData: Content[] = [
           { id: 2, title: "Derrière le voile", videoUrl: "https://cineburger.xyz/series/Squid-Game/S03/Squid-Game-S03-E02.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/eFlIKUPGoWMLKjvMxpfYQT5Lmcv.jpg" },
           { id: 3, title: "Ce n'est pas ta faute", videoUrl: "https://cineburger.xyz/series/Squid-Game/S03/Squid-Game-S03-E03.mp4", duration: 61 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/gd9QhGKwkoFUfRo6hosINt9UERM.jpg" },
           { id: 4, title: "222", videoUrl: "https://cineburger.xyz/series/Squid-Game/S03/Squid-Game-S03-E04.mp4", duration: 67 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7MpBNso3Ym21Oly3HuoPgGpKxG5.jpg" },
-          { id: 5, title: "○△□", videoUrl: "https://cineburger.xyz/series/Squid-Game/S03/Squid-Game-S03-E05.mp4", duration: 63 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/mYhwcWgHnQnpZMD1OuhyDiOhV73.jpg" },
-          { id: 6, title: "Les êtres humains sont...", videoUrl: "https://cineburger.xyz/series/Squid-Game/S03/Squid-Game-S03-E06.mp4", duration: 56 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/vzYGUdGRm1bl7WoPmhZd8bSh6gN.jpg" }
+          { id: 5, title: "○△□", videoUrl: "https://pulse.topstrime.online/tv/93405/5msex5/S3/E5/master.m3u8", duration: 63 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/mYhwcWgHnQnpZMD1OuhyDiOhV73.jpg" },
+          { id: 6, title: "Les êtres humains sont...", videoUrl: "https://pulse.topstrime.online/tv/93405/6h5o7q/S3/E6/master.m3u8", duration: 56 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/vzYGUdGRm1bl7WoPmhZd8bSh6gN.jpg" }
         ]
       }
     ]
