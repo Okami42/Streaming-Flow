@@ -68,39 +68,37 @@ const typedHidden = hidden.map(item => ({
 
 // Fonction pour obtenir l'image de l'anime à partir de l'ID de l'anime
 const getAnimeImage = (historyId: string): string => {
-  // Extraire l'ID de base de l'anime à partir de l'ID d'historique
-  // Format typique: "anime-id-s1e1" ou "anime-id-1"
-  const parts = historyId.split('-');
-  let animeId = parts[0]; // Par défaut, prendre la première partie
+  // Utiliser la même fonction que pour extraire l'ID
+  const animeId = getAnimeIdFromHistoryId(historyId);
   
-  // Vérifier si l'ID pourrait contenir des tirets (comme "solo-leveling")
-  const potentialAnimeIds = [];
-  // Essayer différentes combinaisons pour les animes avec tirets
-  if (parts.length > 1) {
-    potentialAnimeIds.push(`${parts[0]}-${parts[1]}`); // ex: "solo-leveling"
-    if (parts.length > 2) {
-      potentialAnimeIds.push(`${parts[0]}-${parts[1]}-${parts[2]}`); // ex: "demon-slayer"
-    }
-  }
-  
-  // Chercher d'abord avec les IDs potentiels qui contiennent des tirets
-  for (const potentialId of potentialAnimeIds) {
-    const anime = getAnimeById(potentialId);
-    if (anime) {
-      return anime.imageUrl;
-    }
-  }
-  
-  // Si aucune correspondance n'est trouvée, essayer avec l'ID simple
+  // Récupérer l'anime correspondant
   const anime = getAnimeById(animeId);
+  
+  // Retourner l'image ou une image par défaut
   return anime ? anime.imageUrl : '/placeholder-image.jpg';
 };
 
 // Fonction auxiliaire pour extraire l'ID d'anime à partir d'un ID d'historique
 const getAnimeIdFromHistoryId = (historyId: string): string => {
-  const parts = historyId.split('-');
+  // Format typique: "anime-id-s1e1" ou "anime-id-e1"
+  // On doit extraire uniquement l'ID de l'anime, pas le numéro d'épisode
   
-  // Vérifier si l'ID pourrait contenir des tirets (comme "solo-leveling")
+  // Vérifier si l'ID contient un indicateur d'épisode
+  const seasonEpisodePattern = /-s\d+e\d+$/;
+  const episodePattern = /-e\d+$/;
+  
+  let baseId = historyId;
+  
+  // Supprimer le pattern de saison et d'épisode s'il existe
+  if (seasonEpisodePattern.test(historyId)) {
+    baseId = historyId.replace(seasonEpisodePattern, '');
+  } else if (episodePattern.test(historyId)) {
+    baseId = historyId.replace(episodePattern, '');
+  }
+  
+  // Maintenant vérifier si l'ID pourrait contenir des tirets (comme "solo-leveling")
+  const parts = baseId.split('-');
+  
   if (parts.length > 1) {
     // Essayer avec le format "solo-leveling"
     const potentialId = `${parts[0]}-${parts[1]}`;
@@ -119,38 +117,50 @@ const getAnimeIdFromHistoryId = (historyId: string): string => {
     }
   }
   
-  // Par défaut, retourner la première partie
+  // Par défaut, retourner l'ID de base
   return parts[0];
 };
 
 export default function AnimePage() {
   // Utiliser le hook d'historique pour accéder aux derniers épisodes regardés
-  const { watchHistory } = useHistory();
+  const { watchHistory, clearHistory } = useHistory();
   
+  // Fonction pour effacer uniquement l'historique des animes
+  const clearAnimeHistory = () => {
+    const confirmed = window.confirm("Voulez-vous vraiment effacer tout l'historique des animes ?");
+    if (confirmed) {
+      clearHistory();
+    }
+  };
+
   // Filtrer l'historique pour les animes uniquement et éviter les duplications
   const filteredAnimeHistory = React.useMemo(() => {
-    // Utiliser un Map pour stocker les entrées uniques par ID d'anime
-    const uniqueEntries = new Map();
+    // Créer un Map pour stocker uniquement la dernière entrée de chaque anime
+    const uniqueAnimes = new Map();
     
-    watchHistory.forEach(item => {
-      // Vérifier si l'élément correspond à un anime connu
-      const animeId = getAnimeIdFromHistoryId(item.id);
-      const matchingAnime = getAnimeById(animeId);
+    // Trier d'abord par date (le plus récent en premier)
+    const sortedHistory = [...watchHistory].sort((a, b) => 
+      new Date(b.lastWatchedAt).getTime() - new Date(a.lastWatchedAt).getTime()
+    );
+    
+    // Pour chaque entrée d'historique, extraire l'ID de base de l'anime
+    sortedHistory.forEach(item => {
+      // Extraire l'ID de base de l'anime (sans le numéro d'épisode)
+      const baseAnimeId = getAnimeIdFromHistoryId(item.id);
+      const anime = getAnimeById(baseAnimeId);
       
-      // Si nous trouvons une correspondance, c'est un anime que nous voulons afficher
-      if (matchingAnime) {
-        // Si cet anime n'est pas encore dans notre Map, ou si cette entrée est plus récente
-        if (!uniqueEntries.has(animeId) || 
-            new Date(item.lastWatchedAt) > new Date(uniqueEntries.get(animeId).lastWatchedAt)) {
-          uniqueEntries.set(animeId, item);
+      // Ne garder que les entrées correspondant à un anime valide
+      if (anime) {
+        // Si cet anime n'est pas encore dans notre Map, l'ajouter
+        // Comme l'historique est trié, la première occurrence est la plus récente
+        if (!uniqueAnimes.has(baseAnimeId)) {
+          uniqueAnimes.set(baseAnimeId, item);
         }
       }
     });
     
-    // Convertir la Map en tableau et trier par date
-    return Array.from(uniqueEntries.values()).sort((a, b) => 
-      new Date(b.lastWatchedAt).getTime() - new Date(a.lastWatchedAt).getTime()
-    );
+    // Convertir la Map en tableau
+    return Array.from(uniqueAnimes.values());
   }, [watchHistory]);
   
   // Récupérer les 5 derniers épisodes regardés (ou moins s'il y en a moins)
@@ -172,6 +182,17 @@ export default function AnimePage() {
                 <span className="inline sm:hidden">Reprendre</span>
                 <span className="hidden sm:inline">Reprendre ma lecture</span>
               </h2>
+              
+              {recentlyWatched.length > 0 && (
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={clearAnimeHistory}
+                  className="ml-auto text-xs text-gray-400 hover:text-white"
+                >
+                  Effacer
+                </Button>
+              )}
             </div>
             
             {/* Mobile view */}
@@ -208,7 +229,7 @@ export default function AnimePage() {
                       <div className="mt-2">
                         <h3 className="text-xs font-medium text-white line-clamp-1">{item.title}</h3>
                         <p className="text-xs text-gray-400 line-clamp-1">
-                          S{item.episodeInfo.season} E{item.episodeInfo.episode}
+                          S{item.episodeInfo.season} E{item.episodeInfo.episode} - {item.episodeInfo.title || ''}
                         </p>
                       </div>
                     </div>
@@ -260,7 +281,7 @@ export default function AnimePage() {
                       <div className="mt-2">
                         <h3 className="text-sm font-medium text-white line-clamp-1">{item.title}</h3>
                         <p className="text-xs text-gray-400">
-                          S{item.episodeInfo.season} E{item.episodeInfo.episode} - {item.episodeInfo.title}
+                          S{item.episodeInfo.season} E{item.episodeInfo.episode} - {item.episodeInfo.title || ''}
                         </p>
                       </div>
                     </div>

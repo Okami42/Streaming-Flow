@@ -10,7 +10,7 @@ import { ChevronLeft, ChevronRight, Heart, Info, List, Play, Share2, Star } from
 import { useHistory } from "@/context/history-context";
 import { useFavorites } from "@/context/favorites-context";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import React from "react";
 import { Anime, AnimeEpisode, getAllAnimes } from "@/lib/animeData";
 import VideoPlayer from "@/components/ui/video-player";
@@ -22,6 +22,9 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
   const [selectedSeason, setSelectedSeason] = useState<number | string>(1);
   const [selectedLanguage, setSelectedLanguage] = useState<"vo" | "vf">("vo");
   const [isFollowing, setIsFollowing] = useState(false);
+  
+  // Récupérer les paramètres d'URL
+  const searchParams = useSearchParams();
   
   // Récupérer les fonctions du hook useHistory
   const { addToWatchHistory, updateWatchProgress, watchHistory } = useHistory();
@@ -60,6 +63,31 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
   const currentSeason = useSeasonsStructure 
     ? anime?.seasons?.find(s => String(s.seasonNumber) === String(selectedSeason))
     : null;
+    
+  // Effet pour lire les paramètres d'URL et définir l'épisode et la saison
+  useEffect(() => {
+    if (!searchParams) return;
+    
+    // Récupérer les paramètres d'URL
+    const seasonParam = searchParams.get('season');
+    const episodeParam = searchParams.get('episode');
+    
+    console.log("Paramètres URL détectés:", { seasonParam, episodeParam });
+    
+    // Définir la saison si elle est spécifiée dans l'URL
+    if (seasonParam) {
+      const seasonValue = isNaN(Number(seasonParam)) ? seasonParam : Number(seasonParam);
+      console.log("Définition de la saison depuis l'URL:", seasonValue);
+      setSelectedSeason(seasonValue);
+    }
+    
+    // Définir l'épisode si il est spécifié dans l'URL
+    if (episodeParam && !isNaN(Number(episodeParam))) {
+      const episodeNumber = Number(episodeParam);
+      console.log("Définition de l'épisode depuis l'URL:", episodeNumber);
+      setSelectedEpisode(episodeNumber);
+    }
+  }, [searchParams]);
     
   // Fonction pour récupérer les épisodes selon la structure
   const getEpisodes = (seasonNumber: number | string) => {
@@ -358,25 +386,40 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
           ? `${anime.id}-s${selectedSeason}e${episode.number}`
           : `${anime.id}-e${episode.number}`;
           
-        addToWatchHistory({
-          id: episodeId,
-          title: anime.title,
-          imageUrl: anime.imageUrl,
-          lastWatchedAt: new Date().toISOString(),
-          progress: currentTimeRef.current,
-          duration: episode.duration,
-          episodeInfo: {
-            season: useSeasonsStructure ? (typeof selectedSeason === 'string' ? 1 : selectedSeason) : 1,
-            episode: episode.number,
-            title: episode.title,
-          },
-          type: "Anime"
-        });
+        // Vérifier si l'entrée existe déjà dans l'historique
+        const existingEntry = watchHistory.find(item => item.id === episodeId);
+        
+        // Ne pas ajouter automatiquement l'épisode 1 à l'historique sauf s'il y a une progression
+        const isEpisode1 = episode.number === 1;
+        const hasProgress = currentTimeRef.current > 0;
+        
+        // Ne mettre à jour l'historique que si:
+        // 1. L'entrée n'existe pas encore, ou
+        // 2. La progression a changé
+        // 3. Pour l'épisode 1, seulement s'il y a une progression
+        if ((!existingEntry || existingEntry.progress !== currentTimeRef.current) && 
+            (!isEpisode1 || (isEpisode1 && hasProgress))) {
+          console.log(`Ajout à l'historique: ${episodeId} avec progression ${currentTimeRef.current}`);
+          addToWatchHistory({
+            id: episodeId,
+            title: anime.title,
+            imageUrl: anime.imageUrl,
+            lastWatchedAt: new Date().toISOString(),
+            progress: currentTimeRef.current,
+            duration: episode.duration,
+            episodeInfo: {
+              season: useSeasonsStructure ? (typeof selectedSeason === 'string' ? 1 : selectedSeason) : 1,
+              episode: episode.number,
+              title: episode.title,
+            },
+            type: "Anime"
+          });
+        }
       }, 2000);
       
       return () => clearTimeout(timer);
     }
-  }, [anime, episode, selectedEpisode, selectedSeason, addToWatchHistory, useSeasonsStructure]);
+  }, [anime, episode, selectedEpisode, selectedSeason, addToWatchHistory, useSeasonsStructure, watchHistory, currentTimeRef]);
 
   // Nettoyer l'intervalle et sauvegarder au démontage du composant
   useEffect(() => {

@@ -13,7 +13,34 @@ export default function HistoryList({ limit = 5 }: { limit?: number }) {
 
   // Limiter les éléments les plus récents
   const limitedHistory = useMemo(() => {
-    return history.slice(0, limit);
+    // Utiliser un Map pour éliminer les doublons par ID d'anime de base
+    const uniqueEntries = new Map();
+    
+    // Trier d'abord par date (le plus récent en premier)
+    const sortedHistory = [...history].sort((a, b) => {
+      const dateA = new Date('lastWatchedAt' in a ? a.lastWatchedAt : a.lastReadAt);
+      const dateB = new Date('lastWatchedAt' in b ? b.lastWatchedAt : b.lastReadAt);
+      return dateB.getTime() - dateA.getTime();
+    });
+    
+    // Pour chaque élément de l'historique
+    sortedHistory.forEach(item => {
+      if ('progress' in item) {
+        // Pour les éléments de type vidéo, extraire l'ID de base
+        const seriesId = extractSeriesId(item.id);
+        
+        // Si cet ID n'est pas encore dans notre Map, l'ajouter
+        if (!uniqueEntries.has(seriesId)) {
+          uniqueEntries.set(seriesId, item);
+        }
+      } else {
+        // Pour les éléments de type lecture, utiliser l'ID complet
+        uniqueEntries.set(item.id, item);
+      }
+    });
+    
+    // Convertir la Map en tableau et limiter le nombre d'éléments
+    return Array.from(uniqueEntries.values()).slice(0, limit);
   }, [history, limit]);
 
   // Créer une fonction stable pour la suppression
@@ -48,10 +75,10 @@ export default function HistoryList({ limit = 5 }: { limit?: number }) {
           // Utiliser les informations d'épisode stockées dans l'item
           const episodeId = item.episodeInfo.episode;
           const seasonNumber = item.episodeInfo.season;
-          const seasonParam = `?season=${seasonNumber}`;
+          const seasonParam = `?season=${seasonNumber}&episode=${episodeId}`;
           
           // Construire l'URL complète
-          watchUrl = `/series/${seriesId}/watch/${episodeId}${seasonParam}`;
+          watchUrl = `/catalogue/${seriesId}${seasonParam}`;
           
           // Debug pour vérifier la construction de l'URL
           console.log(`URL construite pour ${item.id}: SeriesID=${seriesId}, Season=${seasonNumber}, Episode=${episodeId}, URL=${watchUrl}`);

@@ -27,7 +27,11 @@ export function HistoryProvider({ children }: { children: React.ReactNode }) {
 
   // Combine both histories, sorted by most recent
   const history: HistoryItem[] = React.useMemo(() => {
-    return [...watchHistory, ...readHistory].sort((a, b) => {
+    // Créer une copie pour ne pas modifier les tableaux originaux
+    const combinedHistory = [...watchHistory, ...readHistory];
+    
+    // Trier par date de visionnage/lecture (la plus récente en premier)
+    return combinedHistory.sort((a, b) => {
       const dateA = new Date('lastWatchedAt' in a ? a.lastWatchedAt : a.lastReadAt);
       const dateB = new Date('lastWatchedAt' in b ? b.lastWatchedAt : b.lastReadAt);
       return dateB.getTime() - dateA.getTime(); // Sort by most recent
@@ -65,7 +69,18 @@ export function HistoryProvider({ children }: { children: React.ReactNode }) {
 
   const addToWatchHistory = (item: WatchHistoryItem) => {
     setWatchHistory(prev => {
-      // Remove if exists already (to update it)
+      // Vérifier si l'élément existe déjà avec exactement le même ID
+      const existingItemIndex = prev.findIndex(i => i.id === item.id);
+      
+      // Si l'élément existe déjà et que la progression n'a pas changé, ne pas mettre à jour
+      if (existingItemIndex !== -1 && prev[existingItemIndex].progress === item.progress) {
+        return prev;
+      }
+      
+      // Log pour déboguer
+      console.log(`Mise à jour de l'historique: ${item.id}, épisode ${item.episodeInfo.episode}, progression ${item.progress}`);
+      
+      // Sinon, supprimer l'ancien élément et ajouter le nouveau au début
       const filtered = prev.filter(i => i.id !== item.id);
       return [item, ...filtered];
     });

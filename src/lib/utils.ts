@@ -40,8 +40,12 @@ export function getProxiedStreamUrl(url: string): string {
  * @returns L'ID de la série (ex: "game-of-thrones")
  */
 export function extractSeriesId(fullId: string): string {
-  // Liste des séries connues avec des tirets dans leur ID
-  const knownSeriesWithHyphens = [
+  // Supprimer les patterns d'épisode et de saison (ex: -s1e1, -e5)
+  const cleanId = fullId.replace(/-s\d+e\d+$/, '').replace(/-e\d+$/, '');
+  
+  // Liste des séries et animes connus avec des tirets dans leur ID
+  const knownItemsWithHyphens = [
+    // Séries
     "game-of-thrones", 
     "breaking-bad", 
     "squid-game", 
@@ -51,16 +55,23 @@ export function extractSeriesId(fullId: string): string {
     "adventure-time",
     "top-gun-maverick",
     "the-batman",
-    "south-park"
+    "south-park",
+    // Animes
+    "solo-leveling",
+    "solo-leveling-2",
+    "demon-slayer",
+    "jujutsu-kaisen",
+    "kuroko-no-basket",
+    "akudama-drive"
   ];
   
-  // Vérifier d'abord si l'ID correspond à une série connue avec des tirets
-  const matchedSeries = knownSeriesWithHyphens.find(id => fullId.startsWith(id));
-  if (matchedSeries) {
-    return matchedSeries;
+  // Vérifier d'abord si l'ID correspond à une série/anime connu avec des tirets
+  const matchedItem = knownItemsWithHyphens.find(id => cleanId.startsWith(id));
+  if (matchedItem) {
+    return matchedItem;
   }
   
   // Sinon, utiliser la première partie de l'ID (avant le premier tiret)
-  const parts = fullId.split('-');
+  const parts = cleanId.split('-');
   return parts[0];
 }
