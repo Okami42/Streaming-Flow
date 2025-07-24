@@ -44,8 +44,8 @@ export function AnimeCard({
         href={linkUrl}
         className="group animate-card block max-w-[230px] relative h-full"
       >
-        <div className="anime-card h-full flex flex-col">
-          <div className="anime-hover-card relative aspect-[3/4] w-full overflow-hidden">
+        <div className="anime-card h-full flex flex-col group-hover:shadow-lg group-hover:shadow-blue-500/10 transition-all duration-300 rounded-md">
+          <div className="anime-hover-card relative aspect-[3/4] w-full overflow-hidden border border-transparent group-hover:border-blue-500/30 transition-colors duration-300 rounded-md">
             <CustomImage
               src={imageUrl}
               alt={title}
@@ -69,7 +69,7 @@ export function AnimeCard({
           </div>
 
           <div className="p-3 space-y-2 flex-grow flex flex-col justify-between">
-            <h3 className="font-bold text-white text-center text-sm sm:text-base line-clamp-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-pink-500 group-hover:to-blue-500 transition-all duration-300">
+            <h3 className="font-bold text-white text-center text-sm sm:text-base line-clamp-2 transition-all duration-300">
               {title}
             </h3>
 
@@ -86,7 +86,7 @@ export function AnimeCard({
           </div>
 
           {/* Bottom shine effect on hover */}
-          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-pink-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-blue-500/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
       </Link>
     </LazyLoadWrapper>

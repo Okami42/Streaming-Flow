@@ -104,12 +104,12 @@
     inset: 0;
     opacity: 0;
     transition: opacity 0.3s;
-    background-image: linear-gradient(to top, rgba(236, 72, 153, 0.8), transparent);
+    background-image: linear-gradient(to top, rgba(59, 130, 246, 0.5), transparent);
     pointer-events: none;
   }
 
   .anime-hover-card:hover::after {
-    opacity: 1;
+    opacity: 0.8;
   }
 
   .primary-glow {
@@ -118,7 +118,7 @@
   }
 
   .primary-glow:hover {
-    box-shadow: 0 0 20px rgba(236, 72, 153, 0.4);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
   }
 
   .nav-link {

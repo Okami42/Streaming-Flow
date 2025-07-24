@@ -197,8 +197,16 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
     // Ajouter l'entrée à l'historique pour le nouvel épisode sélectionné
     if (anime && episode) {
       const timer = setTimeout(() => {
+        // Déterminer l'ID correct de l'épisode avec la saison
+        const episodeId = `${anime.id}-s1e${episode.number}`;
+        
+        // Vérifier si l'entrée existe déjà dans l'historique
+        const existingEntry = watchHistory.find(item => item.id === episodeId);
+        
+        // Ne mettre à jour l'historique que si l'entrée n'existe pas ou si le temps de lecture est différent
+        if (!existingEntry || existingEntry.progress !== currentTimeRef.current) {
         addToWatchHistory({
-          id: `${anime.id}-s1e${episode.number}`,
+            id: episodeId,
           title: anime.title,
           imageUrl: anime.imageUrl,
           lastWatchedAt: new Date().toISOString(),
@@ -211,11 +219,12 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
           },
           type: "Anime"
         });
+        }
       }, 2000);
       
       return () => clearTimeout(timer);
     }
-  }, [anime, episode, selectedEpisode, addToWatchHistory]);
+  }, [anime, episode, selectedEpisode, addToWatchHistory, watchHistory, currentTimeRef]);
 
   // Nettoyer l'intervalle et sauvegarder au démontage du composant
   useEffect(() => {
@@ -451,10 +460,18 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                 </p>
                 {!showInfo && (
                   <button
-                    className="absolute bottom-0 right-0 bg-gradient-to-l from-[#030711] via-[#030711]/90 to-transparent px-2 text-sm text-blue-400"
+                    className="w-full text-center mt-2 py-1 text-sm text-blue-400 bg-blue-500/10 rounded-md hover:bg-blue-500/20 transition-colors"
                     onClick={() => setShowInfo(true)}
                   >
                     Voir plus
+                  </button>
+                )}
+                {showInfo && (
+                  <button
+                    className="w-full text-center mt-2 py-1 text-sm text-blue-400 bg-blue-500/10 rounded-md hover:bg-blue-500/20 transition-colors"
+                    onClick={() => setShowInfo(false)}
+                  >
+                    Voir moins
                   </button>
                 )}
               </div>

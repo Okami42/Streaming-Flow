@@ -741,13 +741,31 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                 </div>
               </div>
               
-              <p className="text-sm text-gray-300 line-clamp-3 mb-4">
-                {anime.description}
-              </p>
+              <div className="relative mb-4">
+                <p className={`text-sm text-gray-300 ${!showInfo ? "line-clamp-3" : ""}`}>
+                  {anime.description}
+                </p>
+                {!showInfo && (
+                  <button
+                    className="w-full text-center mt-2 py-1 text-sm text-blue-400 bg-blue-500/10 rounded-md hover:bg-blue-500/20 transition-colors"
+                    onClick={() => setShowInfo(true)}
+                  >
+                    Voir plus
+                  </button>
+                )}
+                {showInfo && (
+                  <button
+                    className="w-full text-center mt-2 py-1 text-sm text-blue-400 bg-blue-500/10 rounded-md hover:bg-blue-500/20 transition-colors"
+                    onClick={() => setShowInfo(false)}
+                  >
+                    Voir moins
+                  </button>
+                )}
+              </div>
               
               <div className="flex gap-2 mb-2">
                 <Button
-                  className="flex-1 theme-button"
+                  className="flex-[2] theme-button"
                   onClick={() => {
                     document.getElementById("player-section")?.scrollIntoView({ behavior: "smooth" });
                   }}
@@ -758,11 +776,11 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                 
                 <Button 
                   variant="outline" 
-                  className="border-white/10 bg-transparent hover:bg-white/10"
+                  className="flex-1 border-white/10 bg-transparent hover:bg-white/10"
                   onClick={handleFavoriteToggle}
                 >
                   <Heart className={`mr-2 h-4 w-4 ${isAnimeFavorite ? "fill-pink-500 text-pink-500" : ""}`} />
-                  {isAnimeFavorite ? "✓" : "+"}
+                  {isAnimeFavorite ? "Favoris ✓" : "Favoris"}
                 </Button>
               </div>
             </div>
