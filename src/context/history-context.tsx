@@ -69,20 +69,25 @@ export function HistoryProvider({ children }: { children: React.ReactNode }) {
 
   const addToWatchHistory = (item: WatchHistoryItem) => {
     setWatchHistory(prev => {
-      // Vérifier si l'élément existe déjà avec exactement le même ID
-      const existingItemIndex = prev.findIndex(i => i.id === item.id);
+      // Obtenir l'ID de base de l'anime (sans numéro d'épisode/saison)
+      const getBaseAnimeId = (id: string) => {
+        return id.split('-s')[0].split('-e')[0];
+      };
       
-      // Si l'élément existe déjà et que la progression n'a pas changé, ne pas mettre à jour
-      if (existingItemIndex !== -1 && prev[existingItemIndex].progress === item.progress) {
-        return prev;
-      }
+      // ID de base de l'anime pour l'élément actuel
+      const baseAnimeId = getBaseAnimeId(item.id);
+      
+      // Filtrer les entrées du même anime
+      const filteredHistory = prev.filter(i => {
+        const itemBaseId = getBaseAnimeId(i.id);
+        return itemBaseId !== baseAnimeId; // Garder uniquement les entrées d'autres animes
+      });
       
       // Log pour déboguer
-      console.log(`Mise à jour de l'historique: ${item.id}, épisode ${item.episodeInfo.episode}, progression ${item.progress}`);
+      console.log(`Mise à jour de l'historique: ${item.id} remplace les anciens épisodes de ${baseAnimeId}`);
       
-      // Sinon, supprimer l'ancien élément et ajouter le nouveau au début
-      const filtered = prev.filter(i => i.id !== item.id);
-      return [item, ...filtered];
+      // Ajouter le nouvel élément au début
+      return [item, ...filteredHistory];
     });
   };
 

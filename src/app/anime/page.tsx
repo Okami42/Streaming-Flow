@@ -135,32 +135,35 @@ export default function AnimePage() {
 
   // Filtrer l'historique pour les animes uniquement et éviter les duplications
   const filteredAnimeHistory = React.useMemo(() => {
-    // Créer un Map pour stocker uniquement la dernière entrée de chaque anime
-    const uniqueAnimes = new Map();
-    
     // Trier d'abord par date (le plus récent en premier)
     const sortedHistory = [...watchHistory].sort((a, b) => 
       new Date(b.lastWatchedAt).getTime() - new Date(a.lastWatchedAt).getTime()
     );
     
-    // Pour chaque entrée d'historique, extraire l'ID de base de l'anime
-    sortedHistory.forEach(item => {
-      // Extraire l'ID de base de l'anime (sans le numéro d'épisode)
+    // Filtrer les entrées d'anime valides
+    const validEntries = sortedHistory.filter(item => {
       const baseAnimeId = getAnimeIdFromHistoryId(item.id);
       const anime = getAnimeById(baseAnimeId);
-      
-      // Ne garder que les entrées correspondant à un anime valide
-      if (anime) {
-        // Si cet anime n'est pas encore dans notre Map, l'ajouter
-        // Comme l'historique est trié, la première occurrence est la plus récente
-        if (!uniqueAnimes.has(baseAnimeId)) {
-          uniqueAnimes.set(baseAnimeId, item);
-        }
-      }
+      return !!anime;
     });
     
-    // Convertir la Map en tableau
-    return Array.from(uniqueAnimes.values());
+    // Utiliser un Set pour suivre les animes déjà vus
+    const seenAnimes = new Set();
+    
+    // Filtrer les doublons en gardant uniquement la première occurrence (la plus récente)
+    return validEntries.filter(item => {
+      // Extraire l'ID de base de l'anime
+      const baseAnimeId = getAnimeIdFromHistoryId(item.id);
+      
+      // Si cet anime a déjà été vu, ignorer cette entrée
+      if (seenAnimes.has(baseAnimeId)) {
+        return false;
+      }
+      
+      // Sinon, marquer cet anime comme vu et garder cette entrée
+      seenAnimes.add(baseAnimeId);
+      return true;
+    });
   }, [watchHistory]);
   
   // Récupérer les 5 derniers épisodes regardés (ou moins s'il y en a moins)

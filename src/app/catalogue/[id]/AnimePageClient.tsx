@@ -16,6 +16,7 @@ import { Anime, AnimeEpisode, getAllAnimes } from "@/lib/animeData";
 import VideoPlayer from "@/components/ui/video-player";
 import HLSPlayer from '@/components/ui/hls-player';
 import { getProxiedStreamUrl } from "@/lib/utils";
+import { WatchHistoryItem } from "@/lib/history";
 
 export default function AnimePageClient({ anime }: { anime: Anime | undefined }) {
   const [selectedEpisode, setSelectedEpisode] = useState(1);
@@ -386,21 +387,33 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
           ? `${anime.id}-s${selectedSeason}e${episode.number}`
           : `${anime.id}-e${episode.number}`;
           
+        // Identifiant de base de l'anime (sans numéro d'épisode)
+        const baseAnimeId = anime.id;
+        
         // Vérifier si l'entrée existe déjà dans l'historique
         const existingEntry = watchHistory.find(item => item.id === episodeId);
         
-        // Ne pas ajouter automatiquement l'épisode 1 à l'historique sauf s'il y a une progression
-        const isEpisode1 = episode.number === 1;
-        const hasProgress = currentTimeRef.current > 0;
+        // Vérifier si un autre épisode du même anime existe déjà dans l'historique
+        const anyEpisodeOfSameAnime = watchHistory.find(item => {
+          const itemBaseId = item.id.split('-s')[0].split('-e')[0]; // Extraire l'ID de base
+          return itemBaseId === baseAnimeId;
+        });
         
-        // Ne mettre à jour l'historique que si:
-        // 1. L'entrée n'existe pas encore, ou
-        // 2. La progression a changé
-        // 3. Pour l'épisode 1, seulement s'il y a une progression
-        if ((!existingEntry || existingEntry.progress !== currentTimeRef.current) && 
-            (!isEpisode1 || (isEpisode1 && hasProgress))) {
+        // Si un épisode du même anime existe déjà dans l'historique mais ce n'est pas celui-ci
+        const isReplacingOtherEpisode = anyEpisodeOfSameAnime && anyEpisodeOfSameAnime.id !== episodeId;
+        
+        // Journalisation pour déboguer
+        if (isReplacingOtherEpisode) {
+          console.log(`Remplacement de l'épisode ${anyEpisodeOfSameAnime.episodeInfo.episode} par l'épisode ${episode.number} pour ${anime.title}`);
+        }
+        
+        // Mise à jour de l'historique si l'épisode actuel est différent du dernier regardé
+        // ou si la progression a changé
+        if (!existingEntry || existingEntry.progress !== currentTimeRef.current || isReplacingOtherEpisode) {
           console.log(`Ajout à l'historique: ${episodeId} avec progression ${currentTimeRef.current}`);
-          addToWatchHistory({
+          
+          // Créer la nouvelle entrée d'historique
+          const historyEntry = {
             id: episodeId,
             title: anime.title,
             imageUrl: anime.imageUrl,
@@ -412,8 +425,10 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
               episode: episode.number,
               title: episode.title,
             },
-            type: "Anime"
-          });
+            type: "Anime" as 'Anime'
+          };
+          
+          addToWatchHistory(historyEntry);
         }
       }, 2000);
       
