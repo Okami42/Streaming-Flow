@@ -589,7 +589,9 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
     <div className="flex flex-col min-h-screen bg-[#030711]">
       <Head>
         <link rel="preconnect" href="https://www.hlsplayer.org" />
-        <link rel="preconnect" href={new URL(episode.videoUrl).origin} />
+        {episode.videoUrl.includes('http') && (
+          <link rel="preconnect" href={new URL(episode.videoUrl).origin} />
+        )}
         <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/hls.js@latest" />
         {episode.videoUrl.endsWith('.m3u8') || episode.videoUrl.includes('master.m3u8') ? (
           <meta name="referrer" content="no-referrer" />

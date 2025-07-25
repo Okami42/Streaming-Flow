@@ -213,53 +213,53 @@ export default function VideoPlayer({
       {/* Lecteur Vidmoly (iframe officiel) - solution radicale */}
       {finalVidmolyUrl && !sibnetId && (
         <div className="relative w-full h-full overflow-hidden">
-          <iframe 
-            ref={iframeRef}
-            src={finalVidmolyUrl}
-            width="100%" 
-            height="100%" 
-            frameBorder="0" 
-            scrolling="no" 
-            allowFullScreen 
+        <iframe 
+          ref={iframeRef}
+          src={finalVidmolyUrl}
+          width="100%" 
+          height="100%" 
+          frameBorder="0" 
+          scrolling="no" 
+          allowFullScreen 
             allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock; accelerometer; gyroscope; clipboard-write; web-share"
-            className="w-full h-full"
-            onLoad={handleIframeLoad}
-            onError={handleIframeError}
-            key={vidmolyId}
-            style={{ 
-              display: isLoading ? 'none' : 'block',
-              position: 'absolute',
+          className="w-full h-full"
+          onLoad={handleIframeLoad}
+          onError={handleIframeError}
+          key={vidmolyId}
+          style={{ 
+            display: isLoading ? 'none' : 'block',
+            position: 'absolute',
               left: '0',
               width: '100%',
               height: '100%',
               zIndex: 1
-            }}
+          }}
             referrerPolicy="origin"
-          />
+        />
         </div>
       )}
       
       {/* Lecteur Sendvid (natif) avec support plein écran et bloqueurs de popup (sauf bas droit) */}
       {sendvidId && !sibnetId && !finalVidmolyUrl && (
         <div className="relative w-full h-full">
-          <iframe 
-            ref={iframeRef}
-            src={`https://sendvid.com/embed/${sendvidId}`}
-            width="100%" 
-            height="100%" 
-            frameBorder="0" 
-            scrolling="no" 
-            allowFullScreen 
-            onLoad={handleIframeLoad}
-            onError={handleIframeError}
-            key={sendvidId}
-            style={{ 
-              display: isLoading ? 'none' : 'block',
-              position: 'absolute',
+        <iframe 
+          ref={iframeRef}
+          src={`https://sendvid.com/embed/${sendvidId}`}
+          width="100%" 
+          height="100%" 
+          frameBorder="0" 
+          scrolling="no" 
+          allowFullScreen 
+          onLoad={handleIframeLoad}
+          onError={handleIframeError}
+          key={sendvidId}
+          style={{ 
+            display: isLoading ? 'none' : 'block',
+            position: 'absolute',
               left: '0',
               width: '100%',
-              height: '100%'
-            }}
+            height: '100%'
+          }}
             allow="fullscreen; autoplay; picture-in-picture; screen-wake-lock; accelerometer; gyroscope; clipboard-write; web-share"
             sandbox="allow-scripts allow-same-origin allow-forms"
           />
