@@ -10,10 +10,10 @@ export async function GET(request: NextRequest) {
 
   try {
     // Utiliser un User-Agent de navigateur pour éviter d'être détecté comme un bot
-    const response = await fetch(`https://vidmoly.to/embed-${id}.html`, {
+    const response = await fetch(`https://vidmoly.net/embed-${id}.html`, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
-        'Referer': 'https://vidmoly.to/',
+        'Referer': 'https://vidmoly.net/',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
         'Accept-Language': 'fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7',
         'Cache-Control': 'no-cache',

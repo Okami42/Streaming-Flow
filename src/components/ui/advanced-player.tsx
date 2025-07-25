@@ -37,7 +37,7 @@ export default function AdvancedPlayer({
   // URL du lecteur vidéo
   const getVideoUrl = () => {
     if (type === "vidmoly") {
-      return `https://vidmoly.to/embed-${videoId}.html`;
+      return `https://vidmoly.net/embed-${videoId}.html`;
     }
     return "";
   };

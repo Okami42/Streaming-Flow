@@ -757,7 +757,7 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
                       }}
                     ></iframe>
                   </div>
-                ) : episode.videoUrl.includes('vidmoly.to') ? (
+                ) : episode.videoUrl.includes('vidmoly.net') ? (
                   <div className="relative w-full h-full">
                     {/* Suppression du message de reprise */}
                     <iframe 

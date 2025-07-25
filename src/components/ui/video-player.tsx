@@ -10,6 +10,8 @@ interface VideoPlayerProps {
   vidmolyId?: string;
   sendvidId?: string;
   beerscloudId?: string;
+  mp4Url?: string;     // Nouveau: URL MP4 directe pour VOSTFR
+  mp4VfUrl?: string;   // Nouveau: URL MP4 directe pour VF
   poster?: string;
   className?: string;
   key?: string;
@@ -21,17 +23,20 @@ export default function VideoPlayer({
   vidmolyId,
   sendvidId,
   beerscloudId,
+  mp4Url,           // Nouveau paramètre
+  mp4VfUrl,         // Nouveau paramètre
   poster,
   className = "",
 }: VideoPlayerProps) {
   const [isLoading, setIsLoading] = useState(true);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   // Génération d'une clé unique pour forcer le rechargement du composant
-  const uniqueKey = sibnetId || vidmolyId || sendvidId || beerscloudId || Math.random().toString();
+  const uniqueKey = sibnetId || vidmolyId || sendvidId || beerscloudId || mp4Url || mp4VfUrl || Math.random().toString();
   
   // Construction directe de l'URL Vidmoly - format standard
   const finalVidmolyUrl = vidmolyId 
-    ? `https://vidmoly.to/embed-${vidmolyId}.html`
+    ? `https://vidmoly.net/embed-${vidmolyId}.html`
     : vidmolyUrl;
   
   // Construction de l'URL Beerscloud
@@ -41,6 +46,9 @@ export default function VideoPlayer({
   
   // Vérifier si sibnetId est un lien m3u8
   const isM3U8Link = sibnetId?.includes('.m3u8');
+  
+  // Sélectionner l'URL MP4 à utiliser (VF ou VOSTFR)
+  const mp4UrlToUse = mp4VfUrl || mp4Url;
   
   // Gérer le chargement de l'iframe
   const handleIframeLoad = () => {
@@ -52,12 +60,23 @@ export default function VideoPlayer({
     setIsLoading(false);
   };
 
+  // Gérer le chargement de la vidéo MP4
+  const handleVideoLoad = () => {
+    setIsLoading(false);
+  };
+
+  // Gérer les erreurs de chargement de la vidéo MP4
+  const handleVideoError = () => {
+    setIsLoading(false);
+    console.error("Erreur de chargement de la vidéo MP4");
+  };
+
   // Réinitialiser l'état de chargement quand la source change
   useEffect(() => {
     setIsLoading(true);
-  }, [sibnetId, vidmolyId, sendvidId, beerscloudId]);
+  }, [sibnetId, vidmolyId, sendvidId, beerscloudId, mp4Url, mp4VfUrl]);
 
-  // Nettoyer l'iframe lors du démontage du composant
+  // Nettoyer l'iframe et la vidéo lors du démontage du composant
   useEffect(() => {
     return () => {
       // Nettoyer l'iframe à la sortie
@@ -71,16 +90,43 @@ export default function VideoPlayer({
           console.log("Nettoyage de l'iframe impossible en raison des restrictions cross-origin");
         }
       }
+      
+      // Nettoyer la vidéo MP4
+      if (videoRef.current) {
+        videoRef.current.pause();
+        videoRef.current.removeAttribute('src');
+        videoRef.current.load();
+      }
     };
-  }, [sibnetId, vidmolyId, sendvidId, beerscloudId]);
+  }, [sibnetId, vidmolyId, sendvidId, beerscloudId, mp4Url, mp4VfUrl]);
   
   return (
     <div className={`w-full h-full relative ${className}`} style={{ overflow: 'hidden' }} key={uniqueKey}>      
       {/* Afficher un loader pendant le chargement */}
-      {isLoading && !isM3U8Link && (
+      {isLoading && !isM3U8Link && !mp4UrlToUse && (
         <div className="absolute inset-0 flex items-center justify-center bg-black z-10">
           <Loader2 className="w-6 h-6 sm:w-8 sm:h-8 animate-spin text-white" />
         </div>
+      )}
+      
+      {/* Lecteur MP4 natif */}
+      {mp4UrlToUse && (
+        <video
+          ref={videoRef}
+          src={mp4UrlToUse}
+          className="w-full h-full"
+          controls
+          autoPlay
+          poster={poster}
+          onLoadedData={handleVideoLoad}
+          onError={handleVideoError}
+          key={`mp4-${mp4UrlToUse}`}
+          style={{ 
+            display: isLoading ? 'none' : 'block',
+            width: '100%',
+            height: '100%'
+          }}
+        />
       )}
       
       {/* Lecteur HLS pour les liens m3u8 */}
@@ -143,7 +189,7 @@ export default function VideoPlayer({
       )}
       
       {/* Lecteur Sendvid (natif) */}
-      {sendvidId && !sibnetId && !finalVidmolyUrl && !beerscloudUrl && (
+      {sendvidId && !sibnetId && !finalVidmolyUrl && (
         <iframe 
           ref={iframeRef}
           src={`https://sendvid.com/embed/${sendvidId}`}

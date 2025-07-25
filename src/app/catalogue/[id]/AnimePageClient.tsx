@@ -964,6 +964,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                         <VideoPlayer 
                           sendvidId={episode?.sendvidId}
                           sibnetId={episode?.sendvidId ? undefined : videoId}
+                          mp4Url={episode?.mp4Url}
                           className="w-full h-full"
                           key={`lecteur-unique-vo-${selectedEpisode}-${selectedSeason}`}
                         />
@@ -989,6 +990,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                               <VideoPlayer 
                                 sendvidId={episode?.sendvidId}
                                 sibnetId={episode?.sendvidId ? undefined : videoId}
+                                mp4Url={episode?.mp4Url}
                                 className="w-full h-full"
                                 key={`lecteur1-vo-${selectedEpisode}-${selectedSeason}`}
                               />
@@ -1023,6 +1025,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       <div className="bg-black" style={{ width: '100%', height: '650px' }} key={`container-lecteur-unique-vf-${selectedEpisode}-${selectedSeason}`}>
                         <VideoPlayer 
                           sibnetId={videoId}
+                          mp4VfUrl={episode?.mp4VfUrl}
                           className="w-full h-full"
                           key={`lecteur-unique-vf-${selectedEpisode}-${selectedSeason}`}
                         />
@@ -1047,6 +1050,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                             <div className="bg-black" style={{ width: '100%', height: '650px' }} key={`container-lecteur1-vf-${selectedEpisode}-${selectedSeason}`}>
                               <VideoPlayer 
                                 sibnetId={videoId}
+                                mp4VfUrl={episode?.mp4VfUrl}
                                 className="w-full h-full"
                                 key={`lecteur1-vf-${selectedEpisode}-${selectedSeason}`}
                               />
