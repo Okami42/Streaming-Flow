@@ -4,6 +4,39 @@ import { useState, useRef, useEffect } from "react";
 import { Loader2 } from "lucide-react";
 import HLSPlayer from "../../../hls-player";
 
+// Script pour remplacer vidmoly.to par vidmoly.net dans les iframes
+const vidmolyScript = `
+;(function() {
+  // 1. Remplace toutes les occurrences de vidmoly.to par vidmoly.net  
+  function replaceVidmoly(url) {
+    return url.replace(/vidmoly\\.to/g, 'vidmoly.net');
+  }
+
+  // 2. On surcharge le setter de la propriété \`src\` pour tous les <iframe>
+  const proto = HTMLIFrameElement.prototype;
+  const descriptor = Object.getOwnPropertyDescriptor(proto, 'src');
+  Object.defineProperty(proto, 'src', {
+    get: descriptor.get,
+    set: function(value) {
+      // on ajuste l'URL avant de passer au setter d'origine
+      const newVal = (typeof value === 'string')
+        ? replaceVidmoly(value)
+        : value;
+      return descriptor.set.call(this, newVal);
+    }
+  });
+
+  // 3. À l'initialisation du DOM, on corrige les attributs déjà présents
+  const iframes = document.querySelectorAll('iframe');
+  iframes.forEach(iframe => {
+    const src = iframe.getAttribute('src') || '';
+    if (src.includes('vidmoly.to')) {
+      iframe.setAttribute('src', replaceVidmoly(src));
+    }
+  });
+})();
+`;
+
 interface VideoPlayerProps {
   sibnetId?: string;
   vidmolyUrl?: string;
@@ -29,7 +62,6 @@ export default function VideoPlayer({
   className = "",
 }: VideoPlayerProps) {
   const [isLoading, setIsLoading] = useState(true);
-  const [vidmolyDirectSrc, setVidmolyDirectSrc] = useState<string | null>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const objectRef = useRef<HTMLObjectElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -38,7 +70,7 @@ export default function VideoPlayer({
   
   // Construction directe de l'URL Vidmoly - format standard
   const finalVidmolyUrl = vidmolyId 
-    ? `https://vidmoly.to/embed-${vidmolyId}.html`
+    ? `https://vidmoly.net/embed-${vidmolyId}.html`
     : vidmolyUrl;
   
   // Construction de l'URL Beerscloud
@@ -73,30 +105,23 @@ export default function VideoPlayer({
     console.error("Erreur de chargement de la vidéo MP4");
   };
 
+  // Injecter le script pour remplacer vidmoly.to par vidmoly.net
+  useEffect(() => {
+    if (vidmolyId || vidmolyUrl) {
+      const script = document.createElement('script');
+      script.innerHTML = vidmolyScript;
+      document.head.appendChild(script);
+      
+      return () => {
+        document.head.removeChild(script);
+      };
+    }
+  }, [vidmolyId, vidmolyUrl]);
+
   // Réinitialiser l'état de chargement quand la source change
   useEffect(() => {
     setIsLoading(true);
   }, [sibnetId, vidmolyId, sendvidId, beerscloudId, mp4Url, mp4VfUrl]);
-
-  // Extraire la source vidéo directe depuis le proxy Vidmoly
-  useEffect(() => {
-    if (vidmolyId && !sibnetId) {
-      setIsLoading(true);
-      fetch(`/api/proxy/vidmoly?id=${vidmolyId}`)
-        .then(res => res.text())
-        .then(html => {
-          // Extraire le lien direct du flux vidéo depuis la réponse HTML
-          const match = html.match(/<source src=\"([^\"]+)\"/);
-          if (match && match[1]) {
-            setVidmolyDirectSrc(match[1]);
-          } else {
-            setVidmolyDirectSrc(null);
-          }
-        })
-        .catch(() => setVidmolyDirectSrc(null))
-        .finally(() => setIsLoading(false));
-    }
-  }, [vidmolyId, sibnetId]);
 
   // Nettoyer l'iframe et la vidéo lors du démontage du composant
   useEffect(() => {
@@ -185,30 +210,33 @@ export default function VideoPlayer({
         />
       )}
       
-      {/* Lecteur Vidmoly (iframe officiel) */}
+      {/* Lecteur Vidmoly (iframe officiel) - solution radicale */}
       {finalVidmolyUrl && !sibnetId && (
-        <iframe
-          ref={iframeRef}
-          src={finalVidmolyUrl}
-          width="100%"
-          height="100%"
-          frameBorder="0"
-          scrolling="no"
-          allowFullScreen
-          allow="autoplay; encrypted-media"
-          className="w-full h-full"
-          onLoad={handleIframeLoad}
-          onError={handleIframeError}
-          key={vidmolyId}
-          style={{
-            display: isLoading ? 'none' : 'block',
-            position: 'absolute',
-            left: '0',
-            width: '100%',
-            height: '100%',
-            zIndex: 1
-          }}
-        />
+        <div className="relative w-full h-full overflow-hidden">
+          <iframe 
+            ref={iframeRef}
+            src={finalVidmolyUrl}
+            width="100%" 
+            height="100%" 
+            frameBorder="0" 
+            scrolling="no" 
+            allowFullScreen 
+            allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock; accelerometer; gyroscope; clipboard-write; web-share"
+            className="w-full h-full"
+            onLoad={handleIframeLoad}
+            onError={handleIframeError}
+            key={vidmolyId}
+            style={{ 
+              display: isLoading ? 'none' : 'block',
+              position: 'absolute',
+              left: '0',
+              width: '100%',
+              height: '100%',
+              zIndex: 1
+            }}
+            referrerPolicy="origin"
+          />
+        </div>
       )}
       
       {/* Lecteur Sendvid (natif) avec support plein écran et bloqueurs de popup (sauf bas droit) */}
@@ -232,7 +260,7 @@ export default function VideoPlayer({
               width: '100%',
               height: '100%'
             }}
-            allow="fullscreen; autoplay"
+            allow="fullscreen; autoplay; picture-in-picture; screen-wake-lock; accelerometer; gyroscope; clipboard-write; web-share"
             sandbox="allow-scripts allow-same-origin allow-forms"
           />
           {/* Bloqueurs de popup (sauf bas droit pour laisser le bouton plein écran) */}
@@ -254,7 +282,7 @@ export default function VideoPlayer({
           frameBorder="0" 
           scrolling="no" 
           allowFullScreen 
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; screen-wake-lock; clipboard-write; web-share"
           onLoad={handleIframeLoad}
           onError={handleIframeError}
           key={beerscloudId}

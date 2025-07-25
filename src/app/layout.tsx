@@ -87,6 +87,10 @@ export default function RootLayout({
           href="https://image.tmdb.org"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <meta
+          httpEquiv="Permissions-Policy"
+          content="accelerometer=*, gyroscope=*, fullscreen=*, picture-in-picture=*, clipboard-write=*, web-share=*, screen-wake-lock=*"
+        />
       </head>
       <Script id="videojs-error-fix" strategy="afterInteractive">
         {`
@@ -112,7 +116,9 @@ export default function RootLayout({
                   event.message.includes('SecurityError') ||
                   event.message.includes('named property') ||
                   event.message.includes('BLOCKED_BY_CSP') ||
-                  event.message.includes('Blocked a frame')
+                  event.message.includes('Blocked a frame') ||
+                  event.message.includes('Permissions policy violation') ||
+                  event.message.includes('Potential permissions policy violation')
                 ))
               ) {
                 console.log('[Erreur supprimée]:', event.message);
@@ -133,7 +139,9 @@ export default function RootLayout({
                 errorString.includes('AbortError') ||
                 errorString.includes('SecurityError') ||
                 errorString.includes('CSP') ||
-                errorString.includes('autofocusing')
+                errorString.includes('autofocusing') ||
+                errorString.includes('Permissions policy') ||
+                errorString.includes('policy violation')
               ) {
                 console.log('[Console.error supprimé]:', errorString);
                 return;
@@ -166,7 +174,7 @@ export default function RootLayout({
                         try {
                           if (url.includes('sibnet.ru')) {
                             // Ajouter attribution allow="autoplay" pour Sibnet
-                            element.setAttribute('allow', 'autoplay; fullscreen');
+                            element.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; screen-wake-lock; accelerometer; gyroscope; clipboard-write; web-share');
                             // Démarrer l'iframe avec un écouteur pour prévenir les erreurs
                             setTimeout(() => {
                               try {
@@ -278,7 +286,7 @@ export default function RootLayout({
                           if (!script.hasAttribute('data-cleaned')) {
                             script.setAttribute('data-cleaned', 'true');
                             if (script.tagName === 'IFRAME') {
-                              script.setAttribute('allow', 'autoplay; fullscreen');
+                              script.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; screen-wake-lock; accelerometer; gyroscope; clipboard-write; web-share');
                             }
                           }
                         });
