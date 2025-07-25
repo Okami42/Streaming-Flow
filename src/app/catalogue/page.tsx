@@ -48,6 +48,13 @@ const animes: CatalogueAnime[] = [
     language: "VF & VO",
   },
   {
+    id: "classroom-of-the-elite",
+    title: "Classroom of the Elite",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BMDg3MGVhNWUtYTQ2NS00ZDdiLTg5MTMtZmM5MjUzN2IxN2I4XkEyXkFqcGc@._V1_.jpg",
+    type: "Anime",
+    language: "VF & VO",
+  },
+  {
     id: "unnamed-memory",
     title: "Unnamed Memory",
     imageUrl: "https://m.media-amazon.com/images/M/MV5BY2Q5NTRiYTgtZjJmOS00YjQ0LWE2MmQtMjE5MmM3ODQ5ZDg2XkEyXkFqcGc@._V1_.jpg",

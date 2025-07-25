@@ -937,5 +937,79 @@ export const animes: Anime[] = [
         ]
       }
     ]
+  },
+  {
+    id: "classroom-of-the-elite",
+    title: "Classroom of the Elite",
+    originalTitle: "ようこそ実力至上主義の教室へ",
+    description: "L'Académie Kôdo Ikusei est un établissement prestigieux doté d'installations ultramodernes où presque tous les élèves poursuivent ensuite leurs études à l'université ou trouvent un emploi. Les élèves y bénéficient d'une grande liberté, mais en réalité, seule l'élite des quatre classes est privilégiée. Kiyotaka Ayanokôji est un élève de la classe D, où l'école regroupe les élèves considérés comme inférieurs. Pour diverses raisons, il a délibérément choisi cette classe, mais ses camarades le considèrent comme un élève sans ambition. Cependant, son comportement change lorsqu'il rencontre Suzune Horikita et Kikyô Kushida, deux camarades de classe qui vont l'aider à dévoiler sa véritable personnalité.",
+    imageUrl: "https://fr.web.img4.acsta.net/pictures/17/08/10/12/19/485886.jpg",
+    bannerUrl: "https://m.media-amazon.com/images/M/MV5BMDg3MGVhNWUtYTQ2NS00ZDdiLTg5MTMtZmM5MjUzN2IxN2I4XkEyXkFqcGc@._V1_.jpg",
+    year: 2017,
+    type: "Anime",
+    status: "En cours",
+    genres: ["Drame", "Psychologique", "École", "Thriller"],
+    rating: 8.5,
+    seasons: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        year: 2017,
+        episodes: [
+          { number: 1, title: "Épisode 1", duration: 1440, sibnetVostfrId: "4668080", sibnetVfId: "4799425" },
+          { number: 2, title: "Épisode 2", duration: 1440, sibnetVostfrId: "4668082", sibnetVfId: "4801518" },
+          { number: 3, title: "Épisode 3", duration: 1440, sibnetVostfrId: "4668083", sibnetVfId: "4810031" },
+          { number: 4, title: "Épisode 4", duration: 1440, sibnetVostfrId: "4668085", sibnetVfId: "4818237" },
+          { number: 5, title: "Épisode 5", duration: 1440, sibnetVostfrId: "4668087", sibnetVfId: "4829160" },
+          { number: 6, title: "Épisode 6", duration: 1440, sibnetVostfrId: "4668088", sibnetVfId: "5412534" },
+          { number: 7, title: "Épisode 7", duration: 1440, sibnetVostfrId: "4668090", sibnetVfId: "4859838" },
+          { number: 8, title: "Épisode 8", duration: 1440, sibnetVostfrId: "4668091", sibnetVfId: "4877616" },
+          { number: 9, title: "Épisode 9", duration: 1440, sibnetVostfrId: "4668094", sibnetVfId: "4885368" },
+          { number: 10, title: "Épisode 10", duration: 1440, sibnetVostfrId: "4668095", sibnetVfId: "4905085" },
+          { number: 11, title: "Épisode 11", duration: 1440, sibnetVostfrId: "4668098", sibnetVfId: "4914202" },
+          { number: 12, title: "Épisode 12", duration: 1440, sibnetVostfrId: "4668106", sibnetVfId: "4923056" }
+        ]
+      },
+      {
+        seasonNumber: 2,
+        title: "Saison 2",
+        year: 2022,
+        episodes: [
+          { number: 1, title: "Épisode 1", duration: 1440, sibnetVostfrId: "4777568", sibnetVfId: "4798438" },
+          { number: 2, title: "Épisode 2", duration: 1440, sibnetVostfrId: "4785592", sibnetVfId: "4801519" },
+          { number: 3, title: "Épisode 3", duration: 1440, sibnetVostfrId: "4796430", sibnetVfId: "4810035" },
+          { number: 4, title: "Épisode 4", duration: 1440, sibnetVostfrId: "4801138", sibnetVfId: "4818231" },
+          { number: 5, title: "Épisode 5", duration: 1440, sibnetVostfrId: "4809651", sibnetVfId: "4829170" },
+          { number: 6, title: "Épisode 6", duration: 1440, sibnetVostfrId: "4817808", sibnetVfId: "4840252" },
+          { number: 7, title: "Épisode 7", duration: 1440, sibnetVostfrId: "4827084", sibnetVfId: "4859840" },
+          { number: 8, title: "Épisode 8", duration: 1440, sibnetVostfrId: "4839805", sibnetVfId: "4877610" },
+          { number: 9, title: "Épisode 9", duration: 1440, sibnetVostfrId: "4850225", sibnetVfId: "4885371" },
+          { number: 10, title: "Épisode 10", duration: 1440, sibnetVostfrId: "4859398", sibnetVfId: "4905107" },
+          { number: 11, title: "Épisode 11", duration: 1440, sibnetVostfrId: "4867782", sibnetVfId: "4914194" },
+          { number: 12, title: "Épisode 12", duration: 1440, sibnetVostfrId: "4877110", sibnetVfId: "4923064" },
+          { number: 13, title: "Épisode 13", duration: 1440, sibnetVostfrId: "4885041", sibnetVfId: "4936443" }
+        ]
+      },
+      {
+        seasonNumber: 3,
+        title: "Saison 3",
+        year: 2024,
+        episodes: [
+          { number: 1, title: "Épisode 1", duration: 1440, sibnetVostfrId: "5385344", sibnetVfId: "5411763" },
+          { number: 2, title: "Épisode 2", duration: 1440, sibnetVostfrId: "5394000", sibnetVfId: "5419156" },
+          { number: 3, title: "Épisode 3", duration: 1440, sibnetVostfrId: "5402994", sibnetVfId: "5425762" },
+          { number: 4, title: "Épisode 4", duration: 1440, sibnetVostfrId: "5411124", sibnetVfId: "5432231" },
+          { number: 5, title: "Épisode 5", duration: 1440, sibnetVostfrId: "5418962", sibnetVfId: "5440577" },
+          { number: 6, title: "Épisode 6", duration: 1440, sibnetVostfrId: "5425218", sibnetVfId: "5450119" },
+          { number: 7, title: "Épisode 7", duration: 1440, sibnetVostfrId: "5431981", sibnetVfId: "5458236" },
+          { number: 8, title: "Épisode 8", duration: 1440, sibnetVostfrId: "5440248", sibnetVfId: "5467291" },
+          { number: 9, title: "Épisode 9", duration: 1440, sibnetVostfrId: "5449806", sibnetVfId: "5475846" },
+          { number: 10, title: "Épisode 10", duration: 1440, sibnetVostfrId: "5457931", sibnetVfId: "5484596" },
+          { number: 11, title: "Épisode 11", duration: 1440, sibnetVostfrId: "5466856", sibnetVfId: "5492552" },
+          { number: 12, title: "Épisode 12", duration: 1440, sibnetVostfrId: "5475128", sibnetVfId: "5501364" },
+          { number: 13, title: "Épisode 13", duration: 1440, sibnetVostfrId: "5484154", sibnetVfId: "5508441" }
+        ]
+      }
+    ]
   }
 ];
