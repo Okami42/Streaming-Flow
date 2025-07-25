@@ -727,8 +727,8 @@ export const animes: Anime[] = [
           { number: 33, title: "Episode 33", duration: 1440, mp4Url: "https://23.mugiwara.one/death-note/death-note-33.mp4",sibnetVfId: "4745162" },
           { number: 34, title: "Episode 34", duration: 1440, mp4Url: "https://23.mugiwara.one/death-note/death-note-34.mp4",sibnetVfId: "4745164" },
           { number: 35, title: "Episode 35", duration: 1440, mp4Url: "https://23.mugiwara.one/death-note/death-note-35.mp4",sibnetVfId: "4745165" },
-          { number: 36, title: "Episode 36", duration: 1440, mp4Url: "https://23.mugiwara.one/death-note/death-note-36.mp4",sibnetVfId: "4745169" },
-          { number: 37, title: "Episode 37", duration: 1440, mp4Url: "https://23.mugiwara.one/death-note/death-note-37.mp4",sibnetVfId: "4745172" }
+          { number: 36, title: "Episode 36", duration: 1440, vidmolyId: "rjnzgaf5w0ws" },
+          { number: 37, title: "Episode 37", duration: 1440, sendvidId: "dgwmkjuc" }
         ]
       }
     ]

@@ -29,14 +29,16 @@ export default function VideoPlayer({
   className = "",
 }: VideoPlayerProps) {
   const [isLoading, setIsLoading] = useState(true);
+  const [vidmolyDirectSrc, setVidmolyDirectSrc] = useState<string | null>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const objectRef = useRef<HTMLObjectElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   // Génération d'une clé unique pour forcer le rechargement du composant
   const uniqueKey = sibnetId || vidmolyId || sendvidId || beerscloudId || mp4Url || mp4VfUrl || Math.random().toString();
   
   // Construction directe de l'URL Vidmoly - format standard
   const finalVidmolyUrl = vidmolyId 
-    ? `https://vidmoly.net/embed-${vidmolyId}.html`
+    ? `https://vidmoly.to/embed-${vidmolyId}.html`
     : vidmolyUrl;
   
   // Construction de l'URL Beerscloud
@@ -75,6 +77,26 @@ export default function VideoPlayer({
   useEffect(() => {
     setIsLoading(true);
   }, [sibnetId, vidmolyId, sendvidId, beerscloudId, mp4Url, mp4VfUrl]);
+
+  // Extraire la source vidéo directe depuis le proxy Vidmoly
+  useEffect(() => {
+    if (vidmolyId && !sibnetId) {
+      setIsLoading(true);
+      fetch(`/api/proxy/vidmoly?id=${vidmolyId}`)
+        .then(res => res.text())
+        .then(html => {
+          // Extraire le lien direct du flux vidéo depuis la réponse HTML
+          const match = html.match(/<source src=\"([^\"]+)\"/);
+          if (match && match[1]) {
+            setVidmolyDirectSrc(match[1]);
+          } else {
+            setVidmolyDirectSrc(null);
+          }
+        })
+        .catch(() => setVidmolyDirectSrc(null))
+        .finally(() => setIsLoading(false));
+    }
+  }, [vidmolyId, sibnetId]);
 
   // Nettoyer l'iframe et la vidéo lors du démontage du composant
   useEffect(() => {
@@ -163,52 +185,63 @@ export default function VideoPlayer({
         />
       )}
       
-      {/* Lecteur Vidmoly (natif) */}
+      {/* Lecteur Vidmoly (iframe officiel) */}
       {finalVidmolyUrl && !sibnetId && (
-        <iframe 
+        <iframe
           ref={iframeRef}
           src={finalVidmolyUrl}
-          width="100%" 
-          height="100%" 
-          frameBorder="0" 
-          scrolling="no" 
-          allowFullScreen 
+          width="100%"
+          height="100%"
+          frameBorder="0"
+          scrolling="no"
+          allowFullScreen
           allow="autoplay; encrypted-media"
           className="w-full h-full"
           onLoad={handleIframeLoad}
           onError={handleIframeError}
           key={vidmolyId}
-          style={{ 
+          style={{
             display: isLoading ? 'none' : 'block',
             position: 'absolute',
-            left: '-1.5%',
-            width: '103%',
-            height: '100%'
+            left: '0',
+            width: '100%',
+            height: '100%',
+            zIndex: 1
           }}
         />
       )}
       
-      {/* Lecteur Sendvid (natif) */}
+      {/* Lecteur Sendvid (natif) avec support plein écran et bloqueurs de popup (sauf bas droit) */}
       {sendvidId && !sibnetId && !finalVidmolyUrl && (
-        <iframe 
-          ref={iframeRef}
-          src={`https://sendvid.com/embed/${sendvidId}`}
-          width="100%" 
-          height="100%" 
-          frameBorder="0" 
-          scrolling="no" 
-          allowFullScreen 
-          onLoad={handleIframeLoad}
-          onError={handleIframeError}
-          key={sendvidId}
-          style={{ 
-            display: isLoading ? 'none' : 'block',
-            position: 'absolute',
-            left: '-1.5%',
-            width: '103%',
-            height: '100%'
-          }}
-        />
+        <div className="relative w-full h-full">
+          <iframe 
+            ref={iframeRef}
+            src={`https://sendvid.com/embed/${sendvidId}`}
+            width="100%" 
+            height="100%" 
+            frameBorder="0" 
+            scrolling="no" 
+            allowFullScreen 
+            onLoad={handleIframeLoad}
+            onError={handleIframeError}
+            key={sendvidId}
+            style={{ 
+              display: isLoading ? 'none' : 'block',
+              position: 'absolute',
+              left: '0',
+              width: '100%',
+              height: '100%'
+            }}
+            allow="fullscreen; autoplay"
+            sandbox="allow-scripts allow-same-origin allow-forms"
+          />
+          {/* Bloqueurs de popup (sauf bas droit pour laisser le bouton plein écran) */}
+          <div className="absolute top-0 right-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto' }} />
+          <div className="absolute top-0 left-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto' }} />
+          <div className="absolute bottom-0 left-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto' }} />
+          <div className="absolute top-1/2 right-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto', transform: 'translateY(-50%)' }} />
+          <div className="absolute top-1/2 left-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto', transform: 'translateY(-50%)' }} />
+        </div>
       )}
       
       {/* Lecteur Beerscloud */}
