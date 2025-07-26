@@ -92,51 +92,10 @@ export default function VideoPlayer({
     setIsLoading(false);
   };
 
-  // Gérer le début du chargement de la vidéo MP4
-  const handleVideoLoadStart = () => {
-    setIsLoading(true);
-  };
-
-  // Gérer quand les métadonnées sont chargées
-  const handleVideoLoadedMetadata = () => {
-    setIsLoading(false);
-  };
-
-  // Gérer quand les données sont chargées
-  const handleVideoLoadedData = () => {
-    setIsLoading(false);
-  };
-
   // Gérer les erreurs de chargement de la vidéo MP4
-  const handleVideoError = (event: React.SyntheticEvent<HTMLVideoElement, Event>) => {
+  const handleVideoError = () => {
     setIsLoading(false);
-    const video = event.currentTarget;
-    const error = video.error;
-    
-    if (error) {
-      let errorMessage = "Erreur de chargement de la vidéo MP4";
-      
-      switch (error.code) {
-        case MediaError.MEDIA_ERR_ABORTED:
-          errorMessage = "Chargement de la vidéo interrompu";
-          break;
-        case MediaError.MEDIA_ERR_NETWORK:
-          errorMessage = "Erreur réseau lors du chargement de la vidéo";
-          break;
-        case MediaError.MEDIA_ERR_DECODE:
-          errorMessage = "Format vidéo non supporté";
-          break;
-        case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED:
-          errorMessage = "Source vidéo non supportée";
-          break;
-        default:
-          errorMessage = "Erreur de chargement de la vidéo";
-      }
-      
-      console.warn(errorMessage, { url: mp4UrlToUse, error: error.message });
-    } else {
-      console.warn("Erreur de chargement de la vidéo MP4", { url: mp4UrlToUse });
-    }
+    console.error("Erreur de chargement de la vidéo MP4");
   };
 
   // Gérer le début de la lecture de la vidéo MP4
@@ -197,9 +156,7 @@ export default function VideoPlayer({
           className="w-full h-full"
           controls
           poster={poster}
-          onLoadStart={handleVideoLoadStart}
-          onLoadedMetadata={handleVideoLoadedMetadata}
-          onLoadedData={handleVideoLoadedData}
+          onLoadedData={handleVideoLoad}
           onError={handleVideoError}
           onPlay={handleVideoPlay}
           onPause={handleVideoPause}
@@ -209,8 +166,8 @@ export default function VideoPlayer({
             width: '100%',
             height: '100%'
           }}
-          preload="metadata"
-        />
+            preload="metadata"
+          />
           {/* Grand bouton play au centre - masqué quand la vidéo joue */}
           {!isPlaying && (
             <div 

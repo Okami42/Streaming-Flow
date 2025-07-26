@@ -844,8 +844,8 @@ export const animes: Anime[] = [
         title: "Saison 1",
         year: 2025,
         episodes: [
-          { number: 1, title:"Épisode 1", duration: 1380, mp4Url: "https://4.mugiwara.one/gachiakuta/gachiakuta-1.mp4", sibnetVfId: "5955316" },
-          { number: 2, title:"Épisode 2", duration: 1380, mp4Url: "https://4.mugiwara.one/gachiakuta/gachiakuta-2.mp4", sibnetVfId: "5963187" },
+          { number: 1, title:"Épisode 1", duration: 1380, sibnetVostfrId: "5955294", sibnetVfId: "5955316" },
+          { number: 2, title:"Épisode 2", duration: 1380, sibnetVostfrId: "5963148", sibnetVfId: "5963187" },
         ]
       }
     ]
@@ -1282,7 +1282,7 @@ export const animes: Anime[] = [
           { number: 22, title: "épisode 22", duration: 1440, sibnetVostfrId: "4942945", sibnetVfId: "" },
           { number: 23, title: "épisode 23", duration: 1440, sibnetVostfrId: "4942947", sibnetVfId: "" },
           { number: 24, title: "épisode 24", duration: 1440, sibnetVostfrId: "4942949", sibnetVfId: "" },
-          { number: 25, title: "épisode 25", duration: 1440, sibnetVostfrId: "4942952", sibnetVfId: "" }
+          { number: 25, title: "épisode 24", duration: 1440, sibnetVostfrId: "4942952", sibnetVfId: "" }
         ]
       }
     ]
