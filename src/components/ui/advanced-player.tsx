@@ -6,6 +6,7 @@ import { Loader2 } from "lucide-react";
 
 interface AdvancedPlayerProps {
   videoId: string;
+  videoUrl?: string; // Ajout de l'URL vidéo complète
   type: "vidmoly" | "sibnet";
   poster?: string;
   className?: string;
@@ -13,6 +14,7 @@ interface AdvancedPlayerProps {
 
 export default function AdvancedPlayer({
   videoId,
+  videoUrl,
   type,
   poster,
   className = "",
@@ -37,6 +39,11 @@ export default function AdvancedPlayer({
   // URL du lecteur vidéo
   const getVideoUrl = () => {
     if (type === "vidmoly") {
+      if (videoUrl) {
+        // Utiliser l'URL complète fournie, en remplaçant le domaine par vidmoly.net
+        return videoUrl.replace('vidmoly.to', 'vidmoly.net');
+      }
+      // Sinon, construire l'URL à partir de l'ID
       return `https://vidmoly.net/embed-${videoId}.html`;
     }
     return "";
@@ -124,20 +131,22 @@ export default function AdvancedPlayer({
   // Actions utilisateur
   const handlePlayPause = () => {
     if (!hasInteracted) {
-      // Premier clic : démarrer la vidéo et masquer le spinner
-      setIsBuffering(false);
-      setIsPlaying(true);
       setHasInteracted(true);
-      if (iframeRef.current && iframeRef.current.contentWindow && type === "vidmoly") {
-        iframeRef.current.contentWindow.postMessage("playVideo", "https://vidmoly.to");
-      }
-    } else {
-      // Clics suivants : basculer lecture/pause
-      const newState = !isPlaying;
-      setIsPlaying(newState);
-      if (iframeRef.current && iframeRef.current.contentWindow && type === "vidmoly") {
-        const message = newState ? "playVideo" : "pauseVideo";
-        iframeRef.current.contentWindow.postMessage(message, "https://vidmoly.to");
+    }
+    
+    if (iframeRef.current && iframeRef.current.contentWindow) {
+      if (isPlaying) {
+        // Pause
+        setIsPlaying(false);
+        if (iframeRef.current && iframeRef.current.contentWindow && type === "vidmoly") {
+          iframeRef.current.contentWindow.postMessage("pauseVideo", "https://vidmoly.net");
+        }
+      } else {
+        // Play
+        setIsPlaying(true);
+        if (iframeRef.current && iframeRef.current.contentWindow && type === "vidmoly") {
+          iframeRef.current.contentWindow.postMessage("playVideo", "https://vidmoly.net");
+        }
       }
     }
     hideControlsWithDelay();
@@ -145,6 +154,10 @@ export default function AdvancedPlayer({
 
   const handleMuteToggle = () => {
     setIsMuted(!isMuted);
+    if (iframeRef.current && iframeRef.current.contentWindow && type === "vidmoly") {
+      const message = !isMuted ? "mute" : "unmute";
+      iframeRef.current.contentWindow.postMessage(message, "https://vidmoly.net");
+    }
     hideControlsWithDelay();
   };
 

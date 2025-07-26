@@ -3,14 +3,28 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const id = searchParams.get('id');
+  const url = searchParams.get('url');
   
-  if (!id) {
-    return new NextResponse('ID is required', { status: 400 });
+  if (!id && !url) {
+    return new NextResponse('ID or URL is required', { status: 400 });
   }
 
   try {
+    // Construire l'URL à utiliser
+    let videoUrl;
+    if (url) {
+      // Utiliser l'URL complète fournie
+      videoUrl = url;
+    } else {
+      // Construire l'URL à partir de l'ID
+      videoUrl = `https://vidmoly.to/embed-${id}.html`;
+    }
+
+    // S'assurer que l'URL utilise le domaine vidmoly.to pour la requête
+    videoUrl = videoUrl.replace('vidmoly.net', 'vidmoly.to');
+    
     // Utiliser un User-Agent de navigateur pour éviter d'être détecté comme un bot
-    const response = await fetch(`https://vidmoly.to/embed-${id}.html`, {
+    const response = await fetch(videoUrl, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
         'Referer': 'https://vidmoly.to/',

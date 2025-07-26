@@ -9,6 +9,7 @@ export interface AnimeEpisode {
   vidmolyUrl?: string;
   vidmolyId?: string;
   vidmolyVfId?: string;
+  vidmolyVfUrl?: string;  // URL complète pour Vidmoly VF
   sendvidId?: string;
   m3u8Url?: string;
   m3u8VfUrl?: string;
@@ -78,6 +79,46 @@ export const animes: Anime[] = [
     rating: 8.7,
     episodes: [
       { number: 1, title: "Akira", duration: 7440, sibnetVostfrId: "4740096", sibnetVfId: "5340708" }
+    ]
+  },
+  {
+    id: "my-dress-up-darling",
+    title: "My Dress-Up Darling",
+    originalTitle: "その着せ替え人形は恋をする",
+    description: "Wakana Gojo est un lycéen qui rêve de devenir un maître artisan de poupées hina traditionnelles japonaises. Malgré sa passion, il garde son intérêt secret car il a été traumatisé dans son enfance quand un ami s'est moqué de son hobby. Un jour, la très populaire Marin Kitagawa le surprend en train de coudre des vêtements de poupée à l'école. Loin de se moquer de lui, elle révèle sa propre passion secrète : le cosplay. Impressionnée par ses talents de couturier, elle lui demande de l'aider à créer des costumes. Alors que Gojo confectionne des tenues pour Marin, ils se rapprochent et découvrent qu'ils ont plus en commun qu'ils ne le pensaient initialement.",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BM2ZiZTk1ODgtMTZkNS00NTYxLWIxZTUtNWExZGYwZTRjODViXkEyXkFqcGdeQXVyMTE2MzA3MDM@._V1_.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2022,
+    type: "Anime",
+    status: "En cours",
+    genres: ["Comédie", "Romance", "Tranche de vie", "École"],
+    rating: 8.0,
+    seasons: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        year: 2022,
+        episodes: [
+          { number: 1, title: "épisode 1", duration: 1440, vidmolyUrl: "https://vidmoly.net/embed-c5kvdzxqmorl.html", vidmolyVfUrl: "https://vidmoly.net/embed-mx95kly6lemd.html" },
+          { number: 2, title: "épisode 2", duration: 1440, vidmolyUrl: "https://vidmoly.net/embed-rcdhk4zd8y1k.html", vidmolyVfUrl: "https://vidmoly.net/embed-7jfcbayq8ejr.html" },
+          { number: 3, title: "épisode 3", duration: 1440, vidmolyUrl: "https://vidmoly.net/embed-0xfbden4oahr.html", vidmolyVfUrl: "https://vidmoly.net/embed-pn74nl5f4csj.html" },
+          { number: 4, title: "épisode 4", duration: 1440, vidmolyUrl: "https://vidmoly.net/embed-hp2ihakg9ztd.html", vidmolyVfUrl: "https://vidmoly.net/embed-1e5tt361yfju.html" },
+          { number: 5, title: "épisode 5", duration: 1440, vidmolyUrl: "https://vidmoly.net/embed-l99r9h1asimh.html", vidmolyVfUrl: "https://vidmoly.net/embed-ggydjas1wqrc.html" },
+          { number: 6, title: "épisode 6", duration: 1440, vidmolyUrl: "https://vidmoly.net/embed-qsrchtxigrid.html", vidmolyVfUrl: "https://vidmoly.net/embed-ae4pt04e59uc.html" },
+          { number: 7, title: "épisode 7", duration: 1440, vidmolyUrl: "https://vidmoly.net/embed-r3vvozj7ampu.html", vidmolyVfUrl: "https://vidmoly.net/embed-4uh1w6u5y8pe.html" },
+          { number: 8, title: "épisode 8", duration: 1440, vidmolyUrl: "https://vidmoly.net/embed-cik04lczfgu1.html", vidmolyVfUrl: "https://vidmoly.net/embed-k75h7ca21kaz.html" },
+          { number: 9, title: "épisode 9", duration: 1440, vidmolyUrl: "https://vidmoly.net/embed-aokt9o4c8bds.html", vidmolyVfUrl: "https://vidmoly.net/embed-nkvdsnf8ohm9.html" },
+          { number: 10, title: "épisode 10", duration: 1440, vidmolyUrl: "https://vidmoly.net/embed-t9gospi89g0r.html", vidmolyVfUrl: "https://vidmoly.net/embed-wipmx35ifog8.html" },
+          { number: 11, title: "épisode 11", duration: 1440, vidmolyUrl: "https://vidmoly.net/embed-tcsualkozdpf.html", vidmolyVfUrl: "https://vidmoly.net/embed-oqmof3ojfo9u.html" },
+          { number: 12, title: "épisode 12", duration: 1440, vidmolyUrl: "https://vidmoly.net/embed-p4mtsavf8s45.html", vidmolyVfUrl: "https://vidmoly.net/embed-e8x9g53x1mfr.html" }
+        ]
+      },
+      {
+        seasonNumber: 2,
+        title: "Saison 2",
+        year: 2025,
+        episodes: []
+      }
     ]
   },
   {
@@ -727,8 +768,8 @@ export const animes: Anime[] = [
           { number: 33, title: "Episode 33", duration: 1440, mp4Url: "https://23.mugiwara.one/death-note/death-note-33.mp4",sibnetVfId: "4745162" },
           { number: 34, title: "Episode 34", duration: 1440, mp4Url: "https://23.mugiwara.one/death-note/death-note-34.mp4",sibnetVfId: "4745164" },
           { number: 35, title: "Episode 35", duration: 1440, mp4Url: "https://23.mugiwara.one/death-note/death-note-35.mp4",sibnetVfId: "4745165" },
-          { number: 36, title: "Episode 36", duration: 1440, vidmolyId: "rjnzgaf5w0ws" },
-          { number: 37, title: "Episode 37", duration: 1440, sendvidId: "dgwmkjuc" }
+          { number: 36, title: "Episode 36", duration: 1440, mp4Url: "https://23.mugiwara.one/death-note/death-note-36.mp4",sibnetVfId: "4745165" },
+          { number: 37, title: "Episode 37", duration: 1440, mp4Url: "https://23.mugiwara.one/death-note/death-note-37.mp4",sibnetVfId: "4745165" }
         ]
       }
     ]

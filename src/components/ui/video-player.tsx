@@ -1,41 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Loader2 } from "lucide-react";
+import { Loader2, Play } from "lucide-react";
 import HLSPlayer from "../../../hls-player";
-
-// Script pour remplacer vidmoly.to par vidmoly.net dans les iframes
-const vidmolyScript = `
-;(function() {
-  // 1. Remplace toutes les occurrences de vidmoly.to par vidmoly.net  
-  function replaceVidmoly(url) {
-    return url.replace(/vidmoly\\.to/g, 'vidmoly.net');
-  }
-
-  // 2. On surcharge le setter de la propriété \`src\` pour tous les <iframe>
-  const proto = HTMLIFrameElement.prototype;
-  const descriptor = Object.getOwnPropertyDescriptor(proto, 'src');
-  Object.defineProperty(proto, 'src', {
-    get: descriptor.get,
-    set: function(value) {
-      // on ajuste l'URL avant de passer au setter d'origine
-      const newVal = (typeof value === 'string')
-        ? replaceVidmoly(value)
-        : value;
-      return descriptor.set.call(this, newVal);
-    }
-  });
-
-  // 3. À l'initialisation du DOM, on corrige les attributs déjà présents
-  const iframes = document.querySelectorAll('iframe');
-  iframes.forEach(iframe => {
-    const src = iframe.getAttribute('src') || '';
-    if (src.includes('vidmoly.to')) {
-      iframe.setAttribute('src', replaceVidmoly(src));
-    }
-  });
-})();
-`;
 
 interface VideoPlayerProps {
   sibnetId?: string;
@@ -43,8 +10,8 @@ interface VideoPlayerProps {
   vidmolyId?: string;
   sendvidId?: string;
   beerscloudId?: string;
-  mp4Url?: string;     // Nouveau: URL MP4 directe pour VOSTFR
-  mp4VfUrl?: string;   // Nouveau: URL MP4 directe pour VF
+  mp4Url?: string;     // URL MP4 directe pour VOSTFR
+  mp4VfUrl?: string;   // URL MP4 directe pour VF
   poster?: string;
   className?: string;
   key?: string;
@@ -56,22 +23,29 @@ export default function VideoPlayer({
   vidmolyId,
   sendvidId,
   beerscloudId,
-  mp4Url,           // Nouveau paramètre
-  mp4VfUrl,         // Nouveau paramètre
+  mp4Url,
+  mp4VfUrl,
   poster,
   className = "",
 }: VideoPlayerProps) {
   const [isLoading, setIsLoading] = useState(true);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const objectRef = useRef<HTMLObjectElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  
   // Génération d'une clé unique pour forcer le rechargement du composant
   const uniqueKey = sibnetId || vidmolyId || sendvidId || beerscloudId || mp4Url || mp4VfUrl || Math.random().toString();
   
-  // Construction directe de l'URL Vidmoly - format standard
-  const finalVidmolyUrl = vidmolyId 
-    ? `https://vidmoly.net/embed-${vidmolyId}.html`
-    : vidmolyUrl;
+  // Construction URL Vidmoly - format complet
+  let finalVidmolyUrl = "";
+  if (vidmolyUrl) {
+    // Utiliser l'URL complète fournie, en remplaçant le domaine par vidmoly.net
+    finalVidmolyUrl = vidmolyUrl.replace('vidmoly.to', 'vidmoly.net');
+  } else if (vidmolyId) {
+    // Construire l'URL à partir de l'ID
+    finalVidmolyUrl = `https://vidmoly.net/embed-${vidmolyId}.html`;
+  }
   
   // Construction de l'URL Beerscloud
   const beerscloudUrl = beerscloudId
@@ -105,23 +79,21 @@ export default function VideoPlayer({
     console.error("Erreur de chargement de la vidéo MP4");
   };
 
-  // Injecter le script pour remplacer vidmoly.to par vidmoly.net
-  useEffect(() => {
-    if (vidmolyId || vidmolyUrl) {
-      const script = document.createElement('script');
-      script.innerHTML = vidmolyScript;
-      document.head.appendChild(script);
-      
-      return () => {
-        document.head.removeChild(script);
-      };
-    }
-  }, [vidmolyId, vidmolyUrl]);
+  // Gérer le début de lecture de la vidéo
+  const handleVideoPlay = () => {
+    setIsVideoPlaying(true);
+  };
+
+  // Gérer la pause de la vidéo
+  const handleVideoPause = () => {
+    setIsVideoPlaying(false);
+  };
 
   // Réinitialiser l'état de chargement quand la source change
   useEffect(() => {
     setIsLoading(true);
-  }, [sibnetId, vidmolyId, sendvidId, beerscloudId, mp4Url, mp4VfUrl]);
+    setIsVideoPlaying(false);
+  }, [sibnetId, vidmolyId, vidmolyUrl, sendvidId, beerscloudId, mp4Url, mp4VfUrl]);
 
   // Nettoyer l'iframe et la vidéo lors du démontage du composant
   useEffect(() => {
@@ -145,7 +117,7 @@ export default function VideoPlayer({
         videoRef.current.load();
       }
     };
-  }, [sibnetId, vidmolyId, sendvidId, beerscloudId, mp4Url, mp4VfUrl]);
+  }, [sibnetId, vidmolyId, vidmolyUrl, sendvidId, beerscloudId, mp4Url, mp4VfUrl]);
   
   return (
     <div className={`w-full h-full relative ${className}`} style={{ overflow: 'hidden' }} key={uniqueKey}>      
@@ -156,24 +128,37 @@ export default function VideoPlayer({
         </div>
       )}
       
-      {/* Lecteur MP4 natif */}
+      {/* Lecteur MP4 natif avec overlay de bouton play */}
       {mp4UrlToUse && (
-        <video
-          ref={videoRef}
-          src={mp4UrlToUse}
-          className="w-full h-full"
-          controls
-          autoPlay
-          poster={poster}
-          onLoadedData={handleVideoLoad}
-          onError={handleVideoError}
-          key={`mp4-${mp4UrlToUse}`}
-          style={{ 
-            display: isLoading ? 'none' : 'block',
-            width: '100%',
-            height: '100%'
-          }}
-        />
+        <div className="relative w-full h-full">
+          <video
+            ref={videoRef}
+            src={mp4UrlToUse}
+            className="w-full h-full"
+            controls
+            poster={poster}
+            onLoadedData={handleVideoLoad}
+            onError={handleVideoError}
+            onPlay={handleVideoPlay}
+            onPause={handleVideoPause}
+            key={`mp4-${mp4UrlToUse}`}
+            style={{ 
+              display: isLoading ? 'none' : 'block',
+              width: '100%',
+              height: '100%'
+            }}
+            preload="metadata"
+          />
+          {/* Grand bouton play au centre */}
+          <div 
+            className="absolute inset-0 flex items-center justify-center pointer-events-none"
+            style={{ opacity: isLoading || isVideoPlaying ? 0 : 1 }}
+          >
+            <div className="bg-blue-600/70 rounded-full p-5 shadow-lg">
+              <Play className="h-10 w-10 text-white" fill="white" />
+            </div>
+          </div>
+        </div>
       )}
       
       {/* Lecteur HLS pour les liens m3u8 */}
@@ -210,32 +195,24 @@ export default function VideoPlayer({
         />
       )}
       
-      {/* Lecteur Vidmoly (iframe officiel) - solution radicale */}
+      {/* Lecteur Vidmoly (iframe direct) */}
       {finalVidmolyUrl && !sibnetId && (
         <div className="relative w-full h-full overflow-hidden">
-        <iframe 
-          ref={iframeRef}
-          src={finalVidmolyUrl}
-          width="100%" 
-          height="100%" 
-          frameBorder="0" 
-          scrolling="no" 
-          allowFullScreen 
-            allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock; accelerometer; gyroscope; clipboard-write; web-share"
-          className="w-full h-full"
-          onLoad={handleIframeLoad}
-          onError={handleIframeError}
-          key={vidmolyId}
-          style={{ 
-            display: isLoading ? 'none' : 'block',
-            position: 'absolute',
-              left: '0',
-              width: '100%',
-              height: '100%',
-              zIndex: 1
-          }}
-            referrerPolicy="origin"
-        />
+          <iframe 
+            ref={iframeRef}
+            src={finalVidmolyUrl}
+            width="100%" 
+            height="100%" 
+            frameBorder="0" 
+            scrolling="no" 
+            allowFullScreen 
+            allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+            className="absolute inset-0 w-full h-full"
+            onLoad={handleIframeLoad}
+            onError={handleIframeError}
+            key={finalVidmolyUrl}
+            style={{ border: 'none' }}
+          />
         </div>
       )}
       
@@ -256,13 +233,13 @@ export default function VideoPlayer({
           style={{ 
             display: isLoading ? 'none' : 'block',
             position: 'absolute',
-              left: '0',
-              width: '100%',
+            left: '0',
+            width: '100%',
             height: '100%'
           }}
-            allow="fullscreen; autoplay; picture-in-picture; screen-wake-lock; accelerometer; gyroscope; clipboard-write; web-share"
-            sandbox="allow-scripts allow-same-origin allow-forms"
-          />
+          allow="fullscreen; autoplay; picture-in-picture; screen-wake-lock; accelerometer; gyroscope; clipboard-write; web-share"
+          sandbox="allow-scripts allow-same-origin allow-forms"
+        />
           {/* Bloqueurs de popup (sauf bas droit pour laisser le bouton plein écran) */}
           <div className="absolute top-0 right-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto' }} />
           <div className="absolute top-0 left-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto' }} />

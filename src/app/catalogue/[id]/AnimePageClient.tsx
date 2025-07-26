@@ -27,6 +27,31 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
   // Récupérer les paramètres d'URL
   const searchParams = useSearchParams();
   
+  // Effet pour lire les paramètres d'URL et définir l'épisode et la saison
+  useEffect(() => {
+    if (!searchParams) return;
+    
+    // Récupérer les paramètres d'URL
+    const seasonParam = searchParams.get('season');
+    const episodeParam = searchParams.get('episode');
+    
+    console.log("Paramètres URL détectés:", { seasonParam, episodeParam });
+    
+    // Définir la saison si elle est spécifiée dans l'URL
+    if (seasonParam) {
+      const seasonValue = isNaN(Number(seasonParam)) ? seasonParam : Number(seasonParam);
+      console.log("Définition de la saison depuis l'URL:", seasonValue);
+      setSelectedSeason(seasonValue);
+    }
+    
+    // Définir l'épisode si il est spécifié dans l'URL
+    if (episodeParam && !isNaN(Number(episodeParam))) {
+      const episodeNumber = Number(episodeParam);
+      console.log("Définition de l'épisode depuis l'URL:", episodeNumber);
+      setSelectedEpisode(episodeNumber);
+    }
+  }, [searchParams]);
+  
   // Récupérer les fonctions du hook useHistory
   const { addToWatchHistory, updateWatchProgress, watchHistory } = useHistory();
   
@@ -89,7 +114,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
       setSelectedEpisode(episodeNumber);
     }
   }, [searchParams]);
-    
+      
   // Fonction pour récupérer les épisodes selon la structure
   const getEpisodes = (seasonNumber: number | string) => {
     if (!anime || !anime.seasons) return [];
@@ -977,16 +1002,22 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                         </TabsList>
                         
                         <TabsContent value="lecteur1" className="mt-0">
-                          {/* Lecteur spécifique pour Kuroko no Basket - Film */}
-                          {anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' ? (
-                            <div className="bg-black" style={{ width: '100%', height: '650px' }} key={`container-lecteur1-vo-${selectedEpisode}-${selectedSeason}`}>
-                              <VideoPlayer 
-                                vidmolyId={episode?.vidmolyVfId}
-                                className="w-full h-full"
-                              />
-                            </div>
-                          ) : (
-                            <div className="bg-black" style={{ width: '100%', height: '650px' }} key={`container-lecteur1-vo-${selectedEpisode}-${selectedSeason}`}>
+                          {/* Lecteur standard pour tous les animes */}
+                          <div className="bg-black" style={{ width: '100%', height: '650px' }} key={`container-lecteur1-vo-${selectedEpisode}-${selectedSeason}`}>
+                            {/* Vidmoly direct comme dans la page de test */}
+                            {(episode?.vidmolyUrl || episode?.vidmolyId) ? (
+                                <iframe
+                                  src={episode?.vidmolyUrl || `https://vidmoly.net/embed-${episode?.vidmolyId}.html`}
+                                  width="100%"
+                                  height="100%"
+                                  frameBorder="0"
+                                  scrolling="no"
+                                  allowFullScreen
+                                  allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                                  className="w-full h-full"
+                                  style={{ border: 'none' }}
+                                />
+                            ) : (
                               <VideoPlayer 
                                 sendvidId={episode?.sendvidId}
                                 sibnetId={episode?.sendvidId ? undefined : videoId}
@@ -994,8 +1025,74 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                                 className="w-full h-full"
                                 key={`lecteur1-vo-${selectedEpisode}-${selectedSeason}`}
                               />
-                            </div>
-                          )}
+                            )}
+                          </div>
+                        </TabsContent>
+
+                        <TabsContent value="vf" className="mt-2">
+                          {/* Sélecteur d'épisode en style dropdown */}
+                          <div className="mb-2 flex justify-between items-center md:hidden">
+                            <select 
+                              value={selectedEpisode}
+                              onChange={(e) => setSelectedEpisode(Number(e.target.value))}
+                              className="bg-[#151a2a] text-white border border-white/10 rounded-md px-4 py-2 w-full md:w-auto"
+                            >
+                              {episodesToShow.map((ep) => (
+                                <option key={ep.number} value={ep.number}>
+                                  ÉPISODE {ep.number} - {ep.title}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                          
+                          {/* Tabs pour choisir le lecteur */}
+                          <div className="mb-4" key={`vf-container-${selectedEpisode}-${selectedSeason}`}>
+                            {totalEpisodes <= 1 ? (
+                              // Lecteur unique sans tabs pour les animes avec un seul épisode
+                              <div className="bg-black" style={{ width: '100%', height: '650px' }} key={`container-lecteur-unique-vf-${selectedEpisode}-${selectedSeason}`}>
+                                <VideoPlayer 
+                                  sibnetId={videoId}
+                                  mp4VfUrl={episode?.mp4VfUrl}
+                                  className="w-full h-full"
+                                  key={`lecteur-unique-vf-${selectedEpisode}-${selectedSeason}`}
+                                />
+                              </div>
+                            ) : (
+                              // Tabs pour les animes avec plusieurs épisodes
+                              <Tabs defaultValue="lecteur1" className="w-full">
+                                <TabsList className="grid w-full grid-cols-1 bg-[#151a2a] mb-2 rounded-t-md border border-white/10 border-b-0">
+                                  <TabsTrigger value="lecteur1" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/50 data-[state=active]:to-blue-500/50 data-[state=active]:text-white data-[state=active]:shadow-inner">Lecteur 1</TabsTrigger>
+                                </TabsList>
+                                
+                                <TabsContent value="lecteur1" className="mt-0">
+                                  {/* Lecteur standard pour VF */}
+                                  <div className="bg-black" style={{ width: '100%', height: '650px' }} key={`container-lecteur1-vf-${selectedEpisode}-${selectedSeason}`}>
+                                    {/* Vidmoly direct comme dans la page de test */}
+                                    {episode?.vidmolyVfId || episode?.vidmolyVfUrl ? (
+                                      <iframe
+                                        src={episode.vidmolyVfUrl || `https://vidmoly.net/embed-${episode.vidmolyVfId}.html`}
+                                        width="100%"
+                                        height="100%"
+                                        frameBorder="0"
+                                        scrolling="no"
+                                        allowFullScreen
+                                        allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                                        className="w-full h-full"
+                                        style={{ border: 'none' }}
+                                      />
+                                    ) : (
+                                      <VideoPlayer 
+                                        sibnetId={videoId}
+                                        mp4VfUrl={episode?.mp4VfUrl}
+                                        className="w-full h-full"
+                                        key={`lecteur1-vf-${selectedEpisode}-${selectedSeason}`}
+                                      />
+                                    )}
+                                  </div>
+                                </TabsContent>
+                              </Tabs>
+                            )}
+                          </div>
                         </TabsContent>
                       </Tabs>
                     )}
@@ -1038,24 +1135,30 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                         </TabsList>
                         
                         <TabsContent value="lecteur1" className="mt-0">
-                          {/* Lecteur style anime-sama.fr */}
-                          {anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' ? (
-                            <div className="bg-black" style={{ width: '100%', height: '650px' }} key={`container-lecteur1-vf-${selectedEpisode}-${selectedSeason}`}>
-                              <VideoPlayer 
-                                vidmolyId={episode?.vidmolyVfId}
+                          {/* Lecteur standard pour VF */}
+                          <div className="bg-black" style={{ width: '100%', height: '650px' }} key={`container-lecteur1-vf-${selectedEpisode}-${selectedSeason}`}>
+                            {/* Vidmoly direct comme dans la page de test */}
+                            {episode?.vidmolyVfId || episode?.vidmolyVfUrl ? (
+                              <iframe
+                                src={episode.vidmolyVfUrl || `https://vidmoly.net/embed-${episode.vidmolyVfId}.html`}
+                                width="100%"
+                                height="100%"
+                                frameBorder="0"
+                                scrolling="no"
+                                allowFullScreen
+                                allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
                                 className="w-full h-full"
+                                style={{ border: 'none' }}
                               />
-                            </div>
-                          ) : (
-                            <div className="bg-black" style={{ width: '100%', height: '650px' }} key={`container-lecteur1-vf-${selectedEpisode}-${selectedSeason}`}>
+                            ) : (
                               <VideoPlayer 
                                 sibnetId={videoId}
                                 mp4VfUrl={episode?.mp4VfUrl}
                                 className="w-full h-full"
                                 key={`lecteur1-vf-${selectedEpisode}-${selectedSeason}`}
                               />
-                            </div>
-                          )}
+                            )}
+                          </div>
                         </TabsContent>
                       </Tabs>
                     )}
@@ -1117,13 +1220,39 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
               
               {/* Lecteur vidéo */}
               <div className="bg-black" style={{ width: '100%', height: '250px' }}>
-                <VideoPlayer 
-                  sendvidId={episode?.sendvidId}
-                  sibnetId={episode?.sendvidId ? undefined : videoId}
-                  vidmolyId={selectedLanguage === "vo" ? episode?.vidmolyId : episode?.vidmolyVfId}
-                  className="w-full h-full"
-                  key={`mobile-player-${selectedEpisode}-${selectedSeason}-${selectedLanguage}`}
-                />
+                {/* Vidmoly direct comme dans la page de test */}
+                {selectedLanguage === "vo" && (episode?.vidmolyUrl || episode?.vidmolyId) ? (
+                  <iframe
+                    src={episode.vidmolyUrl || `https://vidmoly.net/embed-${episode.vidmolyId}.html`}
+                    width="100%"
+                    height="100%"
+                    frameBorder="0"
+                    scrolling="no"
+                    allowFullScreen
+                    allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                    className="w-full h-full"
+                    style={{ border: 'none' }}
+                  />
+                ) : selectedLanguage === "vf" && (episode?.vidmolyVfId || episode?.vidmolyVfUrl) ? (
+                  <iframe
+                    src={episode.vidmolyVfUrl || `https://vidmoly.net/embed-${episode.vidmolyVfId}.html`}
+                    width="100%"
+                    height="100%"
+                    frameBorder="0"
+                    scrolling="no"
+                    allowFullScreen
+                    allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                    className="w-full h-full"
+                    style={{ border: 'none' }}
+                  />
+                ) : (
+                  <VideoPlayer 
+                    sendvidId={episode?.sendvidId}
+                    sibnetId={episode?.sendvidId ? undefined : videoId}
+                    className="w-full h-full"
+                    key={`mobile-player-${selectedEpisode}-${selectedSeason}-${selectedLanguage}`}
+                  />
+                )}
               </div>
               
               {/* Navigation des épisodes */}
@@ -1224,8 +1353,8 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
             </div>
           </div>
 
-          {/* Message d'avertissement concernant AdBlock pour Kuroko film */}
-          {anime.id === 'kuroko-no-basket' && String(selectedSeason) === 'Film' && (
+          {/* Message d'avertissement concernant AdBlock pour les vidéos Vidmoly */}
+          {(episode?.vidmolyUrl || episode?.vidmolyId || episode?.vidmolyVfId) && (
             <div className="bg-amber-800/20 border border-amber-600/30 rounded-md p-3 mb-4 text-amber-300 text-sm">
               <strong>⚠️</strong> Si la vidéo ne s'affiche pas, veuillez désactiver votre bloqueur de publicités (AdBlock) pour ce site.
             </div>
