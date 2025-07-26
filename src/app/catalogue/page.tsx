@@ -38,7 +38,7 @@ const animes: CatalogueAnime[] = [
     title: "Welcome, Demon-School Teacher!",
     imageUrl: "https://m.media-amazon.com/images/M/MV5BY2ZjZmZhN2MtNTk4NC00MmFkLWEwMWEtZGNjOThmMTQ2YjdmXkEyXkFqcGc@._V1_.jpg",
     type: "Anime",
-    language: "VF & VO",
+    language: "VO",
   },
   {
     id: "solo-leveling",
@@ -46,6 +46,27 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://img-cdn.thepublive.com/wion/media/post_attachments/files/web-story/900_1600/2024/3/26/1711469910345_sololeveling.jpg",
     type: "Anime",
     language: "VF & VO",
+  },
+  {
+    id:"clannad",
+    title:"Clannad",
+    imageUrl:"https://fr.web.img6.acsta.net/pictures/20/09/02/16/06/0799147.jpg",
+    type:"Anime",
+    language:"VO",
+  },
+  {
+    id:"gachiakuta",
+    title:"Gachiakuta",
+    imageUrl:"https://fr.web.img6.acsta.net/img/d5/7b/d57b51b6b84ed66f6dfb47d83aa759a6.jpg",
+    type:"Anime",
+    language:"VF & VO",
+  },
+  {
+    id:"fire-force",
+    title:"Fire Force",
+    imageUrl:"https://fr.web.img5.acsta.net/pictures/19/09/16/16/21/4933552.jpg",
+    type:"Anime",
+    language:"VF & VO",
   },
   {
     id:"horimiya",
@@ -73,7 +94,7 @@ const animes: CatalogueAnime[] = [
     title: "Failure Skill 'Nut Master'",
     imageUrl: "https://m.media-amazon.com/images/M/MV5BNDQ2MTY2YTEtOWI5ZS00YTFhLTg5YWYtMzkwYTA5NjM5NTIxXkEyXkFqcGc@._V1_FMjpg_UY452_.jpg 319w, https://m.media-amazon.com/images/M/MV5BNDQ2MTY2YTEtOWI5ZS00YTFhLTg5YWYtMzkwYTA5NjM5NTIxXkEyXkFqcGc@._V1_FMjpg_UY678_.jpg 479w, https://m.media-amazon.com/images/M/MV5BNDQ2MTY2YTEtOWI5ZS00YTFhLTg5YWYtMzkwYTA5NjM5NTIxXkEyXkFqcGc@._V1_FMjpg_UY337_.jpg 238w, https://m.media-amazon.com/images/M/MV5BNDQ2MTY2YTEtOWI5ZS00YTFhLTg5YWYtMzkwYTA5NjM5NTIxXkEyXkFqcGc@._V1_FMjpg_UX707_.jpg 707w, https://m.media-amazon.com/images/M/MV5BNDQ2MTY2YTEtOWI5ZS00YTFhLTg5YWYtMzkwYTA5NjM5NTIxXkEyXkFqcGc@._V1_FMjpg_UY1000_.jpg 707w",
     type: "Anime",
-    language: "VF & VO",
+    language: "VO",
   },
   {
     id: "amagami-san-chi-no-enmusubi",

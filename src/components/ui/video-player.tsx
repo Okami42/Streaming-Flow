@@ -38,6 +38,7 @@ export default function VideoPlayer({
   className = "",
 }: VideoPlayerProps) {
   const [isLoading, setIsLoading] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const objectRef = useRef<HTMLObjectElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -97,9 +98,20 @@ export default function VideoPlayer({
     console.error("Erreur de chargement de la vidéo MP4");
   };
 
+  // Gérer le début de la lecture de la vidéo MP4
+  const handleVideoPlay = () => {
+    setIsPlaying(true);
+  };
+
+  // Gérer la pause de la vidéo MP4
+  const handleVideoPause = () => {
+    setIsPlaying(false);
+  };
+
   // Réinitialiser l'état de chargement quand la source change
   useEffect(() => {
     setIsLoading(true);
+    setIsPlaying(false);
   }, [sibnetId, vidmolyId, vidmolyUrl, vidmolyVfId, vidmolyVfUrl, movearnUrl, movearnVfUrl, sendvidId, beerscloudId, mp4Url, mp4VfUrl]);
 
   // Nettoyer l'iframe et la vidéo lors du démontage du composant
@@ -146,6 +158,8 @@ export default function VideoPlayer({
           poster={poster}
           onLoadedData={handleVideoLoad}
           onError={handleVideoError}
+          onPlay={handleVideoPlay}
+          onPause={handleVideoPause}
           key={`mp4-${mp4UrlToUse}`}
           style={{ 
             display: isLoading ? 'none' : 'block',
@@ -154,15 +168,17 @@ export default function VideoPlayer({
           }}
             preload="metadata"
           />
-          {/* Grand bouton play au centre */}
-          <div 
-            className="absolute inset-0 flex items-center justify-center pointer-events-none"
-            style={{ opacity: isLoading ? 0 : 1 }}
-          >
-            <div className="bg-blue-600/70 rounded-full p-5 shadow-lg">
-              <Play className="h-10 w-10 text-white" fill="white" />
+          {/* Grand bouton play au centre - masqué quand la vidéo joue */}
+          {!isPlaying && (
+            <div 
+              className="absolute inset-0 flex items-center justify-center pointer-events-none"
+              style={{ opacity: isLoading ? 0 : 1 }}
+            >
+              <div className="bg-blue-600/70 rounded-full p-5 shadow-lg">
+                <Play className="h-10 w-10 text-white" fill="white" />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       )}
       
