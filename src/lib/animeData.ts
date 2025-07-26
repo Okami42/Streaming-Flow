@@ -1282,7 +1282,7 @@ export const animes: Anime[] = [
           { number: 22, title: "épisode 22", duration: 1440, sibnetVostfrId: "4942945", sibnetVfId: "" },
           { number: 23, title: "épisode 23", duration: 1440, sibnetVostfrId: "4942947", sibnetVfId: "" },
           { number: 24, title: "épisode 24", duration: 1440, sibnetVostfrId: "4942949", sibnetVfId: "" },
-          { number: 25, title: "épisode 24", duration: 1440, sibnetVostfrId: "4942952", sibnetVfId: "" }
+          { number: 25, title: "épisode 25", duration: 1440, sibnetVostfrId: "4942952", sibnetVfId: "" }
         ]
       }
     ]
