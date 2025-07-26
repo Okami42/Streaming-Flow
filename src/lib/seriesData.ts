@@ -1077,6 +1077,22 @@ export const seriesData: Content[] = [
     ]
   },
   {
+    id:"les-dents-de-la-mere-2",
+    title: "Les dents de la mère 2",
+    description: "Au lendemain de l'inauguration d'un luxueux complexe hôtelier, Martin Brody, le chef de la police d'Amity, apprend la disparition d'une équipe de plongeurs. Il craint le pire. Un requin est déjà venu nager dans les eaux d'Amity quelques années auparavant. Ses inquiétudes ne tardent pas à se confirmer. Un autre accident se produit et le cadavre d'une baleine portant les morsures d'un requin géant échoue sur la plage. Martin Brody alerte immédiatement le maire et lui demande d'interdire la baignade. Mais le conseil municipal refuse de prendre de telles précautions.",
+    imageUrl: "https://www.ecranlarge.com/content/uploads/2020/08/5yueljcr7llazcsoqwm41m2esmy-832.jpg",
+    bannerUrl: "https://medias.france.tv/1rLLQtACXg1kB53CM8ULIRHmNnw/1800x0/filters:quality(85):format(webp)/v/k/n/phpszynkv.jpg",
+    episodes: [ { id: 1, title: "Les dents de la mère 2 (Film complet)", videoUrl: "https://cinepizza.xyz/movies/Les-Dents-de-la-mer-2e-partie.mp4", duration: 116 * 60, imageUrl: "https://media.themoviedb.org/t/p/w533_and_h300_bestv2/qNsLlAE9Sp34AYkaMw5083Xa660.jpg" }],
+    status: "Terminé",
+    year: 1978,
+    studio: "HBO",
+    type: "Film",
+    genres: ["Horreur", "Thriller"],
+    rating: 8.7,
+    language: "VF",
+    runtime: "1h56",
+  },
+  {
     id: "euphoria",
     title: "Euphoria",
     description: "Rue Bennett, 17 ans, sort de désintoxication et cherche à donner un sens à sa vie. Elle rencontre Jules, une fille récemment arrivée en ville après le divorce de ses parents, et qui, comme Rue, cherche sa place dans le monde. Euphoria met en lumière des adolescents confrontés à des problèmes d'identité, de traumatismes, de drogues, d'amitié, d'amour et de sexualité.",

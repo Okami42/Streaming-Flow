@@ -102,6 +102,14 @@ const seriesList: CatalogueSeries[] = [
     time: "1h55"
   },
   {
+    id: "les-dents-de-la-mere-2",
+    title: "Les dents de la mère 2",
+    imageUrl: "https://www.ecranlarge.com/content/uploads/2020/08/5yueljcr7llazcsoqwm41m2esmy-832.jpg",
+    type: "Film",
+    language: "VF",
+    time: "1h56"
+  },
+  {
     id: "squid-game",
     title: "Squid Game",
     imageUrl: "https://media.senscritique.com/media/000021637905/300/squid_game.png",

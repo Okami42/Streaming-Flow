@@ -42,10 +42,15 @@ export interface AnimeEpisode {
   smoothpreUrl?: string;
   vidmolyUrl?: string;
   vidmolyId?: string;
+  vidmolyVfUrl?: string;
   vidmolyVfId?: string;
+  movearnUrl?: string;  // URL pour movearnpre.com
+  movearnVfUrl?: string;  // URL VF pour movearnpre.com
   sendvidId?: string;
-  m3u8Url?: string;  // URL directe vers un flux HLS m3u8
-  m3u8VfUrl?: string; // URL directe vers un flux HLS m3u8 en version française
+  m3u8Url?: string;
+  m3u8VfUrl?: string;
+  mp4Url?: string;     // Lien direct vers le fichier MP4 en VOSTFR
+  mp4VfUrl?: string;   // Lien direct vers le fichier MP4 en VF
 }
 
 export interface AnimeSeason {

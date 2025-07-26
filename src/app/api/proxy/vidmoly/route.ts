@@ -48,23 +48,7 @@ export async function GET(request: NextRequest) {
     // Remplacer les URLs absolues par des URLs relatives pour éviter les problèmes CORS
     html = html.replace(/(src|href)="\/([^"]+)"/g, '$1="https://vidmoly.to/$2"');
     
-    // Ajouter des en-têtes pour permettre l'intégration dans une iframe
-    const modifiedHtml = `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'self' *;">
-        ${html.match(/<head>([\s\S]*?)<\/head>/)?.[1] || ''}
-      </head>
-      <body style="margin:0;padding:0;overflow:hidden;">
-        ${html.match(/<body[^>]*>([\s\S]*?)<\/body>/)?.[1] || html}
-      </body>
-      </html>
-    `;
-    
-    return new NextResponse(modifiedHtml, {
+    return new NextResponse(html, {
       headers: {
         'Content-Type': 'text/html',
         'Access-Control-Allow-Origin': '*',

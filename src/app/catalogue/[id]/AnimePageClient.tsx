@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CustomImage from "@/components/ui/custom-image";
@@ -17,6 +17,7 @@ import VideoPlayer from "@/components/ui/video-player";
 import HLSPlayer from '@/components/ui/hls-player';
 import { getProxiedStreamUrl } from "@/lib/utils";
 import { WatchHistoryItem } from "@/lib/history";
+import MovearnPlayer from "@/components/ui/movearn-player";
 
 export default function AnimePageClient({ anime }: { anime: Anime | undefined }) {
   const [selectedEpisode, setSelectedEpisode] = useState(1);
@@ -1017,11 +1018,14 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                                   className="w-full h-full"
                                   style={{ border: 'none' }}
                                 />
+                            ) : episode?.movearnUrl ? (
+                                <MovearnPlayer src={episode.movearnUrl} />
                             ) : (
                               <VideoPlayer 
                                 sendvidId={episode?.sendvidId}
                                 sibnetId={episode?.sendvidId ? undefined : videoId}
                                 mp4Url={episode?.mp4Url}
+                                movearnUrl={episode?.movearnUrl}
                                 className="w-full h-full"
                                 key={`lecteur1-vo-${selectedEpisode}-${selectedSeason}`}
                               />
@@ -1080,6 +1084,8 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                                         className="w-full h-full"
                                         style={{ border: 'none' }}
                                       />
+                                    ) : episode?.movearnVfUrl ? (
+                                        <MovearnPlayer src={episode.movearnVfUrl} />
                                     ) : (
                                       <VideoPlayer 
                                         sibnetId={videoId}
@@ -1139,7 +1145,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                           <div className="bg-black" style={{ width: '100%', height: '650px' }} key={`container-lecteur1-vf-${selectedEpisode}-${selectedSeason}`}>
                             {/* Vidmoly direct comme dans la page de test */}
                             {episode?.vidmolyVfId || episode?.vidmolyVfUrl ? (
-                              <iframe
+                                  <iframe
                                 src={episode.vidmolyVfUrl || `https://vidmoly.net/embed-${episode.vidmolyVfId}.html`}
                                 width="100%"
                                 height="100%"
@@ -1150,6 +1156,8 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                                 className="w-full h-full"
                                 style={{ border: 'none' }}
                               />
+                            ) : episode?.movearnVfUrl ? (
+                                <MovearnPlayer src={episode.movearnVfUrl} />
                             ) : (
                               <VideoPlayer 
                                 sibnetId={videoId}
@@ -1244,7 +1252,22 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                     allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
                     className="w-full h-full"
                     style={{ border: 'none' }}
+                    onLoad={(e) => {
+                      try {
+                        // Injecter le script bloqueur dans l'iframe
+                        const iframe = e.currentTarget;
+                        if (iframe.contentWindow) {
+                          const script = document.createElement('script');
+                          script.src = '/js/movearn-blocker.js';
+                          iframe.contentDocument?.head.appendChild(script);
+                        }
+                      } catch (err) {
+                        console.error("Erreur lors de l'injection du script:", err);
+                      }
+                    }}
                   />
+                ) : episode?.movearnVfUrl ? (
+                  <MovearnPlayer src={episode.movearnVfUrl} />
                 ) : (
                   <VideoPlayer 
                     sendvidId={episode?.sendvidId}
@@ -1253,7 +1276,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                     key={`mobile-player-${selectedEpisode}-${selectedSeason}-${selectedLanguage}`}
                   />
                 )}
-              </div>
+                                </div>
               
               {/* Navigation des épisodes */}
               {totalEpisodes > 1 && (
@@ -1353,8 +1376,8 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
             </div>
           </div>
 
-          {/* Message d'avertissement concernant AdBlock pour les vidéos Vidmoly */}
-          {(episode?.vidmolyUrl || episode?.vidmolyId || episode?.vidmolyVfId) && (
+          {/* Message d'avertissement concernant AdBlock pour les vidéos Vidmoly et Movearnpre */}
+          {(episode?.vidmolyUrl || episode?.vidmolyId || episode?.vidmolyVfId || episode?.vidmolyVfUrl || episode?.movearnUrl || episode?.movearnVfUrl) && (
             <div className="bg-amber-800/20 border border-amber-600/30 rounded-md p-3 mb-4 text-amber-300 text-sm">
               <strong>⚠️</strong> Si la vidéo ne s'affiche pas, veuillez désactiver votre bloqueur de publicités (AdBlock) pour ce site.
             </div>

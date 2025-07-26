@@ -3,11 +3,16 @@
 import { useState, useRef, useEffect } from "react";
 import { Loader2, Play } from "lucide-react";
 import HLSPlayer from "../../../hls-player";
+import MovearnPlayer from "./movearn-player";
 
 interface VideoPlayerProps {
   sibnetId?: string;
   vidmolyUrl?: string;
   vidmolyId?: string;
+  vidmolyVfUrl?: string;
+  vidmolyVfId?: string;
+  movearnUrl?: string;
+  movearnVfUrl?: string;
   sendvidId?: string;
   beerscloudId?: string;
   mp4Url?: string;     // URL MP4 directe pour VOSTFR
@@ -21,6 +26,10 @@ export default function VideoPlayer({
   sibnetId,
   vidmolyUrl,
   vidmolyId,
+  vidmolyVfUrl,
+  vidmolyVfId,
+  movearnUrl,
+  movearnVfUrl,
   sendvidId,
   beerscloudId,
   mp4Url,
@@ -29,13 +38,12 @@ export default function VideoPlayer({
   className = "",
 }: VideoPlayerProps) {
   const [isLoading, setIsLoading] = useState(true);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const objectRef = useRef<HTMLObjectElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   
   // Génération d'une clé unique pour forcer le rechargement du composant
-  const uniqueKey = sibnetId || vidmolyId || sendvidId || beerscloudId || mp4Url || mp4VfUrl || Math.random().toString();
+  const uniqueKey = sibnetId || vidmolyId || vidmolyVfId || movearnUrl || movearnVfUrl || sendvidId || beerscloudId || mp4Url || mp4VfUrl || Math.random().toString();
   
   // Construction URL Vidmoly - format complet
   let finalVidmolyUrl = "";
@@ -45,6 +53,16 @@ export default function VideoPlayer({
   } else if (vidmolyId) {
     // Construire l'URL à partir de l'ID
     finalVidmolyUrl = `https://vidmoly.net/embed-${vidmolyId}.html`;
+  }
+
+  // Construction URL Vidmoly VF - format complet
+  let finalVidmolyVfUrl = "";
+  if (vidmolyVfUrl) {
+    // Utiliser l'URL complète fournie, en remplaçant le domaine par vidmoly.net
+    finalVidmolyVfUrl = vidmolyVfUrl.replace('vidmoly.to', 'vidmoly.net');
+  } else if (vidmolyVfId) {
+    // Construire l'URL à partir de l'ID
+    finalVidmolyVfUrl = `https://vidmoly.net/embed-${vidmolyVfId}.html`;
   }
   
   // Construction de l'URL Beerscloud
@@ -79,21 +97,10 @@ export default function VideoPlayer({
     console.error("Erreur de chargement de la vidéo MP4");
   };
 
-  // Gérer le début de lecture de la vidéo
-  const handleVideoPlay = () => {
-    setIsVideoPlaying(true);
-  };
-
-  // Gérer la pause de la vidéo
-  const handleVideoPause = () => {
-    setIsVideoPlaying(false);
-  };
-
   // Réinitialiser l'état de chargement quand la source change
   useEffect(() => {
     setIsLoading(true);
-    setIsVideoPlaying(false);
-  }, [sibnetId, vidmolyId, vidmolyUrl, sendvidId, beerscloudId, mp4Url, mp4VfUrl]);
+  }, [sibnetId, vidmolyId, vidmolyUrl, vidmolyVfId, vidmolyVfUrl, movearnUrl, movearnVfUrl, sendvidId, beerscloudId, mp4Url, mp4VfUrl]);
 
   // Nettoyer l'iframe et la vidéo lors du démontage du composant
   useEffect(() => {
@@ -117,7 +124,7 @@ export default function VideoPlayer({
         videoRef.current.load();
       }
     };
-  }, [sibnetId, vidmolyId, vidmolyUrl, sendvidId, beerscloudId, mp4Url, mp4VfUrl]);
+  }, [sibnetId, vidmolyId, vidmolyUrl, vidmolyVfId, vidmolyVfUrl, movearnUrl, movearnVfUrl, sendvidId, beerscloudId, mp4Url, mp4VfUrl]);
   
   return (
     <div className={`w-full h-full relative ${className}`} style={{ overflow: 'hidden' }} key={uniqueKey}>      
@@ -128,7 +135,7 @@ export default function VideoPlayer({
         </div>
       )}
       
-      {/* Lecteur MP4 natif avec overlay de bouton play */}
+      {/* Lecteur MP4 natif */}
       {mp4UrlToUse && (
         <div className="relative w-full h-full">
           <video
@@ -139,8 +146,6 @@ export default function VideoPlayer({
             poster={poster}
             onLoadedData={handleVideoLoad}
             onError={handleVideoError}
-            onPlay={handleVideoPlay}
-            onPause={handleVideoPause}
             key={`mp4-${mp4UrlToUse}`}
             style={{ 
               display: isLoading ? 'none' : 'block',
@@ -152,7 +157,7 @@ export default function VideoPlayer({
           {/* Grand bouton play au centre */}
           <div 
             className="absolute inset-0 flex items-center justify-center pointer-events-none"
-            style={{ opacity: isLoading || isVideoPlaying ? 0 : 1 }}
+            style={{ opacity: isLoading ? 0 : 1 }}
           >
             <div className="bg-blue-600/70 rounded-full p-5 shadow-lg">
               <Play className="h-10 w-10 text-white" fill="white" />
@@ -196,8 +201,8 @@ export default function VideoPlayer({
       )}
       
       {/* Lecteur Vidmoly (iframe direct) */}
-      {finalVidmolyUrl && !sibnetId && (
-        <div className="relative w-full h-full overflow-hidden">
+      {finalVidmolyUrl && !sibnetId && !movearnUrl && !movearnVfUrl && (
+        <div className="relative w-full h-full">
           <iframe 
             ref={iframeRef}
             src={finalVidmolyUrl}
@@ -213,11 +218,54 @@ export default function VideoPlayer({
             key={finalVidmolyUrl}
             style={{ border: 'none' }}
           />
+          {/* Bloqueurs de popup (sauf centre pour laisser le bouton play) */}
+          <div className="absolute top-0 right-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto' }} />
+          <div className="absolute top-0 left-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto' }} />
+          <div className="absolute bottom-0 left-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto' }} />
+          <div className="absolute top-1/2 right-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto', transform: 'translateY(-50%)' }} />
+          <div className="absolute top-1/2 left-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto', transform: 'translateY(-50%)' }} />
+        </div>
+      )}
+
+      {/* Lecteur Vidmoly VF (iframe direct) */}
+      {finalVidmolyVfUrl && !sibnetId && !movearnUrl && !movearnVfUrl && (
+        <div className="relative w-full h-full">
+          <iframe 
+            ref={iframeRef}
+            src={finalVidmolyVfUrl}
+            width="100%" 
+            height="100%" 
+            frameBorder="0" 
+            scrolling="no" 
+            allowFullScreen 
+            allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+            className="absolute inset-0 w-full h-full"
+            onLoad={handleIframeLoad}
+            onError={handleIframeError}
+            key={finalVidmolyVfUrl}
+            style={{ border: 'none' }}
+          />
+          {/* Bloqueurs de popup (sauf centre pour laisser le bouton play) */}
+          <div className="absolute top-0 right-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto' }} />
+          <div className="absolute top-0 left-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto' }} />
+          <div className="absolute bottom-0 left-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto' }} />
+          <div className="absolute top-1/2 right-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto', transform: 'translateY(-50%)' }} />
+          <div className="absolute top-1/2 left-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto', transform: 'translateY(-50%)' }} />
         </div>
       )}
       
+      {/* Lecteur Movearnpre (iframe direct) */}
+      {movearnUrl && !sibnetId && (
+        <MovearnPlayer src={movearnUrl} />
+      )}
+
+      {/* Lecteur Movearnpre VF (iframe direct) */}
+      {movearnVfUrl && !sibnetId && (
+        <MovearnPlayer src={movearnVfUrl} />
+      )}
+      
       {/* Lecteur Sendvid (natif) avec support plein écran et bloqueurs de popup (sauf bas droit) */}
-      {sendvidId && !sibnetId && !finalVidmolyUrl && (
+      {sendvidId && !sibnetId && !finalVidmolyUrl && !finalVidmolyVfUrl && !movearnUrl && !movearnVfUrl && (
         <div className="relative w-full h-full">
         <iframe 
           ref={iframeRef}
@@ -250,7 +298,7 @@ export default function VideoPlayer({
       )}
       
       {/* Lecteur Beerscloud */}
-      {beerscloudUrl && !sibnetId && !finalVidmolyUrl && !sendvidId && (
+      {beerscloudUrl && !sibnetId && !finalVidmolyUrl && !finalVidmolyVfUrl && !movearnUrl && !movearnVfUrl && !sendvidId && (
         <iframe 
           ref={iframeRef}
           src={beerscloudUrl}

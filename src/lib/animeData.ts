@@ -15,6 +15,8 @@ export interface AnimeEpisode {
   m3u8VfUrl?: string;
   mp4Url?: string;     // Lien direct vers le fichier MP4 en VOSTFR
   mp4VfUrl?: string;   // Lien direct vers le fichier MP4 en VF
+  movearnUrl?: string; // URL pour Movearn
+  movearnVfUrl?: string; // URL VF pour Movearn
 }
 
 export interface AnimeSeason {
@@ -99,7 +101,7 @@ export const animes: Anime[] = [
         title: "Saison 1",
         year: 2022,
         episodes: [
-          { number: 1, title: "épisode 1", duration: 1440, vidmolyUrl: "https://vidmoly.net/embed-c5kvdzxqmorl.html", vidmolyVfUrl: "https://vidmoly.net/embed-mx95kly6lemd.html" },
+          { number: 1, title: "épisode 1", duration: 1440,movearnUrl: "https://movearnpre.com/embed/v1c7jhjyb07t", movearnVfUrl: "https://movearnpre.com/embed/v1c7jhjyb07t" },
           { number: 2, title: "épisode 2", duration: 1440, vidmolyUrl: "https://vidmoly.net/embed-rcdhk4zd8y1k.html", vidmolyVfUrl: "https://vidmoly.net/embed-7jfcbayq8ejr.html" },
           { number: 3, title: "épisode 3", duration: 1440, vidmolyUrl: "https://vidmoly.net/embed-0xfbden4oahr.html", vidmolyVfUrl: "https://vidmoly.net/embed-pn74nl5f4csj.html" },
           { number: 4, title: "épisode 4", duration: 1440, vidmolyUrl: "https://vidmoly.net/embed-hp2ihakg9ztd.html", vidmolyVfUrl: "https://vidmoly.net/embed-1e5tt361yfju.html" },
