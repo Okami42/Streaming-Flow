@@ -1286,5 +1286,40 @@ export const animes: Anime[] = [
         ]
       }
     ]
+  },
+  {
+    id: "call-of-the-night",
+    title: "Call of the Night",
+    originalTitle: "よふかしのうた",
+    description: "Kou Yamori est un lycéen qui ne peut plus dormir la nuit. Un soir, il rencontre Nazuna Nanakusa, une mystérieuse jeune femme qui lui propose de l'aider à dormir. Mais Nazuna cache un secret : elle est une vampire. Alors que Kou découvre ce monde nocturne fascinant, il doit décider s'il veut devenir un vampire lui-même ou rester humain. Une histoire d'amour et de choix dans l'obscurité de la nuit.",
+    imageUrl: "https://fr.web.img3.acsta.net/pictures/22/07/04/14/30/5500974.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2022,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Romance", "Supernatural", "Drame", "Comédie"],
+    rating: 8.5,
+    seasons: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        year: 2022,
+        episodes: [
+          { number: 1, title: "épisode 1", duration: 1440, sibnetVostfrId: "4780746", sibnetVfId: "5095543" },
+          { number: 2, title: "épisode 2", duration: 1440, sibnetVostfrId: "4796421", sibnetVfId: "5095544" },
+          { number: 3, title: "épisode 3", duration: 1440, sibnetVostfrId: "4797919", sibnetVfId: "5096001" },
+          { number: 4, title: "épisode 4", duration: 1440, sibnetVostfrId: "4804317", sibnetVfId: "5095551" },
+          { number: 5, title: "épisode 5", duration: 1440, sibnetVostfrId: "4813949", sibnetVfId: "5095553" },
+          { number: 6, title: "épisode 6", duration: 1440, sibnetVostfrId: "4822093", sibnetVfId: "5095554" },
+          { number: 7, title: "épisode 7", duration: 1440, sibnetVostfrId: "4834820", sibnetVfId: "5095556" },
+          { number: 8, title: "épisode 8", duration: 1440, sibnetVostfrId: "4845588", sibnetVfId: "5095557" },
+          { number: 9, title: "épisode 9", duration: 1440, sibnetVostfrId: "4853785", sibnetVfId: "5095558" },
+          { number: 10, title: "épisode 10", duration: 1440, sibnetVostfrId: "4863210", sibnetVfId: "5096002" },
+          { number: 11, title: "épisode 11", duration: 1440, sibnetVostfrId: "4872347", sibnetVfId: "5095560" },
+          { number: 12, title: "épisode 12", duration: 1440, sibnetVostfrId: "4880445", sibnetVfId: "5095561" },
+          { number: 13, title: "épisode 13", duration: 1440, sibnetVostfrId: "4890711", sibnetVfId: "5095563" }
+        ]
+      }
+    ]
   }
 ];

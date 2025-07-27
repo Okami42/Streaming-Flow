@@ -104,6 +104,13 @@ const animes: CatalogueAnime[] = [
     language: "VF & VO",
   },
   {
+    id: "call-of-the-night",
+    title: "Call of the Night",
+    imageUrl: "https://fr.web.img3.acsta.net/pictures/22/07/04/14/30/5500974.jpg",
+    type: "Anime",
+    language: "VF & VO",
+  },
+  {
     id: "demon-slayer",
     title: "Demon Slayer",
     imageUrl: "https://fr.web.img6.acsta.net/pictures/19/09/18/13/46/0198270.jpg",
