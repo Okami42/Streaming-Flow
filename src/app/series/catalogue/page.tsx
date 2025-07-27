@@ -110,6 +110,22 @@ const seriesList: CatalogueSeries[] = [
     time: "1h56"
   },
   {
+    id: "les-dents-de-la-mere-3",
+    title: "Les dents de la mère 3",
+    imageUrl: "https://castprod.com/wp-content/uploads/2025/06/Les-acteurs-et-actrices-a-la-distribution-de-Les-Dents-de-la-mer-le-film-culte-diffuse-sur-France-3.jpg",
+    type: "Film",
+    language: "VF",
+    time: "1h38"
+  },
+  {
+    id: "les-dents-de-la-mere-4",
+    title: "Les dents de la mère 4",
+    imageUrl: "https://fr.web.img2.acsta.net/medias/nmedia/18/66/42/41/19132624.jpg",
+    type: "Film",
+    language: "VF",
+    time: "1h29"
+  },
+  {
     id: "squid-game",
     title: "Squid Game",
     imageUrl: "https://media.senscritique.com/media/000021637905/300/squid_game.png",
