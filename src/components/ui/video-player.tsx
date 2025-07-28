@@ -39,12 +39,17 @@ export default function VideoPlayer({
 }: VideoPlayerProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [isLandscape, setIsLandscape] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const objectRef = useRef<HTMLObjectElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   
   // Génération d'une clé unique pour forcer le rechargement du composant
-  const uniqueKey = sibnetId || vidmolyId || vidmolyVfId || movearnUrl || movearnVfUrl || sendvidId || beerscloudId || mp4Url || mp4VfUrl || Math.random().toString();
+  const uniqueKey = useRef(`player-${Math.random().toString()}`).current;
+  
+  // Clé persistante pour Sibnet
+  const sibnetKey = useRef(`sibnet-${sibnetId || Math.random().toString()}`).current;
   
   // Construction URL Vidmoly - format complet
   let finalVidmolyUrl = "";
@@ -114,6 +119,68 @@ export default function VideoPlayer({
     setIsPlaying(false);
   }, [sibnetId, vidmolyId, vidmolyUrl, vidmolyVfId, vidmolyVfUrl, movearnUrl, movearnVfUrl, sendvidId, beerscloudId, mp4Url, mp4VfUrl]);
 
+  // Gestion spéciale pour Sibnet - empêcher le rechargement
+  useEffect(() => {
+    if (!sibnetId || isM3U8Link) return;
+
+    let isInFullscreen = false;
+    let originalSrc = '';
+
+    const handleFullScreenChange = () => {
+      const wasInFullscreen = isInFullscreen;
+      isInFullscreen = document.fullscreenElement !== null || 
+        (document as any).webkitFullscreenElement !== null || 
+        (document as any).mozFullScreenElement !== null ||
+        (document as any).msFullscreenElement !== null;
+      
+      setIsFullScreen(isInFullscreen);
+      
+      // Si on entre en plein écran, sauvegarder la source
+      if (isInFullscreen && !wasInFullscreen && iframeRef.current) {
+        originalSrc = iframeRef.current.src;
+      }
+    };
+
+    const handleOrientationChange = () => {
+      const newIsLandscape = window.matchMedia("(orientation: landscape)").matches;
+      setIsLandscape(newIsLandscape);
+      
+      // Si on est en plein écran et qu'on change d'orientation
+      if (isInFullscreen && iframeRef.current) {
+        // Empêcher le rechargement en forçant la même source
+        if (originalSrc && iframeRef.current.src !== originalSrc) {
+          iframeRef.current.src = originalSrc;
+        }
+        
+        // Forcer l'iframe à rester visible
+        iframeRef.current.style.display = 'block';
+        iframeRef.current.style.visibility = 'visible';
+        iframeRef.current.style.opacity = '1';
+        iframeRef.current.style.zIndex = '9999';
+      }
+    };
+    
+    // Écouteurs d'événements
+    document.addEventListener('fullscreenchange', handleFullScreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullScreenChange);
+    document.addEventListener('mozfullscreenchange', handleFullScreenChange);
+    document.addEventListener('MSFullscreenChange', handleFullScreenChange);
+    window.addEventListener('orientationchange', handleOrientationChange);
+    window.addEventListener('resize', handleOrientationChange);
+    
+    // Initialiser l'état d'orientation
+    setIsLandscape(window.matchMedia("(orientation: landscape)").matches);
+    
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullScreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullScreenChange);
+      document.removeEventListener('mozfullscreenchange', handleFullScreenChange);
+      document.removeEventListener('MSFullscreenChange', handleFullScreenChange);
+      window.removeEventListener('orientationchange', handleOrientationChange);
+      window.removeEventListener('resize', handleOrientationChange);
+    };
+  }, [sibnetId, isM3U8Link]);
+  
   // Nettoyer l'iframe et la vidéo lors du démontage du composant
   useEffect(() => {
     return () => {
@@ -136,7 +203,7 @@ export default function VideoPlayer({
         videoRef.current.load();
       }
     };
-  }, [sibnetId, vidmolyId, vidmolyUrl, vidmolyVfId, vidmolyVfUrl, movearnUrl, movearnVfUrl, sendvidId, beerscloudId, mp4Url, mp4VfUrl]);
+  }, [vidmolyId, vidmolyUrl, vidmolyVfId, vidmolyVfUrl, movearnUrl, movearnVfUrl, sendvidId, beerscloudId, mp4Url, mp4VfUrl]);
   
   return (
     <div className={`w-full h-full relative ${className}`} style={{ overflow: 'hidden' }} key={uniqueKey}>      
@@ -195,25 +262,32 @@ export default function VideoPlayer({
       
       {/* Lecteur Sibnet (natif) pour les ID Sibnet */}
       {sibnetId && !isM3U8Link && (
-        <iframe 
-          ref={iframeRef}
-          src={`https://video.sibnet.ru/shell.php?videoid=${sibnetId}&skin=4&share=1`}
-          frameBorder="0" 
-          scrolling="no" 
-          allowFullScreen 
-          className="absolute inset-0"
-          allow="fullscreen; autoplay"
-          onLoad={handleIframeLoad}
-          onError={handleIframeError}
-          key={sibnetId}
-          style={{ 
-            display: isLoading ? 'none' : 'block',
-            width: '100%',
-            height: '100%',
-            border: 'none',
-            zIndex: 1
-          }}
-        />
+        <div className="relative w-full h-0 md:pb-[40%] pb-[56.25%]">
+          <iframe 
+            ref={iframeRef}
+            src={`https://video.sibnet.ru/shell.php?videoid=${sibnetId}&skin=4&share=1&autoplay=1&controls=1`}
+            frameBorder="0" 
+            scrolling="no" 
+            allowFullScreen 
+            className="absolute inset-0 w-full h-full"
+            allow="fullscreen; autoplay; picture-in-picture"
+            onLoad={handleIframeLoad}
+            onError={handleIframeError}
+            data-sibnet-id={sibnetId}
+            key={sibnetKey}
+            style={{
+              transition: 'none',
+              transform: 'none',
+              animation: 'none',
+              willChange: 'auto',
+              contain: 'none',
+              visibility: 'visible',
+              opacity: '1',
+              display: 'block',
+              zIndex: isFullScreen ? 9999 : 5
+            }}
+          />
+        </div>
       )}
       
       {/* Lecteur Vidmoly (iframe direct) */}
@@ -242,7 +316,7 @@ export default function VideoPlayer({
           <div className="absolute top-1/2 left-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto', transform: 'translateY(-50%)' }} />
         </div>
       )}
-
+      
       {/* Lecteur Vidmoly VF (iframe direct) */}
       {finalVidmolyVfUrl && !sibnetId && !movearnUrl && !movearnVfUrl && (
         <div className="relative w-full h-full">
@@ -256,8 +330,8 @@ export default function VideoPlayer({
             allowFullScreen 
             allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
             className="absolute inset-0 w-full h-full"
-          onLoad={handleIframeLoad}
-          onError={handleIframeError}
+            onLoad={handleIframeLoad}
+            onError={handleIframeError}
             key={finalVidmolyVfUrl}
             style={{ border: 'none' }}
           />
@@ -283,24 +357,24 @@ export default function VideoPlayer({
       {/* Lecteur Sendvid (natif) avec support plein écran et bloqueurs de popup (sauf bas droit) */}
       {sendvidId && !sibnetId && !finalVidmolyUrl && !finalVidmolyVfUrl && !movearnUrl && !movearnVfUrl && (
         <div className="relative w-full h-full">
-        <iframe 
-          ref={iframeRef}
-          src={`https://sendvid.com/embed/${sendvidId}`}
-          width="100%" 
-          height="100%" 
-          frameBorder="0" 
-          scrolling="no" 
-          allowFullScreen 
-          onLoad={handleIframeLoad}
-          onError={handleIframeError}
-          key={sendvidId}
-          style={{ 
-            display: isLoading ? 'none' : 'block',
-            position: 'absolute',
+          <iframe 
+            ref={iframeRef}
+            src={`https://sendvid.com/embed/${sendvidId}`}
+            width="100%" 
+            height="100%" 
+            frameBorder="0" 
+            scrolling="no" 
+            allowFullScreen 
+            onLoad={handleIframeLoad}
+            onError={handleIframeError}
+            key={sendvidId}
+            style={{ 
+              display: isLoading ? 'none' : 'block',
+              position: 'absolute',
               left: '0',
               width: '100%',
-            height: '100%'
-          }}
+              height: '100%'
+            }}
             allow="fullscreen; autoplay; picture-in-picture; screen-wake-lock; accelerometer; gyroscope; clipboard-write; web-share"
             sandbox="allow-scripts allow-same-origin allow-forms"
           />
