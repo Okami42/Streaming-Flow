@@ -1246,6 +1246,24 @@ export const seriesData: Content[] = [
 
   },
   {
+    id:"no-time-to-die",
+    title:"No Time to Die",
+    description:"James Bond a quitté les services secrets et coule des jours heureux en Jamaïque. Mais sa tranquillité est de courte durée car son vieil ami Felix Leiter de la CIA débarque pour solliciter son aide : il s'agit de sauver un scientifique qui vient d'être kidnappé. Mais la mission se révèle bien plus dangereuse que prévu et Bond se retrouve aux trousses d'un mystérieux ennemi détenant de redoutables armes technologiques…",
+    imageUrl:"https://play-lh.googleusercontent.com/KHagyirtj9vkyR3blrdw-TFADcSFYh4pBJQHQTz2YbT_vSGwweA4SIh7jZWvHB7jj2W16lOVow-yUer0qTI",
+    bannerUrl:"https://for-sale.used-secondhand.co.uk/media/secondhand/images/68411/bond-banner-007-leicestershire/007-or-james-bond-banner-124.jpg",
+    episodes:[
+      {id:1, title:"No Time to Die (Film complet)", videoUrl:"https://cinepizza.xyz/movies/Mourir-peut-attendre.mp4", duration:163*60, imageUrl:"https://media.themoviedb.org/t/p/w500_and_h282_face/bz7pwNGCbV576COsDcYN9MbEACC.jpg"}
+    ],
+    status:"Terminé",
+    year:2021,
+    studio:"Universal Pictures.",
+    type:"Film",
+    genres:["Action", "Aventure", "Comédie", "Thriller"],
+    rating:7.4,
+    language:"VF/VOSTFR",
+    runtime:"2h43"
+  },
+  {
     id: "inception",
     title: "Inception",
     description: "Dom Cobb est un voleur expérimenté, le meilleur dans l'art dangereux de l'extraction, voler les secrets les plus intimes enfouis au plus profond du subconscient durant une phase de rêve, lorsque l'esprit est le plus vulnérable. Les capacités de Cobb ont fait de lui un acteur convoité dans le monde trouble de l'espionnage industriel, mais elles ont aussi fait de lui un fugitif international qui a perdu tout ce qui lui est cher. Une chance de rédemption lui est offerte quand on lui propose un dernier travail : au lieu de subtiliser une idée, il doit en implanter une. S'ils réussissent, Cobb et son équipe auront réalisé le crime parfait.",
