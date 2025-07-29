@@ -212,7 +212,7 @@ export const animes: Anime[] = [
       {
         seasonNumber: 2,
         title: "Saison 2",
-        year: 2024,
+        year: 2025,
         episodes: [
           { number: 1, title: "Le Retour du Chasseur", duration: 1440, sibnetVostfrId: "5790524", sibnetVfId: "5806748" },
           { number: 2, title: "Nouveau Pouvoir", duration: 1440, sibnetVostfrId: "5795961", sibnetVfId: "5812653" },

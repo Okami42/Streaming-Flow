@@ -906,32 +906,48 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       className="flex items-center justify-between gap-2 px-4 py-2 text-sm text-white bg-[#1a1f35] rounded-md border border-white/10 w-full min-w-[160px]"
                       onClick={() => setIsSeasonMenuOpen(!isSeasonMenuOpen)}
                     >
-                      Saison 1 (2024)
+                      {(() => {
+                        // Trouver la saison sélectionnée
+                        const currentSeason = anime.seasons?.find(s => String(s.seasonNumber) === String(selectedSeason));
+                        // Déboguer l'année de la saison
+                        if (process.env.NODE_ENV !== 'production' && currentSeason) {
+                          console.log(`Saison sélectionnée: ${currentSeason.seasonNumber}, année: ${currentSeason.year}`);
+                        }
+                        return currentSeason 
+                          ? `Saison ${selectedSeason} (${currentSeason.year})` 
+                          : `Saison ${selectedSeason}`;
+                      })()}
                       <ChevronDown className="h-4 w-4" />
                     </button>
                     
                     {isSeasonMenuOpen && (
                       <div className="absolute z-10 mt-1 w-full bg-[#1a1f35] rounded-md shadow-lg py-1 border border-white/10">
-                        {anime.seasons?.map((season) => (
+                        {anime.seasons?.map((season) => {
+                          // Déboguer l'année de la saison
+                          if (process.env.NODE_ENV !== 'production') {
+                            console.log(`Saison ${season.seasonNumber}, année: ${season.year}`);
+                          }
+                          return (
+                            <button
+                              key={season.seasonNumber}
+                              className="block w-full text-left px-4 py-2 text-sm text-gray-200 hover:bg-blue-600/20"
+                              onClick={() => {
+                                setSelectedSeason(season.seasonNumber);
+                                setIsSeasonMenuOpen(false);
+                                setSelectedEpisode(1);
+                              }}
+                            >
+                              Saison {season.seasonNumber} ({season.year})
+                            </button>
+                          );
+                        }) || (
                           <button
-                            key={season.seasonNumber}
                             className="block w-full text-left px-4 py-2 text-sm text-gray-200 hover:bg-blue-600/20"
                             onClick={() => {
-                              setSelectedSeason(season.seasonNumber);
-                              setIsSeasonMenuOpen(false);
-                              setSelectedEpisode(1);
-                            }}
-                          >
-                            Saison {season.seasonNumber} {season.year ? `(${season.year})` : '(2024)'}
-                          </button>
-                        )) || (
-                          <button
-                            className="block w-full text-left px-4 py-2 text-sm text-gray-200 hover:bg-blue-600/20"
-                            onClick={() => {
                               setIsSeasonMenuOpen(false);
                             }}
                           >
-                            Saison 1 (2024)
+                            Saison 1
                           </button>
                         )}
                       </div>
@@ -981,15 +997,21 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
               </div>
               
               {/* Barre supérieure avec sélecteurs - version mobile */}
-              <div className="md:hidden flex flex-col bg-[#0f172a]">
-                <div className="flex">
+              <div className="md:hidden flex flex-col bg-[#0f172a] gap-2 p-2">
+                <div className="flex gap-2">
                   {/* Sélecteur de saison */}
-                  <div className="relative w-1/2">
+                  <div className="relative flex-1">
                     <button 
-                      className="flex items-center justify-between w-full px-4 py-3 text-white"
+                      className="flex items-center justify-between w-full px-4 py-3 text-white bg-[#1e2332] rounded-md border border-white/10"
                       onClick={() => setIsSeasonMenuOpen(!isSeasonMenuOpen)}
                     >
-                      <span>Saison 1</span>
+                      <span>
+                        {useSeasonsStructure && anime.seasons && anime.seasons.find(s => String(s.seasonNumber) === String(selectedSeason)) ? 
+                          `Saison ${selectedSeason}${anime.seasons.find(s => String(s.seasonNumber) === String(selectedSeason))?.year ? 
+                          ` (${anime.seasons.find(s => String(s.seasonNumber) === String(selectedSeason))?.year})` : ''}` : 
+                          `Saison ${selectedSeason}`
+                        }
+                      </span>
                       <ChevronDown className="h-4 w-4 ml-1" />
                     </button>
                     
@@ -1005,7 +1027,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                               setSelectedEpisode(1);
                             }}
                           >
-                            Saison {season.seasonNumber}
+                            Saison {season.seasonNumber} {season.year ? `(${season.year})` : ''}
                           </button>
                         )) || (
                           <button
@@ -1022,9 +1044,9 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                   </div>
                   
                   {/* Sélecteur VO/VF */}
-                  <div className="relative w-1/2">
+                  <div className="relative w-20">
                     <button 
-                      className="flex items-center justify-between w-full px-4 py-3 text-white"
+                      className="flex items-center justify-between w-full px-3 py-3 text-white bg-[#1e2332] rounded-md border border-white/10"
                       onClick={() => document.getElementById("language-selector")?.click()}
                     >
                       <span>{selectedLanguage.toUpperCase()}</span>
@@ -1046,10 +1068,10 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                 {/* Sélecteur d'épisode */}
                 <div className="relative w-full">
                   <button 
-                    className="flex items-center justify-between w-full px-4 py-3 text-white"
+                    className="flex items-center justify-between w-full px-4 py-3 text-white bg-[#1e2332] rounded-md border border-white/10"
                     onClick={() => document.getElementById("episode-selector-mobile")?.click()}
                   >
-                    <span className="truncate">ÉPISODE {selectedEpisode} - Je suis un chasseur de rang E</span>
+                    <span className="truncate">ÉPISODE {selectedEpisode} - {episode?.title || `épisode ${selectedEpisode}`}</span>
                     <ChevronDown className="h-4 w-4 ml-1" />
                   </button>
                   <select 
@@ -1069,7 +1091,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
               </div>
               
               {/* Lecteur vidéo */}
-              <div className="bg-black relative" style={{ width: '100%', height: '650px' }}>
+              <div className="bg-black relative" style={{ width: '100%', height: window.innerWidth <= 768 ? '250px' : '650px' }}>
                 {/* Vidéo */}
                 {selectedLanguage === "vo" && (episode?.vidmolyUrl || episode?.vidmolyId) ? (
                   <iframe
