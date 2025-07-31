@@ -126,24 +126,16 @@ export default function AnimeEpisodesPage({ params }: PageProps) {
             {/* Grille d'épisodes */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8">
               {getEpisodesToDisplay().map((episode) => {
-                // Déterminer la durée à afficher (simulé pour la démo)
-                const duration = episode.duration || 1440; // 24 minutes par défaut
+                // Déterminer le titre à afficher
+                let title;
+                let description;
                 
-                // Titre de l'épisode
-                const title = episode.title || `Épisode ${episode.number}`;
-                
-                // Description de l'épisode (exemples de descriptions comme dans Squid Game)
-                let description = "";
-                if (episode.number === 1) {
-                  description = "Ruiné et prêt à tout, Gi-hun accepte de participer à un jeu mystérieux. Mais dès la première épreuve, la promesse d'argent facile fait place à l'horreur.";
-                } else if (episode.number === 2) {
-                  description = "Le groupe organise un vote pour décider s'il continue ou abandonne l'aventure. Mais la réalité du monde extérieur peut s'avérer aussi impitoyable que le jeu.";
-                } else if (episode.number === 3) {
-                  description = "Plusieurs joueurs passent à l'épreuve suivante, aussi délicieuse que mortelle. Certains sont plus avantagés que les autres.";
-                } else if (episode.number === 4) {
-                  description = "Les joueurs forment des alliances. La nuit tombée, personne n'est à l'abri au dortoir. Pour la troisième épreuve, l'équipe doit penser de façon stratégique.";
+                if (hasMultipleSeasons && anime.type === "Anime") {
+                  title = `${episode.title}`;
+                  description = `Découvrez l'épisode ${episode.number}${hasMultipleSeasons ? ` de la saison ${selectedSeason}` : ''} de ${anime.title}. Une nouvelle aventure vous attend dans cet épisode captivant qui vous tiendra en haleine du début à la fin.`;
                 } else {
-                  description = `Épisode ${episode.number} de ${anime.title}${hasMultipleSeasons ? ` Saison ${selectedSeason}` : ''}`;
+                  title = episode.title;
+                  description = `Épisode ${episode.number}${hasMultipleSeasons ? ` Saison ${selectedSeason}` : ''}`;
                 }
                 
                 return (
@@ -153,7 +145,6 @@ export default function AnimeEpisodesPage({ params }: PageProps) {
                     title={title}
                     description={description}
                     imageUrl={anime.imageUrl}
-                    duration={duration}
                     date="17 sept. 2021"
                     seasonNumber={hasMultipleSeasons ? selectedSeason : undefined}
                     animeId={anime.id}

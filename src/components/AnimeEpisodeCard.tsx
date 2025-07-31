@@ -8,7 +8,6 @@ interface AnimeEpisodeCardProps {
   title: string;
   description?: string;
   imageUrl?: string;
-  duration: number; // Durée en secondes pour les animés
   date?: string;
   seasonNumber?: number | string;
   animeId: string;
@@ -26,32 +25,17 @@ function getAnimeEpisodeImage(animeId: string, episodeId: number, seasonNumber?:
   return `https://via.placeholder.com/640x360.png?text=Anime+Episode+${episodeId}`;
 }
 
-// Fonction pour formatter la durée (en secondes pour les animés)
-function formatAnimeDuration(duration: number): string {
-  const minutes = Math.floor(duration / 60);
-  const hours = Math.floor(minutes / 60);
-  const remainingMinutes = minutes % 60;
-  
-  // Format plus lisible: 1h01 ou 55 min
-  if (hours > 0) {
-    return `${hours}h${remainingMinutes.toString().padStart(2, '0')}`;
-  } else {
-    return `${minutes} min`;
-  }
-}
-
 export default function AnimeEpisodeCard({
   id,
   title,
   description,
   imageUrl,
-  duration,
   date,
   seasonNumber,
   animeId,
   className,
 }: AnimeEpisodeCardProps) {
-  // Construire l'URL de visionnage
+  
   const watchUrl = `/catalogue/${animeId}?season=${seasonNumber || 1}&episode=${id}`;
   
   // Utiliser l'image fournie si elle existe
@@ -64,9 +48,6 @@ export default function AnimeEpisodeCard({
   
   // Créer une clé stable pour l'image
   const imageKey = `anime-episode-image-${animeId}-${id}-${seasonNumber || 0}`;
-  
-  // Formatter la durée pour l'affichage
-  const formattedDuration = formatAnimeDuration(duration);
 
   return (
     <div className={cn("block", className)}>
@@ -80,11 +61,6 @@ export default function AnimeEpisodeCard({
             key={imageKey}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/80"></div>
-          
-          {/* Durée en haut à droite */}
-          <div className="absolute top-2 right-2 text-base font-bold text-white bg-black/70 px-3 py-1 rounded">
-            {formattedDuration}
-          </div>
           
           {/* Numéro d'épisode en bas à gauche */}
           <div className="absolute bottom-2 left-2 text-base font-bold text-white">

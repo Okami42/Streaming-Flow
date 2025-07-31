@@ -260,7 +260,19 @@ export const seriesData: Content[] = [
         episodes: [
           { id: 1, title: "Premier épisode", videoUrl: "https://cinepizza.xyz/series/Été-Jolie/S02/Été-Jolie-S02-E01.mp4", duration: 45 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7qU2vq1D3umZIzwqckwV0uGBibT.jpg" }
         ]
+      },
+      {
+        seasonNumber: 3,
+        title: "Saison 3",
+        episodes: [
+          { id: 1, title: "Premier épisode", videoUrl: "https://cinepizza.xyz/series/Été-Jolie/S03/Été-Jolie-S03-E01.mp4", duration: 45 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7qU2vq1D3umZIzwqckwV0uGBibT.jpg" },
+          { id: 2, title: "Deuxième épisode", videoUrl: "https://cinepizza.xyz/series/Été-Jolie/S03/Été-Jolie-S03-E02.mp4", duration: 45 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7qU2vq1D3umZIzwqckwV0uGBibT.jpg" },
+          { id: 3, title: "Troisième épisode", videoUrl: "https://cinepizza.xyz/series/Été-Jolie/S03/Été-Jolie-S03-E03.mp4", duration: 45 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7qU2vq1D3umZIzwqckwV0uGBibT.jpg" },
+          { id: 4, title: "Quatrième épisode", videoUrl: "https://pulse.topstrime.online/tv/194766/ebpjym/S3/E4/master.m3u8", duration: 45 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7qU2vq1D3umZIzwqckwV0uGBibT.jpg" }
+
+        ]
       }
+
     ]
   },
   {
@@ -1263,6 +1275,7 @@ export const seriesData: Content[] = [
     language:"VF/VOSTFR",
     runtime:"2h43"
   },
+  
   {
     id: "inception",
     title: "Inception",

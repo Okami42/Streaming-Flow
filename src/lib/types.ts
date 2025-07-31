@@ -36,7 +36,6 @@ export interface Content {
 export interface AnimeEpisode {
   number: number;
   title: string;
-  duration: number;
   sibnetVostfrId?: string;
   sibnetVfId?: string;
   smoothpreUrl?: string;

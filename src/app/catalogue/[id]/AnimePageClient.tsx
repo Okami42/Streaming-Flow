@@ -447,7 +447,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
             imageUrl: anime.imageUrl,
             lastWatchedAt: new Date().toISOString(),
             progress: currentTimeRef.current,
-            duration: episode.duration,
+            duration: 1440, // Default 24 minutes for anime episodes
             episodeInfo: {
               season: useSeasonsStructure ? (typeof selectedSeason === 'string' ? 1 : selectedSeason) : 1,
               episode: episode.number,
