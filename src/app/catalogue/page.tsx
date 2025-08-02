@@ -8,6 +8,7 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Search, Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { animes as animeDataList } from "@/lib/animeData";
 
 // Définir l'interface pour les animes du catalogue
 interface CatalogueAnime {
@@ -16,7 +17,14 @@ interface CatalogueAnime {
   imageUrl: string;
   type: "Anime" | "Scans";
   language: "VO" | "VF" | "VF & VO";
+  genres?: string[];
 }
+
+// Fonction pour obtenir les genres d'un anime par son ID
+const getAnimeGenres = (animeId: string): string[] => {
+  const anime = animeDataList.find(a => a.id === animeId);
+  return anime?.genres || [];
+};
 
 const animes: CatalogueAnime[] = [
   {
@@ -25,6 +33,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://m.media-amazon.com/images/M/MV5BM2ZiZTk1ODgtMTZkNS00NTYxLWIxZTUtNWExZGYwZTRjODViXkEyXkFqcGdeQXVyMTE2MzA3MDM@._V1_.jpg",
     type: "Anime",
     language: "VF & VO",
+    genres: getAnimeGenres("akira"),
   },
   {
     id: "nagatoro",
@@ -32,6 +41,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://fr.web.img2.acsta.net/pictures/21/03/24/17/22/3948943.jpg",
     type: "Anime",
     language: "VF & VO",
+    genres: getAnimeGenres("nagatoro"),
   },
   {
     id: "welcome-demon-school-teacher",
@@ -39,6 +49,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://m.media-amazon.com/images/M/MV5BY2ZjZmZhN2MtNTk4NC00MmFkLWEwMWEtZGNjOThmMTQ2YjdmXkEyXkFqcGc@._V1_.jpg",
     type: "Anime",
     language: "VO",
+    genres: getAnimeGenres("welcome-demon-school-teacher"),
   },
   {
     id: "solo-leveling",
@@ -46,6 +57,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://img-cdn.thepublive.com/wion/media/post_attachments/files/web-story/900_1600/2024/3/26/1711469910345_sololeveling.jpg",
     type: "Anime",
     language: "VF & VO",
+    genres: getAnimeGenres("solo-leveling"),
   },
   {
     id:"clannad",
@@ -53,6 +65,7 @@ const animes: CatalogueAnime[] = [
     imageUrl:"https://fr.web.img6.acsta.net/pictures/20/09/02/16/06/0799147.jpg",
     type:"Anime",
     language:"VO",
+    genres: getAnimeGenres("clannad"),
   },
   {
     id:"gachiakuta",
@@ -60,6 +73,7 @@ const animes: CatalogueAnime[] = [
     imageUrl:"https://fr.web.img6.acsta.net/img/d5/7b/d57b51b6b84ed66f6dfb47d83aa759a6.jpg",
     type:"Anime",
     language:"VF & VO",
+    genres: getAnimeGenres("gachiakuta"),
   },
   {
     id:"fire-force",
@@ -67,6 +81,7 @@ const animes: CatalogueAnime[] = [
     imageUrl:"https://fr.web.img5.acsta.net/pictures/19/09/16/16/21/4933552.jpg",
     type:"Anime",
     language:"VF & VO",
+    genres: getAnimeGenres("fire-force"),
   },
   {
     id:"horimiya",
@@ -74,6 +89,7 @@ const animes: CatalogueAnime[] = [
     imageUrl:"https://imusic.b-cdn.net/images/item/original/447/5022366773447.jpg?anime-2023-horimiya-the-complete-season-dvd&class=scaled&v=1677384610",
     type:"Anime",
     language:"VF & VO",
+    genres: getAnimeGenres("horimiya"),
   },
   {
     id: "classroom-of-the-elite",
@@ -81,6 +97,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://m.media-amazon.com/images/M/MV5BMDg3MGVhNWUtYTQ2NS00ZDdiLTg5MTMtZmM5MjUzN2IxN2I4XkEyXkFqcGc@._V1_.jpg",
     type: "Anime",
     language: "VF & VO",
+    genres: getAnimeGenres("classroom-of-the-elite"),
   },
   {
     id: "unnamed-memory",
@@ -88,6 +105,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://m.media-amazon.com/images/M/MV5BY2Q5NTRiYTgtZjJmOS00YjQ0LWE2MmQtMjE5MmM3ODQ5ZDg2XkEyXkFqcGc@._V1_.jpg",
     type: "Anime",
     language: "VO",
+    genres: getAnimeGenres("unnamed-memory"),
   },
   {
     id: "failure-skill-nut-master",
@@ -95,6 +113,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://m.media-amazon.com/images/M/MV5BNDQ2MTY2YTEtOWI5ZS00YTFhLTg5YWYtMzkwYTA5NjM5NTIxXkEyXkFqcGc@._V1_FMjpg_UY452_.jpg 319w, https://m.media-amazon.com/images/M/MV5BNDQ2MTY2YTEtOWI5ZS00YTFhLTg5YWYtMzkwYTA5NjM5NTIxXkEyXkFqcGc@._V1_FMjpg_UY678_.jpg 479w, https://m.media-amazon.com/images/M/MV5BNDQ2MTY2YTEtOWI5ZS00YTFhLTg5YWYtMzkwYTA5NjM5NTIxXkEyXkFqcGc@._V1_FMjpg_UY337_.jpg 238w, https://m.media-amazon.com/images/M/MV5BNDQ2MTY2YTEtOWI5ZS00YTFhLTg5YWYtMzkwYTA5NjM5NTIxXkEyXkFqcGc@._V1_FMjpg_UX707_.jpg 707w, https://m.media-amazon.com/images/M/MV5BNDQ2MTY2YTEtOWI5ZS00YTFhLTg5YWYtMzkwYTA5NjM5NTIxXkEyXkFqcGc@._V1_FMjpg_UY1000_.jpg 707w",
     type: "Anime",
     language: "VO",
+    genres: getAnimeGenres("failure-skill-nut-master"),
   },
   {
     id: "amagami-san-chi-no-enmusubi",
@@ -102,6 +121,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://otakulevel10.fr/wp-content/uploads/2025/04/Amagami-Sister-saison-2.jpg",
     type: "Anime",
     language: "VF & VO",
+    genres: getAnimeGenres("amagami-san-chi-no-enmusubi"),
   },
   {
     id: "call-of-the-night",
@@ -109,6 +129,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://fr.web.img3.acsta.net/pictures/22/07/04/14/30/5500974.jpg",
     type: "Anime",
     language: "VF & VO",
+    genres: getAnimeGenres("call-of-the-night"),
   },
   {
     id: "demon-slayer",
@@ -116,6 +137,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://fr.web.img6.acsta.net/pictures/19/09/18/13/46/0198270.jpg",
     type: "Anime",
     language: "VF & VO",
+    genres: getAnimeGenres("demon-slayer"),
   },
   {
     id: "jujutsu-kaisen",
@@ -123,6 +145,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://fr.web.img3.acsta.net/pictures/20/09/14/10/31/4875617.jpg",
     type: "Anime",
     language: "VF & VO",
+    genres: getAnimeGenres("jujutsu-kaisen"),
   },
   {
     id: "akudama-drive",
@@ -130,6 +153,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://upload.wikimedia.org/wikipedia/en/thumb/3/36/Akudama_Drive.jpg/250px-Akudama_Drive.jpg",
     type: "Anime",
     language: "VF & VO",
+    genres: getAnimeGenres("akudama-drive"),
   },
   {
     id: "kuroko-no-basket",
@@ -137,6 +161,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://images.justwatch.com/poster/181383869/s718/kuroko-no-basket.jpg",
     type: "Anime",
     language: "VF & VO",
+    genres: getAnimeGenres("kuroko-no-basket"),
   },
   {
     id: "vinland-saga",
@@ -144,6 +169,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://fr.web.img4.acsta.net/pictures/19/09/16/17/09/4903250.jpg",
     type: "Anime",
     language: "VF & VO",
+    genres: getAnimeGenres("vinland-saga"),
   },
   {
     id: "death-note",
@@ -151,6 +177,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://m.media-amazon.com/images/M/MV5BNjRiNmNjMmMtN2U2Yi00ODgxLTk3OTMtMmI1MTI1NjYyZTEzXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_.jpg",
     type: "Anime",
     language: "VF & VO",
+    genres: getAnimeGenres("death-note"),
   },
   {
     id: "frieren",
@@ -158,6 +185,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://sm.ign.com/ign_fr/screenshot/default/unnamed_qjuy.jpg",
     type: "Anime",
     language: "VF & VO",
+    genres: getAnimeGenres("frieren"),
   },
   {
     id: "toradora",
@@ -165,6 +193,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://mediaproxy.tvtropes.org/width/1200/https://static.tvtropes.org/pmwiki/pub/images/toradora.png",
     type: "Anime",
     language: "VF & VO",
+    genres: getAnimeGenres("toradora"),
   },
   {
     id: "kaguya-sama",
@@ -172,6 +201,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://fr.web.img3.acsta.net/pictures/20/04/08/16/07/4929472.jpg",
     type: "Anime",
     language: "VF & VO",
+    genres: getAnimeGenres("kaguya-sama"),
   },
   {
     id: "your-name",
@@ -179,6 +209,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://m.media-amazon.com/images/M/MV5BODRmZDVmNzUtZDA4ZC00NjhkLWI2M2UtN2M0ZDIzNDcxYThjL2ltYWdlXkEyXkFqcGdeQXVyNTk0MzMzODA@._V1_.jpg",
     type: "Anime",
     language: "VF & VO",
+    genres: getAnimeGenres("your-name"),
   },
   {
     id: "rent-a-girlfriend",
@@ -186,6 +217,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://www.myutaku.com/media/anime/poster/346502.jpg",
     type: "Anime",
     language: "VF & VO",
+    genres: getAnimeGenres("rent-a-girlfriend"),
   },
   {
     id: "quintessential-quintuplets",
@@ -193,6 +225,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://m.media-amazon.com/images/M/MV5BODhmMGJjMjQtNDMzNi00ZTJmLWE4ZTItM2YwYjRlZWM5OWMxXkEyXkFqcGc@._V1_.jpg",
     type: "Anime",
     language: "VO",
+    genres: getAnimeGenres("quintessential-quintuplets"),
   },
   {
     id: "weathering-with-you",
@@ -200,6 +233,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://m.media-amazon.com/images/I/91IWdBo4TnL._UF894,1000_QL80_.jpg",
     type: "Anime",
     language: "VF & VO",
+    genres: getAnimeGenres("weathering-with-you"),
   },
   {
     id: "domestic-girlfriend",
@@ -207,6 +241,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://m.media-amazon.com/images/M/MV5BYmQyNWI1ZTgtMTgzNC00ZGIyLTg3NWMtZmM2ZjMzNTNjOTU5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
     type: "Anime",
     language: "VO",
+    genres: getAnimeGenres("domestic-girlfriend"),
   },
   {
     id: "golden-time",
@@ -214,6 +249,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://m.media-amazon.com/images/M/MV5BNGI0YjdmNGYtZTQ0OC00OWUzLTg2NWMtMjFhNGI1Y2IxNzdmXkEyXkFqcGc@._V1_.jpg",
     type: "Anime",
     language: "VO",
+    genres: getAnimeGenres("golden-time"),
   },
   {
     id: "oregairu",
@@ -221,6 +257,7 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://adala-news.fr/wp-content/uploads/2020/02/Oregairu-Saison-3-anime-image.png",
     type: "Anime",
     language: "VO",
+    genres: getAnimeGenres("oregairu"),
   },
   {
     id: "Silent-voice",
@@ -228,13 +265,33 @@ const animes: CatalogueAnime[] = [
     imageUrl: "https://fr.web.img3.acsta.net/pictures/18/07/13/11/32/3961973.jpg",
     type: "Anime",
     language: "VF & VO",
+    genres: getAnimeGenres("Silent-voice"),
+  },
+  {
+    id: "365-days-to-the-wedding",
+    title: "365 Days to the Wedding",
+    imageUrl: "https://fr.web.img6.acsta.net/img/c1/7a/c17af00afe845e138265cdf4dc445720.jpg",
+    type: "Anime",
+    language: "VO",
+    genres: getAnimeGenres("365-days-to-the-wedding"),
+  },
+  {
+    id: "nana",
+    title: "NANA",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BYjRmOWJmMDgtYjBjMS00OTg1LWJmZTItZTY2MjJlODgxNmUwXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    type: "Anime",
+    language: "VF & VO",
+    genres: getAnimeGenres("nana"),
   }
 ];
 
 const genres = [
-  "Action", "Aventure", "Comédie", "Drame", "Fantasy",
-  "Horreur", "Mystère", "Romance", "Sci-Fi", "Sport",
-  "Surnaturel", "Slice of Life", "École", "Démons"
+  "Action", "Aventure", "Comédie", "Cyberpunk", "Démons", "Drame", 
+  "Dystopie", "École", "Fantasy", "Film", "Harem", "Historique", 
+  "Horreur", "Isekai", "Magie", "Mature", "Mystère", "Psychologique",
+  "Romance", "School Life", "Science-fiction", "Shounen", "Slice of Life", 
+  "Sport", "Surnaturel", "Thriller", "Tranche de vie", "Université", 
+  "Workplace", "Yokai"
 ];
 
 export default function CataloguePage() {
@@ -250,9 +307,19 @@ export default function CataloguePage() {
     }
   };
 
-  const filteredAnimes = animes.filter(anime =>
-    anime.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredAnimes = animes.filter(anime => {
+    // Filtre par terme de recherche
+    const matchesSearch = anime.title.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    // Filtre par langue si sélectionné
+    const matchesLanguage = !languageFilter || anime.language === languageFilter || anime.language === "VF & VO";
+    
+    // Filtre par genres - l'anime doit avoir TOUS les genres sélectionnés (ET logique)
+    const matchesGenres = selectedGenres.length === 0 || 
+      (anime.genres && selectedGenres.every(selectedGenre => anime.genres!.includes(selectedGenre)));
+    
+    return matchesSearch && matchesLanguage && matchesGenres;
+  });
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -293,7 +360,7 @@ export default function CataloguePage() {
                   key={genre}
                   className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                     selectedGenres.includes(genre)
-                      ? "bg-pink-500 text-white"
+                      ? "bg-blue-500 text-white"
                       : "bg-[#151a2a] text-gray-300 hover:bg-[#1a1f35]"
                   }`}
                   onClick={() => toggleGenre(genre)}

@@ -132,7 +132,7 @@ export const animes: Anime[] = [
     year: 2021,
     type: "Anime",
     status: "Terminé",
-    genres: ["Comédie", "Romance", "Tranche de vie", "École"],
+    genres: ["Comédie", "Romance", "École", "Slice of Life"],
     rating: 7.8,
     seasons: [
       {
@@ -185,7 +185,7 @@ export const animes: Anime[] = [
     year: 2024,
     type: "Anime",
     status: "Terminé",
-    genres: ["Action", "Fantasy", "Aventure", "Surnaturel"],
+    genres: ["Action", "Fantasy", "Aventure", "Shounen"],
     rating: 9.0,
     seasons: [
       {
@@ -240,7 +240,7 @@ export const animes: Anime[] = [
     year: 2019,
     type: "Anime",
     status: "Terminé",
-    genres: ["Action", "Aventure", "Historique", "Fantastique"],
+    genres: ["Action", "Shounen", "Historique", "Surnaturel"],
     rating: 9.5,
     episodes: [
       { number: 1, title: "Cruauté", sibnetVostfrId: "4670053", sibnetVfId: "4745088" },
@@ -642,7 +642,7 @@ export const animes: Anime[] = [
     year: 2020,
     type: "Anime",
     status: "En cours",
-    genres: ["Action", "Aventure", "School Life", "Yokai", "Surnaturel", "Magie", "Mystère", "Shônen"],
+    genres: ["Action", "Shounen", "École", "Surnaturel"],
     rating: 8.8,
     seasons: [
       {
@@ -1602,8 +1602,15 @@ export const animes: Anime[] = [
     status: "Terminé",
     genres: ["Romance", "Drame", "Supernatural", "Film"],
     rating: 8.9,
-    episodes: [
-      { number: 1, title: "Weathering with You", sibnetVostfrId: "4831762", sibnetVfId: "4110281" }
+    seasons: [
+      {
+        seasonNumber: 1,
+        title: "Film",
+        year: 2019,
+        episodes: [
+          { number: 1, title: "Weathering with You", sibnetVostfrId: "4831762", sibnetVfId: "4110281" }
+        ]
+      }
     ]
   },
   {
@@ -1782,6 +1789,112 @@ export const animes: Anime[] = [
         year: 2016,
         episodes: [
           { number: 1, title: "Silent Voice", sibnetVostfrId: "4824811", sibnetVfId: "5036237" },
+        ]
+      }
+    ]
+  },
+  {
+    id: "365-days-to-the-wedding",
+    title: "365 Days to the Wedding",
+    originalTitle: "結婚するって、本当ですか",
+    description: "Takuya Ohara et Rika Honjoji travaillent dans la même agence de voyage. L'entreprise annonce qu'elle ouvre une nouvelle succursale en Alaska et que les employés célibataires seront recrutés pour y travailler. Craignant d'être tous les deux choisis, ils décident de simuler une relation jusqu'à ce que quelqu'un soit sélectionné. Une comédie romantique touchante sur deux introvertis qui découvrent l'amour à travers un faux mariage.",
+    imageUrl: "https://fr.web.img6.acsta.net/img/c1/7a/c17af00afe845e138265cdf4dc445720.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2024,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Romance", "Comédie", "Slice of Life",],
+    rating: 8.3,
+    seasons: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        year: 2024,
+        episodes: [
+          { number: 1, title: "épisode 1", sibnetVostfrId: "5700596" },
+          { number: 2, title: "épisode 2", sibnetVostfrId: "5710638" },
+          { number: 3, title: "épisode 3", sibnetVostfrId: "5719128" },
+          { number: 4, title: "épisode 4", sibnetVostfrId: "5728305" },
+          { number: 5, title: "épisode 5", sibnetVostfrId: "5736945" },
+          { number: 6, title: "épisode 6", sibnetVostfrId: "5744184" },
+          { number: 7, title: "épisode 7", sibnetVostfrId: "5751487" },
+          { number: 8, title: "épisode 8", sibnetVostfrId: "5758265" },
+          { number: 9, title: "épisode 9", sibnetVostfrId: "5764402" },
+          { number: 10, title: "épisode 10", sibnetVostfrId: "5768565" },
+          { number: 11, title: "épisode 11", sibnetVostfrId: "5772512" },
+          { number: 12, title: "épisode 12", sibnetVostfrId: "5777938" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "nana",
+    title: "NANA",
+    originalTitle: "ナナ",
+    description: "Deux jeunes femmes au nom identique, Nana, se rencontrent dans un train pour Tokyo et deviennent colocataires. Nana Komatsu (surnommée Hachi) cherche l'amour et le bonheur, tandis que Nana Osaki poursuit son rêve de devenir une rock star avec son groupe Black Stones. Leurs vies s'entremêlent dans une histoire de friendship, d'amour, de musique et de rêves brisés, explorant les défis de la vie d'adulte à Tokyo.",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BYjRmOWJmMDgtYjBjMS00OTg1LWJmZTItZTY2MjJlODgxNmUwXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2006,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Romance", "Drame", "Slice of Life", "Musique"],
+    rating: 8.4,
+    seasons: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        year: 2006,
+        episodes: [
+          { number: 1, title: "épisode 1", sibnetVostfrId: "4876753", sibnetVfId: "4876765" },
+          { number: 2, title: "épisode 2", sibnetVostfrId: "4876754", sibnetVfId: "4876767" },
+          { number: 3, title: "épisode 3", sibnetVostfrId: "4876755", sibnetVfId: "4876768" },
+          { number: 4, title: "épisode 4", sibnetVostfrId: "4876757", sibnetVfId: "4876769" },
+          { number: 5, title: "épisode 5", sibnetVostfrId: "4876763", sibnetVfId: "4876776" },
+          { number: 6, title: "épisode 6", sibnetVostfrId: "4876764", sibnetVfId: "4876778" },
+          { number: 7, title: "épisode 7", sibnetVostfrId: "4876766", sibnetVfId: "4876780" },
+          { number: 8, title: "épisode 8", sibnetVostfrId: "4876770", sibnetVfId: "4876781" },
+          { number: 9, title: "épisode 9", sibnetVostfrId: "4876777", sibnetVfId: "4876783" },
+          { number: 10, title: "épisode 10", sibnetVostfrId: "4876779", sibnetVfId: "4876785" },
+          { number: 11, title: "épisode 11", sibnetVostfrId: "4876786", sibnetVfId: "4876788" },
+          { number: 12, title: "épisode 12", sibnetVostfrId: "4876782", sibnetVfId: "4876787" },
+          { number: 13, title: "épisode 13", sibnetVostfrId: "4876790", sibnetVfId: "4876789" },
+          { number: 14, title: "épisode 14", sibnetVostfrId: "4876792", sibnetVfId: "4876791" },
+          { number: 15, title: "épisode 15", sibnetVostfrId: "4876796", sibnetVfId: "4876793" },
+          { number: 16, title: "épisode 16", sibnetVostfrId: "4876801", sibnetVfId: "4876795" },
+          { number: 17, title: "épisode 17", sibnetVostfrId: "4876804", sibnetVfId: "4876798" },
+          { number: 18, title: "épisode 18", sibnetVostfrId: "4876808", sibnetVfId: "4876799" },
+          { number: 19, title: "épisode 19", sibnetVostfrId: "4876811", sibnetVfId: "4876802" },
+          { number: 20, title: "épisode 20", sibnetVostfrId: "4876814", sibnetVfId: "4876803" },
+          { number: 21, title: "épisode 21", sibnetVostfrId: "4876816", sibnetVfId: "4876805" },
+          { number: 22, title: "épisode 22", sibnetVostfrId: "4876823", sibnetVfId: "4876809" },
+          { number: 23, title: "épisode 23", sibnetVostfrId: "4876820", sibnetVfId: "4876807" },
+          { number: 24, title: "épisode 24", sibnetVostfrId: "4876831", sibnetVfId: "4876810" },
+          { number: 25, title: "épisode 25", sibnetVostfrId: "4876833", sibnetVfId: "4876812" },
+          { number: 26, title: "épisode 26", sibnetVostfrId: "4876836", sibnetVfId: "4876813" },
+          { number: 27, title: "épisode 27", sibnetVostfrId: "4876841", sibnetVfId: "4876815" },
+          { number: 28, title: "épisode 28", sibnetVostfrId: "4876850", sibnetVfId: "4876817" },
+          { number: 29, title: "épisode 29", sibnetVostfrId: "4876856", sibnetVfId: "4876818" },
+          { number: 30, title: "épisode 30", sibnetVostfrId: "4876860", sibnetVfId: "4876819" },
+          { number: 31, title: "épisode 31", sibnetVostfrId: "4876868", sibnetVfId: "4876821" },
+          { number: 32, title: "épisode 32", sibnetVostfrId: "4876871", sibnetVfId: "4876822" },
+          { number: 33, title: "épisode 33", sibnetVostfrId: "4876873", sibnetVfId: "4876824" },
+          { number: 34, title: "épisode 34", sibnetVostfrId: "4876880", sibnetVfId: "4876830" },
+          { number: 35, title: "épisode 35", sibnetVostfrId: "4876881", sibnetVfId: "4876832" },
+          { number: 36, title: "épisode 36", sibnetVostfrId: "4876884", sibnetVfId: "4876834" },
+          { number: 37, title: "épisode 37", sibnetVostfrId: "4876886", sibnetVfId: "4876835" },
+          { number: 38, title: "épisode 38", sibnetVostfrId: "4876897", sibnetVfId: "4876838" },
+          { number: 39, title: "épisode 39", sibnetVostfrId: "4876894", sibnetVfId: "4876837" },
+          { number: 40, title: "épisode 40", sibnetVostfrId: "4876899", sibnetVfId: "4876839" },
+          { number: 41, title: "épisode 41", sibnetVostfrId: "4876900", sibnetVfId: "4876843" },
+          { number: 42, title: "épisode 42", sibnetVostfrId: "4876902", sibnetVfId: "4876845" },
+          { number: 43, title: "épisode 43", sibnetVostfrId: "4876904", sibnetVfId: "4876847" },
+          { number: 44, title: "épisode 44", sibnetVostfrId: "4876906", sibnetVfId: "4876854" },
+          { number: 45, title: "épisode 45", sibnetVostfrId: "4876908", sibnetVfId: "4876857" },
+          { number: 46, title: "épisode 46", sibnetVostfrId: "4876915", sibnetVfId: "4876858" },
+          { number: 47, title: "épisode 47", sibnetVostfrId: "4876919", sibnetVfId: "4876859" },
+          { number: 48, title: "épisode 48", sibnetVostfrId: "4876921", sibnetVfId: "4876866" },
+          { number: 49, title: "épisode 49", sibnetVostfrId: "4876926", sibnetVfId: "4876867" },
+          { number: 50, title: "épisode 50", sibnetVostfrId: "4876941", sibnetVfId: "4876869" }
         ]
       }
     ]

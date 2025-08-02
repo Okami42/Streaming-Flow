@@ -939,7 +939,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                           console.log(`Saison sélectionnée: ${currentSeason.seasonNumber}, année: ${currentSeason.year}`);
                         }
                         return currentSeason 
-                          ? `Saison ${selectedSeason} (${currentSeason.year})` 
+                          ? `${currentSeason.title} (${currentSeason.year})` 
                           : `Saison ${selectedSeason}`;
                       })()}
                       <ChevronDown className="h-4 w-4" />
@@ -962,7 +962,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                                 setSelectedEpisode(1);
                               }}
                             >
-                              Saison {season.seasonNumber} ({season.year})
+                              {season.title} ({season.year})
                             </button>
                           );
                         }) || (
@@ -1034,7 +1034,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                     >
                       <span>
                         {useSeasonsStructure && anime.seasons && anime.seasons.find(s => String(s.seasonNumber) === String(selectedSeason)) ? 
-                          `Saison ${selectedSeason}${anime.seasons.find(s => String(s.seasonNumber) === String(selectedSeason))?.year ? 
+                          `${anime.seasons.find(s => String(s.seasonNumber) === String(selectedSeason))?.title}${anime.seasons.find(s => String(s.seasonNumber) === String(selectedSeason))?.year ? 
                           ` (${anime.seasons.find(s => String(s.seasonNumber) === String(selectedSeason))?.year})` : ''}` : 
                           `Saison ${selectedSeason}`
                         }
@@ -1054,7 +1054,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                               setSelectedEpisode(1);
                             }}
                           >
-                            Saison {season.seasonNumber} {season.year ? `(${season.year})` : ''}
+                            {season.title} {season.year ? `(${season.year})` : ''}
                           </button>
                         )) || (
                           <button

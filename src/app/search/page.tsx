@@ -16,7 +16,7 @@ export default function SearchPage() {
   const [results, setResults] = useState<any[]>([]);
   
   useEffect(() => {
-    // Ne rien afficher par défaut
+    // Ne rien afkficher par défaut
     const query = searchParams.get("q");
     if (query) {
       setSearchTerm(query);
