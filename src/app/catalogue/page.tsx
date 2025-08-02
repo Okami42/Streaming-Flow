@@ -159,6 +159,76 @@ const animes: CatalogueAnime[] = [
     type: "Anime",
     language: "VF & VO",
   },
+  {
+    id: "toradora",
+    title: "Toradora!",
+    imageUrl: "https://mediaproxy.tvtropes.org/width/1200/https://static.tvtropes.org/pmwiki/pub/images/toradora.png",
+    type: "Anime",
+    language: "VF & VO",
+  },
+  {
+    id: "kaguya-sama",
+    title: "Kaguya-sama: Love is War",
+    imageUrl: "https://fr.web.img3.acsta.net/pictures/20/04/08/16/07/4929472.jpg",
+    type: "Anime",
+    language: "VF & VO",
+  },
+  {
+    id: "your-name",
+    title: "Your Name",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BODRmZDVmNzUtZDA4ZC00NjhkLWI2M2UtN2M0ZDIzNDcxYThjL2ltYWdlXkEyXkFqcGdeQXVyNTk0MzMzODA@._V1_.jpg",
+    type: "Anime",
+    language: "VF & VO",
+  },
+  {
+    id: "rent-a-girlfriend",
+    title: "Rent-a-Girlfriend",
+    imageUrl: "https://www.myutaku.com/media/anime/poster/346502.jpg",
+    type: "Anime",
+    language: "VF & VO",
+  },
+  {
+    id: "quintessential-quintuplets",
+    title: "The Quintessential Quintuplets",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BODhmMGJjMjQtNDMzNi00ZTJmLWE4ZTItM2YwYjRlZWM5OWMxXkEyXkFqcGc@._V1_.jpg",
+    type: "Anime",
+    language: "VO",
+  },
+  {
+    id: "weathering-with-you",
+    title: "Weathering with You",
+    imageUrl: "https://m.media-amazon.com/images/I/91IWdBo4TnL._UF894,1000_QL80_.jpg",
+    type: "Anime",
+    language: "VF & VO",
+  },
+  {
+    id: "domestic-girlfriend",
+    title: "Domestic Girlfriend",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BYmQyNWI1ZTgtMTgzNC00ZGIyLTg3NWMtZmM2ZjMzNTNjOTU5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    type: "Anime",
+    language: "VO",
+  },
+  {
+    id: "golden-time",
+    title: "Golden Time",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BNGI0YjdmNGYtZTQ0OC00OWUzLTg2NWMtMjFhNGI1Y2IxNzdmXkEyXkFqcGc@._V1_.jpg",
+    type: "Anime",
+    language: "VO",
+  },
+  {
+    id: "oregairu",
+    title: "OreGairu",
+    imageUrl: "https://adala-news.fr/wp-content/uploads/2020/02/Oregairu-Saison-3-anime-image.png",
+    type: "Anime",
+    language: "VO",
+  },
+  {
+    id: "Silent-voice",
+    title: "Silent Voice",
+    imageUrl: "https://fr.web.img3.acsta.net/pictures/18/07/13/11/32/3961973.jpg",
+    type: "Anime",
+    language: "VF & VO",
+  }
 ];
 
 const genres = [

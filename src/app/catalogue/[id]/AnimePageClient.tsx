@@ -140,6 +140,31 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
     // VOSTFR ou autres animes: tous les épisodes
     return season.episodes;
   };
+
+  // Fonction pour vérifier si la saison actuelle a des épisodes en VF
+  const hasVFEpisodes = () => {
+    if (!anime) return false;
+    
+    const episodes = useSeasonsStructure 
+      ? getEpisodes(String(selectedSeason))
+      : (anime.episodes || []);
+    
+    // Vérifier si au moins un épisode a des sources VF
+    return episodes.some(episode => 
+      episode.sibnetVfId || 
+      episode.vidmolyVfId || 
+      episode.vidmolyVfUrl || 
+      episode.movearnVfUrl ||
+      episode.mp4VfUrl
+    );
+  };
+
+  // S'assurer que la langue sélectionnée est valide
+  React.useEffect(() => {
+    if (!hasVFEpisodes() && selectedLanguage === 'vf') {
+      setSelectedLanguage('vo');
+    }
+  }, [selectedSeason, selectedLanguage]);
     
   // Récupérer l'épisode actuel selon la structure utilisée
   const episode = useSeasonsStructure
@@ -982,17 +1007,19 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                 {/* Sélecteur VO/VF */}
                 <div className="flex items-center bg-[#1a1f35] rounded-md overflow-hidden border border-white/10">
                   <button 
-                    className={`px-6 py-2 text-sm font-medium ${selectedLanguage === 'vo' ? 'bg-[#0f172a] text-white' : 'text-gray-400 hover:text-white'}`}
+                    className={`px-6 py-2 text-sm font-medium ${selectedLanguage === 'vo' ? 'bg-[#0f172a] text-white' : 'text-gray-400 hover:text-white'} ${!hasVFEpisodes() ? 'rounded-md' : ''}`}
                     onClick={() => setSelectedLanguage('vo')}
                   >
                     VO
                   </button>
-                  <button 
-                    className={`px-6 py-2 text-sm font-medium ${selectedLanguage === 'vf' ? 'bg-[#0f172a] text-white' : 'text-gray-400 hover:text-white'}`}
-                    onClick={() => setSelectedLanguage('vf')}
-                  >
-                    VF
-                  </button>
+                  {hasVFEpisodes() && (
+                    <button 
+                      className={`px-6 py-2 text-sm font-medium ${selectedLanguage === 'vf' ? 'bg-[#0f172a] text-white' : 'text-gray-400 hover:text-white'}`}
+                      onClick={() => setSelectedLanguage('vf')}
+                    >
+                      VF
+                    </button>
+                  )}
                 </div>
               </div>
               
@@ -1044,25 +1071,33 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                   </div>
                   
                   {/* Sélecteur VO/VF */}
-                  <div className="relative w-20">
-                    <button 
-                      className="flex items-center justify-between w-full px-3 py-3 text-white bg-[#1e2332] rounded-md border border-white/10"
-                      onClick={() => document.getElementById("language-selector")?.click()}
-                    >
-                      <span>{selectedLanguage.toUpperCase()}</span>
-                      <ChevronDown className="h-4 w-4 ml-1" />
-                    </button>
-                    <select
-                      id="language-selector"
-                      value={selectedLanguage}
-                      onChange={(e) => setSelectedLanguage(e.target.value as "vo" | "vf")}
-                      className="absolute opacity-0 w-full h-full top-0 left-0 cursor-pointer"
-                      style={{ backgroundColor: '#1a1f35', color: 'white' }}
-                    >
-                      <option value="vo" style={{ backgroundColor: '#1a1f35', color: 'white', padding: '8px' }}>VO</option>
-                      <option value="vf" style={{ backgroundColor: '#1a1f35', color: 'white', padding: '8px' }}>VF</option>
-                    </select>
-                  </div>
+                  {hasVFEpisodes() ? (
+                    <div className="relative w-20">
+                      <button 
+                        className="flex items-center justify-between w-full px-3 py-3 text-white bg-[#1e2332] rounded-md border border-white/10"
+                        onClick={() => document.getElementById("language-selector")?.click()}
+                      >
+                        <span>{selectedLanguage.toUpperCase()}</span>
+                        <ChevronDown className="h-4 w-4 ml-1" />
+                      </button>
+                      <select
+                        id="language-selector"
+                        value={selectedLanguage}
+                        onChange={(e) => setSelectedLanguage(e.target.value as "vo" | "vf")}
+                        className="absolute opacity-0 w-full h-full top-0 left-0 cursor-pointer"
+                        style={{ backgroundColor: '#1a1f35', color: 'white' }}
+                      >
+                        <option value="vo" style={{ backgroundColor: '#1a1f35', color: 'white', padding: '8px' }}>VO</option>
+                        <option value="vf" style={{ backgroundColor: '#1a1f35', color: 'white', padding: '8px' }}>VF</option>
+                      </select>
+                    </div>
+                  ) : (
+                    <div className="relative w-20">
+                      <div className="flex items-center justify-center w-full px-3 py-3 text-white bg-[#1e2332] rounded-md border border-white/10">
+                        <span>VO</span>
+                      </div>
+                    </div>
+                  )}
                 </div>
                 
                 {/* Sélecteur d'épisode */}
@@ -1091,7 +1126,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
               </div>
               
               {/* Lecteur vidéo */}
-              <div className="bg-black relative" style={{ width: '100%', height: window.innerWidth <= 768 ? '250px' : '650px' }}>
+              <div className="bg-black relative" style={{ width: '100%', height: window.innerWidth <= 768 ? '200px' : '500px' }}>
                 {/* Vidéo */}
                 {selectedLanguage === "vo" && (episode?.vidmolyUrl || episode?.vidmolyId) ? (
                   <iframe

@@ -398,30 +398,30 @@ export const animes: Anime[] = [
         title: "Saison 1",
         year: 2019,
         episodes: [
-          { number: 1, title: "Bienvenue à l'école des démons", sibnetVostfrId: "5721980", sibnetVfId: "" },
-          { number: 2, title: "Le familier parfait", sibnetVostfrId: "5721984", sibnetVfId: "" },
-          { number: 3, title: "La bague de Valac", sibnetVostfrId: "5725827", sibnetVfId: "" },
-          { number: 4, title: "La classe anormale", sibnetVostfrId: "5734316", sibnetVfId: "" },
-          { number: 5, title: "Les ambitions d'Asmodeus", sibnetVostfrId: "5742388", sibnetVfId: "" },
-          { number: 6, title: "Le jardin royal", sibnetVostfrId: "5749708", sibnetVfId: "" },
-          { number: 7, title: "Fête d'éveil", sibnetVostfrId: "5756064", sibnetVfId: "" },
-          { number: 8, title: "Compétition de familier", sibnetVostfrId: "5763156", sibnetVfId: "" },
-          { number: 9, title: "Les examens", sibnetVostfrId: "5767285", sibnetVfId: "" },
-          { number: 10, title: "Le ballon explosif", sibnetVostfrId: "5771456", sibnetVfId: "" },
-          { number: 11, title: "Le secret d'Iruma", sibnetVostfrId: "5776114", sibnetVfId: "" },
-          { number: 12, title: "La réunion des parents", sibnetVostfrId: "5782623", sibnetVfId: "" },
-          { number: 13, title: "La magie d'Iruma", sibnetVostfrId: "5792481", sibnetVfId: "" },
-          { number: 14, title: "Le grand banquet", sibnetVostfrId: "5798358", sibnetVfId: "" },
-          { number: 15, title: "La face cachée d'Iruma", sibnetVostfrId: "5803875", sibnetVfId: "" },
-          { number: 16, title: "Iruma maléfique", sibnetVostfrId: "5808382", sibnetVfId: "" },
-          { number: 17, title: "Le retour à la normale", sibnetVostfrId: "5814648", sibnetVfId: "" },
-          { number: 18, title: "La salle de musique", sibnetVostfrId: "5821706", sibnetVfId: "" },
-          { number: 19, title: "Le message de Balam", sibnetVostfrId: "5828253", sibnetVfId: "" },
-          { number: 20, title: "Le professeur Balam", sibnetVostfrId: "5835963", sibnetVfId: "" },
-          { number: 21, title: "Le démon volant", sibnetVostfrId: "5842211", sibnetVfId: "" },
-          { number: 22, title: "Les vacances de Sullivan", sibnetVostfrId: "5848186", sibnetVfId: "" },
-          { number: 23, title: "La bataille finale", sibnetVostfrId: "5854073", sibnetVfId: "5742433" },
-          { number: 24, title: "La fin de l'année scolaire", sibnetVostfrId: "5854073", sibnetVfId: "5742435" }
+          { number: 1, title: "Bienvenue à l'école des démons", sibnetVostfrId: "5721980"},
+          { number: 2, title: "Le familier parfait", sibnetVostfrId: "5721984"},
+          { number: 3, title: "La bague de Valac", sibnetVostfrId: "5725827"},
+          { number: 4, title: "La classe anormale", sibnetVostfrId: "5734316"},
+          { number: 5, title: "Les ambitions d'Asmodeus", sibnetVostfrId: "5742388"},
+          { number: 6, title: "Le jardin royal", sibnetVostfrId: "5749708"},
+          { number: 7, title: "Fête d'éveil", sibnetVostfrId: "5756064"},
+          { number: 8, title: "Compétition de familier", sibnetVostfrId: "5763156"},
+          { number: 9, title: "Les examens", sibnetVostfrId: "5767285"},
+          { number: 10, title: "Le ballon explosif", sibnetVostfrId: "5771456"},
+          { number: 11, title: "Le secret d'Iruma", sibnetVostfrId: "5776114"},
+          { number: 12, title: "La réunion des parents", sibnetVostfrId: "5782623"},
+          { number: 13, title: "La magie d'Iruma", sibnetVostfrId: "5792481"},
+          { number: 14, title: "Le grand banquet", sibnetVostfrId: "5798358"},
+          { number: 15, title: "La face cachée d'Iruma", sibnetVostfrId: "5803875"},
+          { number: 16, title: "Iruma maléfique", sibnetVostfrId: "5808382"},
+          { number: 17, title: "Le retour à la normale", sibnetVostfrId: "5814648"},
+          { number: 18, title: "La salle de musique", sibnetVostfrId: "5821706"},
+          { number: 19, title: "Le message de Balam", sibnetVostfrId: "5828253"},
+          { number: 20, title: "Le professeur Balam", sibnetVostfrId: "5835963"},
+          { number: 21, title: "Le démon volant", sibnetVostfrId: "5842211"},
+          { number: 22, title: "Les vacances de Sullivan", sibnetVostfrId: "5848186"},
+          { number: 23, title: "La bataille finale", sibnetVostfrId: "5854073"},
+          { number: 24, title: "La fin de l'année scolaire", sibnetVostfrId: "5854073"}
         ]
       }
     ]
@@ -1317,6 +1317,471 @@ export const animes: Anime[] = [
           { number: 11, title: "épisode 11", sibnetVostfrId: "4872347", sibnetVfId: "5095560" },
           { number: 12, title: "épisode 12", sibnetVostfrId: "4880445", sibnetVfId: "5095561" },
           { number: 13, title: "épisode 13", sibnetVostfrId: "4890711", sibnetVfId: "5095563" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "toradora",
+    title: "Toradora!",
+    originalTitle: "とらドラ！",
+    description: "Ryūji Takasu est un lycéen qui a une apparence intimidante mais qui est en réalité très gentil. Il rencontre Taiga Aisaka, une fille petite mais avec un caractère explosif surnommée 'Tiger Palmtop'. Malgré leurs différences, ils décident de s'entraider pour conquérir leurs coups de cœur respectifs. Une comédie romantique touchante qui explore les relations humaines et l'amour adolescent.",
+    imageUrl: "https://mediaproxy.tvtropes.org/width/1200/https://static.tvtropes.org/pmwiki/pub/images/toradora.png",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2008,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Romance", "Comédie", "Drame", "École"],
+    rating: 8.8,
+    seasons: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        year: 2008,
+        episodes: [
+          { number: 1, title: "épisode 1", sibnetVostfrId: "4862610" },
+          { number: 2, title: "épisode 2", sibnetVostfrId: "4862611" },
+          { number: 3, title: "épisode 3", sibnetVostfrId: "4862612" },
+          { number: 4, title: "épisode 4", sibnetVostfrId: "4862613" },
+          { number: 5, title: "épisode 5", sibnetVostfrId: "4862614" },
+          { number: 6, title: "épisode 6", sibnetVostfrId: "4862615" },
+          { number: 7, title: "épisode 7", sibnetVostfrId: "4862616" },
+          { number: 8, title: "épisode 8", sibnetVostfrId: "4862617" },
+          { number: 9, title: "épisode 9", sibnetVostfrId: "4862619" },
+          { number: 10, title: "épisode 10", sibnetVostfrId: "4862621" },
+          { number: 11, title: "épisode 11", sibnetVostfrId: "4862622" },
+          { number: 12, title: "épisode 12", sibnetVostfrId: "4862623" },
+          { number: 13, title: "épisode 13", sibnetVostfrId: "4862624" },
+          { number: 14, title: "épisode 14", sibnetVostfrId: "4862625" },
+          { number: 15, title: "épisode 15", sibnetVostfrId: "4862626" },
+          { number: 16, title: "épisode 16", sibnetVostfrId: "4862627" },
+          { number: 17, title: "épisode 17", sibnetVostfrId: "4862628" },
+          { number: 18, title: "épisode 18", sibnetVostfrId: "4862629" },
+          { number: 19, title: "épisode 19", sibnetVostfrId: "4862630" },
+          { number: 20, title: "épisode 20", sibnetVostfrId: "4862631" },
+          { number: 21, title: "épisode 21", sibnetVostfrId: "4862632" },
+          { number: 22, title: "épisode 22", sibnetVostfrId: "4862633" },
+          { number: 23, title: "épisode 23", sibnetVostfrId: "4862634" },
+          { number: 24, title: "épisode 24", sibnetVostfrId: "4862635" },
+          { number: 25, title: "épisode 25", sibnetVostfrId: "4862636" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "kaguya-sama",
+    title: "Kaguya-sama: Love is War",
+    originalTitle: "かぐや様は告らせたい〜天才たちの恋愛頭脳戦〜",
+    description: "Kaguya Shinomiya et Miyuki Shirogane sont les deux meilleurs élèves de leur lycée prestigieux et dirigent ensemble le conseil des élèves. Ils sont secrètement amoureux l'un de l'autre, mais leur fierté les empêche de faire le premier pas. Ils élaborent des stratégies complexes pour forcer l'autre à avouer ses sentiments en premier, créant une bataille d'esprit hilarante.",
+    imageUrl: "https://fr.web.img3.acsta.net/pictures/20/04/08/16/07/4929472.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2019,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Romance", "Comédie", "École", "Psychologique"],
+    rating: 9.0,
+    seasons: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        year: 2019,
+        episodes: [
+          { number: 1, title: "épisode 1", sibnetVostfrId: "4668794", sibnetVfId: "4866828" },
+          { number: 2, title: "épisode 2", sibnetVostfrId: "4668802", sibnetVfId: "4866831" },
+          { number: 3, title: "épisode 3", sibnetVostfrId: "4668813", sibnetVfId: "4866833" },
+          { number: 4, title: "épisode 4", sibnetVostfrId: "4668821", sibnetVfId: "4866836" },
+          { number: 5, title: "épisode 5", sibnetVostfrId: "4668830", sibnetVfId: "4866837" },
+          { number: 6, title: "épisode 6", sibnetVostfrId: "4668834", sibnetVfId: "4866839" },
+          { number: 7, title: "épisode 7", sibnetVostfrId: "4668843", sibnetVfId: "4866840" },
+          { number: 8, title: "épisode 8", sibnetVostfrId: "4668846", sibnetVfId: "4866841" },
+          { number: 9, title: "épisode 9", sibnetVostfrId: "4668850", sibnetVfId: "4866844" },
+          { number: 10, title: "épisode 10", sibnetVostfrId: "4668848", sibnetVfId: "4866845" },
+          { number: 11, title: "épisode 11", sibnetVostfrId: "4668852", sibnetVfId: "4866847" },
+          { number: 12, title: "épisode 12", sibnetVostfrId: "4668856", sibnetVfId: "4866848" }
+        ]
+      },
+      {
+        seasonNumber: 2,
+        title: "Saison 2",
+        year: 2020,
+        episodes: [
+          { number: 1, title: "épisode 1", sibnetVostfrId: "4668845", sibnetVfId: "4905594" },
+          { number: 2, title: "épisode 2", sibnetVostfrId: "4668847", sibnetVfId: "4905597" },
+          { number: 3, title: "épisode 3", sibnetVostfrId: "4668851", sibnetVfId: "4905598" },
+          { number: 4, title: "épisode 4", sibnetVostfrId: "4668853", sibnetVfId: "4905600" },
+          { number: 5, title: "épisode 5", sibnetVostfrId: "4668857", sibnetVfId: "4905602" },
+          { number: 6, title: "épisode 6", sibnetVostfrId: "4668861", sibnetVfId: "4905606" },
+          { number: 7, title: "épisode 7", sibnetVostfrId: "4668868", sibnetVfId: "4905608" },
+          { number: 8, title: "épisode 8", sibnetVostfrId: "4668878", sibnetVfId: "4905611" },
+          { number: 9, title: "épisode 9", sibnetVostfrId: "4668884", sibnetVfId: "4905614" },
+          { number: 10, title: "épisode 10", sibnetVostfrId: "4668899", sibnetVfId: "4905616" },
+          { number: 11, title: "épisode 11", sibnetVostfrId: "4668912", sibnetVfId: "4905618" },
+          { number: 12, title: "épisode 12", sibnetVostfrId: "4668919", sibnetVfId: "4905620" }
+        ]
+      },
+      {
+        seasonNumber: 3,
+        title: "Saison 3",
+        year: 2022,
+        episodes: [
+          { number: 1, title: "épisode 1", sibnetVostfrId: "4663982", sibnetVfId: "4712401" },
+          { number: 2, title: "épisode 2", sibnetVostfrId: "4675257", sibnetVfId: "4712438" },
+          { number: 3, title: "épisode 3", sibnetVostfrId: "4681391", sibnetVfId: "4712464" },
+          { number: 4, title: "épisode 4", sibnetVostfrId: "4693711", sibnetVfId: "4721446" },
+          { number: 5, title: "épisode 5", sibnetVostfrId: "4704501", sibnetVfId: "5131488" },
+          { number: 6, title: "épisode 6", sibnetVostfrId: "4711602", sibnetVfId: "4747224" },
+          { number: 7, title: "épisode 7", sibnetVostfrId: "4720734", sibnetVfId: "4755545" },
+          { number: 8, title: "épisode 8", sibnetVostfrId: "4729988", sibnetVfId: "4764611" },
+          { number: 9, title: "épisode 9", sibnetVostfrId: "4737656", sibnetVfId: "4775132" },
+          { number: 10, title: "épisode 10", sibnetVostfrId: "4746239", sibnetVfId: "4784169" },
+          { number: 11, title: "épisode 11", sibnetVostfrId: "4754941", sibnetVfId: "4908435" },
+          { number: 12, title: "épisode 12", sibnetVostfrId: "4763998", sibnetVfId: "4908439" },
+          { number: 13, title: "épisode 13", sibnetVostfrId: "4764011", sibnetVfId: "4908444" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "your-name",
+    title: "Your Name",
+    originalTitle: "君の名は。",
+    description: "Mitsuha, une lycéenne vivant dans une petite ville de montagne, et Taki, un lycéen de Tokyo, commencent mystérieusement à échanger leurs corps. Ils tentent de communiquer en laissant des notes, mais découvrent bientôt qu'ils vivent à des époques différentes. Une histoire d'amour transcendant le temps et l'espace, mêlant surnaturel et émotion pure.",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BODRmZDVmNzUtZDA4ZC00NjhkLWI2M2UtN2M0ZDIzNDcxYThjL2ltYWdlXkEyXkFqcGdeQXVyNTk0MzMzODA@._V1_.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2016,
+    type: "Movie",
+    status: "Terminé",
+    genres: ["Romance", "Drame", "Supernatural", "Film"],
+    rating: 9.2,
+    episodes: [
+      { number: 1, title: "Your Name", sibnetVostfrId: "5117447", sibnetVfId: "3202964" }
+    ]
+  },
+  {
+    id: "rent-a-girlfriend",
+    title: "Rent-a-Girlfriend",
+    originalTitle: "彼女、お借りします",
+    description: "Kazuya Kinoshita, un étudiant de 20 ans, loue une petite amie après sa rupture. Chizuru Mizuhara semble être la petite amie parfaite, mais elle cache sa vraie personnalité. Quand leurs familles et amis découvrent leur relation, ils doivent maintenir le mensonge. Une comédie romantique moderne sur les relations artificielles qui deviennent réelles.",
+    imageUrl: "https://www.myutaku.com/media/anime/poster/346502.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2020,
+    type: "Anime",
+    status: "En cours",
+    genres: ["Romance", "Comédie", "Drame", "École"],
+    rating: 7.8,
+    seasons: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        year: 2020,
+        episodes: [
+          { number: 1, title: "épisode 1", sibnetVostfrId: "4771695", sibnetVfId: "4855764" },
+          { number: 2, title: "épisode 2", sibnetVostfrId: "4771697", sibnetVfId: "4855780" },
+          { number: 3, title: "épisode 3", sibnetVostfrId: "4771698", sibnetVfId: "4855781" },
+          { number: 4, title: "épisode 4", sibnetVostfrId: "4771700", sibnetVfId: "4864639" },
+          { number: 5, title: "épisode 5", sibnetVostfrId: "4771701", sibnetVfId: "4873903" },
+          { number: 6, title: "épisode 6", sibnetVostfrId: "4771702", sibnetVfId: "4881884" },
+          { number: 7, title: "épisode 7", sibnetVostfrId: "4771703", sibnetVfId: "4899939" },
+          { number: 8, title: "épisode 8", sibnetVostfrId: "4771704", sibnetVfId: "4910295" },
+          { number: 9, title: "épisode 9", sibnetVostfrId: "4771705", sibnetVfId: "4918648" },
+          { number: 10, title: "épisode 10", sibnetVostfrId: "4771706", sibnetVfId: "4926330" },
+          { number: 11, title: "épisode 11", sibnetVostfrId: "4771707", sibnetVfId: "4933247" },
+          { number: 12, title: "épisode 12", sibnetVostfrId: "4771714", sibnetVfId: "4941522" }
+        ]
+      },
+      {
+        seasonNumber: 2,
+        title: "Saison 2",
+        year: 2022,
+        episodes: [
+          { number: 1, title: "épisode 1", sibnetVostfrId: "4774441", sibnetVfId: "4799781" },
+          { number: 2, title: "épisode 2", sibnetVostfrId: "4782202", sibnetVfId: "4805941" },
+          { number: 3, title: "épisode 3", sibnetVostfrId: "4796342", sibnetVfId: "4815431" },
+          { number: 4, title: "épisode 4", sibnetVostfrId: "4798233", sibnetVfId: "4824094" },
+          { number: 5, title: "épisode 5", sibnetVostfrId: "4805660", sibnetVfId: "4836151" },
+          { number: 6, title: "épisode 6", sibnetVostfrId: "4815243", sibnetVfId: "4846446" },
+          { number: 7, title: "épisode 7", sibnetVostfrId: "4823686", sibnetVfId: "4855451" },
+          { number: 8, title: "épisode 8", sibnetVostfrId: "4835969", sibnetVfId: "4864647" },
+          { number: 9, title: "épisode 9", sibnetVostfrId: "4846267", sibnetVfId: "4873892" },
+          { number: 10, title: "épisode 10", sibnetVostfrId: "4855275", sibnetVfId: "4881875" },
+          { number: 11, title: "épisode 11", sibnetVostfrId: "4864319", sibnetVfId: "4899946" },
+          { number: 12, title: "épisode 12", sibnetVostfrId: "4873334", sibnetVfId: "4910303" }
+        ]
+      },
+      {
+        seasonNumber: 3,
+        title: "Saison 3",
+        year: 2023,
+        episodes: [
+          { number: 1, title: "épisode 1", sibnetVostfrId: "5191316", sibnetVfId: "5210573" },
+          { number: 2, title: "épisode 2", sibnetVostfrId: "5198376", sibnetVfId: "5218924" },
+          { number: 3, title: "épisode 3", sibnetVostfrId: "5203864", sibnetVfId: "5224141" },
+          { number: 4, title: "épisode 4", sibnetVostfrId: "5210426", sibnetVfId: "5229870" },
+          { number: 5, title: "épisode 5", sibnetVostfrId: "5218711", sibnetVfId: "5234450" },
+          { number: 6, title: "épisode 6", sibnetVostfrId: "5224023", sibnetVfId: "5240295" },
+          { number: 7, title: "épisode 7", sibnetVostfrId: "5229776", sibnetVfId: "5248146" },
+          { number: 8, title: "épisode 8", sibnetVostfrId: "5239798", sibnetVfId: "5259168" },
+          { number: 9, title: "épisode 9", sibnetVostfrId: "5247399", sibnetVfId: "5264193" },
+          { number: 10, title: "épisode 10", sibnetVostfrId: "5253818", sibnetVfId: "5270518" },
+          { number: 11, title: "épisode 11", sibnetVostfrId: "5259015", sibnetVfId: "5279873" },
+          { number: 12, title: "épisode 12", sibnetVostfrId: "5264069", sibnetVfId: "5289512" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "quintessential-quintuplets",
+    title: "The Quintessential Quintuplets",
+    originalTitle: "五等分の花嫁",
+    description: "Fuutarou Uesugi, un étudiant brillant mais pauvre, devient le tuteur privé de quintuplées identiques riches mais ayant de mauvaises notes. Ichika, Nino, Miku, Yotsuba et Itsuki ont chacune une personnalité unique et développent des sentiments pour leur tuteur. Une comédie romantique harem où Fuutarou doit déterminer laquelle des sœurs il épousera.",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BODhmMGJjMjQtNDMzNi00ZTJmLWE4ZTItM2YwYjRlZWM5OWMxXkEyXkFqcGc@._V1_.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2019,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Romance", "Comédie", "Harem", "École"],
+    rating: 8.6,
+    seasons: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        year: 2019,
+        episodes: [
+          { number: 1, title: "épisode 1", sibnetVostfrId: "3525692"},
+          { number: 2, title: "épisode 2", sibnetVostfrId: "3531484"},
+          { number: 3, title: "épisode 3", sibnetVostfrId: "3536097"},
+          { number: 4, title: "épisode 4", sibnetVostfrId: "3540644"},
+          { number: 5, title: "épisode 5", sibnetVostfrId: "3544962"},
+          { number: 6, title: "épisode 6", sibnetVostfrId: "3549797"},
+          { number: 7, title: "épisode 7", sibnetVostfrId: "3554643"},
+          { number: 8, title: "épisode 8", sibnetVostfrId: "3560363"},
+          { number: 9, title: "épisode 9", sibnetVostfrId: "3564715"},
+          { number: 10, title: "épisode 10", sibnetVostfrId: "3569454"},
+          { number: 11, title: "épisode 11", sibnetVostfrId: "3575247"},
+          { number: 12, title: "épisode 12", sibnetVostfrId: "3581308"}
+        ]
+      },
+      {
+        seasonNumber: 2,
+        title: "Saison 2",
+        year: 2021,
+        episodes: [
+          { number: 1, title: "épisode 1", sibnetVostfrId: "4203768"},
+          { number: 2, title: "épisode 2", sibnetVostfrId: "4210219"},
+          { number: 3, title: "épisode 3", sibnetVostfrId: "4214225"},
+          { number: 4, title: "épisode 4", sibnetVostfrId: "4218729"},
+          { number: 5, title: "épisode 5", sibnetVostfrId: "4225176"},
+          { number: 6, title: "épisode 6", sibnetVostfrId: "4231060"},
+          { number: 7, title: "épisode 7", sibnetVostfrId: "4239653"},
+          { number: 8, title: "épisode 8", sibnetVostfrId: "4245733"},
+          { number: 9, title: "épisode 9", sibnetVostfrId: "4252665"},
+          { number: 10, title: "épisode 10", sibnetVostfrId: "4672169"},
+          { number: 11, title: "épisode 11", sibnetVostfrId: "4263921"},
+          { number: 12, title: "épisode 12", sibnetVostfrId: "4271640"}
+        ]
+      },
+      {
+        seasonNumber: "Film",
+        title: "Film",
+        year: 2022,
+        episodes: [
+          { number: 1, title: "The Quintessential Quintuplets Movie", sibnetVostfrId: "5119913"}
+        ]
+      }
+    ]
+  },
+  {
+    id: "weathering-with-you",
+    title: "Weathering with You",
+    originalTitle: "天気の子",
+    description: "Hodaka, un lycéen qui a fui sa ville natale pour Tokyo, rencontre Hina, une fille orpheline qui a le pouvoir mystérieux de faire cesser la pluie et de faire apparaître le soleil. Dans un Tokyo constamment pluvieux, ils commencent un petit business météorologique, mais découvrent bientôt le vrai prix du pouvoir de Hina. Une histoire d'amour touchante sur le sacrifice et les choix difficiles.",
+    imageUrl: "https://m.media-amazon.com/images/I/91IWdBo4TnL._UF894,1000_QL80_.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2019,
+    type: "Movie",
+    status: "Terminé",
+    genres: ["Romance", "Drame", "Supernatural", "Film"],
+    rating: 8.9,
+    episodes: [
+      { number: 1, title: "Weathering with You", sibnetVostfrId: "4831762", sibnetVfId: "4110281" }
+    ]
+  },
+  {
+    id: "domestic-girlfriend",
+    title: "Domestic Girlfriend",
+    originalTitle: "ドメスティックな彼女",
+    description: "Natsuo Fujii est un lycéen écrivain en herbe qui entretient une relation compliquée avec sa professeure Hina. Après qu'il ait couché avec une fille rencontrée lors d'une fête, Rui, sa vie devient encore plus compliquée quand son père se remarie et que ses nouvelles belles-sœurs s'avèrent être... Hina et Rui. Un triangle amoureux complexe dans un environnement familial peu conventionnel.",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BYmQyNWI1ZTgtMTgzNC00ZGIyLTg3NWMtZmM2ZjMzNTNjOTU5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2019,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Romance", "Drame", "École", "Mature"],
+    rating: 7.5,
+    seasons: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        year: 2019,
+        episodes: [
+          { number: 1, title: "épisode 1", sibnetVostfrId: "3525937" },
+          { number: 2, title: "épisode 2", sibnetVostfrId: "3531585" },
+          { number: 3, title: "épisode 3", sibnetVostfrId: "3536725" },
+          { number: 4, title: "épisode 4", sibnetVostfrId: "3540942" },
+          { number: 5, title: "épisode 5", sibnetVostfrId: "3545607" },
+          { number: 6, title: "épisode 6", sibnetVostfrId: "3550170" },
+          { number: 7, title: "épisode 7", sibnetVostfrId: "3555093" },
+          { number: 8, title: "épisode 8", sibnetVostfrId: "3560360" },
+          { number: 9, title: "épisode 9", sibnetVostfrId: "3565180" },
+          { number: 10, title: "épisode 10", sibnetVostfrId: "3570017" },
+          { number: 11, title: "épisode 11", sibnetVostfrId: "3575949" },
+          { number: 12, title: "épisode 12", sibnetVostfrId: "3582199" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "golden-time",
+    title: "Golden Time",
+    originalTitle: "ゴールデンタイム",
+    description: "Banri Tada, un étudiant universitaire qui a perdu ses souvenirs d'avant un accident, commence une nouvelle vie à Tokyo. Il rencontre Koko Kaga, une belle fille obsédée par son ami d'enfance Mitsuo. Alors que Banri tombe amoureux de Koko et qu'elle commence à s'ouvrir à lui, ses souvenirs passés menacent de revenir et de détruire sa nouvelle vie. Une histoire d'amour mature sur la mémoire et l'identité.",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BNGI0YjdmNGYtZTQ0OC00OWUzLTg2NWMtMjFhNGI1Y2IxNzdmXkEyXkFqcGc@._V1_.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2013,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Romance", "Drame", "Comédie", "Université"],
+    rating: 8.3,
+    seasons: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        year: 2013,
+        episodes: [
+          { number: 1, title: "épisode 1", sibnetVostfrId: "4765393" },
+          { number: 2, title: "épisode 2", sibnetVostfrId: "4765395" },
+          { number: 3, title: "épisode 3", sibnetVostfrId: "4765397" },
+          { number: 4, title: "épisode 4", sibnetVostfrId: "4765400" },
+          { number: 5, title: "épisode 5", sibnetVostfrId: "4765401" },
+          { number: 6, title: "épisode 6", sibnetVostfrId: "4765402" },
+          { number: 7, title: "épisode 7", sibnetVostfrId: "4765405" },
+          { number: 8, title: "épisode 8", sibnetVostfrId: "4765406" },
+          { number: 9, title: "épisode 9", sibnetVostfrId: "4765407" },
+          { number: 10, title: "épisode 10", sibnetVostfrId: "4765409" },
+          { number: 11, title: "épisode 11", sibnetVostfrId: "4765412" },
+          { number: 12, title: "épisode 12", sibnetVostfrId: "4765413" },
+          { number: 13, title: "épisode 13", sibnetVostfrId: "4765414" },
+          { number: 14, title: "épisode 14", sibnetVostfrId: "4765415" },
+          { number: 15, title: "épisode 15", sibnetVostfrId: "4765419" },
+          { number: 16, title: "épisode 16", sibnetVostfrId: "4765420" },
+          { number: 17, title: "épisode 17", sibnetVostfrId: "4765421" },
+          { number: 18, title: "épisode 18", sibnetVostfrId: "4765423" },
+          { number: 19, title: "épisode 19", sibnetVostfrId: "4765424" },
+          { number: 20, title: "épisode 20", sibnetVostfrId: "4765427" },
+          { number: 21, title: "épisode 21", sibnetVostfrId: "4765429" },
+          { number: 22, title: "épisode 22", sibnetVostfrId: "4765430" },
+          { number: 23, title: "épisode 23", sibnetVostfrId: "4765431" },
+          { number: 24, title: "épisode 24", sibnetVostfrId: "4765435" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "oregairu",
+    title: "OreGairu",
+    originalTitle: "やはり俺の青春ラブコメはまちがっている。",
+    description: "Hachiman Hikigaya est un lycéen cynique qui n'a pas d'amis et préfère être seul. Forcé de rejoindre le club de service communautaire dirigé par Yukino Yukinoshita, une fille intelligente mais froide, il doit aider d'autres étudiants avec leurs problèmes. Avec l'ajout de Yui Yuigahama, une fille énergique, le trio développe une dynamique complexe qui remet en question les idées de Hachiman sur l'authenticité et les relations.",
+    imageUrl: "https://adala-news.fr/wp-content/uploads/2020/02/Oregairu-Saison-3-anime-image.png",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2013,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Romance", "Comédie", "Drame", "École"],
+    rating: 8.7,
+    seasons: [
+      {
+        seasonNumber: 1,
+        title: "Saison 1",
+        year: 2013,
+        episodes: [
+          { number: 1, title: "épisode 1", sibnetVostfrId: "4853949" },
+          { number: 2, title: "épisode 2", sibnetVostfrId: "4853951" },
+          { number: 3, title: "épisode 3", sibnetVostfrId: "4853953" },
+          { number: 4, title: "épisode 4", sibnetVostfrId: "4853956" },
+          { number: 5, title: "épisode 5", sibnetVostfrId: "4853961" },
+          { number: 6, title: "épisode 6", sibnetVostfrId: "4853963" },
+          { number: 7, title: "épisode 7", sibnetVostfrId: "4853965" },
+          { number: 8, title: "épisode 8", sibnetVostfrId: "4853968" },
+          { number: 9, title: "épisode 9", sibnetVostfrId: "4853973" },
+          { number: 10, title: "épisode 10", sibnetVostfrId: "4853974" },
+          { number: 11, title: "épisode 11", sibnetVostfrId: "4853976" },
+          { number: 12, title: "épisode 12", sibnetVostfrId: "4853977" },
+          { number: 13, title: "épisode 13", sibnetVostfrId: "4853979" },
+          { number: 14, title: "épisode 14", sibnetVostfrId: "4853980" }
+        ]
+      },
+      {
+        seasonNumber: 2,
+        title: "Saison 2",
+        year: 2015,
+        episodes: [
+          { number: 1, title: "épisode 1", sibnetVostfrId: "4853981" },
+          { number: 2, title: "épisode 2", sibnetVostfrId: "4853982" },
+          { number: 3, title: "épisode 3", sibnetVostfrId: "4853983" },
+          { number: 4, title: "épisode 4", sibnetVostfrId: "4853984" },
+          { number: 5, title: "épisode 5", sibnetVostfrId: "4853986" },
+          { number: 6, title: "épisode 6", sibnetVostfrId: "4853989" },
+          { number: 7, title: "épisode 7", sibnetVostfrId: "4853991" },
+          { number: 8, title: "épisode 8", sibnetVostfrId: "4853994" },
+          { number: 9, title: "épisode 9", sibnetVostfrId: "4853996" },
+          { number: 10, title: "épisode 10", sibnetVostfrId: "4853998" },
+          { number: 11, title: "épisode 11", sibnetVostfrId: "4854000" },
+          { number: 12, title: "épisode 12", sibnetVostfrId: "4854003" },
+          { number: 13, title: "épisode 13", sibnetVostfrId: "4854006" },
+          { number: 14, title: "épisode 14", sibnetVostfrId: "4854009" }
+        ]
+      },
+      {
+        seasonNumber: 3,
+        title: "Saison 3",
+        year: 2020,
+        episodes: [
+          { number: 1, title: "épisode 1", sibnetVostfrId: "4854011" },
+          { number: 2, title: "épisode 2", sibnetVostfrId: "4854012" },
+          { number: 3, title: "épisode 3", sibnetVostfrId: "4854013" },
+          { number: 4, title: "épisode 4", sibnetVostfrId: "4854014" },
+          { number: 5, title: "épisode 5", sibnetVostfrId: "4854016" },
+          { number: 6, title: "épisode 6", sibnetVostfrId: "4854017" },
+          { number: 7, title: "épisode 7", sibnetVostfrId: "4854018" },
+          { number: 8, title: "épisode 8", sibnetVostfrId: "4854019" },
+          { number: 9, title: "épisode 9", sibnetVostfrId: "4854021" },
+          { number: 10, title: "épisode 10", sibnetVostfrId: "4854022" },
+          { number: 11, title: "épisode 11", sibnetVostfrId: "4854023" },
+          { number: 12, title: "épisode 12", sibnetVostfrId: "4854026" },
+          { number: 12.5, title: "épisode 12.5", sibnetVostfrId: "5132906" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "silent-voice",
+    title: "Silent Voice",
+    originalTitle: "映画 聲の形",
+    description: "Tout commence lorsque Shôko Nishimiya intègre en cours d'année la classe de primaire de Shôya Ishida. La jeune Shôko est une sourde et Shôya est un jeune garçon turbulent qui n'en fait qu'à sa tête et qui ne cause que des problèmes. Ce sont deux personnes différentes et Shôya ne semble pas comprendre qui est réellement Shôko. De ce fait, il commencera à la brutaliser, ne sachant pas comment s'y prendre avec elle. La classe suivra le mouvement au fur et à mesure, mais plus discrètement, sans que leur professeur principal ne fasse d'efforts pour les rappeler à l'ordre. Seulement un jour, le garçon dépasse les limites et le directeur demande à savoir qui a cassé les appareils auditifs de Shôko. C'est ainsi que Shôya réalisera qu'il se retrouve tout seul car tout le monde lui tourne le dos, feignant d'avoir été manipulés par ce dernier. Shôko est transférée dans une nouvelle école et Shôya se rend compte que chaque jour, malgré tout, elle souhaitait seulement être son amie.",
+    imageUrl: "https://fr.web.img3.acsta.net/pictures/18/07/13/11/32/3961973.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2016,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Romance", "Fantasy", "Comédie", "Supernatural"],
+    rating: 8.5,
+    seasons: [
+      {
+        seasonNumber: 1,
+        title: "Film",
+        year: 2016,
+        episodes: [
+          { number: 1, title: "Silent Voice", sibnetVostfrId: "4824811", sibnetVfId: "5036237" },
         ]
       }
     ]
