@@ -1,0 +1,31 @@
+
+var eps1 = [
+		'https://video.sibnet.ru/shell.php?videoid=4862610',
+		'https://video.sibnet.ru/shell.php?videoid=4862611',
+		'https://video.sibnet.ru/shell.php?videoid=4862612',
+		'https://video.sibnet.ru/shell.php?videoid=4862613',
+		'https://video.sibnet.ru/shell.php?videoid=4862614',
+		'https://video.sibnet.ru/shell.php?videoid=4862615',
+		'https://video.sibnet.ru/shell.php?videoid=4862616',
+		'https://video.sibnet.ru/shell.php?videoid=4862617',
+		'https://video.sibnet.ru/shell.php?videoid=4862619',
+		'https://video.sibnet.ru/shell.php?videoid=4862621',
+		'https://video.sibnet.ru/shell.php?videoid=4862622',
+		'https://video.sibnet.ru/shell.php?videoid=4862623',
+		'https://video.sibnet.ru/shell.php?videoid=4862624',
+		'https://video.sibnet.ru/shell.php?videoid=4862625',
+		'https://video.sibnet.ru/shell.php?videoid=4862626',
+		'https://video.sibnet.ru/shell.php?videoid=4862627',
+		'https://video.sibnet.ru/shell.php?videoid=4862628',
+		'https://video.sibnet.ru/shell.php?videoid=4862629',
+		'https://video.sibnet.ru/shell.php?videoid=4862630',
+		'https://video.sibnet.ru/shell.php?videoid=4862631',
+		'https://video.sibnet.ru/shell.php?videoid=4862632',
+		'https://video.sibnet.ru/shell.php?videoid=4862633',
+		'https://video.sibnet.ru/shell.php?videoid=4862634',
+		'https://video.sibnet.ru/shell.php?videoid=4862635',
+		'https://video.sibnet.ru/shell.php?videoid=4862636',
+		
+	];
+	//'https://sendvid.com/embed/embed/mi',6soehc,
+	//

@@ -1,0 +1,23 @@
+var eps1 = [
+'https://video.sibnet.ru/shell.php?videoid=5528575',
+'https://video.sibnet.ru/shell.php?videoid=5528576',
+'https://video.sibnet.ru/shell.php?videoid=5528577',
+'https://video.sibnet.ru/shell.php?videoid=5528578',
+'https://video.sibnet.ru/shell.php?videoid=5528580',
+'https://video.sibnet.ru/shell.php?videoid=5528581',
+'https://video.sibnet.ru/shell.php?videoid=5528584',
+'https://video.sibnet.ru/shell.php?videoid=5528586',
+'https://video.sibnet.ru/shell.php?videoid=5528587',
+'https://video.sibnet.ru/shell.php?videoid=5528588',
+'https://video.sibnet.ru/shell.php?videoid=5528589',
+'https://video.sibnet.ru/shell.php?videoid=5528590',
+'https://video.sibnet.ru/shell.php?videoid=5528591',
+'https://video.sibnet.ru/shell.php?videoid=5528593',
+'https://video.sibnet.ru/shell.php?videoid=5528595',
+'https://video.sibnet.ru/shell.php?videoid=5528596',
+'https://video.sibnet.ru/shell.php?videoid=5528597',
+'https://video.sibnet.ru/shell.php?videoid=5528598',
+'https://video.sibnet.ru/shell.php?videoid=5528599',
+'https://video.sibnet.ru/shell.php?videoid=5528600',
+];
+
