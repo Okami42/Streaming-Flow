@@ -398,7 +398,7 @@ const animes: CatalogueAnime[] = [
   {
     id: "akatsuki-no-yona",
     title: "Yona of the Dawn",
-    imageUrl: "https://cdn.myanimelist.net/images/anime/1478/121158.jpg",
+    imageUrl: "https://fr.web.img6.acsta.net/pictures/20/03/06/17/37/4676109.jpg",
     type: "Anime",
     language: "VO",
     genres: getAnimeGenres("akatsuki-no-yona"),
@@ -406,7 +406,7 @@ const animes: CatalogueAnime[] = [
   {
     id: "91-days",
     title: "91 Days",
-    imageUrl: "https://cdn.myanimelist.net/images/anime/13/83669.jpg",
+    imageUrl: "https://fr.web.img5.acsta.net/pictures/20/08/27/14/04/0312906.jpg",
     type: "Anime",
     language: "VO",
     genres: getAnimeGenres("91-days"),
@@ -414,7 +414,7 @@ const animes: CatalogueAnime[] = [
   {
     id: "absolute-duo",
     title: "Absolute Duo",
-    imageUrl: "https://cdn.myanimelist.net/images/anime/7/65443.jpg",
+    imageUrl: "https://image.tmdb.org/t/p/original/reoZZ94M0nDL7SGstuChqbLlhNT.jpg",
     type: "Anime",
     language: "VO",
     genres: getAnimeGenres("absolute-duo"),
@@ -422,7 +422,7 @@ const animes: CatalogueAnime[] = [
   {
     id: "a-couple-of-cuckoos",
     title: "A Couple of Cuckoos",
-    imageUrl: "https://cdn.myanimelist.net/images/anime/1774/120634.jpg",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BYWY3MjQ3OTEtMmEwYi00NTYxLWE4ZWQtZWE5YWY1OTE4MDZlXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
     type: "Anime",
     language: "VF & VO",
     genres: getAnimeGenres("a-couple-of-cuckoos"),
@@ -430,11 +430,12 @@ const animes: CatalogueAnime[] = [
 ];
 
 const genres = [
-  "Action", "Adolescence", "Aventure", "Comédie", "Combats", "Cyberpunk", "Démons", "Drame", 
-  "Dragons", "Dystopie", "École", "Fantasy", "Film", "Harem", "Historique", 
-  "Horreur", "Isekai", "Magie", "Mature", "Mystère", "Psychologique",
-  "Romance","Science-fiction", "Shounen", "Slice of Life", 
-  "Sport", "Surnaturel", "Thriller", "Tranche de vie", 
+  "Action", "Adolescence", "Adventure", "Aventure", "Comedy", "Comédie", "Combats", "Cyberpunk", 
+  "Démons", "Drama", "Drame", "Dragons", "Dystopie", "Ecchi", "École", "Fantasy", "Film", 
+  "Harem", "Historique", "Horror", "Horreur", "Isekai", "Mafia", "Magie", "Mature", "Mecha", 
+  "Militaire", "Musique", "Mystery", "Mystère", "Psychologique", "Romance", "School", 
+  "Science-fiction", "Science-Fiction", "Seinen", "Shoujo", "Shounen", "Shōnen", "Slice of Life", 
+  "Sport", "Sports", "Supernatural", "Surnaturel", "Thriller", "Tranche de vie", 
   "Voyage temporel", "Workplace", "Yokai"
 ];
 
@@ -442,6 +443,7 @@ export default function CataloguePage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [languageFilter, setLanguageFilter] = useState<"VO" | "VF" | "VF & VO" | "">("");
+  const [showFilters, setShowFilters] = useState(false);
 
   const toggleGenre = (genre: string) => {
     if (selectedGenres.includes(genre)) {
@@ -449,6 +451,10 @@ export default function CataloguePage() {
     } else {
       setSelectedGenres([...selectedGenres, genre]);
     }
+  };
+
+  const toggleFilters = () => {
+    setShowFilters(!showFilters);
   };
 
   const filteredAnimes = animes.filter(anime => {
@@ -490,29 +496,39 @@ export default function CataloguePage() {
               </div>
 
               <div className="flex-shrink-0">
-                <Button variant="outline" className="border-white/10 text-white h-12 px-6">
+                <Button 
+                  variant="outline" 
+                  className={`border-white/10 text-white h-12 px-6 transition-colors hover:!bg-blue-500 hover:!border-blue-500 hover:!text-white ${
+                    showFilters 
+                      ? "bg-blue-500 border-blue-500 text-white" 
+                      : ""
+                  }`}
+                  onClick={toggleFilters}
+                >
                   <Filter className="h-4 w-4 mr-2" />
                   Filtres
                 </Button>
               </div>
             </div>
 
-            {/* Genres */}
-            <div className="flex flex-wrap gap-2 mb-8">
-              {genres.map((genre) => (
-                <button
-                  key={genre}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
-                    selectedGenres.includes(genre)
-                      ? "bg-blue-500 text-white"
-                      : "bg-[#151a2a] text-gray-300 hover:bg-[#1a1f35]"
-                  }`}
-                  onClick={() => toggleGenre(genre)}
-                >
-                  {genre}
-                </button>
-              ))}
-            </div>
+            {/* Genres - Affichés seulement si showFilters est true */}
+            {showFilters && (
+              <div className="flex flex-wrap gap-2 mb-8">
+                {genres.map((genre) => (
+                  <button
+                    key={genre}
+                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                      selectedGenres.includes(genre)
+                        ? "bg-blue-500 text-white"
+                        : "bg-[#151a2a] text-gray-300 hover:!bg-blue-500 hover:!text-white"
+                    }`}
+                    onClick={() => toggleGenre(genre)}
+                  >
+                    {genre}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Anime Grid */}

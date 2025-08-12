@@ -72,7 +72,7 @@ export default function CataloguePage() {
             try {
               const enrichedAnime = await ultraFastEnrichAnime(basicAnime);
               if (enrichedAnime && enrichedAnime.seasons && enrichedAnime.seasons.length > 0) {
-                setAnime(enrichedAnime);
+              setAnime(enrichedAnime);
                 animeCache.set(id, enrichedAnime);
               }
             } catch (error) {
@@ -99,8 +99,8 @@ export default function CataloguePage() {
             try {
               const enrichedSimilar = await ultraFastEnrichAnime(similarAnime);
               if (enrichedSimilar && enrichedSimilar.seasons && enrichedSimilar.seasons.length > 0) {
-                setAnime(enrichedSimilar);
-                animeCache.set(id, enrichedSimilar);
+              setAnime(enrichedSimilar);
+              animeCache.set(id, enrichedSimilar);
               }
             } catch (error) {
               // Ignorer les erreurs
