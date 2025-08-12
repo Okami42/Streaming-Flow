@@ -1,12 +1,13 @@
 import { Anime, AnimeEpisode, AnimeSeason } from './animeData';
+import { simpleFetch } from './simple-403-fix';
 
 // Configuration ultra-rapide pour l'auto-import
 const SPEED_CONFIG = {
   enableCache: true,
   cacheTimeout: 1800000, // 30 minutes
   requestTimeout: 1500, // Réduit à 1.5 secondes
-  batchSize: 25, // Augmenté pour plus de rapidité
-  batchDelay: 10, // Réduit à 10ms
+  batchSize: 3, // Réduit pour éviter la détection
+  batchDelay: 300, // Délai entre batches
   maxRetries: 1, // Une seule tentative
   enableLogs: false
 };
@@ -39,7 +40,7 @@ function fastParseEpisodeFile(content: string): string[] {
 }
 
 /**
- * Chargement ultra-rapide des fichiers d'épisodes
+ * Chargement ultra-rapide des fichiers d'épisodes avec protection 403
  */
 async function ultraFastLoadEpisode(filePath: string): Promise<string[]> {
   const folders = ['anime_episodes_js', 'anime_episodes_js_2'];
@@ -52,41 +53,50 @@ async function ultraFastLoadEpisode(filePath: string): Promise<string[]> {
     }
   }
   
-  // Requêtes parallèles ultra-rapides
-  const promises = folders.map(async (folder) => {
+  // Délai aléatoire simple pour éviter la détection
+  const randomDelay = Math.random() * 200 + 100; // 100-300ms
+  await new Promise(resolve => setTimeout(resolve, randomDelay));
+  
+  // Headers simples pour éviter la détection
+  const headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    'Accept-Language': 'fr-FR,fr;q=0.5',
+    'Cache-Control': 'no-cache',
+    'Pragma': 'no-cache'
+  };
+  
+  // Requêtes séquentielles pour éviter la surcharge
+  for (const folder of folders) {
     try {
       const controller = new AbortController();
       setTimeout(() => controller.abort(), SPEED_CONFIG.requestTimeout);
       
-      const response = await fetch(`/${folder}/${filePath}`, { 
+      const response = await simpleFetch(`/${folder}/${filePath}`, { 
         signal: controller.signal,
-        cache: 'force-cache',
-        headers: { 'Cache-Control': 'max-age=3600' }
+        headers: headers,
+        method: 'GET'
       });
       
-      if (!response.ok) return null;
+      if (!response.ok) continue;
       
       const content = await response.text();
       const ids = fastParseEpisodeFile(content);
       
-      return { ids, folder };
-    } catch {
-      return null;
-    }
-  });
-  
-  const results = await Promise.allSettled(promises);
-  for (const result of results) {
-    if (result.status === 'fulfilled' && result.value && result.value.ids.length > 0) {
-      const { ids } = result.value;
-      
-      // Cache ultra-rapide
-      if (SPEED_CONFIG.enableCache) {
-        ultraCache.set(filePath, { data: ids, timestamp: Date.now() });
+      if (ids.length > 0) {
+        // Cache ultra-rapide
+        if (SPEED_CONFIG.enableCache) {
+          ultraCache.set(filePath, { data: ids, timestamp: Date.now() });
+        }
+        
+        return ids;
       }
-      
-      return ids;
+    } catch {
+      continue; // Essayer le dossier suivant
     }
+    
+    // Petit délai entre les tentatives
+    await new Promise(resolve => setTimeout(resolve, 100));
   }
   
   return [];
@@ -203,7 +213,7 @@ export async function ultraFastEnrichAnime(anime: Anime): Promise<Anime> {
 }
 
 /**
- * Version ultra-rapide pour multiple animes
+ * Version ultra-rapide pour multiple animes avec protection 403
  */
 export async function ultraFastEnrichMultiple(animes: Anime[]): Promise<Anime[]> {
   const enrichedAnimes: Anime[] = [];
@@ -217,6 +227,7 @@ export async function ultraFastEnrichMultiple(animes: Anime[]): Promise<Anime[]>
     
     enrichedAnimes.push(...enrichedBatch);
     
+    // Délai important entre les batches pour éviter 403
     if (i + batchSize < animes.length) {
       await new Promise(resolve => setTimeout(resolve, SPEED_CONFIG.batchDelay));
     }
