@@ -57,12 +57,6 @@ export function extractSeriesId(fullId: string): string {
     "the-batman",
     "south-park",
     // Animes
-    "solo-leveling",
-    "solo-leveling-2",
-    "demon-slayer",
-    "jujutsu-kaisen",
-    "kuroko-no-basket",
-    "akudama-drive"
   ];
   
   // Vérifier d'abord si l'ID correspond à une série/anime connu avec des tirets

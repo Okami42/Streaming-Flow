@@ -1,4 +1,4 @@
-// Fichier contenant toutes les descriptions des épisodes pour chaque série
+﻿// Fichier contenant toutes les descriptions des épisodes pour chaque série
 // Organisé par ID de série, puis par saison, puis par épisode
 import { Content } from './types';
 import { seriesData } from './seriesData';

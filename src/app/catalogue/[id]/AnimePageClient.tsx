@@ -54,6 +54,26 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
       setSelectedEpisode(episodeNumber);
     }
   }, [searchParams]);
+
+  // Effet pour forcer la re-sélection de l'épisode quand les données d'auto-import arrivent
+  useEffect(() => {
+    if (!anime) return;
+    
+    // Vérifier si l'anime a maintenant des saisons/épisodes (après auto-import)
+    const hasEpisodes = anime.seasons && anime.seasons.length > 0 && anime.seasons[0].episodes.length > 0;
+    
+    if (hasEpisodes) {
+      // Vérifier si l'épisode actuellement sélectionné existe dans les nouvelles données
+      const currentSeason = anime.seasons?.find(s => String(s.seasonNumber) === String(selectedSeason));
+      const currentEpisode = currentSeason?.episodes.find(ep => ep.number === selectedEpisode);
+      
+      // Si l'épisode n'existe pas (typique après auto-import), forcer la sélection de l'épisode 1
+      if (!currentEpisode && currentSeason && currentSeason.episodes.length > 0) {
+        console.log("🔄 Auto-import détecté: re-sélection de l'épisode 1");
+        setSelectedEpisode(1);
+      }
+    }
+  }, [anime?.seasons, selectedSeason, selectedEpisode]);
   
   // Récupérer les fonctions du hook useHistory
   const { addToWatchHistory, updateWatchProgress, watchHistory } = useHistory();
@@ -92,31 +112,6 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
   const currentSeason = useSeasonsStructure 
     ? anime?.seasons?.find(s => String(s.seasonNumber) === String(selectedSeason))
     : null;
-    
-  // Effet pour lire les paramètres d'URL et définir l'épisode et la saison
-  useEffect(() => {
-    if (!searchParams) return;
-    
-    // Récupérer les paramètres d'URL
-    const seasonParam = searchParams.get('season');
-    const episodeParam = searchParams.get('episode');
-    
-    console.log("Paramètres URL détectés:", { seasonParam, episodeParam });
-    
-    // Définir la saison si elle est spécifiée dans l'URL
-    if (seasonParam) {
-      const seasonValue = isNaN(Number(seasonParam)) ? seasonParam : Number(seasonParam);
-      console.log("Définition de la saison depuis l'URL:", seasonValue);
-      setSelectedSeason(seasonValue);
-    }
-    
-    // Définir l'épisode si il est spécifié dans l'URL
-    if (episodeParam && !isNaN(Number(episodeParam))) {
-      const episodeNumber = Number(episodeParam);
-      console.log("Définition de l'épisode depuis l'URL:", episodeNumber);
-      setSelectedEpisode(episodeNumber);
-    }
-  }, [searchParams]);
     
   // Fonction pour récupérer les épisodes selon la structure
   const getEpisodes = (seasonNumber: number | string) => {
@@ -170,6 +165,12 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
   const episode = useSeasonsStructure
     ? anime?.seasons?.find(s => String(s.seasonNumber) === String(selectedSeason))?.episodes.find(ep => ep.number === selectedEpisode)
     : anime?.episodes?.find(ep => ep.number === selectedEpisode);
+
+  // Effet pour forcer le re-render quand la langue change
+  React.useEffect(() => {
+    // Forcer un re-render pour s'assurer que les changements sont appliqués
+    setRenderKey(prev => prev + 1);
+  }, [selectedLanguage, episode?.sibnetVfId, episode?.sibnetVostfrId, episode?.vidmolyVfId, episode?.vidmolyId]);
 
   // Obtenir la liste des épisodes à afficher
   const episodesToShow = useSeasonsStructure
@@ -939,7 +940,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                           console.log(`Saison sélectionnée: ${currentSeason.seasonNumber}, année: ${currentSeason.year}`);
                         }
                         return currentSeason 
-                          ? `${currentSeason.title} (${currentSeason.year})` 
+                          ? `${currentSeason.title}` 
                           : `Saison ${selectedSeason}`;
                       })()}
                       <ChevronDown className="h-4 w-4" />
@@ -962,7 +963,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                                 setSelectedEpisode(1);
                               }}
                             >
-                              {season.title} ({season.year})
+                              {season.title}
                             </button>
                           );
                         }) || (
@@ -1034,8 +1035,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                     >
                       <span>
                         {useSeasonsStructure && anime.seasons && anime.seasons.find(s => String(s.seasonNumber) === String(selectedSeason)) ? 
-                          `${anime.seasons.find(s => String(s.seasonNumber) === String(selectedSeason))?.title}${anime.seasons.find(s => String(s.seasonNumber) === String(selectedSeason))?.year ? 
-                          ` (${anime.seasons.find(s => String(s.seasonNumber) === String(selectedSeason))?.year})` : ''}` : 
+                          `${anime.seasons.find(s => String(s.seasonNumber) === String(selectedSeason))?.title}` : 
                           `Saison ${selectedSeason}`
                         }
                       </span>
@@ -1054,7 +1054,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                               setSelectedEpisode(1);
                             }}
                           >
-                            {season.title} {season.year ? `(${season.year})` : ''}
+                            {season.title}
                           </button>
                         )) || (
                           <button
@@ -1127,42 +1127,53 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
               
               {/* Lecteur vidéo */}
               <div className="bg-black relative" style={{ width: '100%', height: window.innerWidth <= 768 ? '200px' : '500px' }}>
-                {/* Vidéo */}
-                {selectedLanguage === "vo" && (episode?.vidmolyUrl || episode?.vidmolyId) ? (
-                  <iframe
-                    src={episode?.vidmolyUrl || `https://vidmoly.net/embed-${episode?.vidmolyId}.html`}
-                    width="100%"
-                    height="100%"
-                    frameBorder="0"
-                    scrolling="no"
-                    allowFullScreen
-                    allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-                    className="w-full h-full"
-                    style={{ border: 'none' }}
-                  />
-                ) : selectedLanguage === "vf" && (episode?.vidmolyVfId || episode?.vidmolyVfUrl) ? (
-                  <iframe
-                    src={episode.vidmolyVfUrl || `https://vidmoly.net/embed-${episode.vidmolyVfId}.html`}
-                    width="100%"
-                    height="100%"
-                    frameBorder="0"
-                    scrolling="no"
-                    allowFullScreen
-                    allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-                    className="w-full h-full"
-                    style={{ border: 'none' }}
-                  />
-                ) : episode?.movearnUrl ? (
-                  <MovearnPlayer src={episode.movearnUrl} />
+                {/* Afficher un spinner si aucun épisode n'est disponible */}
+                {!episode ? (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black">
+                    <div className="text-white text-center">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto"></div>
+                    </div>
+                  </div>
                 ) : (
-                  <VideoPlayer 
-                    sendvidId={episode?.sendvidId}
-                    sibnetId={episode?.sendvidId ? undefined : videoId}
-                    mp4Url={episode?.mp4Url}
-                    movearnUrl={episode?.movearnUrl}
-                    className="w-full h-full"
-                    key={`lecteur1-vo-${selectedEpisode}-${selectedSeason}`}
-                  />
+                  <>
+                    {/* Vidéo */}
+                    {selectedLanguage === "vo" && (episode?.vidmolyUrl || episode?.vidmolyId) ? (
+                      <iframe
+                        src={episode?.vidmolyUrl || `https://vidmoly.net/embed-${episode?.vidmolyId}.html`}
+                        width="100%"
+                        height="100%"
+                        frameBorder="0"
+                        scrolling="no"
+                        allowFullScreen
+                        allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                        className="w-full h-full"
+                        style={{ border: 'none' }}
+                      />
+                    ) : selectedLanguage === "vf" && (episode?.vidmolyVfId || episode?.vidmolyVfUrl) ? (
+                      <iframe
+                        src={episode.vidmolyVfUrl || `https://vidmoly.net/embed-${episode.vidmolyVfId}.html`}
+                        width="100%"
+                        height="100%"
+                        frameBorder="0"
+                        scrolling="no"
+                        allowFullScreen
+                        allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                        className="w-full h-full"
+                        style={{ border: 'none' }}
+                      />
+                    ) : episode?.movearnUrl ? (
+                      <MovearnPlayer src={episode.movearnUrl} />
+                    ) : (
+                      <VideoPlayer 
+                        sendvidId={episode?.sendvidId}
+                        sibnetId={episode?.sendvidId ? undefined : videoId}
+                        mp4Url={episode?.mp4Url}
+                        movearnUrl={episode?.movearnUrl}
+                        className="w-full h-full"
+                        key={`lecteur1-vo-${selectedEpisode}-${selectedSeason}`}
+                      />
+                    )}
+                  </>
                 )}
               </div>
             </div>

@@ -1,4 +1,4 @@
-export { default as HLSPlayer } from './hls-player';
+﻿export { default as HLSPlayer } from './hls-player';
 export { default as CustomImage } from './custom-image';
 export { default as VideoPlayer } from './video-player';
 

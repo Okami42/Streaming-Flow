@@ -1,4 +1,4 @@
-import { getAnimeById } from "./animeData";
+﻿import { getAnimeById } from "./animeData";
 import { getSeriesById } from "./seriesData";
 import { Content } from "./types";
 import { Anime } from "./animeData";

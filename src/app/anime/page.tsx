@@ -96,29 +96,28 @@ const getAnimeIdFromHistoryId = (historyId: string): string => {
     baseId = historyId.replace(episodePattern, '');
   }
   
-  // Maintenant vérifier si l'ID pourrait contenir des tirets (comme "solo-leveling")
+  // Essayer l'ID complet d'abord (pour des cas comme "classroom-of-the-elite")
+  const anime = getAnimeById(baseId);
+  if (anime) {
+    return baseId;
+  }
+  
+  // Si l'ID complet ne fonctionne pas, essayer les parties progressivement
   const parts = baseId.split('-');
   
   if (parts.length > 1) {
-    // Essayer avec le format "solo-leveling"
-    const potentialId = `${parts[0]}-${parts[1]}`;
-    const anime = getAnimeById(potentialId);
-    if (anime) {
-      return potentialId;
-    }
-    
-    // Essayer avec le format à trois parties si disponible
-    if (parts.length > 2) {
-      const potentialId3 = `${parts[0]}-${parts[1]}-${parts[2]}`;
-      const anime3 = getAnimeById(potentialId3);
-      if (anime3) {
-        return potentialId3;
+    // Essayer avec toutes les parties possibles, en commençant par le plus long
+    for (let i = parts.length; i >= 2; i--) {
+      const potentialId = parts.slice(0, i).join('-');
+      const testAnime = getAnimeById(potentialId);
+      if (testAnime) {
+        return potentialId;
       }
     }
   }
   
   // Par défaut, retourner l'ID de base
-  return parts[0];
+  return baseId;
 };
 
 export default function AnimePage() {

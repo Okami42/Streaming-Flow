@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef, useState } from "react";
 // Import de type uniquement pour TypeScript, pas de dépendance runtime

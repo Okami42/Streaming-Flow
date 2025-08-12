@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Configuration optimisée pour HLS.js
  * Paramètres ajustés pour minimiser les problèmes de désynchronisation audio/vidéo
  */

@@ -1,19 +1,13 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { getAnimeById, getAllAnimes } from "@/lib/animeData";
+import { getEnrichedAnimeById } from "@/lib/enhancedAnimeData";
 import { getSeriesById } from "@/lib/seriesData";
-import { notFound, redirect } from "next/navigation";
-import React from "react";
+import { useParams } from "next/navigation";
 import AnimePageClient from "./AnimePageClient";
 import { extractSeriesId } from "@/lib/utils";
-
-// Définir le type correct pour les paramètres de page Next.js
-interface PageProps {
-  params: any;
-  searchParams?: any;
-}
-
-interface RouteParams {
-  id: string;
-}
+import type { Anime } from "@/lib/animeData";
 
 // Liste des mappings d'ID spéciaux pour les animes qui ont des problèmes
 const specialAnimeIds: Record<string, string> = {
@@ -25,7 +19,8 @@ const specialAnimeIds: Record<string, string> = {
   "death-note": "death-note",
   "akudama-drive": "akudama-drive",
   "frieren": "frieren",
-  // Ajouter d'autres mappings si nécessaire
+  "classroom-of-the-elite": "classroom-of-the-elite",
+  "attack-on-titan": "attack-on-titan"
 };
 
 // Liste des ID de films qui doivent être redirigés vers /series
@@ -37,82 +32,124 @@ const filmIds: string[] = [
   "pulp-fiction"
 ];
 
-export default async function CataloguePage({ params }: PageProps) {
-  // Utiliser les paramètres directement
-  const rawId = params.id;
+// Cache pour éviter les recalculs
+const animeCache = new Map<string, Anime>();
+
+export default function CataloguePage() {
+  const params = useParams();
+  const rawId = params.id as string;
+  const [anime, setAnime] = useState<Anime | null>(null);
+  const [notFound, setNotFound] = useState(false);
   
-  // Log pour déboguer
-  console.log("Catalogue page - ID reçu:", rawId);
-  
-  // Utiliser extractSeriesId pour s'assurer que l'ID est correctement extrait
-  const id = extractSeriesId(rawId);
-  
-  console.log("Catalogue page - ID extrait:", id);
-  
-  // Vérifier si c'est un film qui doit être redirigé
-  if (filmIds.includes(id)) {
-    console.log(`Catalogue page - Film détecté: ${id}, redirection vers /series/${id}`);
-    return redirect(`/series/${id}`);
-  }
-  
-  // Vérifier si c'est un ID spécial qui nécessite un traitement particulier
-  if (specialAnimeIds[id]) {
-    console.log(`Catalogue page - Cas spécial pour ${id}`);
-    const anime = getAnimeById(specialAnimeIds[id]);
-    if (anime) {
-      return (
-        <div>
-          <AnimePageClient anime={anime} />
+  useEffect(() => {
+    const loadAnime = async () => {
+      try {
+        // Utiliser l'ID directement sans extraction
+        const id = rawId;
+        console.log("🚀 Chargement rapide pour:", id);
+        
+        // 🎯 OPTIMISATION 1: Vérifier le cache d'abord
+        if (animeCache.has(id)) {
+          console.log("💨 Cache hit pour:", id);
+          setAnime(animeCache.get(id)!);
+          return;
+        }
+        
+        // 🎯 OPTIMISATION 2: Redirections rapides
+        if (filmIds.includes(id)) {
+          window.location.href = `/series/${id}`;
+          return;
+        }
+        
+        // 🎯 OPTIMISATION 3: Chargement immédiat + enrichissement parallèle
+        const basicAnime = getAnimeById(specialAnimeIds[id] || id);
+        
+        if (basicAnime) {
+          // Affichage IMMÉDIAT de l'anime de base
+          setAnime(basicAnime);
+          animeCache.set(id, basicAnime);
+          
+          // Enrichissement en parallèle (async, sans attendre)
+          getEnrichedAnimeById(specialAnimeIds[id] || id).then(enrichedAnime => {
+            if (enrichedAnime && enrichedAnime !== basicAnime) {
+              console.log("🎯 Enrichissement terminé pour:", id);
+              setAnime(enrichedAnime);
+              animeCache.set(id, enrichedAnime); // Mettre à jour le cache
+            }
+          }).catch(error => {
+            console.log("⚠️ Enrichissement échoué, garde la version de base:", error);
+          });
+          
+          return;
+        }
+        
+        // 🎯 OPTIMISATION 4: Recherche similaire rapide (une seule passe)
+        const allAnimes = getAllAnimes();
+        const similarAnime = allAnimes.find(a => 
+          a.id.toLowerCase().includes(id.toLowerCase()) || 
+          id.toLowerCase().includes(a.id.toLowerCase())
+        );
+        
+        if (similarAnime) {
+          console.log("🔄 Anime similaire trouvé:", similarAnime.id);
+          setAnime(similarAnime);
+          animeCache.set(id, similarAnime);
+          
+          // Enrichissement en parallèle aussi
+          getEnrichedAnimeById(similarAnime.id).then(enrichedSimilar => {
+            if (enrichedSimilar && enrichedSimilar !== similarAnime) {
+              setAnime(enrichedSimilar);
+              animeCache.set(id, enrichedSimilar);
+            }
+          }).catch(error => {
+            console.log("⚠️ Enrichissement échoué pour anime similaire:", error);
+          });
+          
+          return;
+        }
+        
+        // 🎯 OPTIMISATION 5: Essayer la recherche série comme fallback
+        const series = getSeriesById(id);
+        if (series) {
+          console.log("📺 Redirection vers série:", id);
+          window.location.href = `/series/${id}`;
+          return;
+        }
+        
+        // Aucun anime trouvé
+        console.log("❌ Aucun anime trouvé pour:", id);
+        setNotFound(true);
+        
+      } catch (error) {
+        console.error("❌ Erreur lors du chargement:", error);
+        setNotFound(true);
+      }
+    };
+
+    loadAnime();
+  }, [rawId]);
+
+  if (notFound) {
+    return (
+      <div className="flex flex-col min-h-screen">
+        <div className="container mx-auto px-4 py-16 text-center">
+          <h1 className="text-2xl font-bold text-white">Anime non trouvé</h1>
+          <p className="text-gray-400 mt-4">Cet anime n'existe pas dans notre catalogue.</p>
         </div>
-      );
-    }
-  }
-  
-  // D'abord, essayer de récupérer un anime
-  const anime = getAnimeById(id);
-  console.log("Catalogue page - Anime trouvé:", anime ? "oui" : "non");
-  
-  if (anime) {
-    return (
-      <div>
-        <AnimePageClient anime={anime} />
       </div>
     );
   }
-  
-  // Essayer de trouver un anime avec un ID similaire
-  const allAnimes = getAllAnimes();
-  const similarAnime = allAnimes.find(a => 
-    a.id.toLowerCase().includes(id.toLowerCase()) || 
-    id.toLowerCase().includes(a.id.toLowerCase())
-  );
-  
-  if (similarAnime) {
-    console.log(`Catalogue page - Anime similaire trouvé: ${similarAnime.id}`);
+
+  if (!anime) {
     return (
-      <div>
-        <AnimePageClient anime={similarAnime} />
+      <div className="flex flex-col min-h-screen">
+        <div className="container mx-auto px-4 py-16 text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto"></div>
+          <p className="text-white mt-4">Chargement...</p>
+        </div>
       </div>
     );
   }
-  
-  // Ensuite, vérifier si c'est une série ou un film
-  const series = getSeriesById(id);
-  console.log("Catalogue page - Série trouvée:", series ? "oui" : "non");
-  
-  if (series) {
-    // Si c'est Top Gun Maverick, rediriger vers la page des séries
-    if (id === "top-gun-maverick") {
-      console.log("Catalogue page - Redirection de Top Gun Maverick vers /series");
-      return redirect(`/series/${id}`);
-    }
-    
-    // Pour les autres séries/films, rediriger vers la page de série
-    console.log("Catalogue page - Redirection vers /series");
-    return redirect(`/series/${id}`);
-  }
-  
-  // Si aucun contenu n'est trouvé, afficher une page 404
-  console.log("Catalogue page - Contenu non trouvé, affichage 404");
-  return notFound();
+
+  return <AnimePageClient anime={anime} />;
 }

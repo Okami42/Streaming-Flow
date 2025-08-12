@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 User-agent: *
 Allow: /
 
+=======
+User-agent: *
+Allow: /
+
+>>>>>>> 975648a9ed94bfc5da709a184d4431ff9a4d85b3
 Sitemap: https://www.okastream.fr/sitemap.xml 
