@@ -1127,14 +1127,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
               
               {/* Lecteur vidéo */}
               <div className="bg-black relative" style={{ width: '100%', height: window.innerWidth <= 768 ? '200px' : '500px' }}>
-                {/* Afficher un spinner si aucun épisode n'est disponible */}
-                {!episode ? (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black">
-                    <div className="text-white text-center">
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto"></div>
-                    </div>
-                  </div>
-                ) : (
+                {episode && (
                   <>
                     {/* Vidéo */}
                     {selectedLanguage === "vo" && (episode?.vidmolyUrl || episode?.vidmolyId) ? (

@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { getAnimeById, getAllAnimes } from "@/lib/animeData";
 import { getEnrichedAnimeById } from "@/lib/enhancedAnimeData";
+import { ultraFastEnrichAnime } from "@/lib/realAutoImport";
 import { getSeriesById } from "@/lib/seriesData";
 import { useParams } from "next/navigation";
 import AnimePageClient from "./AnimePageClient";
@@ -32,7 +33,7 @@ const filmIds: string[] = [
   "pulp-fiction"
 ];
 
-// Cache pour éviter les recalculs
+// Cache optimisé pour éviter les recalculs
 const animeCache = new Map<string, Anime>();
 
 export default function CataloguePage() {
@@ -44,24 +45,21 @@ export default function CataloguePage() {
   useEffect(() => {
     const loadAnime = async () => {
       try {
-        // Utiliser l'ID directement sans extraction
         const id = rawId;
-        console.log("🚀 Chargement rapide pour:", id);
         
-        // 🎯 OPTIMISATION 1: Vérifier le cache d'abord
+        // 🚀 OPTIMISATION 1: Vérifier le cache d'abord
         if (animeCache.has(id)) {
-          console.log("💨 Cache hit pour:", id);
           setAnime(animeCache.get(id)!);
           return;
         }
         
-        // 🎯 OPTIMISATION 2: Redirections rapides
+        // 🚀 OPTIMISATION 2: Redirections rapides
         if (filmIds.includes(id)) {
           window.location.href = `/series/${id}`;
           return;
         }
         
-        // 🎯 OPTIMISATION 3: Chargement immédiat + enrichissement parallèle
+        // 🚀 OPTIMISATION 3: Chargement ULTRA-RAPIDE
         const basicAnime = getAnimeById(specialAnimeIds[id] || id);
         
         if (basicAnime) {
@@ -69,21 +67,23 @@ export default function CataloguePage() {
           setAnime(basicAnime);
           animeCache.set(id, basicAnime);
           
-          // Enrichissement en parallèle (async, sans attendre)
-          getEnrichedAnimeById(specialAnimeIds[id] || id).then(enrichedAnime => {
-            if (enrichedAnime && enrichedAnime !== basicAnime) {
-              console.log("🎯 Enrichissement terminé pour:", id);
-              setAnime(enrichedAnime);
-              animeCache.set(id, enrichedAnime); // Mettre à jour le cache
+          // Auto-import en arrière-plan (optimisé pour vitesse max)
+          setTimeout(async () => {
+            try {
+              const enrichedAnime = await ultraFastEnrichAnime(basicAnime);
+              if (enrichedAnime && enrichedAnime.seasons && enrichedAnime.seasons.length > 0) {
+                setAnime(enrichedAnime);
+                animeCache.set(id, enrichedAnime);
+              }
+            } catch (error) {
+              // Ignorer les erreurs d'enrichissement
             }
-          }).catch(error => {
-            console.log("⚠️ Enrichissement échoué, garde la version de base:", error);
-          });
+          }, 50); // Délai ultra-minimal
           
           return;
         }
         
-        // 🎯 OPTIMISATION 4: Recherche similaire rapide (une seule passe)
+        // 🚀 OPTIMISATION 4: Recherche similaire rapide (une seule passe)
         const allAnimes = getAllAnimes();
         const similarAnime = allAnimes.find(a => 
           a.id.toLowerCase().includes(id.toLowerCase()) || 
@@ -91,37 +91,36 @@ export default function CataloguePage() {
         );
         
         if (similarAnime) {
-          console.log("🔄 Anime similaire trouvé:", similarAnime.id);
           setAnime(similarAnime);
           animeCache.set(id, similarAnime);
           
-          // Enrichissement en parallèle aussi
-          getEnrichedAnimeById(similarAnime.id).then(enrichedSimilar => {
-            if (enrichedSimilar && enrichedSimilar !== similarAnime) {
-              setAnime(enrichedSimilar);
-              animeCache.set(id, enrichedSimilar);
+          // Auto-import pour anime similaire en arrière-plan
+          setTimeout(async () => {
+            try {
+              const enrichedSimilar = await ultraFastEnrichAnime(similarAnime);
+              if (enrichedSimilar && enrichedSimilar.seasons && enrichedSimilar.seasons.length > 0) {
+                setAnime(enrichedSimilar);
+                animeCache.set(id, enrichedSimilar);
+              }
+            } catch (error) {
+              // Ignorer les erreurs
             }
-          }).catch(error => {
-            console.log("⚠️ Enrichissement échoué pour anime similaire:", error);
-          });
+          }, 50);
           
           return;
         }
         
-        // 🎯 OPTIMISATION 5: Essayer la recherche série comme fallback
+        // 🚀 OPTIMISATION 5: Essayer la recherche série comme fallback
         const series = getSeriesById(id);
         if (series) {
-          console.log("📺 Redirection vers série:", id);
           window.location.href = `/series/${id}`;
           return;
         }
         
         // Aucun anime trouvé
-        console.log("❌ Aucun anime trouvé pour:", id);
         setNotFound(true);
         
       } catch (error) {
-        console.error("❌ Erreur lors du chargement:", error);
         setNotFound(true);
       }
     };
@@ -141,14 +140,7 @@ export default function CataloguePage() {
   }
 
   if (!anime) {
-    return (
-      <div className="flex flex-col min-h-screen">
-        <div className="container mx-auto px-4 py-16 text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto"></div>
-          <p className="text-white mt-4">Chargement...</p>
-        </div>
-      </div>
-    );
+    return null; // Pas de loader, affichage instantané
   }
 
   return <AnimePageClient anime={anime} />;
