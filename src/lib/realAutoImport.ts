@@ -122,11 +122,14 @@ async function ultraFastLoadAllSeasons(animeId: string, animeYear?: number): Pro
   const actualFolderName = folderMapping[animeId] || animeId;
   const seasons: AnimeSeason[] = [];
   
-  // Patterns optimisés (seulement les plus communs)
+  // Patterns optimisés - augmenté pour couvrir plus de saisons
   const seasonPatterns = [
     { folder: 'saison1', seasonNumber: 1, title: 'Saison 1' },
     { folder: 'saison2', seasonNumber: 2, title: 'Saison 2' },
     { folder: 'saison3', seasonNumber: 3, title: 'Saison 3' },
+    { folder: 'saison4', seasonNumber: 4, title: 'Saison 4' },
+    { folder: 'saison5', seasonNumber: 5, title: 'Saison 5' },
+    { folder: 'saison6', seasonNumber: 6, title: 'Saison 6' },
     { folder: 'Film', seasonNumber: 'Film', title: 'Film' }
   ];
   
