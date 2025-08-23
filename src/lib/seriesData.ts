@@ -1275,7 +1275,24 @@ export const seriesData: Content[] = [
     language:"VF/VOSTFR",
     runtime:"2h43"
   },
-  
+  {
+    id:"bienvenue-chez-les-ch'tis",
+    title:"Bienvenue chez les Ch'tis",
+    description:"Philippe Abrams est directeur de la poste de Salon‐de‐Provence. Il est marié à Julie, dont le caractère dépressif lui rend la vie impossible. Pour lui faire plaisir, Philippe fraude afin d’obtenir une mutation sur la Côte d’Azur. Mais il est démasqué : il sera muté à Bergues, petite ville du Nord. Pour les Abrams, sudistes pleins de préjugés, le Nord c’est l’horreur, une région glacée, peuplée d’êtres rustres, éructant un langage incompréhensible, le « cheutimi ». Philippe ira seul. À sa grande surprise, il découvre un endroit charmant, une équipe chaleureuse, des gens accueillants, et se fait un ami : Antoine, le facteur et le carillonneur du village, à la mère possessive et aux amours contrariées. ",
+    imageUrl:"https://fr.web.img5.acsta.net/medias/nmedia/18/64/74/53/18889951.jpg",
+    bannerUrl:"https://fr.web.img5.acsta.net/medias/nmedia/18/64/74/53/18889951.jpg",
+    episodes:[
+      {id:1, title:"Bienvenue chez les Ch'tis (Film complet)", videoUrl:"https://pulse.topstrime.online/movie/8265/master.m3u8", duration:105*60, imageUrl:"https://media.themoviedb.org/t/p/w533_and_h300_bestv2/yLXu4pKY0kyFtjgTDLC5boeH70U.jpg"}
+    ],
+    status:"Terminé",
+    year:2008,
+    studio:"Warner Bros.",
+    type:"Film",
+    genres:["Aventure", "Comédie", "Romance", "Famille"],
+    rating:7.5,
+    language:"VF",
+    runtime:"1h47"
+  },
   {
     id: "inception",
     title: "Inception",
