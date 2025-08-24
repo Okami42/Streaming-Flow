@@ -47,7 +47,7 @@ export const seriesData: Content[] = [
     imageUrl: "https://fr.web.img6.acsta.net/pictures/22/02/16/17/42/3125788.jpg",
     bannerUrl: "https://images.prismic.io/batman-escape/Zo64SB5LeNNTxAG2_the-batman-mise-en-avant.webp?auto=format,compress",
     episodes: [
-      { id: 1, title: "The Batman", videoUrl: "https://cinepizza.xyz/movies/The-Batman.mp4", duration: 176 * 60, imageUrl: "https://fr.web.img6.acsta.net/pictures/22/02/16/17/42/3125788.jpg" }
+      { id: 1, title: "The Batman", videoUrl: "https://cinetacos.xyz/movies/The-Batman.mp4", duration: 176 * 60, imageUrl: "https://fr.web.img6.acsta.net/pictures/22/02/16/17/42/3125788.jpg" }
     ],
     status: "Terminée",
     year: 2022,
@@ -78,38 +78,38 @@ export const seriesData: Content[] = [
         seasonNumber: 1,
         title: "Saison 1",
         episodes: [
-          { id: 1, title: "Un, deux, trois, soleil", videoUrl: "https://cinepizza.xyz/series/Squid-Game/S01/Squid-Game-S01-E01.mp4", duration: 61 * 60, imageUrl: "https://image.tmdb.org/t/p/original/vMFJS9LIUUAmQ1thq4vJ7iHKwRz.jpg" },
-          { id: 2, title: "Enfer", videoUrl: "https://cinepizza.xyz/series/Squid-Game/S01/Squid-Game-S01-E02.mp4", duration: 63 * 60, imageUrl: "https://image.tmdb.org/t/p/original/uacNwki3PqXEFk9Pal9Ng5NwwAI.jpg" },
-          { id: 3, title: "L'homme au parapluie", videoUrl: "https://cinepizza.xyz/series/Squid-Game/S01/Squid-Game-S01-E03.mp4", duration: 55 * 60, imageUrl: "https://image.tmdb.org/t/p/original/xNtgrNEsMXvmRQQtcFuJdbXOjmP.jpg" },
-          { id: 4, title: "L'équipe avant tout", videoUrl: "https://cinepizza.xyz/series/Squid-Game/S01/Squid-Game-S01-E04.mp4", duration: 55 * 60, imageUrl: "https://image.tmdb.org/t/p/original/9cUGOdLN4gmnf3b9ILArnJsJI8Q.jpg" },
-          { id: 5, title: "Un monde juste", videoUrl: "https://cinepizza.xyz/series/Squid-Game/S01/Squid-Game-S01-E05.mp4", duration: 52 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/2pE9f6drlF7y9rwUw6dh1w6jF5M.jpg" },
-          { id: 6, title: "Gganbu", videoUrl: "https://cinepizza.xyz/series/Squid-Game/S01/Squid-Game-S01-E06.mp4", duration: 62 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/cohCCQzTe2ncdQczJDUsO0vzxPR.jpg" },
-          { id: 7, title: "VIP", videoUrl: "https://cinepizza.xyz/series/Squid-Game/S01/Squid-Game-S01-E07.mp4", duration: 58 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/4pVfv4HaM5QpFJTHm19p2UI0StN.jpg" },
-          { id: 8, title: "Leader", videoUrl: "https://cinepizza.xyz/series/Squid-Game/S01/Squid-Game-S01-E08.mp4", duration: 33 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/lOgFVmykN9qlpAoiBSIV2lu7XCS.jpg" },
-          { id: 9, title: "Finale", videoUrl: "https://cinepizza.xyz/series/Squid-Game/S01/Squid-Game-S01-E09.mp4", duration: 56 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/sKeQbHeEUQLyoSdopa0QXm604cz.jpg" }
+          { id: 1, title: "Un, deux, trois, soleil", videoUrl: "https://cinetacos.xyz/series/Squid-Game/S01/Squid-Game-S01-E01.mp4", duration: 61 * 60, imageUrl: "https://image.tmdb.org/t/p/original/vMFJS9LIUUAmQ1thq4vJ7iHKwRz.jpg" },
+          { id: 2, title: "Enfer", videoUrl: "https://cinetacos.xyz/series/Squid-Game/S01/Squid-Game-S01-E02.mp4", duration: 63 * 60, imageUrl: "https://image.tmdb.org/t/p/original/uacNwki3PqXEFk9Pal9Ng5NwwAI.jpg" },
+          { id: 3, title: "L'homme au parapluie", videoUrl: "https://cinetacos.xyz/series/Squid-Game/S01/Squid-Game-S01-E03.mp4", duration: 55 * 60, imageUrl: "https://image.tmdb.org/t/p/original/xNtgrNEsMXvmRQQtcFuJdbXOjmP.jpg" },
+          { id: 4, title: "L'équipe avant tout", videoUrl: "https://cinetacos.xyz/series/Squid-Game/S01/Squid-Game-S01-E04.mp4", duration: 55 * 60, imageUrl: "https://image.tmdb.org/t/p/original/9cUGOdLN4gmnf3b9ILArnJsJI8Q.jpg" },
+          { id: 5, title: "Un monde juste", videoUrl: "https://cinetacos.xyz/series/Squid-Game/S01/Squid-Game-S01-E05.mp4", duration: 52 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/2pE9f6drlF7y9rwUw6dh1w6jF5M.jpg" },
+          { id: 6, title: "Gganbu", videoUrl: "https://cinetacos.xyz/series/Squid-Game/S01/Squid-Game-S01-E06.mp4", duration: 62 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/cohCCQzTe2ncdQczJDUsO0vzxPR.jpg" },
+          { id: 7, title: "VIP", videoUrl: "https://cinetacos.xyz/series/Squid-Game/S01/Squid-Game-S01-E07.mp4", duration: 58 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/4pVfv4HaM5QpFJTHm19p2UI0StN.jpg" },
+          { id: 8, title: "Leader", videoUrl: "https://cinetacos.xyz/series/Squid-Game/S01/Squid-Game-S01-E08.mp4", duration: 33 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/lOgFVmykN9qlpAoiBSIV2lu7XCS.jpg" },
+          { id: 9, title: "Finale", videoUrl: "https://cinetacos.xyz/series/Squid-Game/S01/Squid-Game-S01-E09.mp4", duration: 56 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/sKeQbHeEUQLyoSdopa0QXm604cz.jpg" }
         ]
       },
       {
         seasonNumber: 2,
         title: "Saison 2",
         episodes: [
-          { id: 1, title: "Le retour", videoUrl: "https://cinepizza.xyz/series/Squid-Game/S02/Squid-Game-S02-E01.mp4", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/tWwP30pufZhWDSxN4qxER7gMbLR.jpg" },
-          { id: 2, title: "La fête d'Halloween", videoUrl: "https://cinepizza.xyz/series/Squid-Game/S02/Squid-Game-S02-E02.mp4", duration: 52 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/6D0kAkjdYCNz3wOigChITrezNig.jpg" },
-          { id: 3, title: "Les règles changent", videoUrl: "https://cinepizza.xyz/series/Squid-Game/S02/Squid-Game-S02-E03.mp4", duration: 62 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/yL7phVQmwbBr0IVrDnqsNiPrpwQ.jpg" },
-          { id: 4, title: "Six Jambes", videoUrl: "https://cinepizza.xyz/series/Squid-Game/S02/Squid-Game-S02-E04.mp4", duration: 63 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/hU4SUCvTWVhqMyk81t4zmvQg79u.jpg" },
-          { id: 5, title: "Un jeu de plus", videoUrl: "https://cinepizza.xyz/series/Squid-Game/S02/Squid-Game-S02-E05.mp4", duration: 77 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/575R0zTaCUtmLjLSsBp3hLl1DQn.jpg" },
-          { id: 6, title: "O X", videoUrl: "https://cinepizza.xyz/series/Squid-Game/S02/Squid-Game-S02-E06.mp4", duration: 53 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/wtyv4jqlZjz9VAcNKkFb8uJtnQW.jpg" },
-          { id: 7, title: "Amis ou ennemis", videoUrl: "https://cinepizza.xyz/series/Squid-Game/S02/Squid-Game-S02-E07.mp4", duration: 61 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/qZH5NZPA2N9ykpDd0dOQTmVJiVR.jpg" }
+          { id: 1, title: "Le retour", videoUrl: "https://cinetacos.xyz/series/Squid-Game/S02/Squid-Game-S02-E01.mp4", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/tWwP30pufZhWDSxN4qxER7gMbLR.jpg" },
+          { id: 2, title: "La fête d'Halloween", videoUrl: "https://cinetacos.xyz/series/Squid-Game/S02/Squid-Game-S02-E02.mp4", duration: 52 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/6D0kAkjdYCNz3wOigChITrezNig.jpg" },
+          { id: 3, title: "Les règles changent", videoUrl: "https://cinetacos.xyz/series/Squid-Game/S02/Squid-Game-S02-E03.mp4", duration: 62 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/yL7phVQmwbBr0IVrDnqsNiPrpwQ.jpg" },
+          { id: 4, title: "Six Jambes", videoUrl: "https://cinetacos.xyz/series/Squid-Game/S02/Squid-Game-S02-E04.mp4", duration: 63 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/hU4SUCvTWVhqMyk81t4zmvQg79u.jpg" },
+          { id: 5, title: "Un jeu de plus", videoUrl: "https://cinetacos.xyz/series/Squid-Game/S02/Squid-Game-S02-E05.mp4", duration: 77 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/575R0zTaCUtmLjLSsBp3hLl1DQn.jpg" },
+          { id: 6, title: "O X", videoUrl: "https://cinetacos.xyz/series/Squid-Game/S02/Squid-Game-S02-E06.mp4", duration: 53 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/wtyv4jqlZjz9VAcNKkFb8uJtnQW.jpg" },
+          { id: 7, title: "Amis ou ennemis", videoUrl: "https://cinetacos.xyz/series/Squid-Game/S02/Squid-Game-S02-E07.mp4", duration: 61 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/qZH5NZPA2N9ykpDd0dOQTmVJiVR.jpg" }
         ]
       },
       {
         seasonNumber: 3,
         title: "Saison 3",
         episodes: [
-          { id: 1, title: "Clés et poignards", videoUrl: "https://cinepizza.xyz/series/Squid-Game/S03/Squid-Game-S03-E01.mp4", duration: 58 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/2xqny2WLuT25vwo2lSbspp09jlz.jpg" },
-          { id: 2, title: "Derrière le voile", videoUrl: "https://cinepizza.xyz/series/Squid-Game/S03/Squid-Game-S03-E02.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/eFlIKUPGoWMLKjvMxpfYQT5Lmcv.jpg" },
-          { id: 3, title: "Ce n'est pas ta faute", videoUrl: "https://cinepizza.xyz/series/Squid-Game/S03/Squid-Game-S03-E03.mp4", duration: 61 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/gd9QhGKwkoFUfRo6hosINt9UERM.jpg" },
-          { id: 4, title: "222", videoUrl: "https://cinepizza.xyz/series/Squid-Game/S03/Squid-Game-S03-E04.mp4", duration: 67 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7MpBNso3Ym21Oly3HuoPgGpKxG5.jpg" },
+          { id: 1, title: "Clés et poignards", videoUrl: "https://cinetacos.xyz/series/Squid-Game/S03/Squid-Game-S03-E01.mp4", duration: 58 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/2xqny2WLuT25vwo2lSbspp09jlz.jpg" },
+          { id: 2, title: "Derrière le voile", videoUrl: "https://cinetacos.xyz/series/Squid-Game/S03/Squid-Game-S03-E02.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/eFlIKUPGoWMLKjvMxpfYQT5Lmcv.jpg" },
+          { id: 3, title: "Ce n'est pas ta faute", videoUrl: "https://cinetacos.xyz/series/Squid-Game/S03/Squid-Game-S03-E03.mp4", duration: 61 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/gd9QhGKwkoFUfRo6hosINt9UERM.jpg" },
+          { id: 4, title: "222", videoUrl: "https://cinetacos.xyz/series/Squid-Game/S03/Squid-Game-S03-E04.mp4", duration: 67 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7MpBNso3Ym21Oly3HuoPgGpKxG5.jpg" },
           { id: 5, title: "○△□", videoUrl: "https://pulse.topstrime.online/tv/93405/5msex5/S3/E5/master.m3u8", duration: 63 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/mYhwcWgHnQnpZMD1OuhyDiOhV73.jpg" },
           { id: 6, title: "Les êtres humains sont...", videoUrl: "https://pulse.topstrime.online/tv/93405/6h5o7q/S3/E6/master.m3u8", duration: 56 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/vzYGUdGRm1bl7WoPmhZd8bSh6gN.jpg" }
         ]
@@ -153,36 +153,36 @@ export const seriesData: Content[] = [
         seasonNumber: 1,
         title: "Saison 1",
         episodes: [
-          { id: 1, title: "Ironie du sort", videoUrl: "https://cinepizza.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E01.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/fBDCmuv3n1foogXajL2eNHH0VXX.jpg" },
-          { id: 2, title: "Premier round", videoUrl: "https://cinepizza.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E02.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/vpJWRQO2yytwuqYE88PRQImZrNX.jpg" },
-          { id: 3, title: "Le Dîner", videoUrl: "https://cinepizza.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E03.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/2dvnAfP08XRrXqva8yQJva6rMqF.jpg" },
-          { id: 4, title: "Amante, épouse et victime", videoUrl: "https://cinepizza.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E04.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/yVYSOwyaIkwLjCboqs3DkrmDxQX.jpg" },
-          { id: 5, title: "La Peur au ventre", videoUrl: "https://cinepizza.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E05.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/6HLMMe0YPOmETiKEeiaZ080jk1S.jpg" },
-          { id: 6, title: "Champ de bataille", videoUrl: "https://cinepizza.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E06.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/p1VeVzSHdNz18xPG08oiRmxQB1K.jpg" },
-          { id: 7, title: "Chaque victoire a un prix", videoUrl: "https://cinepizza.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E07.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/uBX2sCYJGVKpTRDxD833Zp5ZCI0.jpg" },
-          { id: 8, title: "Nous sommes tous des pécheurs", videoUrl: "https://cinepizza.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E08.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/c23BDiGCawy6qzrysBL1ko9sGj7.jpg" },
-          { id: 9, title: "Démons intérieurs", videoUrl: "https://cinepizza.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E09.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/xcOJ49DGxntutQlmPkoYywqQ1Uz.jpg" },
-          { id: 10, title: "Confiance perdue", videoUrl: "https://cinepizza.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E10.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/bPeS2Mbj6sCaxHGYUqtCPueLG1I.jpg" },
-          { id: 11, title: "Un air de famille", videoUrl: "https://cinepizza.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E11.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/EsEQQzmYUkvLhdZBnqzIQAxWmh.jpg" },
-          { id: 12, title: "Avant qu'il ne soit trop tard", videoUrl: "https://cinepizza.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E12.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/psjb0jAdbkiQjGXHYYojzuZ4GYy.jpg" },
-          { id: 13, title: "Bienvenue au club", videoUrl: "https://cinepizza.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E13.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/wPl3m023mMj2FToyclQ9QMT9mI0.jpg" },
-          { id: 14, title: "La Vérité cachée", videoUrl: "https://cinepizza.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E14.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/DnST6260RRw5wKjkYXslLB7gtc.jpg" },
-          { id: 15, title: "Mieux vaut prévenir que guérir", videoUrl: "https://cinepizza.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E15.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/55X2FoxOXDqVOpToBgQh4ucEQHI.jpg" },
-          { id: 16, title: "Un faible pour les scandales", videoUrl: "https://cinepizza.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E16.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/nuvzgcfPPOAOf8Ly4UPEIfar6e8.jpg" },
-          { id: 17, title: "Honneur aux héros", videoUrl: "https://cinepizza.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E17.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/guaPe31sPwotAkWj2E5DEhL3kge.jpg" },
-          { id: 18, title: "Les enfants chamboulent tout", videoUrl: "https://cinepizza.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E18.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/avA7oHTTQ3SnUx0D4Z7P6q7eRd5.jpg" },
-          { id: 19, title: "Les Meilleures Intentions", videoUrl: "https://cinepizza.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E19.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7WFRhqqTZx0oLhim2jHGvs3KcPG.jpg" },
-          { id: 20, title: "Obsession", videoUrl: "https://cinepizza.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E20.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/gHgfSC0bIJzDZ6eC5MrIfImrqfR.jpg" },
-          { id: 21, title: "De s'honorer et de se chérir", videoUrl: "https://cinepizza.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E21.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/63D47QroHOsdi7jFd4duglWxEJ5.jpg" },
-          { id: 22, title: "Rien n'est éternel", videoUrl: "https://cinepizza.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E22.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/63xnU8q9REpze7UzSgRmT6WZOYb.jpg" },
-          { id: 23, title: "Une fin heureuse", videoUrl: "https://cinepizza.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E23.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/18IawCEvSWjtO2nGZDxMJUbW00m.jpg" } 
+          { id: 1, title: "Ironie du sort", videoUrl: "https://cinetacos.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E01.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/fBDCmuv3n1foogXajL2eNHH0VXX.jpg" },
+          { id: 2, title: "Premier round", videoUrl: "https://cinetacos.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E02.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/vpJWRQO2yytwuqYE88PRQImZrNX.jpg" },
+          { id: 3, title: "Le Dîner", videoUrl: "https://cinetacos.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E03.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/2dvnAfP08XRrXqva8yQJva6rMqF.jpg" },
+          { id: 4, title: "Amante, épouse et victime", videoUrl: "https://cinetacos.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E04.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/yVYSOwyaIkwLjCboqs3DkrmDxQX.jpg" },
+          { id: 5, title: "La Peur au ventre", videoUrl: "https://cinetacos.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E05.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/6HLMMe0YPOmETiKEeiaZ080jk1S.jpg" },
+          { id: 6, title: "Champ de bataille", videoUrl: "https://cinetacos.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E06.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/p1VeVzSHdNz18xPG08oiRmxQB1K.jpg" },
+          { id: 7, title: "Chaque victoire a un prix", videoUrl: "https://cinetacos.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E07.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/uBX2sCYJGVKpTRDxD833Zp5ZCI0.jpg" },
+          { id: 8, title: "Nous sommes tous des pécheurs", videoUrl: "https://cinetacos.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E08.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/c23BDiGCawy6qzrysBL1ko9sGj7.jpg" },
+          { id: 9, title: "Démons intérieurs", videoUrl: "https://cinetacos.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E09.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/xcOJ49DGxntutQlmPkoYywqQ1Uz.jpg" },
+          { id: 10, title: "Confiance perdue", videoUrl: "https://cinetacos.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E10.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/bPeS2Mbj6sCaxHGYUqtCPueLG1I.jpg" },
+          { id: 11, title: "Un air de famille", videoUrl: "https://cinetacos.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E11.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/EsEQQzmYUkvLhdZBnqzIQAxWmh.jpg" },
+          { id: 12, title: "Avant qu'il ne soit trop tard", videoUrl: "https://cinetacos.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E12.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/psjb0jAdbkiQjGXHYYojzuZ4GYy.jpg" },
+          { id: 13, title: "Bienvenue au club", videoUrl: "https://cinetacos.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E13.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/wPl3m023mMj2FToyclQ9QMT9mI0.jpg" },
+          { id: 14, title: "La Vérité cachée", videoUrl: "https://cinetacos.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E14.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/DnST6260RRw5wKjkYXslLB7gtc.jpg" },
+          { id: 15, title: "Mieux vaut prévenir que guérir", videoUrl: "https://cinetacos.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E15.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/55X2FoxOXDqVOpToBgQh4ucEQHI.jpg" },
+          { id: 16, title: "Un faible pour les scandales", videoUrl: "https://cinetacos.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E16.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/nuvzgcfPPOAOf8Ly4UPEIfar6e8.jpg" },
+          { id: 17, title: "Honneur aux héros", videoUrl: "https://cinetacos.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E17.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/guaPe31sPwotAkWj2E5DEhL3kge.jpg" },
+          { id: 18, title: "Les enfants chamboulent tout", videoUrl: "https://cinetacos.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E18.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/avA7oHTTQ3SnUx0D4Z7P6q7eRd5.jpg" },
+          { id: 19, title: "Les Meilleures Intentions", videoUrl: "https://cinetacos.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E19.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7WFRhqqTZx0oLhim2jHGvs3KcPG.jpg" },
+          { id: 20, title: "Obsession", videoUrl: "https://cinetacos.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E20.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/gHgfSC0bIJzDZ6eC5MrIfImrqfR.jpg" },
+          { id: 21, title: "De s'honorer et de se chérir", videoUrl: "https://cinetacos.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E21.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/63D47QroHOsdi7jFd4duglWxEJ5.jpg" },
+          { id: 22, title: "Rien n'est éternel", videoUrl: "https://cinetacos.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E22.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/63xnU8q9REpze7UzSgRmT6WZOYb.jpg" },
+          { id: 23, title: "Une fin heureuse", videoUrl: "https://cinetacos.xyz/series/Desperate-Housewives/S01/Desperate-Housewives-S01-E23.mp4", duration: 43 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/18IawCEvSWjtO2nGZDxMJUbW00m.jpg" } 
         ]
       },
       {
         seasonNumber: 2,
         title: "Saison 2",
         episodes: [
-          { id: 1, title: "Premier épisode", videoUrl: "https://cinepizza.xyz/series/Desperate-Housewives/S02/Desperate-Housewives-S02-E01.mp4", duration: 45 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7qU2vq1D3umZIzwqckwV0uGBibT.jpg" }
+          { id: 1, title: "Premier épisode", videoUrl: "https://cinetacos.xyz/series/Desperate-Housewives/S02/Desperate-Housewives-S02-E01.mp4", duration: 45 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7qU2vq1D3umZIzwqckwV0uGBibT.jpg" }
         ]
       }
     ]
@@ -258,16 +258,16 @@ export const seriesData: Content[] = [
         seasonNumber: 2,
         title: "Saison 2",
         episodes: [
-          { id: 1, title: "Premier épisode", videoUrl: "https://cinepizza.xyz/series/Été-Jolie/S02/Été-Jolie-S02-E01.mp4", duration: 45 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7qU2vq1D3umZIzwqckwV0uGBibT.jpg" }
+          { id: 1, title: "Premier épisode", videoUrl: "https://cinetacos.xyz/series/Été-Jolie/S02/Été-Jolie-S02-E01.mp4", duration: 45 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7qU2vq1D3umZIzwqckwV0uGBibT.jpg" }
         ]
       },
       {
         seasonNumber: 3,
         title: "Saison 3",
         episodes: [
-          { id: 1, title: "Premier épisode", videoUrl: "https://cinepizza.xyz/series/Été-Jolie/S03/Été-Jolie-S03-E01.mp4", duration: 45 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7qU2vq1D3umZIzwqckwV0uGBibT.jpg" },
-          { id: 2, title: "Deuxième épisode", videoUrl: "https://cinepizza.xyz/series/Été-Jolie/S03/Été-Jolie-S03-E02.mp4", duration: 45 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7qU2vq1D3umZIzwqckwV0uGBibT.jpg" },
-          { id: 3, title: "Troisième épisode", videoUrl: "https://cinepizza.xyz/series/Été-Jolie/S03/Été-Jolie-S03-E03.mp4", duration: 45 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7qU2vq1D3umZIzwqckwV0uGBibT.jpg" },
+          { id: 1, title: "Premier épisode", videoUrl: "https://cinetacos.xyz/series/Été-Jolie/S03/Été-Jolie-S03-E01.mp4", duration: 45 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7qU2vq1D3umZIzwqckwV0uGBibT.jpg" },
+          { id: 2, title: "Deuxième épisode", videoUrl: "https://cinetacos.xyz/series/Été-Jolie/S03/Été-Jolie-S03-E02.mp4", duration: 45 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7qU2vq1D3umZIzwqckwV0uGBibT.jpg" },
+          { id: 3, title: "Troisième épisode", videoUrl: "https://cinetacos.xyz/series/Été-Jolie/S03/Été-Jolie-S03-E03.mp4", duration: 45 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7qU2vq1D3umZIzwqckwV0uGBibT.jpg" },
           { id: 4, title: "Quatrième épisode", videoUrl: "https://pulse.topstrime.online/tv/194766/ebpjym/S3/E4/master.m3u8", duration: 45 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7qU2vq1D3umZIzwqckwV0uGBibT.jpg" }
 
         ]
@@ -282,7 +282,7 @@ export const seriesData: Content[] = [
     imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg",
     bannerUrl: "https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/2OMB0ynKlyIenMJWI2Dy9IWT4c.jpg",
     episodes: [
-      { id: 1, title: "Winter Is Coming", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E01.mp4", duration: 62 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+      { id: 1, title: "Winter Is Coming", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E01.mp4", duration: 62 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
     ],
     status: "Terminée",
     year: 2011,
@@ -297,64 +297,64 @@ export const seriesData: Content[] = [
         seasonNumber: 1,
         title: "Saison 1",
         episodes: [
-          { id: 1, title: "L'hiver vient", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E01.mp4", duration: 62 * 60, imageUrl: "https://media.themoviedb.org/t/p/w227_and_h127_bestv2/wrGWeW4WKxnaeA8sxJb2T9O6ryo.jpg" },
-          { id: 2, title: "La route royale", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E02.mp4", duration: 56 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 3, title: "Lord Snow", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E03.mp4", duration: 58 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 4, title: "Infirmes, bâtards et choses brisées", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E04.mp4", duration: 56 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 5, title: "Le loup et le lion", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E05.mp4", duration: 55 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 6, title: "Une couronne d'or", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E06.mp4", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 7, title: "Vaincre ou mourir", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E07.mp4", duration: 58 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 8, title: "Frapper d'estoc", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E08.mp4", duration: 59 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 9, title: "Baelor", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E09.mp4", duration: 57 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 10, title: "De feu et de sang", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E10.mp4", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" }
+          { id: 1, title: "L'hiver vient", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E01.mp4", duration: 62 * 60, imageUrl: "https://media.themoviedb.org/t/p/w227_and_h127_bestv2/wrGWeW4WKxnaeA8sxJb2T9O6ryo.jpg" },
+          { id: 2, title: "La route royale", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E02.mp4", duration: 56 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 3, title: "Lord Snow", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E03.mp4", duration: 58 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 4, title: "Infirmes, bâtards et choses brisées", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E04.mp4", duration: 56 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 5, title: "Le loup et le lion", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E05.mp4", duration: 55 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 6, title: "Une couronne d'or", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E06.mp4", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 7, title: "Vaincre ou mourir", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E07.mp4", duration: 58 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 8, title: "Frapper d'estoc", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E08.mp4", duration: 59 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 9, title: "Baelor", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E09.mp4", duration: 57 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 10, title: "De feu et de sang", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S01/Game-of-Thrones-S01-E10.mp4", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" }
         ]
       },
       {
         seasonNumber: 2,
         title: "Saison 2",
         episodes: [
-          { id: 1, title: "Le Nord se souvient", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S02/Game-of-Thrones-S02-E01.mp4", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 2, title: "Les Contrées nocturnes", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S02/Game-of-Thrones-S02-E02.mp4", duration: 54 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 3, title: "Ce qui est mort ne saurait mourir", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S02/Game-of-Thrones-S02-E03.mp4", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 4, title: "Le Jardin des os", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S02/Game-of-Thrones-S02-E04.mp4", duration: 51 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 5, title: "Le Fantôme d'Harrenhal", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S02/Game-of-Thrones-S02-E05.mp4", duration: 55 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 6, title: "Les Anciens et les Nouveaux Dieux", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S02/Game-of-Thrones-S02-E06.mp4", duration: 54 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 7, title: "Un homme sans honneur", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S02/Game-of-Thrones-S02-E07.mp4", duration: 56 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 8, title: "Le Prince de Winterfell", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S02/Game-of-Thrones-S02-E08.mp4", duration: 54 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 9, title: "La Néra", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S02/Game-of-Thrones-S02-E09.mp4", duration: 55 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 10, title: "Valar Morghulis", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S02/Game-of-Thrones-S02-E10.mp4", duration: 64 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" }
+          { id: 1, title: "Le Nord se souvient", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S02/Game-of-Thrones-S02-E01.mp4", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 2, title: "Les Contrées nocturnes", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S02/Game-of-Thrones-S02-E02.mp4", duration: 54 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 3, title: "Ce qui est mort ne saurait mourir", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S02/Game-of-Thrones-S02-E03.mp4", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 4, title: "Le Jardin des os", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S02/Game-of-Thrones-S02-E04.mp4", duration: 51 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 5, title: "Le Fantôme d'Harrenhal", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S02/Game-of-Thrones-S02-E05.mp4", duration: 55 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 6, title: "Les Anciens et les Nouveaux Dieux", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S02/Game-of-Thrones-S02-E06.mp4", duration: 54 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 7, title: "Un homme sans honneur", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S02/Game-of-Thrones-S02-E07.mp4", duration: 56 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 8, title: "Le Prince de Winterfell", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S02/Game-of-Thrones-S02-E08.mp4", duration: 54 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 9, title: "La Néra", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S02/Game-of-Thrones-S02-E09.mp4", duration: 55 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 10, title: "Valar Morghulis", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S02/Game-of-Thrones-S02-E10.mp4", duration: 64 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" }
         ]
       },
       {
         seasonNumber: 3,
         title: "Saison 3",
         episodes: [
-          { id: 1, title: "Valar Dohaeris", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S03/Game-of-Thrones-S03-E01.mp4", duration: 55 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 2, title: "Noires ailes, noires nouvelles", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S03/Game-of-Thrones-S03-E02.mp4", duration: 56 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 3, title: "Les Immaculés", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S03/Game-of-Thrones-S03-E03.mp4", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 4, title: "Voici que son tour de garde est fini", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S03/Game-of-Thrones-S03-E04.mp4", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 5, title: "Baisée par le feu", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S03/Game-of-Thrones-S03-E05.mp4", duration: 57 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 6, title: "L'Ascension", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S03/Game-of-Thrones-S03-E06.mp4", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 7, title: "L'Ours et la Belle", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S03/Game-of-Thrones-S03-E07.mp4", duration: 58 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 8, title: "Les Puînés", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S03/Game-of-Thrones-S03-E08.mp4", duration: 56 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 9, title: "Les Pluies de Castamere", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S03/Game-of-Thrones-S03-E09.mp4", duration: 51 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 10, title: "Mhysa", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S03/Game-of-Thrones-S03-E10.mp4", duration: 63 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" }
+          { id: 1, title: "Valar Dohaeris", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S03/Game-of-Thrones-S03-E01.mp4", duration: 55 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 2, title: "Noires ailes, noires nouvelles", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S03/Game-of-Thrones-S03-E02.mp4", duration: 56 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 3, title: "Les Immaculés", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S03/Game-of-Thrones-S03-E03.mp4", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 4, title: "Voici que son tour de garde est fini", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S03/Game-of-Thrones-S03-E04.mp4", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 5, title: "Baisée par le feu", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S03/Game-of-Thrones-S03-E05.mp4", duration: 57 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 6, title: "L'Ascension", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S03/Game-of-Thrones-S03-E06.mp4", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 7, title: "L'Ours et la Belle", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S03/Game-of-Thrones-S03-E07.mp4", duration: 58 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 8, title: "Les Puînés", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S03/Game-of-Thrones-S03-E08.mp4", duration: 56 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 9, title: "Les Pluies de Castamere", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S03/Game-of-Thrones-S03-E09.mp4", duration: 51 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 10, title: "Mhysa", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S03/Game-of-Thrones-S03-E10.mp4", duration: 63 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" }
         ]
       },
       {
         seasonNumber: 4,
         title: "Saison 4",
         episodes: [
-          { id: 1, title: "Deux épées", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S04/Game-of-Thrones-S04-E01.mp4", duration: 58 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 2, title: "Le Lion et la Rose", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S04/Game-of-Thrones-S04-E02.mp4", duration: 52 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 3, title: "Briseuse de chaînes", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S04/Game-of-Thrones-S04-E03.mp4", duration: 57 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 4, title: "Féale", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S04/Game-of-Thrones-S04-E04.mp4", duration: 55 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 5, title: "Premier du nom", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S04/Game-of-Thrones-S04-E05.mp4", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 6, title: "Les Lois des dieux et des hommes", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S04/Game-of-Thrones-S04-E06.mp4", duration: 51 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 7, title: "L'Oiseau moqueur", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S04/Game-of-Thrones-S04-E07.mp4", duration: 52 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 8, title: "La Montagne et la Vipère", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S04/Game-of-Thrones-S04-E08.mp4", duration: 52 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 9, title: "Les Veilleurs au rempart", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S04/Game-of-Thrones-S04-E09.mp4", duration: 51 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
-          { id: 10, title: "Les Enfants", videoUrl: "https://cinepizza.xyz/series/Game-of-Thrones/S04/Game-of-Thrones-S04-E10.mp4", duration: 65 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" }
+          { id: 1, title: "Deux épées", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S04/Game-of-Thrones-S04-E01.mp4", duration: 58 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 2, title: "Le Lion et la Rose", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S04/Game-of-Thrones-S04-E02.mp4", duration: 52 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 3, title: "Briseuse de chaînes", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S04/Game-of-Thrones-S04-E03.mp4", duration: 57 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 4, title: "Féale", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S04/Game-of-Thrones-S04-E04.mp4", duration: 55 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 5, title: "Premier du nom", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S04/Game-of-Thrones-S04-E05.mp4", duration: 53 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 6, title: "Les Lois des dieux et des hommes", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S04/Game-of-Thrones-S04-E06.mp4", duration: 51 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 7, title: "L'Oiseau moqueur", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S04/Game-of-Thrones-S04-E07.mp4", duration: 52 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 8, title: "La Montagne et la Vipère", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S04/Game-of-Thrones-S04-E08.mp4", duration: 52 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 9, title: "Les Veilleurs au rempart", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S04/Game-of-Thrones-S04-E09.mp4", duration: 51 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" },
+          { id: 10, title: "Les Enfants", videoUrl: "https://cinetacos.xyz/series/Game-of-Thrones/S04/Game-of-Thrones-S04-E10.mp4", duration: 65 * 60, imageUrl: "https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg" }
         ]
       }
     ]
@@ -366,7 +366,7 @@ export const seriesData: Content[] = [
     imageUrl: "https://storage.googleapis.com/pod_public/1300/262697.jpg",
     bannerUrl: "https://c4.wallpaperflare.com/wallpaper/995/81/141/fight-club-edward-norton-brad-pitt-movies-wallpaper-preview.jpg",
     episodes: [
-      { id: 1, title: "Fight Club", videoUrl: "https://cinepizza.xyz/movies/Fight-Club.mp4", duration: 139 * 60, imageUrl: "https://media.newyorker.com/photos/5dbafcc91b4a6700085a7a9b/master/w_2560%2Cc_limit/Baker-FightClub.jpg" },
+      { id: 1, title: "Fight Club", videoUrl: "https://cinetacos.xyz/movies/Fight-Club.mp4", duration: 139 * 60, imageUrl: "https://media.newyorker.com/photos/5dbafcc91b4a6700085a7a9b/master/w_2560%2Cc_limit/Baker-FightClub.jpg" },
     ],
     status: "En cours",
     year: 2016,
@@ -417,56 +417,56 @@ export const seriesData: Content[] = [
         seasonNumber: 1,
         title: "Saison 1",
         episodes: [
-          { id: 1, title: "La Règle du jeu", videoUrl: "https://cinepizza.xyz/series/The-Boys/S01/The-Boys-S01-E01.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/83vFYTHtCqWwaDtZluSU8bmnFYG.jpg" },
-          { id: 2, title: "Cerise", videoUrl: "https://cinepizza.xyz/series/The-Boys/S01/The-Boys-S01-E02.mp4", duration: 59 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/1XzqWHBFvddrO2sazXzaCTtFEeA.jpg" },
-          { id: 3, title: "Prends ça", videoUrl: "https://cinepizza.xyz/series/The-Boys/S01/The-Boys-S01-E03.mp4", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/mF7TK7LMbWhlLz1Q5M1662TiKvP.jpg" },
-          { id: 4, title: "La Fille", videoUrl: "https://cinepizza.xyz/series/The-Boys/S01/The-Boys-S01-E04.mp4", duration: 56 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/4wq1ZX7GYEFhSttQoTFJ4WyqV22.jpg" },
-          { id: 5, title: "Des Bleus à L'âme", videoUrl: "https://cinepizza.xyz/series/The-Boys/S01/The-Boys-S01-E05.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/1ST4xchcR2s1JQUV23ryOBVrWbN.jpg" },
-          { id: 6, title: "Les Innocents", videoUrl: "https://cinepizza.xyz/series/The-Boys/S01/The-Boys-S01-E06.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/pqz0Xvf7gpXwagUoaHxBqmyv6D5.jpg" },
-          { id: 7, title: "D'un autre monde", videoUrl: "https://cinepizza.xyz/series/The-Boys/S01/The-Boys-S01-E07.mp4", duration: 56 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/cx7dCZVzCX9pAyC6zE6lC6jkuyF.jpg" },
-          { id: 8, title: "On ne prend plus de gants", videoUrl: "https://cinepizza.xyz/series/The-Boys/S01/The-Boys-S01-E08.mp4", duration: 66 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/vNYs1oSMXa1V3KKWLPvtOy6UQWC.jpg" }
+          { id: 1, title: "La Règle du jeu", videoUrl: "https://cinetacos.xyz/series/The-Boys/S01/The-Boys-S01-E01.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/83vFYTHtCqWwaDtZluSU8bmnFYG.jpg" },
+          { id: 2, title: "Cerise", videoUrl: "https://cinetacos.xyz/series/The-Boys/S01/The-Boys-S01-E02.mp4", duration: 59 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/1XzqWHBFvddrO2sazXzaCTtFEeA.jpg" },
+          { id: 3, title: "Prends ça", videoUrl: "https://cinetacos.xyz/series/The-Boys/S01/The-Boys-S01-E03.mp4", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/mF7TK7LMbWhlLz1Q5M1662TiKvP.jpg" },
+          { id: 4, title: "La Fille", videoUrl: "https://cinetacos.xyz/series/The-Boys/S01/The-Boys-S01-E04.mp4", duration: 56 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/4wq1ZX7GYEFhSttQoTFJ4WyqV22.jpg" },
+          { id: 5, title: "Des Bleus à L'âme", videoUrl: "https://cinetacos.xyz/series/The-Boys/S01/The-Boys-S01-E05.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/1ST4xchcR2s1JQUV23ryOBVrWbN.jpg" },
+          { id: 6, title: "Les Innocents", videoUrl: "https://cinetacos.xyz/series/The-Boys/S01/The-Boys-S01-E06.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/pqz0Xvf7gpXwagUoaHxBqmyv6D5.jpg" },
+          { id: 7, title: "D'un autre monde", videoUrl: "https://cinetacos.xyz/series/The-Boys/S01/The-Boys-S01-E07.mp4", duration: 56 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/cx7dCZVzCX9pAyC6zE6lC6jkuyF.jpg" },
+          { id: 8, title: "On ne prend plus de gants", videoUrl: "https://cinetacos.xyz/series/The-Boys/S01/The-Boys-S01-E08.mp4", duration: 66 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/vNYs1oSMXa1V3KKWLPvtOy6UQWC.jpg" }
         ]
       },
       {
         seasonNumber: 2,
         title: "Saison 2",
         episodes: [
-          { id: 1, title: "Comme à la fête foraine", videoUrl: "https://cinepizza.xyz/series/The-Boys/S02/The-Boys-S02-E01.mp4", duration: 65 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/fPjcJ11PKsDYxP6adYg5nkN4Tza.jpg" },
-          { id: 2, title: "Préparation propre et planification", videoUrl: "https://cinepizza.xyz/series/The-Boys/S02/The-Boys-S02-E02.mp4", duration: 62 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/m6LSiAimRiST07sC0vsUDITojT3.jpg" },
-          { id: 3, title: "Rien de tel dans le monde entier", videoUrl: "https://cinepizza.xyz/series/The-Boys/S02/The-Boys-S02-E03.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/uUYHGkdnQpQPQtcWGUULfAn3QMc.jpg" },
-          { id: 4, title: "Rien de tel au monde", videoUrl: "https://cinepizza.xyz/series/The-Boys/S02/The-Boys-S02-E04.mp4", duration: 62 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/xbGzMbPKP1QC0xGKOZQvhKknJOK.jpg" },
-          { id: 5, title: "On ne prend pas de gants", videoUrl: "https://cinepizza.xyz/series/The-Boys/S02/The-Boys-S02-E05.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/1CiDRYn8TBvOqYjTkFZnvkVBbX.jpg" },
-          { id: 6, title: "Ça y est", videoUrl: "https://cinepizza.xyz/series/The-Boys/S02/The-Boys-S02-E06.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/2xoXgfKPtGrMZHLnUNGXMf2h1eB.jpg" },
-          { id: 7, title: "Le Fils du boulanger", videoUrl: "https://cinepizza.xyz/series/The-Boys/S02/The-Boys-S02-E07.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/qvOlcBVh3n6M5wPYoc9Yb5dCuD9.jpg" },
-          { id: 8, title: "Ce que je sais", videoUrl: "https://cinepizza.xyz/series/The-Boys/S02/The-Boys-S02-E08.mp4", duration: 67 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/mYQSbZdGX0JXb7n7nqUuKGSZwQ6.jpg" }
+          { id: 1, title: "Comme à la fête foraine", videoUrl: "https://cinetacos.xyz/series/The-Boys/S02/The-Boys-S02-E01.mp4", duration: 65 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/fPjcJ11PKsDYxP6adYg5nkN4Tza.jpg" },
+          { id: 2, title: "Préparation propre et planification", videoUrl: "https://cinetacos.xyz/series/The-Boys/S02/The-Boys-S02-E02.mp4", duration: 62 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/m6LSiAimRiST07sC0vsUDITojT3.jpg" },
+          { id: 3, title: "Rien de tel dans le monde entier", videoUrl: "https://cinetacos.xyz/series/The-Boys/S02/The-Boys-S02-E03.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/uUYHGkdnQpQPQtcWGUULfAn3QMc.jpg" },
+          { id: 4, title: "Rien de tel au monde", videoUrl: "https://cinetacos.xyz/series/The-Boys/S02/The-Boys-S02-E04.mp4", duration: 62 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/xbGzMbPKP1QC0xGKOZQvhKknJOK.jpg" },
+          { id: 5, title: "On ne prend pas de gants", videoUrl: "https://cinetacos.xyz/series/The-Boys/S02/The-Boys-S02-E05.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/1CiDRYn8TBvOqYjTkFZnvkVBbX.jpg" },
+          { id: 6, title: "Ça y est", videoUrl: "https://cinetacos.xyz/series/The-Boys/S02/The-Boys-S02-E06.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/2xoXgfKPtGrMZHLnUNGXMf2h1eB.jpg" },
+          { id: 7, title: "Le Fils du boulanger", videoUrl: "https://cinetacos.xyz/series/The-Boys/S02/The-Boys-S02-E07.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/qvOlcBVh3n6M5wPYoc9Yb5dCuD9.jpg" },
+          { id: 8, title: "Ce que je sais", videoUrl: "https://cinetacos.xyz/series/The-Boys/S02/The-Boys-S02-E08.mp4", duration: 67 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/mYQSbZdGX0JXb7n7nqUuKGSZwQ6.jpg" }
         ]
       },
       {
         seasonNumber: 3,
         title: "Saison 3",
         episodes: [
-          { id: 1, title: "Retour de bâton", videoUrl: "https://cinepizza.xyz/series/The-Boys/S03/The-Boys-S03-E01.mp4", duration: 64 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/yeAHbQ11ExTFWg34gnP4dGNwfk5.jpg" },
-          { id: 2, title: "Le seul homme dans le ciel", videoUrl: "https://cinepizza.xyz/series/The-Boys/S03/The-Boys-S03-E02.mp4", duration: 62 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/nht3uPi9fjInTCa8JF45nCmETgt.jpg" },
-          { id: 3, title: "Côte de barbarie", videoUrl: "https://cinepizza.xyz/series/The-Boys/S03/The-Boys-S03-E03.mp4", duration: 63 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/v0NmiGE6FntSSGN4RXDTd2ylMwF.jpg" },
-          { id: 4, title: "Glorieux plan quinquennal", videoUrl: "https://cinepizza.xyz/series/The-Boys/S03/The-Boys-S03-E04.mp4", duration: 62 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/adNh9TIlLKh0uUug3KOiuhFINAh.jpg" },
-          { id: 5, title: "Dernier regard sur un monde de mensonges", videoUrl: "https://cinepizza.xyz/series/The-Boys/S03/The-Boys-S03-E05.mp4", duration: 63 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/m5hFjth3uqHRdDQmFr4xDhMPyzc.jpg" },
-          { id: 6, title: "Hérogasme", videoUrl: "https://cinepizza.xyz/series/The-Boys/S03/The-Boys-S03-E06.mp4", duration: 63 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/xmGw9EVZ6jSeWz0K9vyfim3KvhZ.jpg" },
-          { id: 7, title: "La chandelle qui éclaire la chambre à coucher", videoUrl: "https://cinepizza.xyz/series/The-Boys/S03/The-Boys-S03-E07.mp4", duration: 67 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/cG7G0XyW0KQ1oeYY06KnaP1n8PR.jpg" },
-          { id: 8, title: "L'Instant vieux blancs déchainés", videoUrl: "https://cinepizza.xyz/series/The-Boys/S03/The-Boys-S03-E08.mp4", duration: 64 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/pxqOE021uJtQHOdT09WmFsXyy3V.jpg" }
+          { id: 1, title: "Retour de bâton", videoUrl: "https://cinetacos.xyz/series/The-Boys/S03/The-Boys-S03-E01.mp4", duration: 64 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/yeAHbQ11ExTFWg34gnP4dGNwfk5.jpg" },
+          { id: 2, title: "Le seul homme dans le ciel", videoUrl: "https://cinetacos.xyz/series/The-Boys/S03/The-Boys-S03-E02.mp4", duration: 62 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/nht3uPi9fjInTCa8JF45nCmETgt.jpg" },
+          { id: 3, title: "Côte de barbarie", videoUrl: "https://cinetacos.xyz/series/The-Boys/S03/The-Boys-S03-E03.mp4", duration: 63 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/v0NmiGE6FntSSGN4RXDTd2ylMwF.jpg" },
+          { id: 4, title: "Glorieux plan quinquennal", videoUrl: "https://cinetacos.xyz/series/The-Boys/S03/The-Boys-S03-E04.mp4", duration: 62 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/adNh9TIlLKh0uUug3KOiuhFINAh.jpg" },
+          { id: 5, title: "Dernier regard sur un monde de mensonges", videoUrl: "https://cinetacos.xyz/series/The-Boys/S03/The-Boys-S03-E05.mp4", duration: 63 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/m5hFjth3uqHRdDQmFr4xDhMPyzc.jpg" },
+          { id: 6, title: "Hérogasme", videoUrl: "https://cinetacos.xyz/series/The-Boys/S03/The-Boys-S03-E06.mp4", duration: 63 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/xmGw9EVZ6jSeWz0K9vyfim3KvhZ.jpg" },
+          { id: 7, title: "La chandelle qui éclaire la chambre à coucher", videoUrl: "https://cinetacos.xyz/series/The-Boys/S03/The-Boys-S03-E07.mp4", duration: 67 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/cG7G0XyW0KQ1oeYY06KnaP1n8PR.jpg" },
+          { id: 8, title: "L'Instant vieux blancs déchainés", videoUrl: "https://cinetacos.xyz/series/The-Boys/S03/The-Boys-S03-E08.mp4", duration: 64 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/pxqOE021uJtQHOdT09WmFsXyy3V.jpg" }
         ]
       },
       {
         seasonNumber: 4,
         title: "Saison 4",
         episodes: [
-          { id: 1, title: "Le département des sales tours à gogo", videoUrl: "https://cinepizza.xyz/series/The-Boys/S04/The-Boys-S04-E01.mp4", duration: 66 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7eGAjea8dawKURw6YJxMxC6qIm9.jpg" },
-          { id: 2, title: "La vie parmi les sceptiques", videoUrl: "https://cinepizza.xyz/series/The-Boys/S04/The-Boys-S04-E02.mp4", duration: 62 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/4IZ7Hb8SPbHoCqL9iUWtlnusvLw.jpg" },
-          { id: 3, title: "On laisse l'alarme sonner", videoUrl: "https://cinepizza.xyz/series/The-Boys/S04/The-Boys-S04-E03.mp4", duration: 61 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/kcHBZHSYyj0eYSDzCUTze11c5RX.jpg" },
-          { id: 4, title: "La sagesse des âges", videoUrl: "https://cinepizza.xyz/series/The-Boys/S04/The-Boys-S04-E04.mp4", duration: 67 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/n4xTP8x24KeKNhCOSuBAHrUPSNw.jpg" },
-          { id: 5, title: "Fais attention au croquemitaine, mon fils", videoUrl: "https://cinepizza.xyz/series/The-Boys/S04/The-Boys-S04-E05.mp4", duration: 69 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/fN600zA2tu32y69sWnny1NorT2o.jpg" },
-          { id: 6, title: "Sale affaire", videoUrl: "https://cinepizza.xyz/series/The-Boys/S04/The-Boys-S04-E06.mp4", duration: 66 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/8f9qvnazMUHazsGL2BfeIRNWAeb.jpg" },
-          { id: 7, title: "La taupe", videoUrl: "https://cinepizza.xyz/series/The-Boys/S04/The-Boys-S04-E07.mp4", duration: 65 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/xiR5QajJaM53KQDMgocMUDce4Yi.jpg" },
-          { id: 8, title: "Final de la saison quatre", videoUrl: "https://cinepizza.xyz/series/The-Boys/S04/The-Boys-S04-E08.mp4", duration: 69 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/kv7DTgyuKz5gsSwfoH92Tnam0lA.jpg" }
+          { id: 1, title: "Le département des sales tours à gogo", videoUrl: "https://cinetacos.xyz/series/The-Boys/S04/The-Boys-S04-E01.mp4", duration: 66 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/7eGAjea8dawKURw6YJxMxC6qIm9.jpg" },
+          { id: 2, title: "La vie parmi les sceptiques", videoUrl: "https://cinetacos.xyz/series/The-Boys/S04/The-Boys-S04-E02.mp4", duration: 62 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/4IZ7Hb8SPbHoCqL9iUWtlnusvLw.jpg" },
+          { id: 3, title: "On laisse l'alarme sonner", videoUrl: "https://cinetacos.xyz/series/The-Boys/S04/The-Boys-S04-E03.mp4", duration: 61 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/kcHBZHSYyj0eYSDzCUTze11c5RX.jpg" },
+          { id: 4, title: "La sagesse des âges", videoUrl: "https://cinetacos.xyz/series/The-Boys/S04/The-Boys-S04-E04.mp4", duration: 67 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/n4xTP8x24KeKNhCOSuBAHrUPSNw.jpg" },
+          { id: 5, title: "Fais attention au croquemitaine, mon fils", videoUrl: "https://cinetacos.xyz/series/The-Boys/S04/The-Boys-S04-E05.mp4", duration: 69 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/fN600zA2tu32y69sWnny1NorT2o.jpg" },
+          { id: 6, title: "Sale affaire", videoUrl: "https://cinetacos.xyz/series/The-Boys/S04/The-Boys-S04-E06.mp4", duration: 66 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/8f9qvnazMUHazsGL2BfeIRNWAeb.jpg" },
+          { id: 7, title: "La taupe", videoUrl: "https://cinetacos.xyz/series/The-Boys/S04/The-Boys-S04-E07.mp4", duration: 65 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/xiR5QajJaM53KQDMgocMUDce4Yi.jpg" },
+          { id: 8, title: "Final de la saison quatre", videoUrl: "https://cinetacos.xyz/series/The-Boys/S04/The-Boys-S04-E08.mp4", duration: 69 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/kv7DTgyuKz5gsSwfoH92Tnam0lA.jpg" }
         ]
       }
     ]
@@ -917,7 +917,7 @@ export const seriesData: Content[] = [
     imageUrl: "https://fr.web.img4.acsta.net/pictures/22/03/29/15/12/0827894.jpg",
     bannerUrl: "https://fr.web.img6.acsta.net/r_1920_1080/pictures/22/05/18/14/31/5186184.jpg",
     episodes: [
-      { id: 1, title: "Top Gun: Maverick (Film complet)", videoUrl: "https://cinepizza.xyz/movies/Top-Gun-Maverick.mp4", duration: 131 * 60, imageUrl: "https://fr.web.img4.acsta.net/pictures/22/03/29/15/12/0827894.jpg" }
+      { id: 1, title: "Top Gun: Maverick (Film complet)", videoUrl: "https://cinetacos.xyz/movies/Top-Gun-Maverick.mp4", duration: 131 * 60, imageUrl: "https://fr.web.img4.acsta.net/pictures/22/03/29/15/12/0827894.jpg" }
     ],
     status: "Terminé",
     year: 2022,
@@ -935,7 +935,7 @@ export const seriesData: Content[] = [
     imageUrl: "https://m.media-amazon.com/images/M/MV5BZjNhODYzZGItZWQ3Ny00ZjViLTkxMTUtM2EzN2RjYjU2OGZiXkEyXkFqcGdeQXVyMTI5MTc0OTIy._V1_.jpg",
     bannerUrl: "https://upload.wikimedia.org/wikipedia/it/2/2b/South_park.JPG",
     episodes: [
-      { id: 1, title: "Cartman a une sonde anale", videoUrl: "https://cinepizza.xyz/series/South-Park/S01/South-Park-S01-E01.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/wyTnRBcrpqUZOZ8A7ee5huP8CRB.jpg" },
+      { id: 1, title: "Cartman a une sonde anale", videoUrl: "https://cinetacos.xyz/series/South-Park/S01/South-Park-S01-E01.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/wyTnRBcrpqUZOZ8A7ee5huP8CRB.jpg" },
     ],
     status: "En cours",
     year: 1997,
@@ -950,43 +950,43 @@ export const seriesData: Content[] = [
         seasonNumber: 1,
         title: "Saison 1",
         episodes: [
-          { id: 1, title: "Cartman a une sonde anale", videoUrl: "https://cinepizza.xyz/series/South-Park/S01/South-Park-S01-E01.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/wyTnRBcrpqUZOZ8A7ee5huP8CRB.jpg" },
-          { id: 2, title: "Volcano", videoUrl: "https://cinepizza.xyz/series/South-Park/S01/South-Park-S01-E02.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/lYmeXWjI066iq0X1fIrblqZCYKt.jpg" },
-          { id: 3, title: "Muscle Plus 4000", videoUrl: "https://cinepizza.xyz/series/South-Park/S01/South-Park-S01-E03.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/a7yTSmSZo6I6Kfilp8lCoM4WNS9.jpg" },
-          { id: 4, title: "Une promenade complètement folle avec Al Super Gay", videoUrl: "https://cinepizza.xyz/series/South-Park/S01/South-Park-S01-E04.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/t9hC9wJ5myAAgWxr3kRXOBm0lnG.jpg" },
-          { id: 5, title: "Un éléphant fait l'amour à un cochon", videoUrl: "https://cinepizza.xyz/series/South-Park/S01/South-Park-S01-E05.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/d1WcwEenW5mzZp70qW5XKzez3DM.jpg" },
-          { id: 6, title: "La Mort", videoUrl: "https://cinepizza.xyz/series/South-Park/S01/South-Park-S01-E06.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/1MZTw8zfvg4jjGoZ5OLfMFa4hDy.jpg" },
-          { id: 7, title: "Conjonctivite", videoUrl: "https://cinepizza.xyz/series/South-Park/S01/South-Park-S01-E07.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/A21RE0u8zaqKH7XmrTuMeVXRoGL.jpg" },
-          { id: 8, title: "Le Petit Éthernopien", videoUrl: "https://cinepizza.xyz/series/South-Park/S01/South-Park-S01-E08.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/tKS2bV3qUEMuQShcjObLPcjBlDl.jpg" },
-          { id: 9, title: "Monsieur Hankey, le petit caca Noël", videoUrl: "https://cinepizza.xyz/series/South-Park/S01/South-Park-S01-E09.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/kJUySO9RugdeRt7TKUxwkAMzO5z.jpg" },
-          { id: 10, title: "Damien", videoUrl: "https://cinepizza.xyz/series/South-Park/S01/South-Park-S01-E10.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/y4RmQsHt8g11r4Y0emlbnfdh4Y9.jpg" },
-          { id: 11, title: "Chirurgie esthétique", videoUrl: "https://cinepizza.xyz/series/South-Park/S01/South-Park-S01-E11.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/dc4ogNYa36zsa1exqLJ7zF5PmDO.jpg" },
-          { id: 12, title: "Mecha Streisand", videoUrl: "https://cinepizza.xyz/series/South-Park/S01/South-Park-S01-E12.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/yiB6DKOyOQQFuBtslck4fBSfsn4.jpg" },
-          { id: 13, title: "La mère de Cartman est une folle du cul", videoUrl: "https://cinepizza.xyz/series/South-Park/S01/South-Park-S01-E13.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/o3ZZ3QJYNZBiBCb1ZYfmgKgCmLm.jpg" }
+          { id: 1, title: "Cartman a une sonde anale", videoUrl: "https://cinetacos.xyz/series/South-Park/S01/South-Park-S01-E01.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/wyTnRBcrpqUZOZ8A7ee5huP8CRB.jpg" },
+          { id: 2, title: "Volcano", videoUrl: "https://cinetacos.xyz/series/South-Park/S01/South-Park-S01-E02.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/lYmeXWjI066iq0X1fIrblqZCYKt.jpg" },
+          { id: 3, title: "Muscle Plus 4000", videoUrl: "https://cinetacos.xyz/series/South-Park/S01/South-Park-S01-E03.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/a7yTSmSZo6I6Kfilp8lCoM4WNS9.jpg" },
+          { id: 4, title: "Une promenade complètement folle avec Al Super Gay", videoUrl: "https://cinetacos.xyz/series/South-Park/S01/South-Park-S01-E04.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/t9hC9wJ5myAAgWxr3kRXOBm0lnG.jpg" },
+          { id: 5, title: "Un éléphant fait l'amour à un cochon", videoUrl: "https://cinetacos.xyz/series/South-Park/S01/South-Park-S01-E05.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/d1WcwEenW5mzZp70qW5XKzez3DM.jpg" },
+          { id: 6, title: "La Mort", videoUrl: "https://cinetacos.xyz/series/South-Park/S01/South-Park-S01-E06.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/1MZTw8zfvg4jjGoZ5OLfMFa4hDy.jpg" },
+          { id: 7, title: "Conjonctivite", videoUrl: "https://cinetacos.xyz/series/South-Park/S01/South-Park-S01-E07.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/A21RE0u8zaqKH7XmrTuMeVXRoGL.jpg" },
+          { id: 8, title: "Le Petit Éthernopien", videoUrl: "https://cinetacos.xyz/series/South-Park/S01/South-Park-S01-E08.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/tKS2bV3qUEMuQShcjObLPcjBlDl.jpg" },
+          { id: 9, title: "Monsieur Hankey, le petit caca Noël", videoUrl: "https://cinetacos.xyz/series/South-Park/S01/South-Park-S01-E09.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/kJUySO9RugdeRt7TKUxwkAMzO5z.jpg" },
+          { id: 10, title: "Damien", videoUrl: "https://cinetacos.xyz/series/South-Park/S01/South-Park-S01-E10.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/y4RmQsHt8g11r4Y0emlbnfdh4Y9.jpg" },
+          { id: 11, title: "Chirurgie esthétique", videoUrl: "https://cinetacos.xyz/series/South-Park/S01/South-Park-S01-E11.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/dc4ogNYa36zsa1exqLJ7zF5PmDO.jpg" },
+          { id: 12, title: "Mecha Streisand", videoUrl: "https://cinetacos.xyz/series/South-Park/S01/South-Park-S01-E12.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/yiB6DKOyOQQFuBtslck4fBSfsn4.jpg" },
+          { id: 13, title: "La mère de Cartman est une folle du cul", videoUrl: "https://cinetacos.xyz/series/South-Park/S01/South-Park-S01-E13.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/o3ZZ3QJYNZBiBCb1ZYfmgKgCmLm.jpg" }
         ]
       },
       {
         seasonNumber: 2,
         title: "Saison 2",
         episodes: [
-          { id: 1, title: "Jamais sans mon anus", videoUrl: "https://cinepizza.xyz/series/South-Park/S02/South-Park-S02-E01.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/m0KcV5PUOG5o3yZhB0KaHjcIji1.jpg" },
-          { id: 2, title: "La mère de Cartman est une folle du cul", videoUrl: "https://cinepizza.xyz/series/South-Park/S02/South-Park-S02-E02.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/xOzZ2tzuwDUJd2rpUygJ5y7Y50m.jpg" },
-          { id: 3, title: "Le Zizi de Ike", videoUrl: "https://cinepizza.xyz/series/South-Park/S02/South-Park-S02-E03.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/wEkwYuIi8qqlCcM8MU4ETD1ZM67.jpg" },
-          { id: 4, title: "Le Charmeur de poules", videoUrl: "https://cinepizza.xyz/series/South-Park/S02/South-Park-S02-E04.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/80LRIHjHCbvNaTccLKhKiR2VhL.jpg" },
-          { id: 5, title: "Le Foetus siamo-maxillaire", videoUrl: "https://cinepizza.xyz/series/South-Park/S02/South-Park-S02-E05.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/t8ZQRnmcVC9uY2OXUXyScGhUewG.jpg" },
-          { id: 6, title: "La Grenouille Mexicaine hypnotique du sud du Sri Lanka ", videoUrl: "https://cinepizza.xyz/series/South-Park/S02/South-Park-S02-E06.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/nt1gQTBApn6x6poUw4rQHP9Pr32.jpg" },
-          { id: 7, title: "La Ville au bord de l'éternité", videoUrl: "https://cinepizza.xyz/series/South-Park/S02/South-Park-S02-E07.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/ySIsZoKV0mkdI5sg7sQfpaOanMz.jpg" },
-          { id: 8, title: "L'été, ça craint", videoUrl: "https://cinepizza.xyz/series/South-Park/S02/South-Park-S02-E08.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/xmPPK1HXy4y33qZbGPnfAnp87vz.jpg" },
-          { id: 9, title: "Boulettes du chef au chocolat salé", videoUrl: "https://cinepizza.xyz/series/South-Park/S02/South-Park-S02-E09.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/fOv538Hn5oO0bZnp6tXV9DBvKku.jpg" },
-          { id: 10, title: "Varicelle", videoUrl: "https://cinepizza.xyz/series/South-Park/S02/South-Park-S02-E10.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/n3LabHAsMyxX2HLI0Suwnh6Xaf.jpg" },
-          { id: 11, title: "Roger Ebert devrait manger moins gras", videoUrl: "https://cinepizza.xyz/series/South-Park/S02/South-Park-S02-E11.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/fPwMwmx88rnRwEtewU2gSw6hb5e.jpg" },
-          { id: 12, title: "La Garçonnière ", videoUrl: "https://cinepizza.xyz/series/South-Park/S02/South-Park-S02-E12.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/oRO144eJw29KtgFv2CnZfLMMmpb.jpg" },
-          { id: 13, title: "Les Journées vaches", videoUrl: "https://cinepizza.xyz/series/South-Park/S02/South-Park-S02-E13.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/1XORaE2fBLEpqyWq7EC7nnUdWRE.jpgg" },
-          { id: 14, title: "Chef Aid", videoUrl: "https://cinepizza.xyz/series/South-Park/S02/South-Park-S02-E14.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/50CZRjwqH7mhbYt4dHMUjxBUpKy.jpg" },
-          { id: 15, title: "Poisson sanglant", videoUrl: "https://cinepizza.xyz/series/South-Park/S02/South-Park-S02-E15.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/qCbM4SsN5socXGLDBvlP63BS6wq.jpg" },
-          { id: 16, title: "Joyeux Noël Charlie Manson!", videoUrl: "https://cinepizza.xyz/series/South-Park/S02/South-Park-S02-E16.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/AdCwM8y7EIx1QHdBzFUsCpEdj0p.jpg" },
-          { id: 17, title: "Gnomes", videoUrl: "https://cinepizza.xyz/series/South-Park/S02/South-Park-S02-E17.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/ryUuDDlM65gBpVrz613FnhAbyvU.jpg" },
-          { id: 18, title: "L'Homme des glaces", videoUrl: "https://cinepizza.xyz/series/South-Park/S02/South-Park-S02-E18.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/huvs4cXgabd5evTs1GJZ70lfMd6.jpg" }
+          { id: 1, title: "Jamais sans mon anus", videoUrl: "https://cinetacos.xyz/series/South-Park/S02/South-Park-S02-E01.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/m0KcV5PUOG5o3yZhB0KaHjcIji1.jpg" },
+          { id: 2, title: "La mère de Cartman est une folle du cul", videoUrl: "https://cinetacos.xyz/series/South-Park/S02/South-Park-S02-E02.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/xOzZ2tzuwDUJd2rpUygJ5y7Y50m.jpg" },
+          { id: 3, title: "Le Zizi de Ike", videoUrl: "https://cinetacos.xyz/series/South-Park/S02/South-Park-S02-E03.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/wEkwYuIi8qqlCcM8MU4ETD1ZM67.jpg" },
+          { id: 4, title: "Le Charmeur de poules", videoUrl: "https://cinetacos.xyz/series/South-Park/S02/South-Park-S02-E04.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/80LRIHjHCbvNaTccLKhKiR2VhL.jpg" },
+          { id: 5, title: "Le Foetus siamo-maxillaire", videoUrl: "https://cinetacos.xyz/series/South-Park/S02/South-Park-S02-E05.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/t8ZQRnmcVC9uY2OXUXyScGhUewG.jpg" },
+          { id: 6, title: "La Grenouille Mexicaine hypnotique du sud du Sri Lanka ", videoUrl: "https://cinetacos.xyz/series/South-Park/S02/South-Park-S02-E06.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/nt1gQTBApn6x6poUw4rQHP9Pr32.jpg" },
+          { id: 7, title: "La Ville au bord de l'éternité", videoUrl: "https://cinetacos.xyz/series/South-Park/S02/South-Park-S02-E07.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/ySIsZoKV0mkdI5sg7sQfpaOanMz.jpg" },
+          { id: 8, title: "L'été, ça craint", videoUrl: "https://cinetacos.xyz/series/South-Park/S02/South-Park-S02-E08.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/xmPPK1HXy4y33qZbGPnfAnp87vz.jpg" },
+          { id: 9, title: "Boulettes du chef au chocolat salé", videoUrl: "https://cinetacos.xyz/series/South-Park/S02/South-Park-S02-E09.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/fOv538Hn5oO0bZnp6tXV9DBvKku.jpg" },
+          { id: 10, title: "Varicelle", videoUrl: "https://cinetacos.xyz/series/South-Park/S02/South-Park-S02-E10.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/n3LabHAsMyxX2HLI0Suwnh6Xaf.jpg" },
+          { id: 11, title: "Roger Ebert devrait manger moins gras", videoUrl: "https://cinetacos.xyz/series/South-Park/S02/South-Park-S02-E11.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/fPwMwmx88rnRwEtewU2gSw6hb5e.jpg" },
+          { id: 12, title: "La Garçonnière ", videoUrl: "https://cinetacos.xyz/series/South-Park/S02/South-Park-S02-E12.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/oRO144eJw29KtgFv2CnZfLMMmpb.jpg" },
+          { id: 13, title: "Les Journées vaches", videoUrl: "https://cinetacos.xyz/series/South-Park/S02/South-Park-S02-E13.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/1XORaE2fBLEpqyWq7EC7nnUdWRE.jpgg" },
+          { id: 14, title: "Chef Aid", videoUrl: "https://cinetacos.xyz/series/South-Park/S02/South-Park-S02-E14.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/50CZRjwqH7mhbYt4dHMUjxBUpKy.jpg" },
+          { id: 15, title: "Poisson sanglant", videoUrl: "https://cinetacos.xyz/series/South-Park/S02/South-Park-S02-E15.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/qCbM4SsN5socXGLDBvlP63BS6wq.jpg" },
+          { id: 16, title: "Joyeux Noël Charlie Manson!", videoUrl: "https://cinetacos.xyz/series/South-Park/S02/South-Park-S02-E16.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/AdCwM8y7EIx1QHdBzFUsCpEdj0p.jpg" },
+          { id: 17, title: "Gnomes", videoUrl: "https://cinetacos.xyz/series/South-Park/S02/South-Park-S02-E17.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/ryUuDDlM65gBpVrz613FnhAbyvU.jpg" },
+          { id: 18, title: "L'Homme des glaces", videoUrl: "https://cinetacos.xyz/series/South-Park/S02/South-Park-S02-E18.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/huvs4cXgabd5evTs1GJZ70lfMd6.jpg" }
         ]
       },
       {
@@ -1057,33 +1057,33 @@ export const seriesData: Content[] = [
         seasonNumber: 1,
         title: "Saison 1",
         episodes: [
-          { id: 1, title: "De la graine de héros", videoUrl: "https://cinepizza.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E01.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/oWaKdUeMOlVZem3v9DWsdDGlTuY.jpg" },
-          { id: 2, title: "I, croquette", videoUrl: "https://cinepizza.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E02.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/zsO5ylZLn7ihplZFqPmOz2v87R7.jpg" },
-          { id: 3, title: "Anatomy Park", videoUrl: "https://cinepizza.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E03.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/3cp6QrExDBQUFGcOu43NBtaugNY.jpg" },
-          { id: 4, title: "M. Night Shaym-Aliens!", videoUrl: "https://cinepizza.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E04.mp4", duration: 23 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/9hbDdbHeHIuquiwQ5zdux57nYTk.jpg" },
-          { id: 5, title: "La Boîte à larbins", videoUrl: "https://cinepizza.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E05.mp4", duration: 23 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/9nh9ZpxOyCJMD73biS2h3CvHfm2.jpg" },
-          { id: 6, title: "É-Rick-xir d'amour", videoUrl: "https://cinepizza.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E06.mp4", duration: 21 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/hY750JVvL7K9KQN9lcqPTqcUEkN.jpg" },
-          { id: 7, title: "Gazorpazorp junior", videoUrl: "https://cinepizza.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E07.mp4", duration: 21 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/j7qn7TIOSQOHZBgVi4NKnTpIcgM.jpg" },
-          { id: 8, title: "Télé... visions", videoUrl: "https://  cinepizza.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E08.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/HaTpHoQw2DWFAtHgGKn4gLOEaX.jpg" },
-          { id: 9, title: "La Petite Bou-Rick des horreurs", videoUrl: "https://cinepizza.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E09.mp4", duration: 23 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/daA9q3U3ibIcm5OGuklySeIsQWV.jpg" },
-          { id: 10, title: "Rencontres du troisième Rick", videoUrl: "https://cinepizza.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E10.mp4", duration: 23 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/8gOouaPQhfB8cC01sYyFLYgTcRq.jpg" },
-          { id: 11, title: "Ricksy Business", videoUrl: "https://cinepizza.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E11.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/mLJbMSLaB8CZmr07GJGH9TiG4PL.jpg" },
+          { id: 1, title: "De la graine de héros", videoUrl: "https://cinetacos.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E01.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/oWaKdUeMOlVZem3v9DWsdDGlTuY.jpg" },
+          { id: 2, title: "I, croquette", videoUrl: "https://cinetacos.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E02.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/zsO5ylZLn7ihplZFqPmOz2v87R7.jpg" },
+          { id: 3, title: "Anatomy Park", videoUrl: "https://cinetacos.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E03.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/3cp6QrExDBQUFGcOu43NBtaugNY.jpg" },
+          { id: 4, title: "M. Night Shaym-Aliens!", videoUrl: "https://cinetacos.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E04.mp4", duration: 23 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/9hbDdbHeHIuquiwQ5zdux57nYTk.jpg" },
+          { id: 5, title: "La Boîte à larbins", videoUrl: "https://cinetacos.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E05.mp4", duration: 23 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/9nh9ZpxOyCJMD73biS2h3CvHfm2.jpg" },
+          { id: 6, title: "É-Rick-xir d'amour", videoUrl: "https://cinetacos.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E06.mp4", duration: 21 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/hY750JVvL7K9KQN9lcqPTqcUEkN.jpg" },
+          { id: 7, title: "Gazorpazorp junior", videoUrl: "https://cinetacos.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E07.mp4", duration: 21 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/j7qn7TIOSQOHZBgVi4NKnTpIcgM.jpg" },
+          { id: 8, title: "Télé... visions", videoUrl: "https://  cinetacos.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E08.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/HaTpHoQw2DWFAtHgGKn4gLOEaX.jpg" },
+          { id: 9, title: "La Petite Bou-Rick des horreurs", videoUrl: "https://cinetacos.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E09.mp4", duration: 23 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/daA9q3U3ibIcm5OGuklySeIsQWV.jpg" },
+          { id: 10, title: "Rencontres du troisième Rick", videoUrl: "https://cinetacos.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E10.mp4", duration: 23 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/8gOouaPQhfB8cC01sYyFLYgTcRq.jpg" },
+          { id: 11, title: "Ricksy Business", videoUrl: "https://cinetacos.xyz/series/Rick-et-Morty/S01/Rick-et-Morty-S01-E11.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/mLJbMSLaB8CZmr07GJGH9TiG4PL.jpg" },
         ]
       },
       {
         seasonNumber: 2,
         title: "Saison 2",
         episodes: [
-          { id: 1, title: "Effet Rick-ochet", videoUrl: "https://cinepizza.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E01.mp4", duration: 23 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/49kPj1L8KkJAnhnqJIftr3fdXHt.jpg" },
-          { id: 2, title: "Prout, l'extra-terrestre", videoUrl: "https://cinepizza.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E02.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/zsrtewu4jJPh4vB5ZDB9oW36tm8.jpg" },
-          { id: 3, title: "Assimilation auto-érotique", videoUrl: "https://cinepizza.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E03.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/6zOHPMTvduupyEDqL8FnLGt6fxq.jpg" },
-          { id: 4, title: "Total Rickall", videoUrl: "https://cinepizza.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E04.mp4", duration: 23 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/xVQqoLFSCzFtKp0OkW4PGPc7NtB.jpg" },
-          { id: 5, title: "On va vous faire schwifter", videoUrl: "https://cinepizza.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E05.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/jBUDahgRdHQUrDGcd44ju2AllbV.jpg" },
-          { id: 6, title: "Les Ricks sont tombés sur la tête", videoUrl: "https://cinepizza.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E06.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/9T5ZiW2qhqMRdx79q800SBYbxDv.jpg" },
-          { id: 7, title: "Mini Rick, méga hic", videoUrl: "https://cinepizza.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E07.mp4", duration: 23 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/mmGdga7NBsz7CCZNVJrZ7bvzuOe.jpg" },
-          { id: 8, title: "Cable interdimensionnel 2: Tenter le destin", videoUrl: "https://cinepizza.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E08.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/fm5rzPCXTLr1SlSmylBkNkZhF1P.jpg" },
-          { id: 9, title: "Qui est-ce qui purge, maintenant ?", videoUrl: "https://cinepizza.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E09.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/uK0bpV9Oc07FfCsPk6BISqKj7bS.jpg" },
-          { id: 10, title: "Mariage à la squanchaise", videoUrl: "https://cinepizza.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E10.mp4", duration: 23 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/tre38ZRSWjC1Z5f7AbI4TDo8w1t.jpg" }
+          { id: 1, title: "Effet Rick-ochet", videoUrl: "https://cinetacos.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E01.mp4", duration: 23 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/49kPj1L8KkJAnhnqJIftr3fdXHt.jpg" },
+          { id: 2, title: "Prout, l'extra-terrestre", videoUrl: "https://cinetacos.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E02.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/zsrtewu4jJPh4vB5ZDB9oW36tm8.jpg" },
+          { id: 3, title: "Assimilation auto-érotique", videoUrl: "https://cinetacos.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E03.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/6zOHPMTvduupyEDqL8FnLGt6fxq.jpg" },
+          { id: 4, title: "Total Rickall", videoUrl: "https://cinetacos.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E04.mp4", duration: 23 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/xVQqoLFSCzFtKp0OkW4PGPc7NtB.jpg" },
+          { id: 5, title: "On va vous faire schwifter", videoUrl: "https://cinetacos.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E05.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/jBUDahgRdHQUrDGcd44ju2AllbV.jpg" },
+          { id: 6, title: "Les Ricks sont tombés sur la tête", videoUrl: "https://cinetacos.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E06.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/9T5ZiW2qhqMRdx79q800SBYbxDv.jpg" },
+          { id: 7, title: "Mini Rick, méga hic", videoUrl: "https://cinetacos.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E07.mp4", duration: 23 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/mmGdga7NBsz7CCZNVJrZ7bvzuOe.jpg" },
+          { id: 8, title: "Cable interdimensionnel 2: Tenter le destin", videoUrl: "https://cinetacos.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E08.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/fm5rzPCXTLr1SlSmylBkNkZhF1P.jpg" },
+          { id: 9, title: "Qui est-ce qui purge, maintenant ?", videoUrl: "https://cinetacos.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E09.mp4", duration: 22 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/uK0bpV9Oc07FfCsPk6BISqKj7bS.jpg" },
+          { id: 10, title: "Mariage à la squanchaise", videoUrl: "https://cinetacos.xyz/series/Rick-et-Morty/S02/Rick-et-Morty-S02-E10.mp4", duration: 23 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/tre38ZRSWjC1Z5f7AbI4TDo8w1t.jpg" }
         ]
       }
     ]
@@ -1094,7 +1094,7 @@ export const seriesData: Content[] = [
     description: "Au lendemain de l'inauguration d'un luxueux complexe hôtelier, Martin Brody, le chef de la police d'Amity, apprend la disparition d'une équipe de plongeurs. Il craint le pire. Un requin est déjà venu nager dans les eaux d'Amity quelques années auparavant. Ses inquiétudes ne tardent pas à se confirmer. Un autre accident se produit et le cadavre d'une baleine portant les morsures d'un requin géant échoue sur la plage. Martin Brody alerte immédiatement le maire et lui demande d'interdire la baignade. Mais le conseil municipal refuse de prendre de telles précautions.",
     imageUrl: "https://www.ecranlarge.com/content/uploads/2020/08/5yueljcr7llazcsoqwm41m2esmy-832.jpg",
     bannerUrl: "https://medias.france.tv/1rLLQtACXg1kB53CM8ULIRHmNnw/1800x0/filters:quality(85):format(webp)/v/k/n/phpszynkv.jpg",
-    episodes: [ { id: 1, title: "Les dents de la mère 2 (Film complet)", videoUrl: "https://cinepizza.xyz/movies/Les-Dents-de-la-mer-2e-partie.mp4", duration: 116 * 60, imageUrl: "https://media.themoviedb.org/t/p/w533_and_h300_bestv2/qNsLlAE9Sp34AYkaMw5083Xa660.jpg" }],
+    episodes: [ { id: 1, title: "Les dents de la mère 2 (Film complet)", videoUrl: "https://cinetacos.xyz/movies/Les-Dents-de-la-mer-2e-partie.mp4", duration: 116 * 60, imageUrl: "https://media.themoviedb.org/t/p/w533_and_h300_bestv2/qNsLlAE9Sp34AYkaMw5083Xa660.jpg" }],
     status: "Terminé",
     year: 1978,
     studio: "HBO",
@@ -1110,7 +1110,7 @@ export const seriesData: Content[] = [
     description: "Michael Brody et Sean Brody, les deux fils du chef de la police Martin Brody de la ville plaisancière d'Amytiville, ont bien grandi. Après que leur père ait affronté deux fois la terreur des mers, le Grand Requin Blanc, une espèce animale mangeuse d'hommes de plus de sept mètres de long, ils se sont installés en Floride où ils travaillent pour un célèbre parc aquatique englouti dans la mer, dirigé par Calvin Bouchard. Peu de temps après l'ouverture du parc, l'équipe récupère dans les fonds marins un bébé requin, qui meurt sur les tables du laboratoire scientifique du parc. ",
     imageUrl: "https://castprod.com/wp-content/uploads/2025/06/Les-acteurs-et-actrices-a-la-distribution-de-Les-Dents-de-la-mer-le-film-culte-diffuse-sur-France-3.jpg",
     bannerUrl: "https://medias.france.tv/1rLLQtACXg1kB53CM8ULIRHmNnw/1800x0/filters:quality(85):format(webp)/v/k/n/phpszynkv.jpg",
-    episodes: [ { id: 1, title: "Les dents de la mère 3 (Film complet)", videoUrl: "https://cinepizza.xyz/movies/Les-Dents-de-la-mer-3.mp4", duration: 116 * 60, imageUrl: "https://media.themoviedb.org/t/p/w533_and_h300_bestv2/qNsLlAE9Sp34AYkaMw5083Xa660.jpg" }],
+    episodes: [ { id: 1, title: "Les dents de la mère 3 (Film complet)", videoUrl: "https://cinetacos.xyz/movies/Les-Dents-de-la-mer-3.mp4", duration: 116 * 60, imageUrl: "https://media.themoviedb.org/t/p/w533_and_h300_bestv2/qNsLlAE9Sp34AYkaMw5083Xa660.jpg" }],
     status: "Terminé",
     year: 1983,
     studio: "HBO",
@@ -1126,7 +1126,7 @@ export const seriesData: Content[] = [
     description: "Amity, la désormais célèbre station balnéaire américaine, prépare fébrilement les fêtes de Noël. Ellen Brody, dont le mari a été dévoré par un requin, apprend à vivre seule. Il ne lui reste plus que ses deux fils, Michael, installé avec sa famille aux Bahamas, et Sean, qui doit bientôt se marier. Celui-ci, qui a remplacé son père au poste de shérif, part en mer pour déplacer une balise. Il est tué par un requin. Ellen, désespérée, pense que les siens sont maudits. Michael invite sa mère à venir vivre auprès de sa famille.",
     imageUrl: "https://fr.web.img2.acsta.net/medias/nmedia/18/66/42/41/19132624.jpg",
     bannerUrl: "https://medias.france.tv/1rLLQtACXg1kB53CM8ULIRHmNnw/1800x0/filters:quality(85):format(webp)/v/k/n/phpszynkv.jpg",
-    episodes: [ { id: 1, title: "Les dents de la mère 4 (Film complet)", videoUrl: "https://cinepizza.xyz/movies/Les-Dents-de-la-mer-4-La-Revanche.mp4", duration: 116 * 60, imageUrl: "https://media.themoviedb.org/t/p/w533_and_h300_bestv2/qNsLlAE9Sp34AYkaMw5083Xa660.jpg" }],
+    episodes: [ { id: 1, title: "Les dents de la mère 4 (Film complet)", videoUrl: "https://cinetacos.xyz/movies/Les-Dents-de-la-mer-4-La-Revanche.mp4", duration: 116 * 60, imageUrl: "https://media.themoviedb.org/t/p/w533_and_h300_bestv2/qNsLlAE9Sp34AYkaMw5083Xa660.jpg" }],
     status: "Terminé",
     year: 1987,
     studio: "HBO",
@@ -1158,28 +1158,28 @@ export const seriesData: Content[] = [
         seasonNumber: 1,
         title: "Saison 1",
         episodes: [
-          { id: 1, title: "Pilote", videoUrl: "https://cinepizza.xyz/series/Euphoria/S01/Euphoria-S01-E01.mp4", duration: 54 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/u59av3aNA9zLXxBvy40hAQzJ2Hw.jpg" },
-          { id: 2, title: "Cascade comme mon papa", videoUrl: "https://cinepizza.xyz/series/Euphoria/S01/Euphoria-S01-E02.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/4NCKs8RMxevYrBzuqGI4usEprUL.jpg" },
-          { id: 3, title: "Célèbre inconnue", videoUrl: "https://cinepizza.xyz/series/Euphoria/S01/Euphoria-S01-E03.mp4", duration: 57 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/5mimFhtPvrIlmEdRsevtnCSSvon.jpg" },
-          { id: 4, title: "Shook Ones, Pt. II", videoUrl: "https://cinepizza.xyz/series/Euphoria/S01/Euphoria-S01-E04.mp4", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/CkshIxWHj1yI0Xqh84dgDfAAfG.jpg" },
-          { id: 5, title: "'03 Bonnie et Clyde", videoUrl: "https://cinepizza.xyz/series/Euphoria/S01/Euphoria-S01-E05.mp48", duration: 53 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/3ff187LdnqgrrOQWlzGShPR5sLS.jpg"},
-          { id: 6, title: "The Next Episode", videoUrl: "https://cinepizza.xyz/series/Euphoria/S01/Euphoria-S01-E06.mp4", duration: 50 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/40TkPAIhEhZkSOB7EIeaysAb6Ni.jpg" },
-          { id: 7, title: "Les Tribulations d'une dépressive qui essaie de pisser", videoUrl: "https://cinepizza.xyz/series/Euphoria/S01/Euphoria-S01-E07.mp4", duration: 59 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/vMQsSORQsV2tfUw1ezyGiCbO6l8.jpg" },
-          { id: 8, title: "Répands du sel derrière toi", videoUrl: "https://cinepizza.xyz/series/Euphoria/S01/Euphoria-S01-E08.mp4", duration: 65 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/kLsHM3fxgYMPw4Cwg3oZDAnenV2.jpg" }
+          { id: 1, title: "Pilote", videoUrl: "https://cinetacos.xyz/series/Euphoria/S01/Euphoria-S01-E01.mp4", duration: 54 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/u59av3aNA9zLXxBvy40hAQzJ2Hw.jpg" },
+          { id: 2, title: "Cascade comme mon papa", videoUrl: "https://cinetacos.xyz/series/Euphoria/S01/Euphoria-S01-E02.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/4NCKs8RMxevYrBzuqGI4usEprUL.jpg" },
+          { id: 3, title: "Célèbre inconnue", videoUrl: "https://cinetacos.xyz/series/Euphoria/S01/Euphoria-S01-E03.mp4", duration: 57 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/5mimFhtPvrIlmEdRsevtnCSSvon.jpg" },
+          { id: 4, title: "Shook Ones, Pt. II", videoUrl: "https://cinetacos.xyz/series/Euphoria/S01/Euphoria-S01-E04.mp4", duration: 55 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/CkshIxWHj1yI0Xqh84dgDfAAfG.jpg" },
+          { id: 5, title: "'03 Bonnie et Clyde", videoUrl: "https://cinetacos.xyz/series/Euphoria/S01/Euphoria-S01-E05.mp48", duration: 53 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/3ff187LdnqgrrOQWlzGShPR5sLS.jpg"},
+          { id: 6, title: "The Next Episode", videoUrl: "https://cinetacos.xyz/series/Euphoria/S01/Euphoria-S01-E06.mp4", duration: 50 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/40TkPAIhEhZkSOB7EIeaysAb6Ni.jpg" },
+          { id: 7, title: "Les Tribulations d'une dépressive qui essaie de pisser", videoUrl: "https://cinetacos.xyz/series/Euphoria/S01/Euphoria-S01-E07.mp4", duration: 59 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/vMQsSORQsV2tfUw1ezyGiCbO6l8.jpg" },
+          { id: 8, title: "Répands du sel derrière toi", videoUrl: "https://cinetacos.xyz/series/Euphoria/S01/Euphoria-S01-E08.mp4", duration: 65 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/kLsHM3fxgYMPw4Cwg3oZDAnenV2.jpg" }
         ]
       },
       {
         seasonNumber: 2,
         title: "Saison 2",
         episodes: [
-          { id: 1, title: "Essayons d'aller au paradis avant qu'ils ne ferment les portes", videoUrl: "https://cinepizza.xyz/series/Euphoria/S02/Euphoria-S02-E01.mp4", duration: 61 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/8rW1LANR14YRkT8poSziWOiRa5U.jpg" },
-          { id: 2, title: "Hors de portée", videoUrl: "https://cinepizza.xyz/series/Euphoria/S02/Euphoria-S02-E02.mp4", duration: 57 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/8SVh38IfkMbqSaPEoauR8tl8gDu.jpg" },
-          { id: 3, title: "Ruminations : petites et grosses brutes", videoUrl: "https://cinepizza.xyz/series/Euphoria/S02/Euphoria-S02-E03.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/nibFSc6mQLHeFAkfKEifnObtYRR.jpg" },
-          { id: 4, title: "Vous, qui ne pouvez pas voir, pensez à ceux qui peuvent voir", videoUrl: "https://cinepizza.xyz/series/Euphoria/S02/Euphoria-S02-E04.mp4", duration: 61 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/nuTsLlLNacklbITyQPRvKOAtXlg.jpg" },
-          { id: 5, title: "Aussi stable qu'un colibri", videoUrl: "https://cinepizza.xyz/series/Euphoria/S02/Euphoria-S02-E05.mp4", duration: 53 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/g90PNNYusg548V8wncsK4lUb1rY.jpg" },
-          { id: 6, title: "Mille petits arbres de sang", videoUrl: "https://cinepizza.xyz/series/Euphoria/S02/Euphoria-S02-E06.mp4", duration: 57 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/a4FJJ4jPpYc34jmtXzgm2uAS6V7.jpg" },
-          { id: 7, title: "Théâtre et son double", videoUrl: "https://cinepizza.xyz/series/Euphoria/S02/Euphoria-S02-E07.mp4", duration: 58 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/1qXV8oAPhIqkqaNouwb9JC28SfV.jpg" },
-          { id: 8, title: "La confusion de masse", videoUrl: "https://cinepizza.xyz/series/Euphoria/S02/Euphoria-S02-E08.mp4", duration: 61 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/po4G5fgneIoiuk7TWlvcusWM1HS.jpg" }
+          { id: 1, title: "Essayons d'aller au paradis avant qu'ils ne ferment les portes", videoUrl: "https://cinetacos.xyz/series/Euphoria/S02/Euphoria-S02-E01.mp4", duration: 61 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/8rW1LANR14YRkT8poSziWOiRa5U.jpg" },
+          { id: 2, title: "Hors de portée", videoUrl: "https://cinetacos.xyz/series/Euphoria/S02/Euphoria-S02-E02.mp4", duration: 57 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/8SVh38IfkMbqSaPEoauR8tl8gDu.jpg" },
+          { id: 3, title: "Ruminations : petites et grosses brutes", videoUrl: "https://cinetacos.xyz/series/Euphoria/S02/Euphoria-S02-E03.mp4", duration: 60 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/nibFSc6mQLHeFAkfKEifnObtYRR.jpg" },
+          { id: 4, title: "Vous, qui ne pouvez pas voir, pensez à ceux qui peuvent voir", videoUrl: "https://cinetacos.xyz/series/Euphoria/S02/Euphoria-S02-E04.mp4", duration: 61 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/nuTsLlLNacklbITyQPRvKOAtXlg.jpg" },
+          { id: 5, title: "Aussi stable qu'un colibri", videoUrl: "https://cinetacos.xyz/series/Euphoria/S02/Euphoria-S02-E05.mp4", duration: 53 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/g90PNNYusg548V8wncsK4lUb1rY.jpg" },
+          { id: 6, title: "Mille petits arbres de sang", videoUrl: "https://cinetacos.xyz/series/Euphoria/S02/Euphoria-S02-E06.mp4", duration: 57 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/a4FJJ4jPpYc34jmtXzgm2uAS6V7.jpg" },
+          { id: 7, title: "Théâtre et son double", videoUrl: "https://cinetacos.xyz/series/Euphoria/S02/Euphoria-S02-E07.mp4", duration: 58 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/1qXV8oAPhIqkqaNouwb9JC28SfV.jpg" },
+          { id: 8, title: "La confusion de masse", videoUrl: "https://cinetacos.xyz/series/Euphoria/S02/Euphoria-S02-E08.mp4", duration: 61 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/po4G5fgneIoiuk7TWlvcusWM1HS.jpg" }
         ]
       }
     ]
@@ -1191,7 +1191,7 @@ export const seriesData: Content[] = [
     imageUrl: "https://fr.web.img6.acsta.net/pictures/19/09/03/12/02/4765874.jpg",
     bannerUrl: "https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/rlay2M5QYvi6igbGcFjq8jxeusY.jpg",
     episodes: [
-      { id: 1, title: "Joker (Film complet)", videoUrl: "https://cinepizza.xyz/movies/Joker.mp4", duration: 122 * 60, imageUrl: "https://fr.web.img6.acsta.net/pictures/19/09/03/12/02/4765874.jpg" }
+      { id: 1, title: "Joker (Film complet)", videoUrl: "https://cinetacos.xyz/movies/Joker.mp4", duration: 122 * 60, imageUrl: "https://fr.web.img6.acsta.net/pictures/19/09/03/12/02/4765874.jpg" }
     ],
     status: "Terminé",
     year: 2019,
@@ -1209,7 +1209,7 @@ export const seriesData: Content[] = [
     imageUrl: "https://fr.web.img6.acsta.net/medias/nmedia/18/63/97/89/18949761.jpg",
     bannerUrl: "https://occ-0-6302-56.1.nflxso.net/dnm/api/v6/Z-WHgqd_TeJxSuha8aZ5WpyLcX8/AAAABcQRr9ijjGrk5Olr5Gi5Z7TL5qJb7FmsYHc8bbHmv8jHfmm1D02NsezjdKHKy_4pW8BuP4lpi1i_5_ucgSSVR4DI2bB9WrFETpoS.webp?r=24e 960w, https://occ-0-6302-56.1.nflxso.net/dnm/api/v6/Z-WHgqd_TeJxSuha8aZ5WpyLcX8/AAAABV0XXU0ThOokpNZ855SP8NWnbQpUpgbiV6VoesNjLZn_M83KN6AwM9cUqudY04ymMIEFaF5C0chHDHX_PWmkf7LLS9ny_ULKub3L.webp?r=24e 1280w, https://occ-0-6302-56.1.nflxso.net/dnm/api/v6/Z-WHgqd_TeJxSuha8aZ5WpyLcX8/AAAABaZjrUrIqxum1YM4tcINTzLXVXNkra8uTdYpO0snXTWPe1hy2zF_yXGmUlJZTTiVRU3OOiD7nVyF_mMEo5ajJwxuyzyTVjuRPHe5.webp?r=24e 1920w",
     episodes: [
-      { id: 1, title: "The Dark Knight (Film complet)", videoUrl: "https://cinepizza.xyz/movies/The-Dark-Knight-Le-Chevalier-noir.mp4", duration: 152 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/x5f2uTfw0Pqc5QI4ch5AHICee2o.jpg" }
+      { id: 1, title: "The Dark Knight (Film complet)", videoUrl: "https://cinetacos.xyz/movies/The-Dark-Knight-Le-Chevalier-noir.mp4", duration: 152 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/x5f2uTfw0Pqc5QI4ch5AHICee2o.jpg" }
     ],
     status: "Terminé",
     year: 2008,
@@ -1227,7 +1227,7 @@ export const seriesData: Content[] = [
     imageUrl: "https://lumiere-a.akamaihd.net/v1/images/p_coco_19736_fd5fa537.jpeg?region=0%2C0%2C540%2C810",
     bannerUrl: "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/askg3SMvhqEl4OL52YuvdtY40Yb.jpg",
     episodes: [
-      { id: 1, title: "Coco (Film complet)", videoUrl: "https://cinepizza.xyz/movies/Coco.mp4", duration: 105 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/askg3SMvhqEl4OL52YuvdtY40Yb.jpg" }
+      { id: 1, title: "Coco (Film complet)", videoUrl: "https://cinetacos.xyz/movies/Coco.mp4", duration: 105 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/askg3SMvhqEl4OL52YuvdtY40Yb.jpg" }
     ],
     status: "Terminé",
     year: 2017,
@@ -1245,7 +1245,7 @@ export const seriesData: Content[] = [
     imageUrl: "https://www.lafilmotheque.fr/v3/content/uploads/2023/05/417c38cda676141ca9fdcac5efdf951ff46db147.jpeg",
     bannerUrl:"https://img.lemde.fr/2014/12/24/0/1/3069/2046/1440/960/60/0/05dad1c_11661-1m6i95v.JPEG",
     episodes:[
-      {id:1, title:"Charlie et la chocolaterie (Film complet)", videoUrl:"https://cinepizza.xyz/movies/Charlie-et-la-chocolaterie.mp4", duration:115*60, imageUrl:"https://img.lemde.fr/2014/12/24/0/1/3069/2046/1440/960/60/0/05dad1c_11661-1m6i95v.JPEG"}
+      {id:1, title:"Charlie et la chocolaterie (Film complet)", videoUrl:"https://cinetacos.xyz/movies/Charlie-et-la-chocolaterie.mp4", duration:115*60, imageUrl:"https://img.lemde.fr/2014/12/24/0/1/3069/2046/1440/960/60/0/05dad1c_11661-1m6i95v.JPEG"}
     ],
     status:"Terminé",
     year:2005,
@@ -1264,7 +1264,7 @@ export const seriesData: Content[] = [
     imageUrl:"https://play-lh.googleusercontent.com/KHagyirtj9vkyR3blrdw-TFADcSFYh4pBJQHQTz2YbT_vSGwweA4SIh7jZWvHB7jj2W16lOVow-yUer0qTI",
     bannerUrl:"https://for-sale.used-secondhand.co.uk/media/secondhand/images/68411/bond-banner-007-leicestershire/007-or-james-bond-banner-124.jpg",
     episodes:[
-      {id:1, title:"No Time to Die (Film complet)", videoUrl:"https://cinepizza.xyz/movies/Mourir-peut-attendre.mp4", duration:163*60, imageUrl:"https://media.themoviedb.org/t/p/w500_and_h282_face/bz7pwNGCbV576COsDcYN9MbEACC.jpg"}
+      {id:1, title:"No Time to Die (Film complet)", videoUrl:"https://cinetacos.xyz/movies/Mourir-peut-attendre.mp4", duration:163*60, imageUrl:"https://media.themoviedb.org/t/p/w500_and_h282_face/bz7pwNGCbV576COsDcYN9MbEACC.jpg"}
     ],
     status:"Terminé",
     year:2021,
@@ -1300,7 +1300,7 @@ export const seriesData: Content[] = [
     imageUrl:"https://www.themoviedb.org/t/p/w600_and_h900_bestv2/aej3LRUga5rhgkmRP6XMFw3ejbl.jpg",
     bannerUrl:"https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",
     episodes: [
-      { id: 1, title: "Inception (Film complet)", videoUrl: "https://cinepizza.xyz/movies/Inception.mp4", duration: 148 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/s3TBrRGB1iav7gFOCNx3H31MoES.jpg" }
+      { id: 1, title: "Inception (Film complet)", videoUrl: "https://cinetacos.xyz/movies/Inception.mp4", duration: 148 * 60, imageUrl: "https://media.themoviedb.org/t/p/w500_and_h282_face/s3TBrRGB1iav7gFOCNx3H31MoES.jpg" }
     ],
     status: "Terminé",
     year: 2010,
@@ -1318,7 +1318,7 @@ export const seriesData: Content[] = [
     imageUrl: "https://thumb.canalplus.pro/http/unsafe/600x800/img-hapi.canalplus.pro:80/ServiceImage/ImageID/103873072",
     bannerUrl: "https://www.heyuguys.com/?attachment_id=188260",
     episodes: [
-      { id: 1, title: "World War Z (Film complet)", videoUrl: "https://cinepizza.xyz/movies/World-War-Z.mp4", duration: 116 * 60, imageUrl: "https://thumb.canalplus.pro/http/unsafe/600x800/img-hapi.canalplus.pro:80/ServiceImage/ImageID/103873072" }
+      { id: 1, title: "World War Z (Film complet)", videoUrl: "https://cinetacos.xyz/movies/World-War-Z.mp4", duration: 116 * 60, imageUrl: "https://thumb.canalplus.pro/http/unsafe/600x800/img-hapi.canalplus.pro:80/ServiceImage/ImageID/103873072" }
     ],
     status: "Terminé",
     year: 2013,

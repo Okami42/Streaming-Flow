@@ -807,7 +807,7 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
                       }}
                     ></iframe>
                   </div>
-                ) : episode.videoUrl.endsWith('.mp4') || episode.videoUrl.includes('cloudflarestorage') || episode.videoUrl.includes('cinepizza.xyz') ? (
+                ) : episode.videoUrl.endsWith('.mp4') || episode.videoUrl.includes('cloudflarestorage') || episode.videoUrl.includes('cinetacos.xyz') ? (
                   <video 
                     ref={videoRef}
                     src={episode.videoUrl} 
