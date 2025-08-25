@@ -5,18 +5,14 @@
 
 
 var eps3 = [
-
-'https://video.sibnet.ru/shell.php?videoid=5952167',
-
-'https://video.sibnet.ru/shell.php?videoid=5959653',
-
-'https://video.sibnet.ru/shell.php?videoid=5966899',
-
-'https://video.sibnet.ru/shell.php?videoid=5973684',
-
-'https://video.sibnet.ru/shell.php?videoid=5979279',
-
-'https://video.sibnet.ru/shell.php?videoid=5985091',
+'https://sendvid.com/embed/fnmpijmc',
+'https://sendvid.com/embed/z93epcc9',
+'https://sendvid.com/embed/3vy8fdsd',
+'https://sendvid.com/embed/ofpodcgk',
+'https://sendvid.com/embed/oio6l38y',
+'https://sendvid.com/embed/t8k60d0o',
+'https://sendvid.com/embed/zi4afgs9',
+'https://sendvid.com/embed/n7pv5ljw',
 
 
 
