@@ -11,7 +11,8 @@ export interface AnimeEpisode {
   vidmolyId?: string;
   vidmolyVfId?: string;
   vidmolyVfUrl?: string;  // URL complète pour Vidmoly VF
-  sendvidId?: string;
+  sendvidId?: string;     // Sendvid VOSTFR
+  sendvidVfId?: string;   // Sendvid VF
   m3u8Url?: string;
   m3u8VfUrl?: string;
   mp4Url?: string;     // Lien direct vers le fichier MP4 en VOSTFR
@@ -39,6 +40,7 @@ export interface Anime {
   status: string;
   genres: string[];
   rating: number;
+  language?: string; // VF, VOSTFR, ou VF & VOSTFR
   seasons?: AnimeSeason[];
   episodes?: AnimeEpisode[]; // Garder le support pour l'ancienne structure
 }
@@ -75,7 +77,7 @@ export const animes: Anime[] = [
     year: 1988,
     type: "Movie",
     status: "Terminé",
-    genres: ["Science-fiction", "Action", "Cyberpunk", "Psychologique", "Combats"],
+    genres: ["Science-fiction", "Action", "Cyberpunk", "Psychologique", "Combats", "Dystopie", "Technologies", "Futur"],
     rating: 8.7,
     episodes: [
       { number: 1, title: "Akira", sibnetVostfrId: "4740096", sibnetVfId: "5340708" }
@@ -91,7 +93,7 @@ export const animes: Anime[] = [
     year: 2022,
     type: "Anime",
     status: "En cours",
-    genres: ["Comédie", "Romance", "Tranche de vie", "École", "Adolescence"],
+    genres: ["Comédie", "Romance", "Slice of Life", "École", "Adolescence", "Art"],
     rating: 8.0
   },
   {
@@ -104,7 +106,7 @@ export const animes: Anime[] = [
     year: 2021,
     type: "Anime",
     status: "Terminé",
-    genres: ["Comédie", "Romance", "École", "Slice of Life", "Adolescence"],
+    genres: ["Comédie", "Romance", "École", "Slice of Life", "Adolescence", "Harcèlement"],
     rating: 7.8
   },
   {
@@ -117,7 +119,7 @@ export const animes: Anime[] = [
     year: 2024,
     type: "Anime",
     status: "Terminé",
-    genres: ["Action", "Fantasy", "Aventure", "Shounen", "Combats"],
+    genres: ["Action", "Fantasy", "Aventure", "Shônen", "Combats", "Autre monde"],
     rating: 9.0
   },
   {
@@ -130,7 +132,7 @@ export const animes: Anime[] = [
     year: 2019,
     type: "Anime",
     status: "Terminé",
-    genres: ["Action", "Shounen", "Historique", "Surnaturel", "Combats", "Adolescence"],
+    genres: ["Action", "Shônen", "Historique", "Surnaturel", "Combats", "Adolescence", "Démons", "Famille"],
     rating: 9.5,
     episodes: [
       { number: 1, title: "Cruauté", sibnetVostfrId: "4670053", sibnetVfId: "4745088" },
@@ -253,21 +255,7 @@ export const animes: Anime[] = [
     type: "Anime",
     status: "Terminé",
     genres: ["Action", "Science-fiction", "Dystopie", "Combats"],
-    rating: 8.7,
-    episodes: [
-      { number: 1, title: "Episode 1", sibnetVostfrId: "4113996" },
-      { number: 2, title: "Episode 2", sibnetVostfrId: "4121876" },
-      { number: 3, title: "Episode 3", sibnetVostfrId: "4121877" },
-      { number: 4, title: "Episode 4", sibnetVostfrId: "4124111" },
-      { number: 5, title: "Episode 5", sibnetVostfrId: "4131827" },
-      { number: 6, title: "Episode 6", sibnetVostfrId: "4138651" },
-      { number: 7, title: "Episode 7", sibnetVostfrId: "4145600" },
-      { number: 8, title: "Episode 8", sibnetVostfrId: "4154555" },
-      { number: 9, title: "Episode 9", sibnetVostfrId: "4162621" },
-      { number: 10, title: "Episode 10", sibnetVostfrId: "4168934" },
-      { number: 11, title: "Episode 11", sibnetVostfrId: "4175750" },
-      { number: 12, title: "Episode 12", sibnetVostfrId: "4189420" }
-    ]
+    rating: 8.7
   },
   {
     id: "welcome-demon-school-teacher",
@@ -292,124 +280,8 @@ export const animes: Anime[] = [
     year: 2012,
     type: "Anime",
     status: "Terminé",
-    genres: ["Sport", "Comédie", "Drame", "École", "Adolescence"],
+    genres: ["Sport", "Comédie", "Drame", "École", "Adolescence", "Amitié", "School Life"],
     rating: 8.7,
-    seasons: [
-      {
-        seasonNumber: 1,
-        title: "Saison 1",
-        year: 2012,
-        episodes: [
-            { number: 1, title: "Je suis Kuroko", sibnetVostfrId: "4737805", sibnetVfId: "4738641" },
-            { number: 2, title: "Je suis sérieux", sibnetVostfrId: "4737812", sibnetVfId: "4738646" },
-            { number: 3, title: "La victoire est toujours importante", sibnetVostfrId: "4737817", sibnetVfId: "4738651" },
-            { number: 4, title: "Rien n'est impossible", sibnetVostfrId: "4737823", sibnetVfId: "4738657" },
-            { number: 5, title: "Ta basket est trop vieille", sibnetVostfrId: "4737830", sibnetVfId: "4738660" },
-            { number: 6, title: "Faisons-le", sibnetVostfrId: "4737836", sibnetVfId: "4738665" },
-            { number: 7, title: "Tu as beaucoup de jugeote", sibnetVostfrId: "4737843", sibnetVfId: "4738668" },
-            { number: 8, title: "Je suis vraiment jaloux", sibnetVostfrId: "4737848", sibnetVfId: "4738671" },
-            { number: 9, title: "Tu ferais bien de gagner", sibnetVostfrId: "4737852", sibnetVfId: "4738675" },
-            { number: 10, title: "Je lui montrerai", sibnetVostfrId: "4737857", sibnetVfId: "4738679" },
-            { number: 11, title: "Commençons", sibnetVostfrId: "4737865", sibnetVfId: "4738683" },
-            { number: 12, title: "Franchement, je déteste ça", sibnetVostfrId: "4737888", sibnetVfId: "4738687" },
-            { number: 13, title: "Je ne peux pas lire son mental", sibnetVostfrId: "4737905", sibnetVfId: "4738691" },
-            { number: 14, title: "Vous avez eu tort de m'en vouloir", sibnetVostfrId: "4737923", sibnetVfId: "4738696" },
-            { number: 15, title: "Nous n'avons pas fini", sibnetVostfrId: "4737938", sibnetVfId: "4738698" },
-            { number: 16, title: "Laissez-moi vous raconter", sibnetVostfrId: "4737947", sibnetVfId: "4738700" },
-            { number: 17, title: "Tu m'as battu", sibnetVostfrId: "4737952", sibnetVfId: "4738704" },
-            { number: 18, title: "Vous allez comprendre pourquoi", sibnetVostfrId: "4737955", sibnetVfId: "4738706" },
-            { number: 19, title: "C'est pas pour des prunes", sibnetVostfrId: "4737957", sibnetVfId: "4738710" },
-            { number: 20, title: "Je ne peux pas le croire", sibnetVostfrId: "4737960", sibnetVfId: "4738712" },
-            { number: 21, title: "Essaie de me dépasser", sibnetVostfrId: "4737964", sibnetVfId: "4738714" },
-            { number: 22, title: "Je suis pas un gamin", sibnetVostfrId: "4737966", sibnetVfId: "4738717" },
-            { number: 23, title: "Je suis le meilleur joueur", sibnetVostfrId: "4737969", sibnetVfId: "4738718" },
-            { number: 24, title: "Ne me fais pas rire", sibnetVostfrId: "4737970", sibnetVfId: "4738724" },
-            { number: 25, title: "C'est le moment de bondir", sibnetVostfrId: "4737973", sibnetVfId: "4738730" },
-            { number: 26, title: "Rendez-vous l'hiver prochain", sibnetVostfrId: "4737979", sibnetVfId: "4738735" }
-          ]
-          
-      },
-      {
-        seasonNumber: 2,
-        title: "Saison 2",
-        year: 2013,
-        episodes: [
-          { number: 1, title: "Le début d'une nouvelle bataille", sibnetVostfrId: "4737982", sibnetVfId: "3100316" },
-          { number: 2, title: "Le retour de l'Empereur", sibnetVostfrId: "4737984", sibnetVfId: "3100317" },
-          { number: 3, title: "Le défi de Midorima", sibnetVostfrId: "4737987", sibnetVfId: "3100319" },
-          { number: 4, title: "La stratégie de Takao", sibnetVostfrId: "4737991", sibnetVfId: "3100321" },
-          { number: 5, title: "Le réveil de l'Empereur", sibnetVostfrId: "4737993", sibnetVfId: "3100323" },
-          { number: 6, title: "Le défi de Kise", sibnetVostfrId: "4737996", sibnetVfId: "3100324" },
-          { number: 7, title: "Le match contre Kaijo", sibnetVostfrId: "4738000", sibnetVfId: "3100326" },
-          { number: 8, title: "La victoire de Seirin", sibnetVostfrId: "4738002", sibnetVfId: "3100327" },
-          { number: 9, title: "Le défi de Murasakibara", sibnetVostfrId: "4738005", sibnetVfId: "3100329" },
-          { number: 10, title: "Le match contre Yosen", sibnetVostfrId: "4738008", sibnetVfId: "3100330" },
-          { number: 11, title: "La stratégie de Himuro", sibnetVostfrId: "4738011", sibnetVfId: "3100332" },
-          { number: 12, title: "Le réveil de Murasakibara", sibnetVostfrId: "4738013", sibnetVfId: "3100333" },
-          { number: 13, title: "Le défi d'Aomine", sibnetVostfrId: "5010815", sibnetVfId: "3100334" },
-          { number: 14, title: "Le match contre Touou", sibnetVostfrId: "4738017", sibnetVfId: "3100335" },
-          { number: 15, title: "La stratégie d'Imayoshi", sibnetVostfrId: "4738019", sibnetVfId: "3100336" },
-          { number: 16, title: "Le réveil d'Aomine", sibnetVostfrId: "4738027", sibnetVfId: "3100337" },
-          { number: 17, title: "Le défi de Kise", sibnetVostfrId: "4738022", sibnetVfId: "3100339" },
-          { number: 18, title: "Le match contre Kaijo", sibnetVostfrId: "4738048", sibnetVfId: "3100341" },
-          { number: 19, title: "La stratégie de Kasamatsu", sibnetVostfrId: "4738052", sibnetVfId: "3100343" },
-          { number: 20, title: "Le réveil de Kise", sibnetVostfrId: "4738057", sibnetVfId: "3100345" },
-          { number: 21, title: "Le défi de Midorima", sibnetVostfrId: "4738059", sibnetVfId: "3100347" },
-          { number: 22, title: "Le match contre Shutoku", sibnetVostfrId: "4738063", sibnetVfId: "3100350" },
-          { number: 23, title: "La stratégie de Takao", sibnetVostfrId: "4738067", sibnetVfId: "3100352" },
-          { number: 24, title: "Le réveil de Midorima", sibnetVostfrId: "4738068", sibnetVfId: "3100354" },
-          { number: 25, title: "Je suis l'ombre", sibnetVostfrId: "4738070", sibnetVfId: "3100356" }
-        ]
-      },
-      {
-        seasonNumber: 3,
-        title: "Saison 3",
-        year: 2015,
-        episodes: [
-          { number: 1, title: "La Winter Cup commence", sibnetVostfrId: "4738073", sibnetVfId: "3100524" },
-          { number: 2, title: "", sibnetVostfrId: "4738075", sibnetVfId: "3100527" },
-          { number: 3, title: "", sibnetVostfrId: "4738077", sibnetVfId: "3100528" },
-          { number: 4, title: "", sibnetVostfrId: "4738079", sibnetVfId: "3100530" },
-          { number: 5, title: "", sibnetVostfrId: "4738084", sibnetVfId: "3100531" },
-          { number: 6, title: "", sibnetVostfrId: "4738088", sibnetVfId: "3100533" },
-          { number: 7, title: "", sibnetVostfrId: "4738091", sibnetVfId: "3100534" },
-          { number: 8, title: "", sibnetVostfrId: "4738096", sibnetVfId: "3100535" },
-          { number: 9, title: "", sibnetVostfrId: "4738099", sibnetVfId: "3100537" },
-          { number: 10, title: "", sibnetVostfrId: "4738103", sibnetVfId: "3100539" },
-          { number: 11, title: "", sibnetVostfrId: "4738106", sibnetVfId: "3100540" },
-          { number: 12, title: "", sibnetVostfrId: "4738111", sibnetVfId: "3100542" },
-          { number: 13, title: "", sibnetVostfrId: "4738114", sibnetVfId: "3100544" },
-          { number: 14, title: "", sibnetVostfrId: "4738116", sibnetVfId: "3100545" },
-          { number: 15, title: "", sibnetVostfrId: "4738118", sibnetVfId: "3100546" },
-          { number: 16, title: "", sibnetVostfrId: "4738123", sibnetVfId: "3100547" },
-          { number: 17, title: "", sibnetVostfrId: "4738127", sibnetVfId: "3100550" },
-          { number: 18, title: "", sibnetVostfrId: "4738130", sibnetVfId: "3100558" },
-          { number: 19, title: "", sibnetVostfrId: "4738134", sibnetVfId: "3100563" },
-          { number: 20, title: "", sibnetVostfrId: "4738138", sibnetVfId: "3100565" },
-          { number: 21, title: "", sibnetVostfrId: "4738141", sibnetVfId: "3100569" },
-          { number: 22, title: "", sibnetVostfrId: "4738145", sibnetVfId: "3100571" },
-          { number: 23, title: "", sibnetVostfrId: "4738148", sibnetVfId: "3100574" },
-          { number: 24, title: "", sibnetVostfrId: "4738151", sibnetVfId: "3100575" },
-          { number: 25, title: "", sibnetVostfrId: "4738154", sibnetVfId: "3100577" }
-        ]
-      },
-      {
-        seasonNumber: "Film",
-        title: "Kuroko no Basket: Last Game",
-        year: 2017,
-        episodes: [
-          { 
-            number: 1, 
-            title: "Kuroko's Basket Last Game", 
-            
-            vidmolyId: "u8jv52sxa6hl", 
-            vidmolyVfId: "u01v11vvld94", // Mise à jour avec le nouveau ID
-            smoothpreUrl: "https://vimeo.com/1073297108/6d0921f528"
-            // Retrait de m3u8VfUrl qui ne fonctionne plus
-          }
-        ]
-      }
-    ]
   },
   {
     id: "jujutsu-kaisen",
@@ -421,7 +293,7 @@ export const animes: Anime[] = [
     year: 2020,
     type: "Anime",
     status: "En cours",
-    genres: ["Action", "Shounen", "École", "Surnaturel", "Combats", "Adolescence"],
+    genres: ["Action", "Shônen", "École", "Surnaturel", "Combats", "Adolescence", "Magie"],
     rating: 8.8,
     seasons: [
       {
@@ -505,21 +377,21 @@ export const animes: Anime[] = [
     year: 2006,
     type: "Anime",
     status: "Terminé",
-    genres: ["Mystère", "Surnaturel", "Thriller", "Psychologique"],
+    genres: ["Mystère", "Surnaturel", "Thriller", "Psychologique", "Crime", "Supernatural", "Mature"],
     rating: 9.0
   },
   {
     id: "clannad",
     title: "Clannad",
     originalTitle: "クラナド",
-  description: "Tomoya Okazaki est un lycéen qui a perdu tout intérêt pour la vie après la mort de sa mère et l'alcoolisme de son père. Un jour, il rencontre Nagisa Furukawa, une fille timide qui répète sa dernière année de lycée. Ensemble, ils vont former un club de théâtre et rencontrer d'autres élèves avec leurs propres problèmes. À travers ces rencontres, Tomoya va redécouvrir le sens de la vie et de l'amitié.",
-  imageUrl: "https://fr.web.img6.acsta.net/pictures/20/09/02/16/06/0799147.jpg",
+    description: "Tomoya Okazaki est un lycéen qui a perdu tout intérêt pour la vie après la mort de sa mère et l'alcoolisme de son père. Un jour, il rencontre Nagisa Furukawa, une fille timide qui répète sa dernière année de lycée. Ensemble, ils vont former un club de théâtre et rencontrer d'autres élèves avec leurs propres problèmes. À travers ces rencontres, Tomoya va redécouvrir le sens de la vie et de l'amitié.",
+    imageUrl: "https://fr.web.img6.acsta.net/pictures/20/09/02/16/06/0799147.jpg",
     bannerUrl: "/picture/bassembanniere.png",
-  year: 2007,
+    year: 2007,
     type: "Anime",
-  status: "Terminé",
-  genres: ["Drame", "Romance", "Slice of Life", "Surnaturel"],
-  rating: 8.5,
+    status: "Terminé",
+    genres: ["Drame", "Romance", "Slice of Life", "Surnaturel", "École", "Famille", "Amitié"],
+    rating: 8.5,
   },
   {
     id: "gachiakuta",
@@ -531,7 +403,7 @@ export const animes: Anime[] = [
     year: 2025,
     type: "Anime",
     status: "En cours",
-    genres: ["Action", "Fantasy", "Aventure", "Shounen", "Combats"],
+    genres: ["Action", "Fantasy", "Aventure", "Shônen", "Combats"],
     rating: 9.1,
   },
   {
@@ -544,7 +416,7 @@ export const animes: Anime[] = [
     year: 2023,
     type: "Anime",
     status: "En cours",
-    genres: ["Aventure", "Drame", "Fantasy", "Shōnen", "Combats"],
+    genres: ["Aventure", "Drame", "Fantasy", "Shônen", "Combats", "Magie", "Amitié"],
     rating: 8.9
   },
   {
@@ -557,7 +429,7 @@ export const animes: Anime[] = [
     year: 2024,
     type: "Anime",
     status: "En cours",
-    genres: ["Aventure", "Fantasy", "Isekai"],
+    genres: ["Aventure", "Fantasy", "Isekai", "Comédie", "Autre monde"],
     rating: 7.0
   },
   {
@@ -570,7 +442,7 @@ export const animes: Anime[] = [
     year: 2017,
     type: "Anime",
     status: "En cours",
-    genres: ["Drame", "Psychologique", "École", "Thriller", "Adolescence"],
+    genres: ["Drame", "Psychologique", "École", "Thriller", "Adolescence", "School Life"],
     rating: 8.5,
   },
   {
@@ -583,7 +455,7 @@ export const animes: Anime[] = [
     year: 2021,
     type: "Anime",
     status: "Terminé",
-    genres: ["Romance", "Comédie", "Tranche de vie", "École", "Adolescence"],
+    genres: ["Romance", "Comédie", "Slice of Life", "École", "Adolescence", "Shônen"],
     rating: 8.4
   },
   {
@@ -648,7 +520,7 @@ export const animes: Anime[] = [
     year: 2016,
     type: "Movie",
     status: "Terminé",
-    genres: ["Romance", "Drame", "Surnaturel", "Film"],
+    genres: ["Romance", "Drame", "Surnaturel", "Art", "Voyage temporel", "Amour"],
     rating: 9.2,
     episodes: [
       { number: 1, title: "Your Name", sibnetVostfrId: "5117447", sibnetVfId: "3202964" }
@@ -664,7 +536,7 @@ export const animes: Anime[] = [
     year: 2020,
     type: "Anime",
     status: "En cours",
-    genres: ["Romance", "Comédie", "Drame", "École", "Adolescence"],
+    genres: ["Romance", "Comédie", "Drame", "École", "Adolescence", "Harem"],
     rating: 7.8
   },
   {
@@ -986,6 +858,90 @@ export const animes: Anime[] = [
     rating: 6.3
   },
   {
+    id: "slam-dunk",
+    title: "Slam Dunk",
+    originalTitle: "スラムダンク",
+    description: "Hanamichi Sakuragi, un lycéen de 16 ans délinquant aux cheveux roux, tombe amoureux de Haruko Akagi qui adore le basket-ball. Désireux de conquérir son cœur, il s'inscrit dans l'équipe de basket de son lycée, les Shohoku. Malgré sa grande taille et sa force physique, Sakuragi est un débutant complet. Sous la tutelle du capitaine Takenori Akagi (frère aîné de Haruko), il va progressivement découvrir sa passion pour ce sport et développer ses talents naturels.",
+    imageUrl: "https://fr.web.img3.acsta.net/pictures/23/04/18/18/46/1142239.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 1993,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Sports", "Comédie", "Drame", "École", "Shōnen"],
+    rating: 9.0,
+    language: "VOSTFR"
+  },
+  {
+    id: "shirobako",
+    title: "Shirobako",
+    originalTitle: "SHIROBAKO",
+    description: "Cinq amies du lycée rêvent de travailler ensemble dans l'industrie de l'animation. Deux ans plus tard, Aoi Miyamori travaille comme assistante de production dans un studio d'animation. Suivez les coulisses de la création d'un anime à travers les yeux d'Aoi, qui découvre les défis et les joies de l'industrie de l'animation. Entre deadlines serrées, problèmes créatifs et relations humaines complexes, Shirobako offre un regard réaliste et touchant sur le monde de l'animation japonaise.",
+    imageUrl: "https://m.media-amazon.com/images/I/81AFkgbK58L._UF894,1000_QL80_.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2014,
+    type: "Anime",
+    status: "Terminé", 
+    genres: ["Comédie", "Drame", "Tranche de vie", "Travail"],
+    rating: 8.3,
+    language: "VOSTFR"
+  },
+  {
+    id: "skip-to-loafer",
+    title: "Skip to Loafer",
+    originalTitle: "スキップとローファー",
+    description: "Mitsumi Iwakura est une lycéenne studieuse qui vient de la campagne et entre dans un prestigieux lycée de Tokyo. Malgré sa détermination et ses excellentes notes, elle se retrouve souvent perdue dans cette grande ville. Heureusement, elle rencontre Shima Sousuke, un garçon populaire qui l'aide à s'adapter. Cette comédie slice-of-life suit Mitsumi dans sa découverte de la vie lycéenne à Tokyo, mêlant moments touchants, situations comiques et développement des personnages.",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BMTI3MmJmZmMtMTNkZi00Nzk3LTk5MDUtZmUzMGRlNDFkZmE5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2023,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Comédie", "Romance", "Tranche de vie", "École"],
+    rating: 8.1,
+    language: "VOSTFR"
+  },
+  {
+    id: "shingeki-no-bahamut",
+    title: "Rage of Bahamut: Genesis",
+    originalTitle: "神撃のバハムート GENESIS",
+    description: "Il y a deux mille ans, l'humanité était au bord de la destruction à cause de Bahamut, une bête démoniaque. Les anges et les démons s'unirent pour sceller cette créature, divisant sa clé en deux parties. Dans le royaume de Mistarcia, la coexistence entre humains, dieux et démons maintient un équilibre fragile. Favaro Leone, un chasseur de primes, rencontre une mystérieuse femme amnésique qui détient la moitié de la clé de Bahamut. Cette rencontre va déclencher une aventure épique mêlant action, magie et destins croisés.",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BODlhNzBjZjgtOTk4OC00ZTFiLWJkOWItMzQ0ZTY5MGZmMDI4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2014,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Action", "Aventure", "Fantastique", "Magie", "Démons"],
+    rating: 8.2,
+    language: "VF & VOSTFR"
+  },
+  {
+    id:"Cyberpunk-Edgerunners",
+    title: "Cyberpunk Edgerunners",
+    originalTitle: "サイバーパンク: エッジランナーズ",
+    description:"Dans une société dystopique rongée par la corruption et les implants cybernétiques, un jeune de la rue talentueux et impulsif aspire à devenir un mercenaire hors-la-loi.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2022,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Action", "Aventure", "Fantastique", "Sci-fi"],
+    rating: 8.5,
+    language: "VF & VOSTFR"
+  },
+  {
+    id: "somali-to-mori-no-kamisama",
+    title: "Somali and the Forest Spirit",
+    originalTitle: "ソマリと森の神様",
+    description: "Dans un monde dominé par des créatures fantastiques, les humains sont en voie d'extinction et sont chassés par les autres races. Un golem gardien de la forêt découvre une petite fille humaine qu'il nomme Somali. Bien qu'il ne lui reste que 1000 jours avant que sa magie ne s'épuise, le golem décide d'entreprendre un voyage pour trouver d'autres humains qui pourraient s'occuper de Somali. Cette histoire touchante explore les liens entre un père adoptif non-humain et sa fille humaine, dans un monde à la fois beau et dangereux.",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BMGI5NzcyYmItNjI1ZS00YWU4LWE1ODYtYmZhN2E1YmU1MTk4XkEyXkFqcGc@._V1_.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2020,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Aventure", "Drame", "Fantastique", "Tranche de vie"],
+    rating: 8.0,
+    language: "VOSTFR"
+  },
+  {
     id: "a-couple-of-cuckoos",
     title: "A Couple of Cuckoos",
     originalTitle: "カッコウの許嫁",
@@ -997,5 +953,279 @@ export const animes: Anime[] = [
     status: "En cours",
     genres: ["Comedy", "Romance", "School", "Shounen"],
     rating: 7.1
+  },
+  {
+    id: "3d-kanojo",
+    title: "3D Kanojo: Real Girl",
+    originalTitle: "3D彼女 リアルガール",
+    description: "Hikari Tsutsui est un otaku introverti qui passe son temps libre à jouer aux jeux vidéo et à regarder des animes. Sa vie change radicalement quand la belle et populaire Iroha Igarashi commence à s'intéresser à lui. Cette comédie romantique explore les défis d'une relation entre deux personnes aux personnalités et intérêts très différents, tout en abordant les thèmes de l'acceptation de soi et de la croissance personnelle.",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BYzQ4ZTUzM2UtMzg5MS00MjliLTgzNWYtZTBkYjBkMDA3ZWVhXkEyXkFqcGc@._V1_.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2018,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Romance", "Comédie", "École", "Tranche de vie"],
+    rating: 7.2,
+    language: "VOSTFR"
+  },
+  {
+    id: "acca-13-ku-kansatsu-ka",
+    title: "ACCA: 13-Territory Inspection Dept.",
+    originalTitle: "ACCA13区監察課",
+    description: "Dans le royaume de Dowa, divisé en 13 territoires autonomes, l'organisation ACCA maintient la paix depuis 99 ans. Jean Otus travaille comme inspecteur pour ACCA et effectue des tournées de routine dans les différents territoires. Cependant, des rumeurs de coup d'État commencent à circuler, et Jean se retrouve malgré lui au centre d'une intrigue politique complexe. Cette série mélange mystère, politique et développement de personnages dans un monde aux allures rétro-futuristes.",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BM2Y5NmNkY2ItNTlkMi00YzYzLTgzYjctMjRhMThlMWE3NGE2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2017,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Mystère", "Politique", "Drame", "Militaire"],
+    rating: 7.8
+  },
+  {
+    id: "acchi-kocchi",
+    title: "Place to Place",
+    originalTitle: "あっちこっち",
+    description: "Tsumiki Miniwa est secrètement amoureuse de son camarade de classe Io Otonashi, mais elle est trop timide pour exprimer ses sentiments. Leurs amis Mayoi, Sakaki et Hime observent cette romance innocente avec amusement. Cette comédie slice-of-life suit le quotidien de ce groupe d'amis au lycée, rempli de moments mignons, de malentendus romantiques et de situations comiques. L'anime est connu pour son style artistique adorable et son humour léger.",
+    imageUrl: "", 
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2012,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Comédie", "Romance", "Tranche de vie", "École"],
+    rating: 7.4
+  },
+  {
+    id: "shirayuki-aux-cheveux-rouges",
+    title: "shirayuki aux cheveux rouges",
+    originalTitle: "赤髪の白雪姫",
+    description: "Shirayuki est une herboriste aux cheveux roux flamboyants qui vit paisiblement jusqu'à ce que le prince Raji de son royaume décide de faire d'elle sa concubine à cause de sa beauté unique. Pour échapper à ce destin, elle fuit vers le royaume voisin de Clarines où elle rencontre Zen, le deuxième prince du royaume. Impressionné par sa détermination et sa gentillesse, Zen l'aide à devenir pharmacienne de la cour. Cette romance fantasy suit leur relation qui se développe lentement dans un cadre politique complexe.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png", 
+    year: 2015,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Romance", "Fantastique", "Drame", "Historique"],
+    rating: 8.0
+  },
+  {
+    id: "shinigami-bocchan-to-kuro-maid",
+    title: "The Duke of Death and His Maid",
+    originalTitle: "死神坊ちゃんと黒メイド",
+    description: "Le jeune duc a été maudit : tout ce qu'il touche meurt instantanément. Isolé dans une villa avec pour seule compagnie sa dévouée femme de chambre Alice, il tente de briser sa malédiction. Alice, malicieuse et taquine, aime provoquer son maître malgré le danger que représente sa malédiction. Cette comédie romantique gothique mélange moments touchants et situations comiques, explorant les thèmes de l'amour impossible et de l'espoir face à l'adversité.",
+    imageUrl: "https://cdn-eu.anidb.net/images/main/300788.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2021, 
+    type: "Anime",
+    status: "En cours",
+    genres: ["Comédie", "Romance", "Surnaturel", "Ecchi"],
+    rating: 7.8
+  },
+  {
+    id: "sk8-the-infinity",
+    title: "SK8 the Infinity", 
+    originalTitle: "SK∞ エスケーエイト",
+    description: "Reki Kyan est un lycéen passionné de skateboard qui fréquente une course underground nocturne appelée \"S\". Il rencontre Langa Hasegawa, un étudiant canadien transféré qui n'a jamais fait de skateboard mais qui possède une expérience en snowboard. Ensemble, ils découvrent le monde exaltant et dangereux des courses de skateboard clandestines, affrontant des rivaux redoutables et développant leur amitié à travers leur passion commune pour ce sport extrême.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2021,
+    type: "Anime", 
+    status: "Terminé",
+    genres: ["Sports", "Comédie", "Tranche de vie"],
+    rating: 8.1
+  },
+  {
+    id: "silent-witch",
+    title: "Silent Witch",
+    originalTitle: "沈黙の魔女の隠れ家",
+    description: "Monica Everett est une sorcière prodigieusement douée mais extrêmement timide, capable de lancer des sorts sans incantation - un talent extrêmement rare. Malgré ses capacités exceptionnelles, elle préfère rester dans l'ombre. Quand elle est forcée d'intégrer l'académie de magie la plus prestigieuse pour protéger le prince, elle doit surmonter sa timidité maladive tout en cachant sa véritable identité. Cette histoire mélange magie, comédie et développement personnel.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2023,
+    type: "Anime",
+    status: "Terminé", 
+    genres: ["Fantastique", "Comédie", "École", "Magie"],
+    rating: 7.6
+  },
+  {
+    id: "sirius-the-jaeger",
+    title: "Sirius the Jaeger",
+    originalTitle: "天狼 Sirius the Jaeger",
+    description: "Dans le Tokyo des années 1930, un groupe de chasseurs de vampires appelés \"Jaegers\" arrive de l'étranger pour éliminer les vampires qui ont envahi la capitale japonaise. Parmi eux se trouve Yuliy, un werewolf dont le village natal a été détruit par les vampires. Armé d'une détermination sans faille et d'un mystérieux coffret que convoitent les vampires, Yuliy mène sa quête de vengeance dans une Tokyo en proie aux créatures de la nuit.",
+    imageUrl: "https://cdn.myanimelist.net/images/anime/1274/93070.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2018,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Action", "Surnaturel", "Vampires", "Historique"],
+    rating: 7.3
+  },
+  {
+    id: "shy",
+    title: "Shy",
+    originalTitle: "SHY",
+    description: "Dans un monde où la paix règne grâce aux héros qui protègent chaque pays, Teru Momijiyama, alias Shy, est la héroïne timide du Japon. Malgré ses pouvoirs et sa responsabilité de protéger les gens, elle lutte constamment contre sa nature introvertie. Quand une nouvelle menace émerge et que les héros du monde entier commencent à être ciblés, Shy doit surmonter sa timidité pour sauver non seulement le Japon, mais le monde entier.",
+    imageUrl: "https://cdn.myanimelist.net/images/anime/1790/138265.jpg",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2023,
+    type: "Anime",
+    status: "En cours",
+    genres: ["Action", "Super-héros", "Drame", "Surnaturel"],
+    rating: 7.5
+  },
+  {
+    id: "soul-eater",
+    title: "Soul Eater",
+    originalTitle: "ソウルイーター", 
+    description: "À l'académie Shibusen, des étudiants s'entraînent pour devenir des technicians capables de manier des armes démoniaques qui peuvent se transformer en humains. Maka Albarn et son partenaire Soul Eater Evans, une faux parlante, doivent collecter 99 âmes de démons et une âme de sorcière pour transformer Soul en Death Scythe, l'arme ultime du Shinigami. Cette série d'action surnaturelle mélange combats spectaculaires, humour et développement de caractères dans un univers gothique unique.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2008,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Action", "Comédie", "Surnaturel", "Ecole", "Shōnen"],
+    rating: 8.0
+  },
+  {
+    id: "16bit-sensation-another-layer",
+    title: "16bit Sensation: Another Layer",
+    originalTitle: "16bitセンセーション ANOTHER LAYER",
+    description: "Konoha Akisato est une illustratrice passionnée de jeux vidéo rétro qui travaille dans une société de développement moderne. Un jour, elle se retrouve mystérieusement transportée dans les années 1990, à l'âge d'or de l'industrie du jeu vidéo japonais. Dans cette époque, elle découvre un monde créatif effervescent et doit naviguer entre passé et présent pour réaliser ses rêves.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2023,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Drame", "Comédie", "Tranche de vie", "Technologie"],
+    rating: 7.6
+  },
+  {
+    id: "dandadan",
+    title: "Dandadan",
+    originalTitle: "ダンダダン",
+    description: "Momo Ayase, une lycéenne qui croit aux esprits, et Ken Takakura, un otaku qui croit aux aliens, font un pari : chacun va prouver l'existence de ce en quoi il croit. Mais ils découvrent que les deux phénomènes paranormaux existent vraiment, et ils doivent maintenant faire face à des aliens et des fantômes dans des aventures complètement délirantes.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2024,
+    type: "Anime",
+    status: "En cours",
+    genres: ["Action", "Comédie", "Surnaturel", "Romance", "Ecchi", "Aliens / Extra-terrestres", "Fantômes", "Paranormal"],
+    rating: 8.8
+  },
+  {
+    id: "blue-archive-the-animation",
+    title: "Blue Archive The Animation",
+    originalTitle: "ブルーアーカイブ The Animation",
+    description: "Dans la ville académique de Kivotos, le Sénat étudiant de Schale a été dissous en raison de l'accumulation de dettes. Pour résoudre divers problèmes dans Kivotos, le conseiller (joueur) devra collaborer avec les étudiantes de différentes écoles. Une adaptation de l'univers du jeu mobile populaire Blue Archive.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2024,
+    type: "Anime",
+    status: "En cours",
+    genres: ["Action", "Comédie", "École", "Moe"],
+    rating: 7.3
+  },
+  {
+    id: "a-galaxy-next-door",
+    title: "A Galaxy Next Door",
+    originalTitle: "お隣の天使様",
+    description: "Ichiro Kuga est un mangaka qui élève seul ses deux jeunes frères depuis la mort de leurs parents. Quand il engage Shiori Goshiki comme assistante, il découvre qu'elle possède des pouvoirs mystérieux. Cette comédie romantique mélange quotidien et éléments fantastiques dans une histoire touchante sur la famille et l'amour.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2023,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Romance", "Comédie", "Surnaturel", "Tranche de vie"],
+    rating: 7.5
+  },
+  {
+    id: "7th-time-loop-the-villainess-enjoys-a-carefree-life-married-to-her-worst-enemy",
+    title: "7th Time Loop: The Villainess Enjoys a Carefree Life Married to Her Worst Enemy!",
+    originalTitle: "ループ7回目の悪役令嬢は、元敵国で自由気ままな花嫁生活を満喫する",
+    description: "Rishe Irmgard Weitzner revit sans cesse les mêmes cinq années de sa vie, mourant toujours à 20 ans. Dans sa septième boucle temporelle, elle décide d'épouser Arnold Hein, le prince héritier qui l'a tuée dans une précédente boucle, dans l'espoir de changer son destin et vivre enfin une vie paisible.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2024,
+    type: "Anime",
+    status: "En cours",
+    genres: ["Romance", "Fantasy", "Isekai", "Drame"],
+    rating: 7.8
+  },
+  {
+    id: "chainsaw-man",
+    title: "Chainsaw Man",
+    originalTitle: "チェンソーマン",
+    description: "Denji est un jeune homme endetté qui vit dans la misère avec son démon de compagnie Pochita. Quand des yakuzas les tuent, Pochita fusionne avec Denji et lui donne le pouvoir de se transformer en Chainsaw Man. Recruté par une organisation gouvernementale de chasseurs de démons, Denji découvre un monde violent où les démons menacent l'humanité.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2022,
+    type: "Anime",
+    status: "En cours",
+    genres: ["Action", "Surnaturel", "Horreur", "Shônen", "Démons", "Combats", "Mature"],
+    rating: 8.9
+  },
+  {
+    id: "bocchi-the-rock",
+    title: "Bocchi the Rock!",
+    originalTitle: "ぼっち・ざ・ろっく！",
+    description: "Hitori Gotoh est une lycéenne extrêmement timide qui rêve de jouer de la guitare dans un groupe. Surnommée 'Bocchi' (la solitaire), elle passe son temps à jouer seule dans sa chambre. Sa vie change quand elle rencontre d'autres musiciennes et forme le groupe Kessoku Band. Une comédie musicale touchante sur l'amitié et la confiance en soi.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2022,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Comédie", "Musique", "Slice of Life", "École", "Amitié", "Adolescence"],
+    rating: 8.7
+  },
+  {
+    id: "one-piece",
+    title: "One Piece",
+    originalTitle: "ワンピース",
+    description: "Monkey D. Luffy, un garçon au corps élastique, explore Grand Line avec son équipage de pirates Straw Hat pour trouver le plus grand trésor connu sous le nom de 'One Piece' et devenir le prochain roi des pirates.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 1999,
+    type: "Anime",
+    status: "En cours",
+    genres: ["Action", "Aventure", "Comédie", "Shônen", "Pirates", "Amitié"],
+    rating: 9.5
+  },
+  {
+    id: "dragon-ball-z",
+    title: "Dragon Ball Z",
+    originalTitle: "ドラゴンボールZ",
+    description: "Goku et ses amis défendent la Terre contre des ennemis de plus en plus puissants. Entre Saiyans, Nameks et autres extraterrestres, l'aventure continue avec des combats épiques et des transformations légendaires.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 1989,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Action", "Arts martiaux", "Aventure", "Shônen", "Super pouvoirs", "Combats"],
+    rating: 8.7
+  },
+  {
+    id: "naruto",
+    title: "Naruto",
+    originalTitle: "ナルト",
+    description: "Naruto Uzumaki, un ninja adolescent orphelin du village de Konoha, cherche la reconnaissance de ses pairs et rêve de devenir Hokage, le chef du village.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2002,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Action", "Arts martiaux", "Aventure", "Shônen", "Ninjas", "Amitié"],
+    rating: 8.4
+  },
+  {
+    id: "fullmetal-alchemist-brotherhood",
+    title: "Fullmetal Alchemist: Brotherhood",
+    originalTitle: "鋼の錬金術師 FULLMETAL ALCHEMIST",
+    description: "Edward et Alphonse Elric utilisent l'alchimie pour essayer de ramener leur mère à la vie, mais la tentative échoue et coûte le bras d'Edward et le corps d'Alphonse. Ils partent à la recherche de la Pierre Philosophale pour récupérer leurs corps.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2009,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Action", "Aventure", "Drame", "Fantasy", "Militaire", "Shônen"],
+    rating: 9.1
   }
 ];

@@ -9,6 +9,8 @@ import { useParams } from "next/navigation";
 import AnimePageClient from "./AnimePageClient";
 import { extractSeriesId } from "@/lib/utils";
 import type { Anime } from "@/lib/animeData";
+import { getAnimeImage } from "../page";
+
 
 // Liste des mappings d'ID spéciaux pour les animes qui ont des problèmes
 const specialAnimeIds: Record<string, string> = {
@@ -62,18 +64,31 @@ export default function CataloguePage() {
         // 🚀 OPTIMISATION 3: Chargement ULTRA-RAPIDE
         const basicAnime = getAnimeById(specialAnimeIds[id] || id);
         
-        if (basicAnime) {
-          // Affichage IMMÉDIAT de l'anime de base
-          setAnime(basicAnime);
-          animeCache.set(id, basicAnime);
+                if (basicAnime) {
+          // Récupérer l'image du catalogue si disponible
+          const catalogueImage = getAnimeImage(id);
+          const animeWithCatalogueImage = {
+            ...basicAnime,
+            imageUrl: catalogueImage
+          };
+          
+          // Affichage IMMÉDIAT de l'anime de base avec image du catalogue
+          setAnime(animeWithCatalogueImage);
+          animeCache.set(id, animeWithCatalogueImage);
           
           // Auto-import en arrière-plan (optimisé pour vitesse max)
           setTimeout(async () => {
             try {
               const enrichedAnime = await ultraFastEnrichAnime(basicAnime);
               if (enrichedAnime && enrichedAnime.seasons && enrichedAnime.seasons.length > 0) {
-              setAnime(enrichedAnime);
-                animeCache.set(id, enrichedAnime);
+                // Garder l'image du catalogue même après enrichissement
+                const catalogueImage = getAnimeImage(id);
+                const enrichedAnimeWithCatalogueImage = {
+                  ...enrichedAnime,
+                  imageUrl: catalogueImage
+                };
+                setAnime(enrichedAnimeWithCatalogueImage);
+                animeCache.set(id, enrichedAnimeWithCatalogueImage);
               }
             } catch (error) {
               // Ignorer les erreurs d'enrichissement
@@ -91,8 +106,14 @@ export default function CataloguePage() {
         );
         
         if (similarAnime) {
-          setAnime(similarAnime);
-          animeCache.set(id, similarAnime);
+          // Récupérer l'image du catalogue si disponible
+          const catalogueImage = getAnimeImage(id);
+          const similarAnimeWithCatalogueImage = {
+            ...similarAnime,
+            imageUrl: catalogueImage
+          };
+          setAnime(similarAnimeWithCatalogueImage);
+          animeCache.set(id, similarAnimeWithCatalogueImage);
           
           // Auto-import pour anime similaire en arrière-plan
           setTimeout(async () => {

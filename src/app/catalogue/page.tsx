@@ -14,7 +14,7 @@ import { animes as animeDataList } from "@/lib/animeData";
 interface CatalogueAnime {
   id: string;
   title: string;
-  imageUrl: string;
+  imageUrl?: string; // Optionnel maintenant
   type: "Anime" | "Scans";
   language: "VO" | "VF" | "VF & VO";
   genres?: string[];
@@ -26,7 +26,25 @@ const getAnimeGenres = (animeId: string): string[] => {
   return anime?.genres || [];
 };
 
-const animes: CatalogueAnime[] = [
+// Fonction pour obtenir l'image d'un anime - priorité au catalogue, puis animeData
+export const getAnimeImage = (animeId: string): string => {
+  // D'abord chercher dans le catalogue statique
+  const catalogueAnime = animes.find(a => a.id === animeId);
+  if (catalogueAnime?.imageUrl) {
+    return catalogueAnime.imageUrl;
+  }
+  
+  // Si pas dans le catalogue, chercher dans animeData
+  const animeData = animeDataList.find(a => a.id === animeId);
+  if (animeData?.imageUrl) {
+    return animeData.imageUrl;
+  }
+  
+  // Image par défaut si aucune trouvée
+  return "https://m.media-amazon.com/images/M/MV5BM2ZiZTk1ODgtMTZkNS00NTYxLWIxZTUtNWExZGYwZTRjODViXkEyXkFqcGdeQXVyMTE2MzA3MDM@._V1_.jpg";
+};
+
+export const animes: CatalogueAnime[] = [
   {
     id: "akira",
     title: "Akira",
@@ -300,6 +318,14 @@ const animes: CatalogueAnime[] = [
     genres: getAnimeGenres("re-zero"),
   },
   {
+    id:"Cyberpunk-Edgerunners",
+    title: "Cyberpunk Edgerunners",
+    imageUrl: "https://fr.web.img4.acsta.net/pictures/22/06/09/09/16/1463272.jpg",
+    type: "Anime",
+    language: "VF & VO",
+    genres: getAnimeGenres("cyberpunk-edgerunners"),
+  },
+  {
     id: "tokyo-ghoul",
     title: "Tokyo Ghoul",
     imageUrl: "https://m.media-amazon.com/images/M/MV5BZWI2NzZhMTItOTM3OS00NjcyLThmN2EtZGZjMjlhYWMwODMzXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
@@ -426,17 +452,229 @@ const animes: CatalogueAnime[] = [
     type: "Anime",
     language: "VF & VO",
     genres: getAnimeGenres("a-couple-of-cuckoos"),
+  },
+  {
+    id: "slam-dunk",
+    title: "Slam Dunk",
+    imageUrl: "https://fr.web.img3.acsta.net/pictures/23/04/18/18/46/1142239.jpg",
+    type: "Anime",
+    language: "VO",
+    genres: getAnimeGenres("slam-dunk"),
+  },
+  {
+    id: "shirobako",
+    title: "Shirobako",
+    imageUrl: "https://m.media-amazon.com/images/I/81AFkgbK58L._UF894,1000_QL80_.jpg",
+    type: "Anime",
+    language: "VO",
+    genres: getAnimeGenres("shirobako"),
+  },
+  {
+    id: "skip-to-loafer",
+    title: "Skip to Loafer",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BMTI3MmJmZmMtMTNkZi00Nzk3LTk5MDUtZmUzMGRlNDFkZmE5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    type: "Anime",
+    language: "VO",
+    genres: getAnimeGenres("skip-to-loafer"),
+  },
+  {
+    id: "shingeki-no-bahamut",
+    title: "Shingeki no Bahamut",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BODlhNzBjZjgtOTk4OC00ZTFiLWJkOWItMzQ0ZTY5MGZmMDI4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    type: "Anime",
+    language: "VF & VO",
+    genres: getAnimeGenres("shingeki-no-bahamut"),
+  },
+  {
+    id: "somali-to-mori-no-kamisama",
+    title: "Somali to Mori no Kamisama",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BMGI5NzcyYmItNjI1ZS00YWU4LWE1ODYtYmZhN2E1YmU1MTk4XkEyXkFqcGc@._V1_.jpg",
+    type: "Anime",
+    language: "VO",
+    genres: getAnimeGenres("somali-to-mori-no-kamisama"),
+  },
+  {
+    id: "3d-kanojo",
+    title: "3D Kanojo",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BYzQ4ZTUzM2UtMzg5MS00MjliLTgzNWYtZTBkYjBkMDA3ZWVhXkEyXkFqcGc@._V1_.jpg",
+    type: "Anime",
+    language: "VO",
+    genres: getAnimeGenres("3d-kanojo"),
+  },
+  {
+    id: "acca-13-ku-kansatsu-ka",
+    title: "ACCA: 13-ku Kansatsu-ka",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BM2Y5NmNkY2ItNTlkMi00YzYzLTgzYjctMjRhMThlMWE3NGE2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    type: "Anime",
+    language: "VO",
+    genres: getAnimeGenres("acca-13-ku-kansatsu-ka"),
+  },
+  {
+    id: "acchi-kocchi",
+    title: "Acchi Kocchi",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BMTQzYmRjYTktOWQ3OS00NWM3LTk2ZjctYmYzMDEwM2ZjNDAwXkEyXkFqcGc@._V1_.jpg",
+    type: "Anime",
+    language: "VO",
+    genres: getAnimeGenres("acchi-kocchi"),
+  },
+  {
+    id: "shirayuki-aux-cheveux-rouges",
+    title: "Shirayuki-hime",
+    imageUrl: "https://www.gaming-family.com/wp-content/uploads/daisuki/2016/05/Akagami-no-Shirayuki-hime-01-724x1023.jpg",
+    type: "Anime",
+    language: "VO",
+    genres: getAnimeGenres("shirayuki-aux-cheveux-rouges"),
+  },
+  {
+    id: "shinigami-bocchan-to-kuro-maid",
+    title: "Shinigami Bocchan to Kuro Maid",
+    imageUrl: "https://cdn-eu.anidb.net/images/main/300788.jpg",
+    type: "Anime",
+    language: "VO",
+    genres: getAnimeGenres("shinigami-bocchan-to-kuro-maid"),
+  },
+  {
+    id: "sk8-the-infinity",
+    title: "SK8 the Infinity",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BMjA1YzRjYjAtZDEwZC00NTVkLTk2MWUtYzNmNzcxMDhhMWMwXkEyXkFqcGc@._V1_.jpg",
+    type: "Anime",
+    language: "VF & VO",
+    genres: getAnimeGenres("sk8-the-infinity"),
+  },
+  {
+    id: "soul-eater",
+    title: "Soul Eater",
+    imageUrl: "https://fr.web.img6.acsta.net/pictures/20/03/30/15/47/1584913.jpg",
+    type: "Anime",
+    language: "VF & VO",
+    genres: getAnimeGenres("soul-eater"),
+  },
+  {
+    id: "my-dress-up-darling",
+    title: "My Dress-Up Darling",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BYmJhYjgzYTQtMzMxYi00NTkyLWI2MWItNTgxNjk1NzU0YmQzXkEyXkFqcGc@._V1_.jpg",
+    type: "Anime",
+    language: "VF & VO",
+    genres: getAnimeGenres("my-dress-up-darling"),
+  },
+  {
+    id: "silent-witch",
+    title: "Silent Witch",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/en/9/92/Secrets_of_the_Silent_Witch_light_novel_volume_1_cover.jpg",
+    type: "Anime",
+    language: "VO",
+    genres: getAnimeGenres("silent-witch"),
+  },
+  {
+    id: "sirius-the-jaeger",
+    title: "Sirius the Jaeger",
+    imageUrl: "https://fr.web.img2.acsta.net/pictures/19/07/10/15/26/5429060.jpg",
+    type: "Anime",
+    language: "VO",
+    genres: getAnimeGenres("sirius-the-jaeger"),
+  },
+  {
+    id: "shy",
+    title: "Shy",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/en/3/3e/SHYVolume1.jpg",
+    type: "Anime",
+    language: "VO",
+    genres: getAnimeGenres("shy"),
+  },
+  {
+    id: "16bit-sensation-another-layer",
+    title: "16bit Sensation: Another Layer",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BNjA4ZjU5YmQtMjIxZC00YWU4LTlmZmQtZmM1ZWYwMzdmNjE5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    type: "Anime",
+    language: "VO",
+    genres: getAnimeGenres("16bit-sensation-another-layer"),
+  },
+  {
+    id: "dandadan",
+    title: "Dandadan",
+    imageUrl: "https://fr.web.img6.acsta.net/img/34/d5/34d559cbab6cd1245e84d812d9056ef2.jpg",
+    type: "Anime",
+    language: "VO",
+    genres: getAnimeGenres("dandadan"),
+  },
+  {
+    id: "blue-archive-the-animation",
+    title: "Blue Archive The Animation",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BZjllMWNiNmEtNzlkZS00YjZmLWExZGQtMjg5OTUyYjA3MzEzXkEyXkFqcGc@._V1_.jpg",
+    type: "Anime",
+    language: "VO",
+    genres: getAnimeGenres("blue-archive-the-animation"),
+  },
+  {
+    id: "a-galaxy-next-door",
+    title: "A Galaxy Next Door",
+    imageUrl: "https://fr.web.img2.acsta.net/pictures/23/03/22/17/03/3586652.jpg",
+    type: "Anime",
+    language: "VO",
+    genres: getAnimeGenres("a-galaxy-next-door"),
+  },
+  {
+    id: "7th-time-loop-the-villainess-enjoys-a-carefree-life-married-to-her-worst-enemy",
+    title: "7th Time Loop",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BYTMyZGJhNDktMzdkNi00MGY1LWFiMDgtMjhhMzQ2MTQyYWIxXkEyXkFqcGc@._V1_.jpg",
+    type: "Anime",
+    language: "VO",
+    genres: getAnimeGenres("7th-time-loop-the-villainess-enjoys-a-carefree-life-married-to-her-worst-enemy"),
+  },
+  {
+    id: "bocchi-the-rock",
+    title: "Bocchi the Rock!",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BOTJiNjMyYzQtODA3YS00YjNjLWExYzYtMGI1YWVlZjY2YWU4XkEyXkFqcGc@._V1_.jpg",
+    type: "Anime",
+    language: "VF & VO",
+    genres: getAnimeGenres("bocchi-the-rock"),
+  },
+  {
+    id: "one-piece",
+    title: "One Piece",
+    imageUrl: "https://cdn.myanimelist.net/images/anime/6/73245.jpg",
+    type: "Anime",
+    language: "VF & VO",
+    genres: getAnimeGenres("one-piece"),
+  },
+  {
+    id: "dragon-ball-z",
+    title: "Dragon Ball Z",
+    imageUrl: "https://cdn.myanimelist.net/images/anime/1277/142427.jpg",
+    type: "Anime",
+    language: "VF & VO",
+    genres: getAnimeGenres("dragon-ball-z"),
+  },
+  {
+    id: "naruto",
+    title: "Naruto",
+    imageUrl: "https://cdn.myanimelist.net/images/anime/13/17405.jpg",
+    type: "Anime",
+    language: "VF & VO",
+    genres: getAnimeGenres("naruto"),
+  },
+  {
+    id: "fullmetal-alchemist-brotherhood",
+    title: "Fullmetal Alchemist: Brotherhood",
+    imageUrl: "https://cdn.myanimelist.net/images/anime/1223/96541.jpg",
+    type: "Anime",
+    language: "VF & VO",
+    genres: getAnimeGenres("fullmetal-alchemist-brotherhood"),
   }
 ];
 
 const genres = [
-  "Action", "Adolescence", "Adventure", "Aventure", "Comedy", "Comédie", "Combats", "Cyberpunk", 
-  "Démons", "Drama", "Drame", "Dragons", "Dystopie", "Ecchi", "École", "Fantasy", "Film", 
-  "Harem", "Historique", "Horror", "Horreur", "Isekai", "Mafia", "Magie", "Mature", "Mecha", 
-  "Militaire", "Musique", "Mystery", "Mystère", "Psychologique", "Romance", "School", 
-  "Science-fiction", "Science-Fiction", "Seinen", "Shoujo", "Shounen", "Shōnen", "Slice of Life", 
-  "Sport", "Sports", "Supernatural", "Surnaturel", "Thriller", "Tranche de vie", 
-  "Voyage temporel", "Workplace", "Yokai"
+  "Action", "Adolescence", "Aliens / Extra-terrestres", "Amitié", "Amour", "Apocalypse", "Art", "Arts martiaux", "Assassinat", "Autre monde",
+  "Aventure", "Combats", "Comédie", "Crime", "Cyberpunk", "Danse", "Démons", "Détective", "Donghua", "Drame",
+  "Ecchi", "École", "Enquête", "Famille", "Fantastique", "Fantasy", "Fantômes", "Futur", "Gastronomie", "Ghibli",
+  "Guerre", "Harcèlement", "Harem", "Harem inversé", "Histoire", "Historique", "Horreur", "Isekai", "Jeunesse", "Jeux",
+  "Jeux vidéo", "Josei", "Journalisme", "Mafia", "Magical girl", "Magie", "Maladie", "Mariage", "Mature",
+  "Mechas", "Médiéval", "Militaire", "Monde virtuel", "Monstres", "Musique", "Mystère", "Nekketsu", "Ninjas", "Nostalgie",
+  "Paranormal", "Philosophie", "Pirates", "Police", "Politique", "Post-apocalyptique", "Pouvoirs psychiques", "Préhistoire", "Prison", "Psychologique",
+  "Quotidien", "Religion", "Réincarnation / Transmigration", "Romance", "Samouraïs", "School Life", "Science-Fantasy", "Science-fiction", "Scientifique", "Seinen",
+  "Shôjo", "Shôjo-Ai", "Shônen", "Shônen-Ai", "Slice of Life", "Société", "Sport", "Super pouvoirs", "Super-héros", "Surnaturel",
+  "Survie", "Survival game", "Technologies", "Thriller", "Tournois", "Travail", "Vampires", "Vengeance", "Voyage", "Voyage temporel",
+  "Webcomic", "Yakuza", "Yaoi", "Yokai", "Yuri"
 ];
 
 export default function CataloguePage() {
@@ -538,7 +776,7 @@ export default function CataloguePage() {
                 key={anime.id}
                 id={anime.id}
                 title={anime.title}
-                imageUrl={anime.imageUrl}
+                imageUrl={getAnimeImage(anime.id)}
                 type={anime.type}
                 language={anime.language}
               />

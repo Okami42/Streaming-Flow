@@ -16,40 +16,56 @@ const SPEED_CONFIG = {
 const ultraCache = new Map<string, { data: string[], timestamp: number }>();
 
 /**
- * Parse ultra-rapide des fichiers d'épisodes
+ * Parse ultra-rapide des fichiers d'épisodes avec support Sendvid
  */
-function fastParseEpisodeFile(content: string): string[] {
+function fastParseEpisodeFile(content: string): { sibnetIds: string[], sendvidIds: string[] } {
   try {
     const arrayMatch = content.match(/var\s+\w+\s*=\s*\[([\s\S]*?)\];/);
-    if (!arrayMatch) return [];
+    if (!arrayMatch) return { sibnetIds: [], sendvidIds: [] };
 
     const urlMatches = arrayMatch[1].match(/'([^']+)'/g);
-    if (!urlMatches) return [];
+    if (!urlMatches) return { sibnetIds: [], sendvidIds: [] };
 
     const sibnetIds: string[] = [];
+    const sendvidIds: string[] = [];
+    
     for (const urlWithQuotes of urlMatches) {
       const url = urlWithQuotes.slice(1, -1);
-      const match = url.match(/videoid=(\d+)/);
-      if (match) sibnetIds.push(match[1]);
+      
+      // Détecter Sibnet
+      const sibnetMatch = url.match(/videoid=(\d+)/);
+      if (sibnetMatch) {
+        sibnetIds.push(sibnetMatch[1]);
+      }
+      
+      // Détecter Sendvid (format: https://sendvid.com/embed/XXXXXXXX)
+      const sendvidMatch = url.match(/sendvid\.com\/embed\/([a-zA-Z0-9]+)/);
+      if (sendvidMatch) {
+        sendvidIds.push(sendvidMatch[1]);
+        console.log(`🎯 Sendvid détecté: ${sendvidMatch[1]} (URL: ${url})`);
+      }
     }
 
-    return sibnetIds;
+    return { sibnetIds, sendvidIds };
   } catch {
-    return [];
+    return { sibnetIds: [], sendvidIds: [] };
   }
 }
 
 /**
- * Chargement ultra-rapide des fichiers d'épisodes avec protection 403
+ * Chargement ultra-rapide des fichiers d'épisodes avec protection 403 et support Sendvid
  */
-async function ultraFastLoadEpisode(filePath: string): Promise<string[]> {
+async function ultraFastLoadEpisode(filePath: string): Promise<{ sibnetIds: string[], sendvidIds: string[] }> {
   const folders = ['anime_episodes_js', 'anime_episodes_js_2'];
   
-  // Cache ultra-rapide
+  // Cache ultra-rapide (noter que le cache doit maintenant gérer la nouvelle structure)
   if (SPEED_CONFIG.enableCache) {
     const cached = ultraCache.get(filePath);
     if (cached && (Date.now() - cached.timestamp) < SPEED_CONFIG.cacheTimeout) {
-      return cached.data;
+      // Pour la compatibilité avec l'ancien cache, traiter les données comme Sibnet uniquement
+      if (Array.isArray(cached.data)) {
+        return { sibnetIds: cached.data, sendvidIds: [] };
+      }
     }
   }
   
@@ -81,15 +97,15 @@ async function ultraFastLoadEpisode(filePath: string): Promise<string[]> {
       if (!response.ok) continue;
       
       const content = await response.text();
-      const ids = fastParseEpisodeFile(content);
+      const result = fastParseEpisodeFile(content);
       
-      if (ids.length > 0) {
-        // Cache ultra-rapide
+      if (result.sibnetIds.length > 0 || result.sendvidIds.length > 0) {
+        // Cache ultra-rapide (stocker les IDs Sibnet pour compatibilité)
         if (SPEED_CONFIG.enableCache) {
-          ultraCache.set(filePath, { data: ids, timestamp: Date.now() });
+          ultraCache.set(filePath, { data: result.sibnetIds, timestamp: Date.now() });
         }
         
-        return ids;
+        return result;
       }
     } catch {
       continue; // Essayer le dossier suivant
@@ -99,7 +115,7 @@ async function ultraFastLoadEpisode(filePath: string): Promise<string[]> {
     await new Promise(resolve => setTimeout(resolve, 100));
   }
   
-  return [];
+  return { sibnetIds: [], sendvidIds: [] };
 }
 
 /**
@@ -122,7 +138,7 @@ async function ultraFastLoadAllSeasons(animeId: string, animeYear?: number): Pro
   const actualFolderName = folderMapping[animeId] || animeId;
   const seasons: AnimeSeason[] = [];
   
-  // Patterns optimisés - augmenté pour couvrir plus de saisons
+  // Patterns optimisés - augmenté pour couvrir plus de saisons (jusqu'à 15 pour One Piece etc.)
   const seasonPatterns = [
     { folder: 'saison1', seasonNumber: 1, title: 'Saison 1' },
     { folder: 'saison2', seasonNumber: 2, title: 'Saison 2' },
@@ -130,6 +146,15 @@ async function ultraFastLoadAllSeasons(animeId: string, animeYear?: number): Pro
     { folder: 'saison4', seasonNumber: 4, title: 'Saison 4' },
     { folder: 'saison5', seasonNumber: 5, title: 'Saison 5' },
     { folder: 'saison6', seasonNumber: 6, title: 'Saison 6' },
+    { folder: 'saison7', seasonNumber: 7, title: 'Saison 7' },
+    { folder: 'saison8', seasonNumber: 8, title: 'Saison 8' },
+    { folder: 'saison9', seasonNumber: 9, title: 'Saison 9' },
+    { folder: 'saison10', seasonNumber: 10, title: 'Saison 10' },
+    { folder: 'saison11', seasonNumber: 11, title: 'Saison 11' },
+    { folder: 'saison12', seasonNumber: 12, title: 'Saison 12' },
+    { folder: 'saison13', seasonNumber: 13, title: 'Saison 13' },
+    { folder: 'saison14', seasonNumber: 14, title: 'Saison 14' },
+    { folder: 'saison15', seasonNumber: 15, title: 'Saison 15' },
     { folder: 'Film', seasonNumber: 'Film', title: 'Film' }
   ];
   
@@ -138,14 +163,18 @@ async function ultraFastLoadAllSeasons(animeId: string, animeYear?: number): Pro
     const vostfrPath = `${actualFolderName}/${pattern.folder}/episodes_vostfr.js`;
     const vfPath = `${actualFolderName}/${pattern.folder}/episodes_vf.js`;
     
-    const [vostfrIds, vfIds] = await Promise.all([
+    const [vostfrResult, vfResult] = await Promise.all([
       ultraFastLoadEpisode(vostfrPath),
       ultraFastLoadEpisode(vfPath)
     ]);
     
-    if (vostfrIds.length === 0 && vfIds.length === 0) return null;
+    if (vostfrResult.sibnetIds.length === 0 && vostfrResult.sendvidIds.length === 0 && 
+        vfResult.sibnetIds.length === 0 && vfResult.sendvidIds.length === 0) return null;
     
-    const maxEpisodes = Math.max(vostfrIds.length, vfIds.length);
+    const maxEpisodes = Math.max(
+      vostfrResult.sibnetIds.length + vostfrResult.sendvidIds.length,
+      vfResult.sibnetIds.length + vfResult.sendvidIds.length
+    );
     const episodes: AnimeEpisode[] = [];
     
     for (let i = 0; i < maxEpisodes; i++) {
@@ -154,8 +183,13 @@ async function ultraFastLoadAllSeasons(animeId: string, animeYear?: number): Pro
         title: pattern.seasonNumber === 'Film' ? pattern.title : `Épisode ${i + 1}`,
       };
       
-      if (vostfrIds[i]) episode.sibnetVostfrId = vostfrIds[i];
-      if (vfIds[i]) episode.sibnetVfId = vfIds[i];
+      // Ajouter les IDs Sibnet
+      if (vostfrResult.sibnetIds[i]) episode.sibnetVostfrId = vostfrResult.sibnetIds[i];
+      if (vfResult.sibnetIds[i]) episode.sibnetVfId = vfResult.sibnetIds[i];
+      
+      // Ajouter les IDs Sendvid
+      if (vostfrResult.sendvidIds[i]) episode.sendvidId = vostfrResult.sendvidIds[i];
+      if (vfResult.sendvidIds[i]) episode.sendvidVfId = vfResult.sendvidIds[i];
       
       episodes.push(episode);
     }
@@ -253,14 +287,14 @@ export function getUltraCacheStats(): { entries: number; size: string } {
 }
 
 /**
- * Parse le contenu d'un fichier d'épisodes JavaScript et extrait les IDs Sibnet
+ * Parse le contenu d'un fichier d'épisodes JavaScript et extrait les IDs Sibnet et Sendvid
  */
-function parseEpisodeFileContent(content: string): string[] {
+function parseEpisodeFileContent(content: string): { sibnetIds: string[], sendvidIds: string[] } {
   try {
     // Trouve le tableau dans le fichier JavaScript
     const arrayMatch = content.match(/var\s+\w+\s*=\s*\[([\s\S]*?)\];/);
     if (!arrayMatch) {
-      return [];
+      return { sibnetIds: [], sendvidIds: [] };
     }
 
     const arrayContent = arrayMatch[1];
@@ -268,31 +302,42 @@ function parseEpisodeFileContent(content: string): string[] {
     // Extrait toutes les URLs
     const urlMatches = arrayContent.match(/'([^']+)'/g);
     if (!urlMatches) {
-      return [];
+      return { sibnetIds: [], sendvidIds: [] };
     }
 
-    // Extrait les IDs Sibnet de chaque URL
+    // Extrait les IDs Sibnet et Sendvid de chaque URL
     const sibnetIds: string[] = [];
+    const sendvidIds: string[] = [];
+    
     urlMatches.forEach(urlWithQuotes => {
       const url = urlWithQuotes.slice(1, -1); // Retire les guillemets
-      const match = url.match(/videoid=(\d+)/);
-      if (match) {
-        sibnetIds.push(match[1]);
+      
+      // Détecter Sibnet
+      const sibnetMatch = url.match(/videoid=(\d+)/);
+      if (sibnetMatch) {
+        sibnetIds.push(sibnetMatch[1]);
+      }
+      
+      // Détecter Sendvid
+      const sendvidMatch = url.match(/sendvid\.com\/embed\/([a-zA-Z0-9]+)/);
+      if (sendvidMatch) {
+        sendvidIds.push(sendvidMatch[1]);
+        console.log(`🎯 Sendvid détecté: ${sendvidMatch[1]} (URL: ${url})`);
       }
     });
 
-    return sibnetIds;
+    return { sibnetIds, sendvidIds };
   } catch (error) {
     console.error('Erreur lors du parsing du fichier:', error);
-    return [];
+    return { sibnetIds: [], sendvidIds: [] };
   }
 }
 
 /**
- * Charge un fichier d'épisodes depuis le serveur web
+ * Charge un fichier d'épisodes depuis le serveur web avec support Sendvid
  * Essaie d'abord dans anime_episodes_js, puis dans anime_episodes_js_2
  */
-async function loadEpisodeFile(filePath: string): Promise<string[]> {
+async function loadEpisodeFile(filePath: string): Promise<{ sibnetIds: string[], sendvidIds: string[] }> {
   const folders = ['anime_episodes_js', 'anime_episodes_js_2'];
   
   for (const folder of folders) {
@@ -313,10 +358,10 @@ async function loadEpisodeFile(filePath: string): Promise<string[]> {
       const content = await response.text();
       console.log(`📄 Contenu reçu de ${folder} (${content.length} caractères): ${content.substring(0, 100)}...`);
       
-      const ids = parseEpisodeFileContent(content);
-      console.log(`🎯 IDs extraits de ${folder}: ${ids.length} épisodes [${ids.slice(0, 3).join(', ')}...]`);
+      const result = parseEpisodeFileContent(content);
+      console.log(`🎯 IDs extraits de ${folder}: ${result.sibnetIds.length} Sibnet + ${result.sendvidIds.length} Sendvid`);
       
-      return ids; // Retourner dès qu'on trouve un fichier valide
+      return result; // Retourner dès qu'on trouve un fichier valide
     } catch (error) {
       console.error(`❌ Erreur lors du chargement de ${filePath} depuis ${folder}:`, error);
       continue; // Essayer le dossier suivant
@@ -325,7 +370,7 @@ async function loadEpisodeFile(filePath: string): Promise<string[]> {
   
   // Si aucun dossier n'a fourni le fichier
   console.log(`❌ Fichier ${filePath} introuvable dans tous les dossiers d'épisodes`);
-  return [];
+  return { sibnetIds: [], sendvidIds: [] };
 }
 
 /**
@@ -375,9 +420,34 @@ async function loadAllSeasonsForAnime(animeId: string, animeYear?: number): Prom
       seasonNumber: `${i + 1}hs`,
       title: `Saison ${i + 1} - Hors-série`
     })),
-    // Film
+    // Films (différentes variantes de noms)
     {
       folder: 'Film',
+      seasonNumber: 'Film',
+      title: 'Film'
+    },
+    {
+      folder: 'film',
+      seasonNumber: 'Film',
+      title: 'Film'
+    },
+    {
+      folder: 'movie',
+      seasonNumber: 'Film',
+      title: 'Film'
+    },
+    {
+      folder: 'Movie',
+      seasonNumber: 'Film',
+      title: 'Film'
+    },
+    {
+      folder: 'films',
+      seasonNumber: 'Film',
+      title: 'Film'
+    },
+    {
+      folder: 'Films',
       seasonNumber: 'Film',
       title: 'Film'
     }
@@ -387,18 +457,22 @@ async function loadAllSeasonsForAnime(animeId: string, animeYear?: number): Prom
     const vostfrPath = `${actualFolderName}/${pattern.folder}/episodes_vostfr.js`;
     const vfPath = `${actualFolderName}/${pattern.folder}/episodes_vf.js`;
     
-    const [vostfrIds, vfIds] = await Promise.all([
+    const [vostfrResult, vfResult] = await Promise.all([
       loadEpisodeFile(vostfrPath),
       loadEpisodeFile(vfPath)
     ]);
     
     // Si aucun fichier trouvé pour ce pattern, continuer avec le suivant
-    if (vostfrIds.length === 0 && vfIds.length === 0) {
+    if (vostfrResult.sibnetIds.length === 0 && vostfrResult.sendvidIds.length === 0 && 
+        vfResult.sibnetIds.length === 0 && vfResult.sendvidIds.length === 0) {
       continue;
     }
     
-    // Créer les épisodes en combinant VOSTFR et VF
-    const maxEpisodes = Math.max(vostfrIds.length, vfIds.length);
+    // Créer les épisodes en combinant VOSTFR et VF, Sibnet et Sendvid
+    const maxEpisodes = Math.max(
+      vostfrResult.sibnetIds.length + vostfrResult.sendvidIds.length,
+      vfResult.sibnetIds.length + vfResult.sendvidIds.length
+    );
     const episodes: AnimeEpisode[] = [];
     
     for (let i = 0; i < maxEpisodes; i++) {
@@ -407,12 +481,22 @@ async function loadAllSeasonsForAnime(animeId: string, animeYear?: number): Prom
         title: pattern.seasonNumber === 'Film' ? pattern.title : `Épisode ${i + 1}`,
       };
       
-      if (vostfrIds[i]) {
-        episode.sibnetVostfrId = vostfrIds[i];
+      // Ajouter les IDs Sibnet
+      if (vostfrResult.sibnetIds[i]) {
+        episode.sibnetVostfrId = vostfrResult.sibnetIds[i];
       }
       
-      if (vfIds[i]) {
-        episode.sibnetVfId = vfIds[i];
+      if (vfResult.sibnetIds[i]) {
+        episode.sibnetVfId = vfResult.sibnetIds[i];
+      }
+      
+      // Ajouter les IDs Sendvid
+      if (vostfrResult.sendvidIds[i]) {
+        episode.sendvidId = vostfrResult.sendvidIds[i];
+      }
+      
+      if (vfResult.sendvidIds[i]) {
+        episode.sendvidVfId = vfResult.sendvidIds[i];
       }
       
       episodes.push(episode);
@@ -539,7 +623,12 @@ export async function checkEpisodesAvailability(animeId: string): Promise<boolea
   const testPaths = [
     `${actualFolderName}/saison1/episodes_vostfr.js`,
     `${actualFolderName}/saison1hs/episodes_vostfr.js`,
-    `${actualFolderName}/Film/episodes_vostfr.js`
+    `${actualFolderName}/Film/episodes_vostfr.js`,
+    `${actualFolderName}/film/episodes_vostfr.js`,
+    `${actualFolderName}/movie/episodes_vostfr.js`,
+    `${actualFolderName}/Movie/episodes_vostfr.js`,
+    `${actualFolderName}/films/episodes_vostfr.js`,
+    `${actualFolderName}/Films/episodes_vostfr.js`
   ];
   
   const folders = ['anime_episodes_js', 'anime_episodes_js_2'];

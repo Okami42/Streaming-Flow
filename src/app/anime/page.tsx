@@ -19,6 +19,7 @@ import CustomImage from "@/components/ui/custom-image";
 import { useHistory } from "@/context/history-context";
 import { calculateProgress, getRelativeTime, formatTimeExtended } from "@/lib/history";
 import { getAnimeById } from "@/lib/animeData";
+import { getAnimeImage as getCatalogueImage } from "@/app/catalogue/page";
 
 // Définir un type pour les éléments intrinsèques personnalisés
 interface CustomElements {
@@ -74,14 +75,31 @@ const getAnimeImage = (historyId: string): string => {
   // Récupérer l'anime correspondant
   const anime = getAnimeById(animeId);
   
-  // Retourner l'image ou une image par défaut
-  return anime ? anime.imageUrl : '/placeholder-image.jpg';
+  // Si l'anime a une image dans animeData, l'utiliser
+  if (anime && anime.imageUrl) {
+    return anime.imageUrl;
+  }
+  
+  // Sinon, utiliser l'image du catalogue comme fallback
+  if (animeId) {
+    console.log(`🔍 Tentative de récupération image catalogue pour: ${animeId}`);
+    const catalogueImage = getCatalogueImage(animeId);
+    console.log(`🔍 Image catalogue trouvée: ${catalogueImage}`);
+    if (catalogueImage) {
+      return catalogueImage;
+    }
+  }
+  
+  // Image par défaut si aucune trouvée
+  return '/placeholder-image.jpg';
 };
 
 // Fonction auxiliaire pour extraire l'ID d'anime à partir d'un ID d'historique
 const getAnimeIdFromHistoryId = (historyId: string): string => {
   // Format typique: "anime-id-s1e1" ou "anime-id-e1"
   // On doit extraire uniquement l'ID de l'anime, pas le numéro d'épisode
+  
+  console.log(`🔍 getAnimeIdFromHistoryId - historyId: ${historyId}`);
   
   // Vérifier si l'ID contient un indicateur d'épisode
   const seasonEpisodePattern = /-s\d+e\d+$/;
@@ -92,11 +110,18 @@ const getAnimeIdFromHistoryId = (historyId: string): string => {
   // Supprimer le pattern de saison et d'épisode s'il existe
   if (seasonEpisodePattern.test(historyId)) {
     baseId = historyId.replace(seasonEpisodePattern, '');
+    console.log(`🔍 getAnimeIdFromHistoryId - pattern saison détecté, baseId: ${baseId}`);
   } else if (episodePattern.test(historyId)) {
     baseId = historyId.replace(episodePattern, '');
+    console.log(`🔍 getAnimeIdFromHistoryId - pattern épisode détecté, baseId: ${baseId}`);
   }
   
-  // Essayer l'ID complet d'abord (pour des cas comme "classroom-of-the-elite")
+  // PRIORITÉ 1: Vérifier si l'ID existe dans le catalogue (plus fiable)
+  if (getCatalogueImage(baseId)) {
+    return baseId;
+  }
+  
+  // PRIORITÉ 2: Essayer l'ID complet dans animeData
   const anime = getAnimeById(baseId);
   if (anime) {
     return baseId;
@@ -109,6 +134,13 @@ const getAnimeIdFromHistoryId = (historyId: string): string => {
     // Essayer avec toutes les parties possibles, en commençant par le plus long
     for (let i = parts.length; i >= 2; i--) {
       const potentialId = parts.slice(0, i).join('-');
+      
+      // Vérifier d'abord le catalogue
+      if (getCatalogueImage(potentialId)) {
+        return potentialId;
+      }
+      
+      // Puis vérifier animeData
       const testAnime = getAnimeById(potentialId);
       if (testAnime) {
         return potentialId;
@@ -116,6 +148,7 @@ const getAnimeIdFromHistoryId = (historyId: string): string => {
     }
   }
   
+  console.log(`❌ getAnimeIdFromHistoryId - aucun anime trouvé, retourne: ${baseId}`);
   // Par défaut, retourner l'ID de base
   return baseId;
 };

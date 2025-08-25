@@ -150,7 +150,8 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
       episode.vidmolyVfId || 
       episode.vidmolyVfUrl || 
       episode.movearnVfUrl ||
-      episode.mp4VfUrl
+      episode.mp4VfUrl ||
+      episode.sendvidVfId
     );
   };
 
@@ -983,10 +984,10 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                   {/* Sélecteur d'épisode */}
                   <div className="relative">
                     <button 
-                      className="flex items-center justify-between gap-2 px-4 py-2 text-sm text-white bg-[#1a1f35] rounded-md border border-white/10 w-full min-w-[300px]"
+                      className="flex items-center justify-between gap-2 px-4 py-2 text-sm text-white bg-[#1a1f35] rounded-md border border-white/10 w-full min-w-[200px]"
                       onClick={() => document.getElementById("episode-selector-desktop")?.click()}
                     >
-                      ÉPISODE {selectedEpisode} - {episode?.title || `Épisode ${selectedEpisode}`}
+                      {episode?.title || `Épisode ${selectedEpisode}`}
                       <ChevronDown className="h-4 w-4" />
                     </button>
                     <select 
@@ -998,7 +999,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                     >
                       {episodesToShow.map((ep) => (
                         <option key={ep.number} value={ep.number} style={{ backgroundColor: '#1a1f35', color: 'white' }}>
-                          ÉPISODE {ep.number} - {ep.title || `Épisode ${ep.number}`}
+                          {ep.title || `Épisode ${ep.number}`}
                         </option>
                       ))}
                     </select>
@@ -1106,7 +1107,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                     className="flex items-center justify-between w-full px-4 py-3 text-white bg-[#1e2332] rounded-md border border-white/10"
                     onClick={() => document.getElementById("episode-selector-mobile")?.click()}
                   >
-                    <span className="truncate">ÉPISODE {selectedEpisode} - {episode?.title || `épisode ${selectedEpisode}`}</span>
+                    <span className="truncate">{episode?.title || `Épisode ${selectedEpisode}`}</span>
                     <ChevronDown className="h-4 w-4 ml-1" />
                   </button>
                   <select 
@@ -1118,7 +1119,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                   >
                     {episodesToShow.map((ep) => (
                       <option key={ep.number} value={ep.number} style={{ backgroundColor: '#1a1f35', color: 'white', padding: '8px' }}>
-                        ÉPISODE {ep.number} - {ep.title || `épisode ${ep.number}`}
+                        {ep.title || `Épisode ${ep.number}`}
                       </option>
                     ))}
                   </select>
@@ -1158,12 +1159,16 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       <MovearnPlayer src={episode.movearnUrl} />
                     ) : (
                       <VideoPlayer 
-                        sendvidId={episode?.sendvidId}
-                        sibnetId={episode?.sendvidId ? undefined : videoId}
-                        mp4Url={episode?.mp4Url}
-                        movearnUrl={episode?.movearnUrl}
+                        sendvidId={selectedLanguage === "vf" ? episode?.sendvidVfId : episode?.sendvidId}
+                        sibnetId={
+                          selectedLanguage === "vf" 
+                            ? (episode?.sendvidVfId ? undefined : episode?.sibnetVfId)
+                            : (episode?.sendvidId ? undefined : videoId)
+                        }
+                        mp4Url={selectedLanguage === "vf" ? episode?.mp4VfUrl : episode?.mp4Url}
+                        movearnUrl={selectedLanguage === "vf" ? episode?.movearnVfUrl : episode?.movearnUrl}
                         className="w-full h-full"
-                        key={`lecteur1-vo-${selectedEpisode}-${selectedSeason}`}
+                        key={`lecteur1-${selectedLanguage}-${selectedEpisode}-${selectedSeason}`}
                       />
                     )}
                   </>
