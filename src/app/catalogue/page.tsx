@@ -27,7 +27,7 @@ const getAnimeGenres = (animeId: string): string[] => {
 };
 
 // Fonction pour obtenir l'image d'un anime - priorité au catalogue, puis animeData
-export const getAnimeImage = (animeId: string): string => {
+const getAnimeImage = (animeId: string): string => {
   // D'abord chercher dans le catalogue statique
   const catalogueAnime = animes.find(a => a.id === animeId);
   if (catalogueAnime?.imageUrl) {
