@@ -44,7 +44,7 @@ const getAnimeImage = (animeId: string): string => {
   return "https://m.media-amazon.com/images/M/MV5BM2ZiZTk1ODgtMTZkNS00NTYxLWIxZTUtNWExZGYwZTRjODViXkEyXkFqcGdeQXVyMTE2MzA3MDM@._V1_.jpg";
 };
 
-export const animes: CatalogueAnime[] = [
+const animes: CatalogueAnime[] = [
   {
     id: "akira",
     title: "Akira",
