@@ -596,7 +596,7 @@ export const animes: CatalogueAnime[] = [
       {
         id: "one-piece",
         title: "One Piece",
-        imageUrl: "https://cdn.myanimelist.net/images/anime/6/73245.jpg",
+        imageUrl: "https://external-preview.redd.it/one-piece-anime-going-on-break-returning-april-2025-v0-eAfnmFuSst07MCSMmNjQ8jHWr3i3CmWsYgbs057RedE.jpg?width=640&crop=smart&auto=webp&s=3156f60eab0be615b09d2d9f329120d45f0c0ade",
         type: "Anime",
         language: "VF & VO",
         genres: getAnimeGenres("one-piece"),

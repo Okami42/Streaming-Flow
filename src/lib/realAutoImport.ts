@@ -105,7 +105,8 @@ async function ultraFastLoadEpisode(filePath: string): Promise<{ sibnetIds: stri
           ultraCache.set(filePath, { data: result.sibnetIds, timestamp: Date.now() });
         }
         
-        return result;
+        console.log(`✅ Trouvé dans ${folder} - arrêt de la recherche dans les autres dossiers`);
+        return result; // ARRÊT immédiat - pas besoin de chercher ailleurs
       }
     } catch {
       continue; // Essayer le dossier suivant
@@ -122,20 +123,8 @@ async function ultraFastLoadEpisode(filePath: string): Promise<{ sibnetIds: stri
  * Chargement ultra-rapide de toutes les saisons
  */
 async function ultraFastLoadAllSeasons(animeId: string, animeYear?: number): Promise<AnimeSeason[]> {
-  const folderMapping: Record<string, string> = {
-    'attack-on-titan': 'shingeki-no-kyojin',
-    'classroom-of-the-elite': 'classroom-of-the-elite',
-    'violet-evergarden': 'violet-evergarden',
-    'yuyu-hakusho': 'yuyu-hakusho',
-    '86-eighty-six': '86-eighty-six',
-    'akame-ga-kill': 'akame-ga-kill',
-    'jujutsu-kaisen': 'jujutsu-kaisen',
-    'demon-slayer': 'demon-slayer',
-    'solo-leveling': 'solo-leveling',
-    'frieren': 'frieren'
-  };
-  
-  const actualFolderName = folderMapping[animeId] || animeId;
+  // Utiliser directement l'ID de l'anime comme nom de dossier (système automatique)
+  const actualFolderName = animeId;
   const seasons: AnimeSeason[] = [];
   
   // Patterns optimisés - augmenté pour couvrir plus de saisons (jusqu'à 15 pour One Piece etc.)
@@ -145,6 +134,16 @@ async function ultraFastLoadAllSeasons(animeId: string, animeYear?: number): Pro
     { folder: 'saison3', seasonNumber: 3, title: 'Saison 3' },
     { folder: 'saison4', seasonNumber: 4, title: 'Saison 4' },
     { folder: 'saison5', seasonNumber: 5, title: 'Saison 5' },
+    { folder: 'saison6', seasonNumber: 6, title: 'Saison 6' },
+    { folder: 'saison7', seasonNumber: 7, title: 'Saison 7' },
+    { folder: 'saison8', seasonNumber: 8, title: 'Saison 8' },
+    { folder: 'saison9', seasonNumber: 9, title: 'Saison 9' },
+    { folder: 'saison10', seasonNumber: 10, title: 'Saison 10' },
+    { folder: 'saison11', seasonNumber: 11, title: 'Saison 11' },
+    { folder: 'saison12', seasonNumber: 12, title: 'Saison 12' },
+    { folder: 'saison13', seasonNumber: 13, title: 'Saison 13' },
+    { folder: 'saison14', seasonNumber: 14, title: 'Saison 14' },
+    { folder: 'saison15', seasonNumber: 15, title: 'Saison 15' },
     { folder: 'Film', seasonNumber: 'Film', title: 'Film' }
   ];
   
@@ -212,11 +211,210 @@ async function ultraFastLoadAllSeasons(animeId: string, animeYear?: number): Pro
 }
 
 /**
- * Version ultra-rapide de l'auto-chargement
+ * Charge un fichier depuis un dossier spécifique (optimisation)
+ */
+async function loadEpisodeFromSpecificFolder(filePath: string, folder: string): Promise<{ sibnetIds: string[], sendvidIds: string[] }> {
+  try {
+    const url = `/${folder}/${filePath}`;
+    const response = await fetch(url);
+    
+    if (response.ok) {
+      const content = await response.text();
+      const result = fastParseEpisodeFile(content);
+      if (SPEED_CONFIG.enableLogs && (result.sibnetIds.length > 0 || result.sendvidIds.length > 0)) {
+        console.log(`✅ Chargé depuis ${folder}: ${result.sibnetIds.length} Sibnet + ${result.sendvidIds.length} Sendvid`);
+      }
+      return result;
+    }
+  } catch (error) {
+    if (SPEED_CONFIG.enableLogs) {
+      console.log(`❌ Échec de chargement depuis ${folder}:`, error);
+    }
+  }
+  
+  return { sibnetIds: [], sendvidIds: [] };
+}
+
+/**
+ * Chargement séquentiel optimisé des saisons (s'arrête quand plus de saisons trouvées)
+ */
+async function sequentialLoadSeasons(animeId: string, animeYear?: number): Promise<AnimeSeason[]> {
+  // Utiliser directement l'ID de l'anime comme nom de dossier (système automatique)
+  const actualFolderName = animeId;
+  const seasons: AnimeSeason[] = [];
+  
+  if (SPEED_CONFIG.enableLogs) {
+    console.log(`🔍 Chargement séquentiel pour ${animeId}...`);
+  }
+  
+  // Chargement séquentiel des saisons (commence par saison 1, 2, 3...)
+  let seasonNumber = 1;
+  let foundInFolder: string | null = null; // Tracker dans quel dossier on a trouvé l'anime
+  
+  while (seasonNumber <= 50) { // Limite à 50 saisons max
+    const folder = `saison${seasonNumber}`;
+    const vostfrPath = `${actualFolderName}/${folder}/episodes_vostfr.js`;
+    const vfPath = `${actualFolderName}/${folder}/episodes_vf.js`;
+    
+    if (SPEED_CONFIG.enableLogs) {
+      console.log(`🔍 Test saison ${seasonNumber}...`);
+    }
+    
+    // Si on a déjà trouvé l'anime dans un dossier, utiliser une version optimisée
+    let vostfrResult, vfResult;
+    if (foundInFolder) {
+      // Charger directement depuis le dossier connu
+      vostfrResult = await loadEpisodeFromSpecificFolder(vostfrPath, foundInFolder);
+      vfResult = await loadEpisodeFromSpecificFolder(vfPath, foundInFolder);
+    } else {
+      // Première recherche - tester les dossiers
+      [vostfrResult, vfResult] = await Promise.all([
+        ultraFastLoadEpisode(vostfrPath),
+        ultraFastLoadEpisode(vfPath)
+      ]);
+      
+      // Déterminer dans quel dossier on a trouvé l'anime en testant directement
+      if (vostfrResult.sibnetIds.length > 0 || vostfrResult.sendvidIds.length > 0 ||
+          vfResult.sibnetIds.length > 0 || vfResult.sendvidIds.length > 0) {
+        
+        // Tester quel dossier contient vraiment les fichiers
+        try {
+          const testUrl1 = `/anime_episodes_js/${vostfrPath}`;
+          const testResponse1 = await fetch(testUrl1, { method: 'HEAD' });
+          if (testResponse1.ok) {
+            foundInFolder = 'anime_episodes_js';
+          } else {
+            foundInFolder = 'anime_episodes_js_2';
+          }
+        } catch {
+          foundInFolder = 'anime_episodes_js_2';
+        }
+        
+        if (SPEED_CONFIG.enableLogs) {
+          console.log(`📁 Anime trouvé dans ${foundInFolder} - les prochaines saisons seront cherchées uniquement ici`);
+        }
+      }
+    }
+    
+    // Si aucun fichier trouvé pour cette saison, ARRÊTER immédiatement
+    if (vostfrResult.sibnetIds.length === 0 && vostfrResult.sendvidIds.length === 0 && 
+        vfResult.sibnetIds.length === 0 && vfResult.sendvidIds.length === 0) {
+      if (SPEED_CONFIG.enableLogs) {
+        console.log(`❌ Saison ${seasonNumber} non trouvée - ARRÊT de la recherche des saisons`);
+      }
+      break; // Arrêter immédiatement la recherche des saisons
+    }
+    
+    // Créer les épisodes
+    const maxEpisodes = Math.max(
+      vostfrResult.sibnetIds.length + vostfrResult.sendvidIds.length,
+      vfResult.sibnetIds.length + vfResult.sendvidIds.length
+    );
+    const episodes: AnimeEpisode[] = [];
+    
+    for (let i = 0; i < maxEpisodes; i++) {
+      const episode: AnimeEpisode = {
+        number: i + 1,
+        title: `Épisode ${i + 1}`,
+      };
+      
+      if (vostfrResult.sibnetIds[i]) episode.sibnetVostfrId = vostfrResult.sibnetIds[i];
+      if (vfResult.sibnetIds[i]) episode.sibnetVfId = vfResult.sibnetIds[i];
+      if (vostfrResult.sendvidIds[i]) episode.sendvidId = vostfrResult.sendvidIds[i];
+      if (vfResult.sendvidIds[i]) episode.sendvidVfId = vfResult.sendvidIds[i];
+      
+      episodes.push(episode);
+    }
+    
+    if (episodes.length > 0) {
+      const seasonYear = animeYear ? animeYear + (seasonNumber - 1) : 2024;
+      seasons.push({
+        seasonNumber: seasonNumber,
+        title: `Saison ${seasonNumber}`,
+        year: seasonYear,
+        episodes
+      });
+      
+      if (SPEED_CONFIG.enableLogs) {
+        console.log(`✅ Saison ${seasonNumber}: ${episodes.length} épisodes`);
+      }
+    }
+    
+    seasonNumber++;
+    
+    // Petit délai pour éviter de surcharger
+    if (seasonNumber % 3 === 0) {
+      await new Promise(resolve => setTimeout(resolve, 50));
+    }
+  }
+  
+  // Vérifier les films TOUJOURS (même si aucune saison trouvée)
+  const filmPath = `${actualFolderName}/Film/episodes_vostfr.js`;
+  const filmVfPath = `${actualFolderName}/Film/episodes_vf.js`;
+  
+  let filmVostfr, filmVf;
+  if (foundInFolder) {
+    // Utiliser le dossier où on a trouvé l'anime
+    filmVostfr = await loadEpisodeFromSpecificFolder(filmPath, foundInFolder);
+    filmVf = await loadEpisodeFromSpecificFolder(filmVfPath, foundInFolder);
+  } else {
+    // Chercher dans tous les dossiers si aucun anime trouvé
+    [filmVostfr, filmVf] = await Promise.all([
+      ultraFastLoadEpisode(filmPath),
+      ultraFastLoadEpisode(filmVfPath)
+    ]);
+  }
+  
+  if (filmVostfr.sibnetIds.length > 0 || filmVostfr.sendvidIds.length > 0 || 
+      filmVf.sibnetIds.length > 0 || filmVf.sendvidIds.length > 0) {
+    
+    const maxFilms = Math.max(
+      filmVostfr.sibnetIds.length + filmVostfr.sendvidIds.length,
+      filmVf.sibnetIds.length + filmVf.sendvidIds.length
+    );
+    
+    const filmEpisodes: AnimeEpisode[] = [];
+    for (let i = 0; i < maxFilms; i++) {
+      const episode: AnimeEpisode = {
+        number: i + 1,
+        title: `Film ${i + 1}`,
+      };
+      
+      if (filmVostfr.sibnetIds[i]) episode.sibnetVostfrId = filmVostfr.sibnetIds[i];
+      if (filmVf.sibnetIds[i]) episode.sibnetVfId = filmVf.sibnetIds[i];
+      if (filmVostfr.sendvidIds[i]) episode.sendvidId = filmVostfr.sendvidIds[i];
+      if (filmVf.sendvidIds[i]) episode.sendvidVfId = filmVf.sendvidIds[i];
+      
+      filmEpisodes.push(episode);
+    }
+    
+    if (filmEpisodes.length > 0) {
+      seasons.push({
+        seasonNumber: 'Film',
+        title: 'Films',
+        year: animeYear || 2024,
+        episodes: filmEpisodes
+      });
+      
+      if (SPEED_CONFIG.enableLogs) {
+        console.log(`🎬 Films: ${filmEpisodes.length} film(s)`);
+      }
+    }
+  }
+  
+  if (SPEED_CONFIG.enableLogs) {
+    console.log(`🎯 Chargement terminé: ${seasons.length} saison(s) trouvée(s) pour ${animeId}`);
+  }
+  
+  return seasons;
+}
+
+/**
+ * Version ultra-rapide de l'auto-chargement - utilise maintenant le chargement séquentiel
  */
 export async function ultraFastAutoLoad(animeId: string, animeYear?: number): Promise<AnimeSeason[]> {
   try {
-    return await ultraFastLoadAllSeasons(animeId, animeYear);
+    return await sequentialLoadSeasons(animeId, animeYear);
   } catch {
     return [];
   }
@@ -350,8 +548,9 @@ async function loadEpisodeFile(filePath: string): Promise<{ sibnetIds: string[],
       
       const result = parseEpisodeFileContent(content);
       console.log(`🎯 IDs extraits de ${folder}: ${result.sibnetIds.length} Sibnet + ${result.sendvidIds.length} Sendvid`);
+      console.log(`✅ Fichier trouvé dans ${folder} - arrêt de la recherche dans les autres dossiers`);
       
-      return result; // Retourner dès qu'on trouve un fichier valide
+      return result; // ARRÊT immédiat - pas besoin de chercher ailleurs
     } catch (error) {
       console.error(`❌ Erreur lors du chargement de ${filePath} depuis ${folder}:`, error);
       continue; // Essayer le dossier suivant
@@ -367,32 +566,8 @@ async function loadEpisodeFile(filePath: string): Promise<{ sibnetIds: string[],
  * Charge toutes les saisons disponibles pour un anime
  */
 async function loadAllSeasonsForAnime(animeId: string, animeYear?: number): Promise<AnimeSeason[]> {
-  // Mapping des IDs d'anime vers les vrais noms de dossiers
-  const folderMapping: Record<string, string> = {
-    'attack-on-titan': 'shingeki-no-kyojin',
-    'classroom-of-the-elite': 'classroom-of-the-elite',
-    'violet-evergarden': 'violet-evergarden',
-    'yuyu-hakusho': 'yuyu-hakusho',
-    '86-eighty-six': '86-eighty-six',
-    'akame-ga-kill': 'akame-ga-kill',
-    'aldnoah-zero': 'aldnoah-zero',
-    'a-certain-magical-index': 'a-certain-magical-index',
-    'a-certain-scientific-railgun': 'a-certain-scientific-railgun',
-    'accel-world': 'accel-world',
-    'ajin': 'ajin',
-    'alice-in-borderlands': 'alice-in-borderlands',
-    'air-gear': 'air-gear',
-    'aharen-san-wa-hakarenai': 'aharen-san-wa-hakarenai',
-    'aho-girl': 'aho-girl',
-    'akatsuki-no-yona': 'akatsuki-no-yona',
-    '91-days': '91-days',
-    'absolute-duo': 'absolute-duo',
-    'a-couple-of-cuckoos': 'a-couple-of-cuckoos',
-    // Ajoutez d'autres mappings selon vos besoins
-  };
-  
-  // Utiliser le mapping ou l'ID original si pas de mapping
-  const actualFolderName = folderMapping[animeId] || animeId;
+  // Utiliser directement l'ID de l'anime comme nom de dossier (système automatique)
+  const actualFolderName = animeId;
   
   const seasons: AnimeSeason[] = [];
   
@@ -599,15 +774,8 @@ export async function enrichMultipleAnimes(animes: Anime[]): Promise<Anime[]> {
  * Vérifie dans les deux dossiers : anime_episodes_js et anime_episodes_js_2
  */
 export async function checkEpisodesAvailability(animeId: string): Promise<boolean> {
-  // Même mapping que dans loadAllSeasonsForAnime
-  const folderMapping: Record<string, string> = {
-    'attack-on-titan': 'shingeki-no-kyojin',
-    'classroom-of-the-elite': 'classroom-of-the-elite',
-    'violet-evergarden': 'violet-evergarden',
-    // Ajoutez d'autres mappings selon vos besoins
-  };
-  
-  const actualFolderName = folderMapping[animeId] || animeId;
+  // Utiliser directement l'ID de l'anime comme nom de dossier (système automatique)
+  const actualFolderName = animeId;
   
   // Patterns de dossiers à tester (mêmes que dans loadAllSeasonsForAnime)
   const testPaths = [

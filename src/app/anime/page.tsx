@@ -187,7 +187,7 @@ export default function AnimePage() {
   
   // Progress bar state
   const [progress, setProgress] = React.useState(0);
-  const slideInterval = 7000; // 7 secondes entre chaque animé
+  const slideInterval = 6000; // 5 secondes entre chaque animé
   
   // Auto-rotate carousel avec barre de progression continue
   React.useEffect(() => {

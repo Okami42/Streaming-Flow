@@ -23,7 +23,7 @@ export function AnimeCard({
   href,
   id,
 }: AnimeCardProps) {
-  // Si href n'est pas spécifié, construire l'URL à partir .de l'ID
+  // Si href n'est pas spécifié, construire l'URL à partir de l'ID
   const linkUrl = href || (id ? `/catalogue/${id}` : '#');
 
   return (

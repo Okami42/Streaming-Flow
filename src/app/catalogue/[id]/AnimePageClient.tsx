@@ -936,10 +936,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       {(() => {
                         // Trouver la saison sélectionnée
                         const currentSeason = anime.seasons?.find(s => String(s.seasonNumber) === String(selectedSeason));
-                        // Déboguer l'année de la saison
-                        if (process.env.NODE_ENV !== 'production' && currentSeason) {
-                          console.log(`Saison sélectionnée: ${currentSeason.seasonNumber}, année: ${currentSeason.year}`);
-                        }
+
                         return currentSeason 
                           ? `${currentSeason.title}` 
                           : `Saison ${selectedSeason}`;
@@ -950,10 +947,6 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                     {isSeasonMenuOpen && (
                       <div className="absolute z-10 mt-1 w-full bg-[#1a1f35] rounded-md shadow-lg py-1 border border-white/10">
                         {anime.seasons?.map((season) => {
-                          // Déboguer l'année de la saison
-                          if (process.env.NODE_ENV !== 'production') {
-                            console.log(`Saison ${season.seasonNumber}, année: ${season.year}`);
-                          }
                           return (
                             <button
                               key={season.seasonNumber}
