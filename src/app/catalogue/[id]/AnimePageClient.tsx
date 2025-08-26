@@ -984,7 +984,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                   {/* Sélecteur d'épisode */}
                   <div className="relative">
                     <button 
-                      className="flex items-center justify-between gap-2 px-4 py-2 text-sm text-white bg-[#1a1f35] rounded-md border border-white/10 w-full min-w-[200px]"
+                                             className="flex items-center justify-between gap-2 px-4 py-2 text-sm text-white bg-[#1a1f35] rounded-md border border-white/10 w-full min-w-[200px]"
                       onClick={() => document.getElementById("episode-selector-desktop")?.click()}
                     >
                       {episode?.title || `Épisode ${selectedEpisode}`}

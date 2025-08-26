@@ -27,7 +27,7 @@ const getAnimeGenres = (animeId: string): string[] => {
 };
 
 // Fonction pour obtenir l'image d'un anime - priorité au catalogue, puis animeData
-const getAnimeImage = (animeId: string): string => {
+export const getAnimeImage = (animeId: string): string => {
   // D'abord chercher dans le catalogue statique
   const catalogueAnime = animes.find(a => a.id === animeId);
   if (catalogueAnime?.imageUrl) {
@@ -44,7 +44,7 @@ const getAnimeImage = (animeId: string): string => {
   return "https://m.media-amazon.com/images/M/MV5BM2ZiZTk1ODgtMTZkNS00NTYxLWIxZTUtNWExZGYwZTRjODViXkEyXkFqcGdeQXVyMTE2MzA3MDM@._V1_.jpg";
 };
 
-const animes: CatalogueAnime[] = [
+export const animes: CatalogueAnime[] = [
   {
     id: "akira",
     title: "Akira",

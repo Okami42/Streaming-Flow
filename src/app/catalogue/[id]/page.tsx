@@ -9,12 +9,7 @@ import { useParams } from "next/navigation";
 import AnimePageClient from "./AnimePageClient";
 import { extractSeriesId } from "@/lib/utils";
 import type { Anime } from "@/lib/animeData";
-
-// Fonction pour obtenir l'image d'un anime depuis animeData
-const getAnimeImage = (animeId: string): string => {
-  const anime = getAllAnimes().find(a => a.id === animeId);
-  return anime?.imageUrl || "https://m.media-amazon.com/images/M/MV5BM2ZiZTk1ODgtMTZkNS00NTYxLWIxZTUtNWExZGYwZTRjODViXkEyXkFqcGdeQXVyMTE2MzA3MDM@._V1_.jpg";
-};
+import { getAnimeImage } from "../page";
 
 
 // Liste des mappings d'ID spéciaux pour les animes qui ont des problèmes

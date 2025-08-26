@@ -19,11 +19,7 @@ import CustomImage from "@/components/ui/custom-image";
 import { useHistory } from "@/context/history-context";
 import { calculateProgress, getRelativeTime, formatTimeExtended } from "@/lib/history";
 import { getAnimeById } from "@/lib/animeData";
-// Fonction pour obtenir l'image d'un anime depuis animeData
-const getCatalogueImage = (animeId: string): string => {
-  const anime = getAnimeById(animeId);
-  return anime?.imageUrl || "https://m.media-amazon.com/images/M/MV5BM2ZiZTk1ODgtMTZkNS00NTYxLWIxZTUtNWExZGYwZTRjODViXkEyXkFqcGdeQXVyMTE2MzA3MDM@._V1_.jpg";
-};
+import { getAnimeImage as getCatalogueImage } from "@/app/catalogue/page";
 
 // Définir un type pour les éléments intrinsèques personnalisés
 interface CustomElements {
