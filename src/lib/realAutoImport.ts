@@ -145,16 +145,6 @@ async function ultraFastLoadAllSeasons(animeId: string, animeYear?: number): Pro
     { folder: 'saison3', seasonNumber: 3, title: 'Saison 3' },
     { folder: 'saison4', seasonNumber: 4, title: 'Saison 4' },
     { folder: 'saison5', seasonNumber: 5, title: 'Saison 5' },
-    { folder: 'saison6', seasonNumber: 6, title: 'Saison 6' },
-    { folder: 'saison7', seasonNumber: 7, title: 'Saison 7' },
-    { folder: 'saison8', seasonNumber: 8, title: 'Saison 8' },
-    { folder: 'saison9', seasonNumber: 9, title: 'Saison 9' },
-    { folder: 'saison10', seasonNumber: 10, title: 'Saison 10' },
-    { folder: 'saison11', seasonNumber: 11, title: 'Saison 11' },
-    { folder: 'saison12', seasonNumber: 12, title: 'Saison 12' },
-    { folder: 'saison13', seasonNumber: 13, title: 'Saison 13' },
-    { folder: 'saison14', seasonNumber: 14, title: 'Saison 14' },
-    { folder: 'saison15', seasonNumber: 15, title: 'Saison 15' },
     { folder: 'Film', seasonNumber: 'Film', title: 'Film' }
   ];
   

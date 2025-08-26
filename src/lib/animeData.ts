@@ -1064,7 +1064,7 @@ export const animes: Anime[] = [
     title: "Shy",
     originalTitle: "SHY",
     description: "Dans un monde où la paix règne grâce aux héros qui protègent chaque pays, Teru Momijiyama, alias Shy, est la héroïne timide du Japon. Malgré ses pouvoirs et sa responsabilité de protéger les gens, elle lutte constamment contre sa nature introvertie. Quand une nouvelle menace émerge et que les héros du monde entier commencent à être ciblés, Shy doit surmonter sa timidité pour sauver non seulement le Japon, mais le monde entier.",
-    imageUrl: "https://cdn.myanimelist.net/images/anime/1790/138265.jpg",
+    imageUrl: "",
     bannerUrl: "/picture/bassembanniere.png",
     year: 2023,
     type: "Anime",

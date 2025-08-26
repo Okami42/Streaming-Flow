@@ -9,7 +9,7 @@ import { useParams } from "next/navigation";
 import AnimePageClient from "./AnimePageClient";
 import { extractSeriesId } from "@/lib/utils";
 import type { Anime } from "@/lib/animeData";
-import { getAnimeImage } from "../page";
+import { getAnimeImage } from "@/lib/catalogue-utils";
 
 
 // Liste des mappings d'ID spéciaux pour les animes qui ont des problèmes

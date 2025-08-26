@@ -19,7 +19,7 @@ import CustomImage from "@/components/ui/custom-image";
 import { useHistory } from "@/context/history-context";
 import { calculateProgress, getRelativeTime, formatTimeExtended } from "@/lib/history";
 import { getAnimeById } from "@/lib/animeData";
-import { getAnimeImage as getCatalogueImage } from "@/app/catalogue/page";
+import { getAnimeImage as getCatalogueImage } from "@/lib/catalogue-utils";
 
 // Définir un type pour les éléments intrinsèques personnalisés
 interface CustomElements {
@@ -117,7 +117,10 @@ const getAnimeIdFromHistoryId = (historyId: string): string => {
   }
   
   // PRIORITÉ 1: Vérifier si l'ID existe dans le catalogue (plus fiable)
-  if (getCatalogueImage(baseId)) {
+  const catalogueImage = getCatalogueImage(baseId);
+  console.log(`🔍 Vérification catalogue pour ${baseId}: ${catalogueImage}`);
+  if (catalogueImage && catalogueImage !== "https://m.media-amazon.com/images/M/MV5BM2ZiZTk1ODgtMTZkNS00NTYxLWIxZTUtNWExZGYwZTRjODViXkEyXkFqcGdeQXVyMTE2MzA3MDM@._V1_.jpg") {
+    console.log(`✅ ID catalogue trouvé: ${baseId}`);
     return baseId;
   }
   
@@ -136,7 +139,8 @@ const getAnimeIdFromHistoryId = (historyId: string): string => {
       const potentialId = parts.slice(0, i).join('-');
       
       // Vérifier d'abord le catalogue
-      if (getCatalogueImage(potentialId)) {
+      const catalogueImage = getCatalogueImage(potentialId);
+      if (catalogueImage && catalogueImage !== "https://m.media-amazon.com/images/M/MV5BM2ZiZTk1ODgtMTZkNS00NTYxLWIxZTUtNWExZGYwZTRjODViXkEyXkFqcGdeQXVyMTE2MzA3MDM@._V1_.jpg") {
         return potentialId;
       }
       
