@@ -18,7 +18,7 @@ import Link from "next/link";
 import CustomImage from "@/components/ui/custom-image";
 import { useHistory } from "@/context/history-context";
 import { calculateProgress, getRelativeTime, formatTimeExtended } from "@/lib/history";
-import { getAnimeById } from "@/lib/animeData";
+import { getAnimeById, animes as allAnimes } from "@/lib/animeData";
 import { getAnimeImage as getCatalogueImage } from "@/lib/catalogue-utils";
 
 // Définir un type pour les éléments intrinsèques personnalisés
@@ -160,6 +160,114 @@ const getAnimeIdFromHistoryId = (historyId: string): string => {
 export default function AnimePage() {
   // Utiliser le hook d'historique pour accéder aux derniers épisodes regardés
   const { watchHistory, clearHistory } = useHistory();
+  const [currentSlide, setCurrentSlide] = React.useState(0);
+  
+  // Featured animes for the carousel with custom banner images
+  const featuredAnimes = React.useMemo(() => {
+    const carouselBanners = {
+      "dandadan": "https://4kwallpapers.com/images/wallpapers/dandadan-key-art-1920x1080-19468.jpg",
+      "kaiju-n8": "https://4kwallpapers.com/images/wallpapers/kaiju-no-8-anime-series-3840x2160-18663.jpg", 
+      "rent-a-girlfriend": "https://m.media-amazon.com/images/S/pv-target-images/4cddabccdb517240ec6ba1ae70b79e980572b00935698aa84173fb88314b16de.jpg",
+      "frieren": "https://4kwallpapers.com/images/wallpapers/frieren-beyond-3840x2160-15146.jpg",
+      "one-piece": "https://images.alphacoders.com/103/1031459.jpg"
+    };
+
+    return [
+      allAnimes.find(anime => anime.id === "dandadan"),
+      allAnimes.find(anime => anime.id === "kaiju-n8"),
+      allAnimes.find(anime => anime.id === "rent-a-girlfriend"),
+      allAnimes.find(anime => anime.id === "frieren"),
+      allAnimes.find(anime => anime.id === "one-piece")
+    ].filter((anime): anime is NonNullable<typeof anime> => Boolean(anime))
+     .map(anime => ({
+       ...anime,
+       bannerUrl: carouselBanners[anime.id as keyof typeof carouselBanners] || anime.bannerUrl
+     }));
+  }, []);
+  
+  // Progress bar state
+  const [progress, setProgress] = React.useState(0);
+  const slideInterval = 7000; // 7 secondes entre chaque animé
+  
+  // Auto-rotate carousel avec barre de progression continue
+  React.useEffect(() => {
+    if (featuredAnimes.length === 0) return;
+    
+    let progressTimer: NodeJS.Timeout;
+    let slideTimer: NodeJS.Timeout;
+    
+    // Reset progress au début de chaque nouveau slide
+    setProgress(0);
+    
+    const updateProgress = () => {
+      const increment = 100 / (slideInterval / 50); // Mise à jour toutes les 50ms
+      
+      progressTimer = setInterval(() => {
+        setProgress(prev => {
+          if (prev >= 95) { // À 95% on prépare le changement
+            return 100;
+          }
+          return prev + increment;
+        });
+      }, 50);
+    };
+    
+    // Timer pour changer de slide après exactement 7 secondes
+    slideTimer = setTimeout(() => {
+      setCurrentSlide(prev => {
+        const next = (prev + 1) % featuredAnimes.length;
+        console.log(`Changement: slide ${prev} → slide ${next}`);
+        return next;
+      });
+    }, slideInterval);
+    
+    updateProgress();
+    
+    return () => {
+      if (progressTimer) clearInterval(progressTimer);
+      if (slideTimer) clearTimeout(slideTimer);
+    };
+  }, [currentSlide, featuredAnimes.length]);
+  
+
+  
+  // Navigation directe via les barres de progression
+  const handleProgressClick = (index: number) => {
+    setCurrentSlide(index);
+    setProgress(0);
+  };
+
+  // Touch/Swipe functionality for mobile
+  const [touchStart, setTouchStart] = React.useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = React.useState<number | null>(null);
+
+  // Minimum distance required to trigger swipe (réduit pour plus de sensibilité)
+  const minSwipeDistance = 20;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      // Swipe left = next slide
+      handleProgressClick((currentSlide + 1) % featuredAnimes.length);
+    } else if (isRightSwipe) {
+      // Swipe right = previous slide
+      handleProgressClick((currentSlide - 1 + featuredAnimes.length) % featuredAnimes.length);
+    }
+  };
   
   // Fonction pour effacer uniquement l'historique des animes
   const clearAnimeHistory = () => {
@@ -210,7 +318,239 @@ export default function AnimePage() {
       <Header />
 
       <main className="flex-grow">
-        <HeroSection />
+        {/* Dynamic Hero Carousel */}
+        <div 
+          className="relative h-[400px] md:h-[550px] lg:h-[700px] w-full overflow-hidden"
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+        >
+          {/* Desktop version */}
+          <div className="hidden md:block w-full h-full">
+            {featuredAnimes.map((anime, index) => (
+              <div 
+                key={`desktop-${anime.id}`}
+                className={`absolute inset-0 transition-opacity duration-1000 ${
+                  index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+                }`}
+              >
+                {/* Background image */}
+                <div className="absolute inset-0">
+                  <CustomImage
+                    src={anime.bannerUrl || anime.imageUrl}
+                    alt={anime.title}
+                    fill
+                    priority={true}
+                    unoptimized={true}
+                    className="object-cover object-center scale-110 transform transition-transform duration-10000 ease-in-out"
+                    style={{ transform: index === currentSlide ? 'scale(1.05)' : 'scale(1)' }}
+                    sizes="100vw"
+                  />
+
+                  {/* Overlay gradients */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#030711] via-[#030711]/60 to-transparent" />
+                </div>
+                
+                {/* Content */}
+                <div className="absolute inset-0 flex items-center z-20">
+                  <div className="container mx-auto px-6 md:px-8">
+                    <div className="max-w-xl md:max-w-2xl lg:max-w-3xl">
+                      <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-6 text-white leading-tight">
+                        {anime.title}
+                      </h1>
+                      
+                      {/* Rating and genre info */}
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="flex items-center bg-black/50 px-3 py-1 rounded-full">
+                          <span className="text-yellow-400 mr-1">★</span>
+                          <span className="text-white font-medium">{anime.rating}/10</span>
+                        </div>
+                        
+                        {anime.genres.slice(0, 2).map((genre: string) => (
+                          <span key={genre} className="text-white px-3 py-1 bg-black/50 rounded-full">
+                            {genre}
+                          </span>
+                        ))}
+                        
+                        <span className="text-white px-3 py-1 bg-black/50 rounded-full">
+                          {anime.type}
+                        </span>
+                      </div>
+                      
+                      <p className="text-base md:text-lg text-gray-300 mb-6 md:mb-8 line-clamp-3 md:line-clamp-4 max-w-3xl">
+                        {anime.description}
+                      </p>
+                      
+                      <div className="flex flex-wrap gap-2 mb-6 md:mb-8">
+                        {anime.genres.slice(0, 4).map((genre: string) => (
+                          <span key={genre} className="text-xs md:text-sm px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors duration-300">
+                            {genre}
+                          </span>
+                        ))}
+                      </div>
+                      
+                      <div className="flex gap-4">
+                        <Link href={`/catalogue/${anime.id}`}>
+                          <Button className="bg-blue-600 hover:bg-blue-700 text-white border-0 px-4 py-2 h-auto text-sm">
+                            <Play className="h-4 w-4 mr-2" /> Regarder
+                          </Button>
+                        </Link>
+                        <Link href={`/catalogue/${anime.id}`}>
+                          <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 px-4 py-2 h-auto text-sm">
+                            <Plus className="h-4 w-4 mr-2" /> Détails
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+            
+            {/* Prev/Next buttons for desktop */}
+            {featuredAnimes.length > 1 && (
+              <>
+                <button 
+                  className="absolute left-6 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/40 hover:bg-black/60 text-white transition-all duration-300 backdrop-blur-sm"
+                  onClick={() => handleProgressClick((currentSlide - 1 + featuredAnimes.length) % featuredAnimes.length)}
+                  aria-label="Previous slide"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M15 18l-6-6 6-6" />
+                  </svg>
+                </button>
+                
+                <button 
+                  className="absolute right-6 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/40 hover:bg-black/60 text-white transition-all duration-300 backdrop-blur-sm"
+                  onClick={() => handleProgressClick((currentSlide + 1) % featuredAnimes.length)}
+                  aria-label="Next slide"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 18l6-6-6-6" />
+                  </svg>
+                </button>
+              </>
+            )}
+          </div>
+          
+          {/* Mobile version */}
+          <div className="md:hidden w-full h-full pt-16">
+            {featuredAnimes.map((anime, index) => (
+              <div 
+                key={`mobile-${anime.id}`}
+                className={`absolute inset-0 transition-opacity duration-1000 ${
+                  index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+                }`}
+              >
+                {/* Background image - full height for mobile */}
+                <div className="absolute inset-0">
+                  <CustomImage
+                    src={anime.bannerUrl || anime.imageUrl}
+                    alt={anime.title}
+                    fill
+                    priority={true}
+                    unoptimized={true}
+                    className="object-cover object-center"
+                    sizes="100vw"
+                  />
+                  
+                  {/* Dark overlay for better text visibility */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30" />
+                </div>
+                
+                {/* Content positioned at the bottom for mobile */}
+                <div className="absolute inset-x-0 bottom-0 z-20 p-6 pb-10">
+                  <div className="text-center">
+                    <h1 className="text-3xl font-bold text-white mb-2">
+                      {anime.title}
+                    </h1>
+                    
+                    {/* Age rating badge if available */}
+                    <div className="flex items-center justify-center gap-3 mb-3">
+                      <span className="bg-gray-800/80 text-white text-xs px-2 py-1 rounded">
+                        {anime.rating >= 8 ? "Populaire" : "Tendance"}
+                      </span>
+                      
+                      {/* Rating with star */}
+                      <div className="flex items-center">
+                        <span className="text-yellow-400 mr-1">★</span>
+                        <span className="text-white text-sm">{anime.rating}/10</span>
+                      </div>
+                      
+                      {/* Type */}
+                      <span className="text-white text-sm">
+                        {anime.type}
+                      </span>
+                    </div>
+                    
+                    {/* Genres with slashes between them */}
+                    <div className="mb-4 text-sm text-white/90">
+                      {anime.genres.slice(0, 3).join(" / ")}
+                    </div>
+                    
+                    {/* Single "Voir la fiche" button */}
+                    <Link href={`/catalogue/${anime.id}`} className="inline-block">
+                      <Button variant="outline" className="border-white/30 bg-black/40 text-white hover:bg-white/10 px-5 py-2 h-auto text-sm rounded-full">
+                        <svg className="h-4 w-4 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        Voir la fiche
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+            
+            {/* Mobile navigation dots */}
+            {featuredAnimes.length > 1 && (
+              <div className="absolute bottom-3 left-0 right-0 z-20 flex justify-center gap-2">
+                {featuredAnimes.map((_, index) => (
+                  <button
+                    key={`dot-${index}`}
+                    className={`w-2 h-2 rounded-full transition-colors ${
+                      index === currentSlide ? "bg-white" : "bg-white/30"
+                    }`}
+                    onClick={() => setCurrentSlide(index)}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+          
+          {/* Progress Bar - Style Crunchyroll - Desktop only */}
+          <div className="hidden md:block absolute bottom-0 left-1/2 transform -translate-x-1/2 z-30">
+            {/* Container des barres de progression - centré et plus petit */}
+            <div className="flex gap-1 px-4 pb-4 w-[28rem]">
+              {featuredAnimes.map((_, index) => (
+                <button
+                  key={`progress-${index}`}
+                  className="flex-1 h-1 bg-white/20 rounded-full overflow-hidden cursor-pointer hover:h-1.5 transition-all duration-200"
+                  onClick={() => handleProgressClick(index)}
+                >
+                  <div
+                    className={`h-full rounded-full transition-all duration-300 ${
+                      index === currentSlide
+                        ? 'bg-white'
+                        : index < currentSlide
+                        ? 'bg-blue-500'
+                        : 'bg-white/20'
+                    }`}
+                    style={{
+                      width: index === currentSlide ? `${progress}%` :
+                             index < currentSlide ? '100%' : '0%'
+                    }}
+                  />
+                </button>
+              ))}
+            </div>
+          </div>
+          
+          {/* Bottom glow effect */}
+          <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-pink-500 to-transparent z-20 opacity-80"></div>
+        </div>
 
         <div className="container mx-auto px-4 py-8">
           {/* Reprendre ma lecture */}

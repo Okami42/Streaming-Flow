@@ -1190,17 +1190,17 @@ export const animes: Anime[] = [
     rating: 9.5
   },
   {
-    id: "dragon-ball-z",
-    title: "Dragon Ball Z",
-    originalTitle: "ドラゴンボールZ",
-    description: "Goku et ses amis défendent la Terre contre des ennemis de plus en plus puissants. Entre Saiyans, Nameks et autres extraterrestres, l'aventure continue avec des combats épiques et des transformations légendaires.",
+    id: "kaiju-n8",
+    title: "Kaiju No. 8",
+    originalTitle: "怪獣8号",
+    description: "Dans un Japon où des kaijus gigantesques attaquent régulièrement, Kafka Hibino, un homme de 32 ans travaillant dans une équipe de nettoyage spécialisée dans les dégâts causés par ces monstres, rêve toujours de rejoindre les Forces de Défense. Un jour, il est mystérieusement transformé en kaiju lui-même, devenant le Kaiju No. 8, tout en gardant sa conscience humaine.",
     imageUrl: "",
     bannerUrl: "/picture/bassembanniere.png",
-    year: 1989,
+    year: 2024,
     type: "Anime",
-    status: "Terminé",
-    genres: ["Action", "Arts martiaux", "Aventure", "Shônen", "Super pouvoirs", "Combats"],
-    rating: 8.7
+    status: "En cours",
+    genres: ["Action", "Science-fiction", "Shônen", "Militaire", "Monstres", "Super-pouvoirs"],
+    rating: 8.6
   },
   {
     id: "naruto",

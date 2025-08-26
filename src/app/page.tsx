@@ -23,7 +23,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-[#030711]/90 md:group-hover:bg-[#030711]/70 transition-all duration-500 z-10"></div>
           <div className="absolute inset-0">
             <CustomImage
-              src="https://www.notebookcheck.biz/fileadmin/Notebooks/News/_nc4/lord-of-mysteries.JPG"
+              src="https://jvmag.ch/wp-content/uploads/2024/09/GWigyTBXIAEG4u6.jpg"
               alt="Fond animés"
               fill={true}
               priority={true}

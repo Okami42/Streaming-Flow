@@ -274,14 +274,6 @@ export const animes: CatalogueAnime[] = [
         genres: getAnimeGenres("nana"),
       },
       {
-        id: "kaiju-no-8",
-        title: "Kaiju No. 8",
-        imageUrl: "https://fr.web.img6.acsta.net/img/77/07/77079c0a800097522800816954373303.jpg",
-        type: "Anime",
-        language: "VF & VO",
-        genres: getAnimeGenres("kaiju-no-8"),
-      },
-      {
         id: "re-zero",
         title: "Re:Zero - Starting Life in Another World",
         imageUrl: "https://adala-news.fr/wp-content/uploads/2024/11/ReZERO-Starting-Life-in-Another-World-Saison-3-counterattack.jpg",
@@ -610,14 +602,6 @@ export const animes: CatalogueAnime[] = [
         genres: getAnimeGenres("one-piece"),
       },
       {
-        id: "dragon-ball-z",
-        title: "Dragon Ball Z",
-        imageUrl: "https://cdn.myanimelist.net/images/anime/1277/142427.jpg",
-        type: "Anime",
-        language: "VF & VO",
-        genres: getAnimeGenres("dragon-ball-z"),
-      },
-      {
         id: "naruto",
         title: "Naruto",
         imageUrl: "https://cdn.myanimelist.net/images/anime/13/17405.jpg",
@@ -632,6 +616,14 @@ export const animes: CatalogueAnime[] = [
         type: "Anime",
         language: "VF & VO",
         genres: getAnimeGenres("fullmetal-alchemist-brotherhood"),
+      },
+      {
+        id: "kaiju-n8",
+        title: "Kaiju No. 8",
+        imageUrl: "https://fr.web.img6.acsta.net/img/77/07/77079c0a800097522800816954373303.jpg",
+        type: "Anime",
+        language: "VF & VO",
+        genres: getAnimeGenres("kaiju-n8"),
       }
 ];
 
