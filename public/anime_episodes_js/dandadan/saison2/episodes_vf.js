@@ -6,6 +6,7 @@ var eps1 = ['https://sendvid.com/embed/lkd4i1qc',
 'https://sendvid.com/embed/o4ieqp2b',
 'https://sendvid.com/embed/halfwe8q',
 'https://sendvid.com/embed/52mjb3hu',
+'https://sendvid.com/embed/bdtik8rx'
 
 ];
 
