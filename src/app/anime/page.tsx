@@ -617,7 +617,7 @@ export default function AnimePage() {
               ) : (
                 <div className="text-center py-4">
                   <p className="text-gray-400 text-sm">Vous n'avez pas encore regardé d'anime</p>
-                  <Link href="/anime/catalogue" className="mt-2 inline-block">
+                  <Link href="/catalogue" className="mt-2 inline-block">
                     <Button variant="outline" size="sm" className="border-white/20 text-white hover:bg-white/10 text-xs">
                       Découvrir des animes
                     </Button>
@@ -669,7 +669,7 @@ export default function AnimePage() {
               ) : (
                 <div className="text-center py-8">
                   <p className="text-gray-400">Vous n'avez pas encore regardé d'anime</p>
-                  <Link href="/anime/catalogue" className="mt-4 inline-block">
+                  <Link href="/catalogue" className="mt-4 inline-block">
                     <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
                       Découvrir des animes
                     </Button>

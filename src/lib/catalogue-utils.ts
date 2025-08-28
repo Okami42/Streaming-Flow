@@ -530,14 +530,6 @@ export const animes: CatalogueAnime[] = [
         genres: getAnimeGenres("silent-witch"),
       },
       {
-        id: "sirius-the-jaeger",
-        title: "Sirius the Jaeger",
-        imageUrl: "https://fr.web.img2.acsta.net/pictures/19/07/10/15/26/5429060.jpg",
-        type: "Anime",
-        language: "VO",
-        genres: getAnimeGenres("sirius-the-jaeger"),
-      },
-      {
         id: "shy",
         title: "Shy",
         imageUrl: "https://upload.wikimedia.org/wikipedia/en/3/3e/SHYVolume1.jpg",

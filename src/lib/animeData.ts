@@ -1047,19 +1047,6 @@ export const animes: Anime[] = [
     rating: 7.6
   },
   {
-    id: "sirius-the-jaeger",
-    title: "Sirius the Jaeger",
-    originalTitle: "天狼 Sirius the Jaeger",
-    description: "Dans le Tokyo des années 1930, un groupe de chasseurs de vampires appelés \"Jaegers\" arrive de l'étranger pour éliminer les vampires qui ont envahi la capitale japonaise. Parmi eux se trouve Yuliy, un werewolf dont le village natal a été détruit par les vampires. Armé d'une détermination sans faille et d'un mystérieux coffret que convoitent les vampires, Yuliy mène sa quête de vengeance dans une Tokyo en proie aux créatures de la nuit.",
-    imageUrl: "https://cdn.myanimelist.net/images/anime/1274/93070.jpg",
-    bannerUrl: "/picture/bassembanniere.png",
-    year: 2018,
-    type: "Anime",
-    status: "Terminé",
-    genres: ["Action", "Surnaturel", "Vampires", "Historique"],
-    rating: 7.3
-  },
-  {
     id: "shy",
     title: "Shy",
     originalTitle: "SHY",
