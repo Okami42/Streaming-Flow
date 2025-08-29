@@ -20,9 +20,24 @@ import { WatchHistoryItem } from "@/lib/history";
 import MovearnPlayer from "@/components/ui/movearn-player";
 import AnimeEpisodeCard from "@/components/AnimeEpisodeCard";
 
+// Fonction pour déterminer la saison initiale
+const getInitialSeason = (anime: Anime | undefined) => {
+  if (!anime?.seasons || anime.seasons.length === 0) return 1;
+  
+  // Vérifier si l'animé n'a qu'une seule saison ET que c'est un film
+  if (anime.seasons.length === 1) {
+    const onlySeason = anime.seasons[0];
+    if (String(onlySeason.seasonNumber) === 'Film' || String(onlySeason.title).toLowerCase().includes('film')) {
+      return 'Film';
+    }
+  }
+  
+  return 1;
+};
+
 export default function AnimePageClient({ anime }: { anime: Anime | undefined }) {
   const [selectedEpisode, setSelectedEpisode] = useState(1);
-  const [selectedSeason, setSelectedSeason] = useState<number | string>(1);
+  const [selectedSeason, setSelectedSeason] = useState<number | string>(getInitialSeason(anime));
   const [selectedLanguage, setSelectedLanguage] = useState<"vo" | "vf">("vo");
   const [isFollowing, setIsFollowing] = useState(false);
   const [isSeasonMenuOpen, setIsSeasonMenuOpen] = useState<boolean>(false);
@@ -54,6 +69,19 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
       setSelectedEpisode(episodeNumber);
     }
   }, [searchParams]);
+  
+  // Effet pour mettre à jour la saison sélectionnée quand l'anime change
+  useEffect(() => {
+    if (!anime) return;
+    
+    // Ne pas override si une saison a été sélectionnée via l'URL
+    if (searchParams?.get('season')) return;
+    
+    const initialSeason = getInitialSeason(anime);
+    if (initialSeason !== selectedSeason) {
+      setSelectedSeason(initialSeason);
+    }
+  }, [anime, searchParams]); // Retiré selectedSeason des dépendances pour éviter la boucle
 
   // Effet pour forcer la re-sélection de l'épisode quand les données d'auto-import arrivent
   useEffect(() => {
@@ -937,9 +965,16 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                         // Trouver la saison sélectionnée
                         const currentSeason = anime.seasons?.find(s => String(s.seasonNumber) === String(selectedSeason));
 
-                        return currentSeason 
-                          ? `${currentSeason.title}` 
-                          : `Saison ${selectedSeason}`;
+                        if (currentSeason) {
+                          return currentSeason.title;
+                        }
+                        
+                        // Si c'est une saison Film mais qu'on ne trouve pas la saison
+                        if (String(selectedSeason) === 'Film') {
+                          return 'Films';
+                        }
+                        
+                        return `Saison ${selectedSeason}`;
                       })()}
                       <ChevronDown className="h-4 w-4" />
                     </button>
@@ -1028,10 +1063,21 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       onClick={() => setIsSeasonMenuOpen(!isSeasonMenuOpen)}
                     >
                       <span>
-                        {useSeasonsStructure && anime.seasons && anime.seasons.find(s => String(s.seasonNumber) === String(selectedSeason)) ? 
-                          `${anime.seasons.find(s => String(s.seasonNumber) === String(selectedSeason))?.title}` : 
-                          `Saison ${selectedSeason}`
-                        }
+                        {(() => {
+                          if (useSeasonsStructure && anime.seasons) {
+                            const currentSeason = anime.seasons.find(s => String(s.seasonNumber) === String(selectedSeason));
+                            if (currentSeason) {
+                              return currentSeason.title;
+                            }
+                          }
+                          
+                          // Si c'est une saison Film mais qu'on ne trouve pas la saison
+                          if (String(selectedSeason) === 'Film') {
+                            return 'Films';
+                          }
+                          
+                          return `Saison ${selectedSeason}`;
+                        })()}
                       </span>
                       <ChevronDown className="h-4 w-4 ml-1" />
                     </button>
