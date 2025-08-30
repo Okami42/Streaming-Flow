@@ -17,17 +17,17 @@ const ultraCache = new Map<string, { data: string[], timestamp: number }>();
 
 /**
  * Parse ultra-rapide des fichiers d'épisodes avec support Sendvid
+ * Garde l'ordre d'apparition dans le fichier
  */
-function fastParseEpisodeFile(content: string): { sibnetIds: string[], sendvidIds: string[] } {
+function fastParseEpisodeFile(content: string): { episodes: Array<{type: 'sibnet' | 'sendvid', id: string}> } {
   try {
     const arrayMatch = content.match(/var\s+\w+\s*=\s*\[([\s\S]*?)\];/);
-    if (!arrayMatch) return { sibnetIds: [], sendvidIds: [] };
+    if (!arrayMatch) return { episodes: [] };
 
     const urlMatches = arrayMatch[1].match(/'([^']+)'/g);
-    if (!urlMatches) return { sibnetIds: [], sendvidIds: [] };
+    if (!urlMatches) return { episodes: [] };
 
-    const sibnetIds: string[] = [];
-    const sendvidIds: string[] = [];
+    const episodes: Array<{type: 'sibnet' | 'sendvid', id: string}> = [];
     
     for (const urlWithQuotes of urlMatches) {
       const url = urlWithQuotes.slice(1, -1);
@@ -35,27 +35,28 @@ function fastParseEpisodeFile(content: string): { sibnetIds: string[], sendvidId
       // Détecter Sibnet
       const sibnetMatch = url.match(/videoid=(\d+)/);
       if (sibnetMatch) {
-        sibnetIds.push(sibnetMatch[1]);
+        episodes.push({ type: 'sibnet', id: sibnetMatch[1] });
+        continue;
       }
       
-      // Détecter Sendvid (format: https://sendvid.com/embed/XXXXXXXX)
+      // Détecter Sendvid
       const sendvidMatch = url.match(/sendvid\.com\/embed\/([a-zA-Z0-9]+)/);
       if (sendvidMatch) {
-        sendvidIds.push(sendvidMatch[1]);
+        episodes.push({ type: 'sendvid', id: sendvidMatch[1] });
         console.log(`🎯 Sendvid détecté: ${sendvidMatch[1]} (URL: ${url})`);
       }
     }
 
-    return { sibnetIds, sendvidIds };
+    return { episodes };
   } catch {
-    return { sibnetIds: [], sendvidIds: [] };
+    return { episodes: [] };
   }
 }
 
 /**
  * Chargement ultra-rapide des fichiers d'épisodes avec protection 403 et support Sendvid
  */
-async function ultraFastLoadEpisode(filePath: string): Promise<{ sibnetIds: string[], sendvidIds: string[] }> {
+async function ultraFastLoadEpisode(filePath: string): Promise<{ sibnetIds: string[], sendvidIds: string[], episodes: Array<{type: 'sibnet' | 'sendvid', id: string}> }> {
   const folders = ['anime_episodes_js', 'anime_episodes_js_2'];
   
   // Cache ultra-rapide (noter que le cache doit maintenant gérer la nouvelle structure)
@@ -64,7 +65,11 @@ async function ultraFastLoadEpisode(filePath: string): Promise<{ sibnetIds: stri
     if (cached && (Date.now() - cached.timestamp) < SPEED_CONFIG.cacheTimeout) {
       // Pour la compatibilité avec l'ancien cache, traiter les données comme Sibnet uniquement
       if (Array.isArray(cached.data)) {
-        return { sibnetIds: cached.data, sendvidIds: [] };
+        return { 
+          sibnetIds: cached.data, 
+          sendvidIds: [], 
+          episodes: cached.data.map(id => ({ type: 'sibnet' as const, id }))
+        };
       }
     }
   }
@@ -99,14 +104,30 @@ async function ultraFastLoadEpisode(filePath: string): Promise<{ sibnetIds: stri
       const content = await response.text();
       const result = fastParseEpisodeFile(content);
       
-      if (result.sibnetIds.length > 0 || result.sendvidIds.length > 0) {
+      if (result.episodes.length > 0) {
+        // Convertir pour la compatibilité avec l'ancienne interface
+        const sibnetIds: string[] = [];
+        const sendvidIds: string[] = [];
+        
+        result.episodes.forEach(episode => {
+          if (episode.type === 'sibnet') {
+            sibnetIds.push(episode.id);
+          } else if (episode.type === 'sendvid') {
+            sendvidIds.push(episode.id);
+          }
+        });
+        
         // Cache ultra-rapide (stocker les IDs Sibnet pour compatibilité)
         if (SPEED_CONFIG.enableCache) {
-          ultraCache.set(filePath, { data: result.sibnetIds, timestamp: Date.now() });
+          ultraCache.set(filePath, { data: sibnetIds, timestamp: Date.now() });
         }
         
         console.log(`✅ Trouvé dans ${folder} - arrêt de la recherche dans les autres dossiers`);
-        return result; // ARRÊT immédiat - pas besoin de chercher ailleurs
+        return { 
+          sibnetIds, 
+          sendvidIds, 
+          episodes: result.episodes 
+        }; // ARRÊT immédiat - pas besoin de chercher ailleurs
       }
     } catch {
       continue; // Essayer le dossier suivant
@@ -116,7 +137,7 @@ async function ultraFastLoadEpisode(filePath: string): Promise<{ sibnetIds: stri
     await new Promise(resolve => setTimeout(resolve, 100));
   }
   
-  return { sibnetIds: [], sendvidIds: [] };
+  return { sibnetIds: [], sendvidIds: [], episodes: [] };
 }
 
 /**
@@ -157,13 +178,10 @@ async function ultraFastLoadAllSeasons(animeId: string, animeYear?: number): Pro
       ultraFastLoadEpisode(vfPath)
     ]);
     
-    if (vostfrResult.sibnetIds.length === 0 && vostfrResult.sendvidIds.length === 0 && 
-        vfResult.sibnetIds.length === 0 && vfResult.sendvidIds.length === 0) return null;
+    if (vostfrResult.episodes.length === 0 && vfResult.episodes.length === 0) return null;
     
-    const maxEpisodes = Math.max(
-      vostfrResult.sibnetIds.length + vostfrResult.sendvidIds.length,
-      vfResult.sibnetIds.length + vfResult.sendvidIds.length
-    );
+    // Utiliser le nombre maximum d'épisodes entre VOSTFR et VF
+    const maxEpisodes = Math.max(vostfrResult.episodes.length, vfResult.episodes.length);
     const episodes: AnimeEpisode[] = [];
     
     for (let i = 0; i < maxEpisodes; i++) {
@@ -172,13 +190,23 @@ async function ultraFastLoadAllSeasons(animeId: string, animeYear?: number): Pro
         title: pattern.seasonNumber === 'Film' ? pattern.title : `Épisode ${i + 1}`,
       };
       
-      // Ajouter les IDs Sibnet
-      if (vostfrResult.sibnetIds[i]) episode.sibnetVostfrId = vostfrResult.sibnetIds[i];
-      if (vfResult.sibnetIds[i]) episode.sibnetVfId = vfResult.sibnetIds[i];
+      // VOSTFR - respecter l'ordre d'apparition dans le fichier
+      if (vostfrResult.episodes[i]) {
+        if (vostfrResult.episodes[i].type === 'sibnet') {
+          episode.sibnetVostfrId = vostfrResult.episodes[i].id;
+        } else if (vostfrResult.episodes[i].type === 'sendvid') {
+          episode.sendvidId = vostfrResult.episodes[i].id;
+        }
+      }
       
-      // Ajouter les IDs Sendvid
-      if (vostfrResult.sendvidIds[i]) episode.sendvidId = vostfrResult.sendvidIds[i];
-      if (vfResult.sendvidIds[i]) episode.sendvidVfId = vfResult.sendvidIds[i];
+      // VF - respecter l'ordre d'apparition dans le fichier
+      if (vfResult.episodes[i]) {
+        if (vfResult.episodes[i].type === 'sibnet') {
+          episode.sibnetVfId = vfResult.episodes[i].id;
+        } else if (vfResult.episodes[i].type === 'sendvid') {
+          episode.sendvidVfId = vfResult.episodes[i].id;
+        }
+      }
       
       episodes.push(episode);
     }
@@ -213,7 +241,7 @@ async function ultraFastLoadAllSeasons(animeId: string, animeYear?: number): Pro
 /**
  * Charge un fichier depuis un dossier spécifique (optimisation)
  */
-async function loadEpisodeFromSpecificFolder(filePath: string, folder: string): Promise<{ sibnetIds: string[], sendvidIds: string[] }> {
+async function loadEpisodeFromSpecificFolder(filePath: string, folder: string): Promise<{ sibnetIds: string[], sendvidIds: string[], episodes: Array<{type: 'sibnet' | 'sendvid', id: string}> }> {
   try {
     const url = `/${folder}/${filePath}`;
     const response = await fetch(url);
@@ -221,10 +249,24 @@ async function loadEpisodeFromSpecificFolder(filePath: string, folder: string): 
     if (response.ok) {
       const content = await response.text();
       const result = fastParseEpisodeFile(content);
-      if (SPEED_CONFIG.enableLogs && (result.sibnetIds.length > 0 || result.sendvidIds.length > 0)) {
-        console.log(`✅ Chargé depuis ${folder}: ${result.sibnetIds.length} Sibnet + ${result.sendvidIds.length} Sendvid`);
+      
+      // Convertir pour la compatibilité avec l'ancienne interface
+      const sibnetIds: string[] = [];
+      const sendvidIds: string[] = [];
+      
+      result.episodes.forEach(episode => {
+        if (episode.type === 'sibnet') {
+          sibnetIds.push(episode.id);
+        } else if (episode.type === 'sendvid') {
+          sendvidIds.push(episode.id);
+        }
+      });
+      
+      if (SPEED_CONFIG.enableLogs && result.episodes.length > 0) {
+        console.log(`✅ Chargé depuis ${folder}: ${result.episodes.length} épisodes dans l'ordre`);
       }
-      return result;
+      
+      return { sibnetIds, sendvidIds, episodes: result.episodes };
     }
   } catch (error) {
     if (SPEED_CONFIG.enableLogs) {
@@ -232,7 +274,7 @@ async function loadEpisodeFromSpecificFolder(filePath: string, folder: string): 
     }
   }
   
-  return { sibnetIds: [], sendvidIds: [] };
+  return { sibnetIds: [], sendvidIds: [], episodes: [] };
 }
 
 /**
@@ -274,8 +316,7 @@ async function sequentialLoadSeasons(animeId: string, animeYear?: number): Promi
       ]);
       
       // Déterminer dans quel dossier on a trouvé l'anime en testant directement
-      if (vostfrResult.sibnetIds.length > 0 || vostfrResult.sendvidIds.length > 0 ||
-          vfResult.sibnetIds.length > 0 || vfResult.sendvidIds.length > 0) {
+      if (vostfrResult.episodes.length > 0 || vfResult.episodes.length > 0) {
         
         // Tester quel dossier contient vraiment les fichiers
         try {
@@ -297,19 +338,15 @@ async function sequentialLoadSeasons(animeId: string, animeYear?: number): Promi
     }
     
     // Si aucun fichier trouvé pour cette saison, ARRÊTER immédiatement
-    if (vostfrResult.sibnetIds.length === 0 && vostfrResult.sendvidIds.length === 0 && 
-        vfResult.sibnetIds.length === 0 && vfResult.sendvidIds.length === 0) {
+    if (vostfrResult.episodes.length === 0 && vfResult.episodes.length === 0) {
       if (SPEED_CONFIG.enableLogs) {
         console.log(`❌ Saison ${seasonNumber} non trouvée - ARRÊT de la recherche des saisons`);
       }
       break; // Arrêter immédiatement la recherche des saisons
     }
     
-    // Créer les épisodes
-    const maxEpisodes = Math.max(
-      vostfrResult.sibnetIds.length + vostfrResult.sendvidIds.length,
-      vfResult.sibnetIds.length + vfResult.sendvidIds.length
-    );
+    // Créer les épisodes dans l'ordre d'apparition
+    const maxEpisodes = Math.max(vostfrResult.episodes.length, vfResult.episodes.length);
     const episodes: AnimeEpisode[] = [];
     
     for (let i = 0; i < maxEpisodes; i++) {
@@ -318,10 +355,23 @@ async function sequentialLoadSeasons(animeId: string, animeYear?: number): Promi
         title: `Épisode ${i + 1}`,
       };
       
-      if (vostfrResult.sibnetIds[i]) episode.sibnetVostfrId = vostfrResult.sibnetIds[i];
-      if (vfResult.sibnetIds[i]) episode.sibnetVfId = vfResult.sibnetIds[i];
-      if (vostfrResult.sendvidIds[i]) episode.sendvidId = vostfrResult.sendvidIds[i];
-      if (vfResult.sendvidIds[i]) episode.sendvidVfId = vfResult.sendvidIds[i];
+      // VOSTFR - respecter l'ordre d'apparition dans le fichier
+      if (vostfrResult.episodes[i]) {
+        if (vostfrResult.episodes[i].type === 'sibnet') {
+          episode.sibnetVostfrId = vostfrResult.episodes[i].id;
+        } else if (vostfrResult.episodes[i].type === 'sendvid') {
+          episode.sendvidId = vostfrResult.episodes[i].id;
+        }
+      }
+      
+      // VF - respecter l'ordre d'apparition dans le fichier
+      if (vfResult.episodes[i]) {
+        if (vfResult.episodes[i].type === 'sibnet') {
+          episode.sibnetVfId = vfResult.episodes[i].id;
+        } else if (vfResult.episodes[i].type === 'sendvid') {
+          episode.sendvidVfId = vfResult.episodes[i].id;
+        }
+      }
       
       episodes.push(episode);
     }
@@ -365,13 +415,9 @@ async function sequentialLoadSeasons(animeId: string, animeYear?: number): Promi
     ]);
   }
   
-  if (filmVostfr.sibnetIds.length > 0 || filmVostfr.sendvidIds.length > 0 || 
-      filmVf.sibnetIds.length > 0 || filmVf.sendvidIds.length > 0) {
+  if (filmVostfr.episodes.length > 0 || filmVf.episodes.length > 0) {
     
-    const maxFilms = Math.max(
-      filmVostfr.sibnetIds.length + filmVostfr.sendvidIds.length,
-      filmVf.sibnetIds.length + filmVf.sendvidIds.length
-    );
+    const maxFilms = Math.max(filmVostfr.episodes.length, filmVf.episodes.length);
     
     const filmEpisodes: AnimeEpisode[] = [];
     for (let i = 0; i < maxFilms; i++) {
@@ -380,10 +426,23 @@ async function sequentialLoadSeasons(animeId: string, animeYear?: number): Promi
         title: `Film ${i + 1}`,
       };
       
-      if (filmVostfr.sibnetIds[i]) episode.sibnetVostfrId = filmVostfr.sibnetIds[i];
-      if (filmVf.sibnetIds[i]) episode.sibnetVfId = filmVf.sibnetIds[i];
-      if (filmVostfr.sendvidIds[i]) episode.sendvidId = filmVostfr.sendvidIds[i];
-      if (filmVf.sendvidIds[i]) episode.sendvidVfId = filmVf.sendvidIds[i];
+      // VOSTFR - respecter l'ordre d'apparition dans le fichier
+      if (filmVostfr.episodes[i]) {
+        if (filmVostfr.episodes[i].type === 'sibnet') {
+          episode.sibnetVostfrId = filmVostfr.episodes[i].id;
+        } else if (filmVostfr.episodes[i].type === 'sendvid') {
+          episode.sendvidId = filmVostfr.episodes[i].id;
+        }
+      }
+      
+      // VF - respecter l'ordre d'apparition dans le fichier
+      if (filmVf.episodes[i]) {
+        if (filmVf.episodes[i].type === 'sibnet') {
+          episode.sibnetVfId = filmVf.episodes[i].id;
+        } else if (filmVf.episodes[i].type === 'sendvid') {
+          episode.sendvidVfId = filmVf.episodes[i].id;
+        }
+      }
       
       filmEpisodes.push(episode);
     }

@@ -21,7 +21,10 @@ export default function CustomImage({
   ...props
 }: CustomImageProps) {
   const [error, setError] = useState(false);
-  const [imgSrc, setImgSrc] = useState(src);
+  
+  // Ensure src is always valid - use fallbackSrc if src is null/undefined/empty
+  const validSrc = src || fallbackSrc;
+  const [imgSrc, setImgSrc] = useState(validSrc);
   const [isLoading, setIsLoading] = useState(true);
   
   // Détecter si nous sommes sur mobile ou Firefox
@@ -64,25 +67,26 @@ export default function CustomImage({
   
   // Mettre à jour imgSrc quand src change
   useEffect(() => {
-    setImgSrc(src);
+    const newValidSrc = src || fallbackSrc;
+    setImgSrc(newValidSrc);
     setError(false);
     
     // Sur mobile ou Firefox, ne pas montrer l'état de chargement si l'image est déjà dans le DOM
     // Cela évite le clignotement lors de l'actualisation
-    if ((isMobile || isFirefox) && document.querySelector(`img[src="${src}"]`)) {
+    if ((isMobile || isFirefox) && document.querySelector(`img[src="${newValidSrc}"]`)) {
       setIsLoading(false);
     } else {
       setIsLoading(true);
     }
     
     // Préchargement optimisé des images
-    if (typeof src === 'string' && src.startsWith('http')) {
+    if (typeof newValidSrc === 'string' && newValidSrc.startsWith('http')) {
       if (priority || isMobile) {
         const img = new Image();
-        img.src = src;
+        img.src = newValidSrc;
         img.onload = () => setIsLoading(false);
         img.onerror = () => {
-          console.error(`Erreur de chargement d'image: ${src}`);
+          console.error(`Erreur de chargement d'image: ${newValidSrc}`);
           setError(true);
           setImgSrc(fallbackSrc);
         };
@@ -91,7 +95,7 @@ export default function CustomImage({
   }, [src, isMobile, isFirefox, priority, fallbackSrc]);
   
   // Déterminer si l'image est externe (commence par http ou https)
-  const isExternalImage = typeof src === 'string' && (src.startsWith('http://') || src.startsWith('https://'));
+  const isExternalImage = typeof imgSrc === 'string' && (imgSrc.startsWith('http://') || imgSrc.startsWith('https://'));
   
   // Si c'est une image externe ou Firefox, désactiver l'optimisation par défaut sauf indication contraire
   const shouldUnoptimize = unoptimized || (isExternalImage && isFirefox);
@@ -107,7 +111,7 @@ export default function CustomImage({
 
   // Déterminer les propriétés loading et priority
   const shouldPrioritize = priority !== undefined ? priority : 
-    (isMobile || isFirefox || (typeof src === 'string' && src.includes('thumbnail')));
+    (isMobile || isFirefox || (typeof imgSrc === 'string' && imgSrc.includes('thumbnail')));
   
   // On ne définit pas loading si priority est true
   const loadingProp = shouldPrioritize 
@@ -117,6 +121,9 @@ export default function CustomImage({
   // Placeholder blurDataURL pour un meilleur LCP
   const blurDataURL = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjMyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMxZTI5M2IiLz48L3N2Zz4=';
 
+  // Final validation - ensure we have a valid src before rendering
+  const finalSrc = (error ? fallbackSrc : imgSrc) || fallbackSrc;
+
   return (
     <div className="relative w-full h-full">
       {isLoading && (
@@ -124,7 +131,7 @@ export default function CustomImage({
       )}
       <NextImage
         alt={alt}
-        src={error ? fallbackSrc : imgSrc}
+        src={finalSrc}
         className={`${className} ${isLoading ? 'opacity-0' : 'opacity-100 transition-opacity duration-300'}`}
         onError={handleError}
         onLoad={handleLoad}

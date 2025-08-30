@@ -213,7 +213,9 @@ export default function RootLayout({
                 errorString.includes('CSP') ||
                 errorString.includes('autofocusing') ||
                 errorString.includes('Permissions policy') ||
-                errorString.includes('policy violation')
+                errorString.includes('policy violation') ||
+                errorString.includes('Image is missing required "src" property') ||
+                errorString.includes('missing required "src"')
               ) {
                 console.log('[Console.error supprimé]:', errorString);
                 return;

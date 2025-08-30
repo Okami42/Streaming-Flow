@@ -209,10 +209,32 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
     );
   };
 
+  // Fonction pour vérifier si la saison actuelle a des épisodes en VO
+  const hasVOEpisodes = () => {
+    if (!anime) return false;
+    
+    const episodes = useSeasonsStructure 
+      ? getEpisodes(String(selectedSeason))
+      : (anime.episodes || []);
+    
+    // Vérifier si au moins un épisode a des sources VO
+    return episodes.some(episode => 
+      episode.sibnetVostfrId || 
+      episode.vidmolyId || 
+      episode.vidmolyUrl || 
+      episode.movearnUrl ||
+      episode.mp4Url ||
+      episode.sendvidId
+    );
+  };
+
   // S'assurer que la langue sélectionnée est valide
   React.useEffect(() => {
     if (!hasVFEpisodes() && selectedLanguage === 'vf') {
       setSelectedLanguage('vo');
+    }
+    if (!hasVOEpisodes() && selectedLanguage === 'vo') {
+      setSelectedLanguage('vf');
     }
   }, [selectedSeason, selectedLanguage]);
     
@@ -1092,15 +1114,17 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                 
                 {/* Sélecteur VO/VF */}
                 <div className="flex items-center bg-[#1a1f35] rounded-md overflow-hidden border border-white/10">
-                  <button 
-                    className={`px-6 py-2 text-sm font-medium ${selectedLanguage === 'vo' ? 'bg-[#0f172a] text-white' : 'text-gray-400 hover:text-white'} ${!hasVFEpisodes() ? 'rounded-md' : ''}`}
-                    onClick={() => setSelectedLanguage('vo')}
-                  >
-                    VO
-                  </button>
+                  {hasVOEpisodes() && (
+                    <button 
+                      className={`px-6 py-2 text-sm font-medium ${selectedLanguage === 'vo' ? 'bg-[#0f172a] text-white' : 'text-gray-400 hover:text-white'} ${!hasVFEpisodes() ? 'rounded-md' : ''}`}
+                      onClick={() => setSelectedLanguage('vo')}
+                    >
+                      VO
+                    </button>
+                  )}
                   {hasVFEpisodes() && (
                     <button 
-                      className={`px-6 py-2 text-sm font-medium ${selectedLanguage === 'vf' ? 'bg-[#0f172a] text-white' : 'text-gray-400 hover:text-white'}`}
+                      className={`px-6 py-2 text-sm font-medium ${selectedLanguage === 'vf' ? 'bg-[#0f172a] text-white' : 'text-gray-400 hover:text-white'} ${!hasVOEpisodes() ? 'rounded-md' : ''}`}
                       onClick={() => setSelectedLanguage('vf')}
                     >
                       VF
@@ -1179,7 +1203,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                   </div>
                   
                   {/* Sélecteur VO/VF */}
-                  {hasVFEpisodes() ? (
+                  {(hasVFEpisodes() && hasVOEpisodes()) ? (
                     <div className="relative w-20">
                       <button 
                         className="flex items-center justify-between w-full px-3 py-3 text-white bg-[#1e2332] rounded-md border border-white/10"
@@ -1195,14 +1219,14 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                         className="absolute opacity-0 w-full h-full top-0 left-0 cursor-pointer"
                         style={{ backgroundColor: '#1a1f35', color: 'white' }}
                       >
-                        <option value="vo" style={{ backgroundColor: '#1a1f35', color: 'white', padding: '8px' }}>VO</option>
-                        <option value="vf" style={{ backgroundColor: '#1a1f35', color: 'white', padding: '8px' }}>VF</option>
+                        {hasVOEpisodes() && <option value="vo" style={{ backgroundColor: '#1a1f35', color: 'white', padding: '8px' }}>VO</option>}
+                        {hasVFEpisodes() && <option value="vf" style={{ backgroundColor: '#1a1f35', color: 'white', padding: '8px' }}>VF</option>}
                       </select>
                     </div>
                   ) : (
                     <div className="relative w-20">
                       <div className="flex items-center justify-center w-full px-3 py-3 text-white bg-[#1e2332] rounded-md border border-white/10">
-                        <span>VO</span>
+                        <span>{hasVFEpisodes() ? 'VF' : 'VO'}</span>
                       </div>
                     </div>
                   )}
