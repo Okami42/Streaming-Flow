@@ -1,0 +1,26 @@
+var eps2 = [
+'https://video.sibnet.ru/shell.php?videoid=4737995',//futur 1
+'https://video.sibnet.ru/shell.php?videoid=4738024',//desespoir 1
+'https://video.sibnet.ru/shell.php?videoid=4737997',//futur 2
+'https://video.sibnet.ru/shell.php?videoid=4738039',//desespoir 2
+'https://video.sibnet.ru/shell.php?videoid=4737999',//futur 3
+'https://video.sibnet.ru/shell.php?videoid=4738046',//desespoir 3
+'https://video.sibnet.ru/shell.php?videoid=4738001',//futur 4
+'https://video.sibnet.ru/shell.php?videoid=4738049',//desespoir 4
+'https://video.sibnet.ru/shell.php?videoid=4738004',//futur 5
+'https://video.sibnet.ru/shell.php?videoid=4738050',//desespoir 5
+'https://video.sibnet.ru/shell.php?videoid=4738010',//futur 6
+'https://video.sibnet.ru/shell.php?videoid=4738051',//desespoir 6
+'https://video.sibnet.ru/shell.php?videoid=4738012',//futur 7
+'https://video.sibnet.ru/shell.php?videoid=4738053',//desespoir 7
+'https://video.sibnet.ru/shell.php?videoid=4738014',//futur 8
+'https://video.sibnet.ru/shell.php?videoid=4738055',//desespoir 8
+'https://video.sibnet.ru/shell.php?videoid=4738016',//futur 9
+'https://video.sibnet.ru/shell.php?videoid=4738058',//desespoir 9
+'https://video.sibnet.ru/shell.php?videoid=4738018',//futur 10
+'https://video.sibnet.ru/shell.php?videoid=4738060',//desespoir 10
+'https://video.sibnet.ru/shell.php?videoid=4738020',//futur 11
+'https://video.sibnet.ru/shell.php?videoid=4738064',//desespoir 11
+'https://video.sibnet.ru/shell.php?videoid=4738021',//futur 12
+'https://video.sibnet.ru/shell.php?videoid=4738066',//final
+];
