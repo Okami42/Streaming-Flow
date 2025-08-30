@@ -30,6 +30,11 @@ export const filmTitles: Record<string, Record<string, string>> = {
     "Film_2": "Heroes Rising", 
     "Film_3": "World Heroes' Mission"
   },
+
+  "le-voyage-de-chihiro": {
+    "1": "Le Voyage de Chihiro",
+    "Film_1": "Le Voyage de Chihiro"
+  },
   
   // Dragon Ball
   "dragon-ball": {
