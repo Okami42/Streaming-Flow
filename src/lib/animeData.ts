@@ -1025,7 +1025,7 @@ export const animes: Anime[] = [
     title: "The Duke of Death and His Maid",
     originalTitle: "死神坊ちゃんと黒メイド",
     description: "Le jeune duc a été maudit : tout ce qu'il touche meurt instantanément. Isolé dans une villa avec pour seule compagnie sa dévouée femme de chambre Alice, il tente de briser sa malédiction. Alice, malicieuse et taquine, aime provoquer son maître malgré le danger que représente sa malédiction. Cette comédie romantique gothique mélange moments touchants et situations comiques, explorant les thèmes de l'amour impossible et de l'espoir face à l'adversité.",
-    imageUrl: "https://cdn-eu.anidb.net/images/main/300788.jpg",
+    imageUrl: "",
     bannerUrl: "/picture/bassembanniere.png",
     year: 2021, 
     type: "Anime",
