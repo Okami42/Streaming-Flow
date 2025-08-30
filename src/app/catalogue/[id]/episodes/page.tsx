@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import AnimeEpisodeCard from "@/components/AnimeEpisodeCard";
 import { Loader2 } from "lucide-react";
+import { getSeasonTitle, getFilmSeasonIndex } from "@/lib/filmTitles";
 
 // Définir le type correct pour les paramètres de page Next.js
 interface PageProps {
@@ -96,7 +97,8 @@ export default function AnimeEpisodesPage({ params }: PageProps) {
     if (anime.seasons && anime.seasons.length > 0) {
       const season = anime.seasons.find((s: any) => String(s.seasonNumber) === String(selectedSeason));
       if (season) {
-        return season.title;
+        const seasonIndex = getFilmSeasonIndex(anime?.seasons || [], season);
+        return getSeasonTitle(animeId, season, seasonIndex);
       }
       
       // Si c'est une saison Film mais qu'on ne trouve pas la saison

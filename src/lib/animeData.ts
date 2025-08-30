@@ -84,6 +84,19 @@ export const animes: Anime[] = [
     ]
   },
   {
+    id: "amagami-san-chi-no-enmusubi",
+    title: "Amagami-san Chi no Enmusubi",
+    originalTitle: "甘神さんちの縁結び",
+    imageUrl:"",
+    description: "Uryū Kamihate est un lycéen aspirant à intégrer la faculté de médecine de l'Université de Kyoto. Après avoir vécu dans un orphelinat, il emménage au sanctuaire Amagami, où le prêtre en chef lui demande d'épouser l'une de ses trois petites-filles pour hériter du sanctuaire. Uryū et les sœurs Amagami doivent également faire face à divers défis, notamment des problèmes financiers menaçant la fermeture du sanctuaire. Une comédie romantique touchante qui explore les liens familiaux et la tradition dans le Japon moderne.",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2024,
+    type: "Anime",
+    status: "En cours",
+    genres: ["Romance", "Comédie", "Slice of Life", "École", "Harem", "Surnaturel", "Tradition"],
+    rating: 7.5
+  },
+  {
     id: "my-dress-up-darling",
     title: "My Dress-Up Darling",
     originalTitle: "その着せ替え人形は恋をする",
@@ -614,7 +627,7 @@ export const animes: Anime[] = [
     rating: 8.9,
     seasons: [
       {
-        seasonNumber: 1,
+        seasonNumber: "Film",
         title: "Film",
         year: 2019,
         episodes: [
@@ -1669,5 +1682,31 @@ export const animes: Anime[] = [
     status: "En cours",
     genres: ["Action", "Aventure", "Bizarre", "Surnaturel", "Stand"],
     rating: 8.5
+  },
+  {
+    id: "unnamed-memory",
+    title: "Unnamed Memory",
+    originalTitle: "アンネームドメモリー",
+    description: "Oscar, le prince héritier du puissant royaume de Farsas, est maudit depuis son enfance pour ne jamais avoir d'héritier. Espérant briser cette malédiction, il cherche Tinasha, la sorcière la plus puissante du continent. Pour la rencontrer, il doit gravir sa tour mystérieuse qui exauce le vœu de quiconque atteint le sommet. À son arrivée, il lui demande de devenir son épouse. Commence alors une histoire d'amour complexe entre un prince déterminé et une sorcière aux pouvoirs immenses, où magie, politique et sentiments s'entremêlent dans un monde fantasy riche en mystères.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2024,
+    type: "Anime",
+    status: "En cours",
+    genres: ["Fantasy", "Romance", "Magie", "Royauté", "Drame", "Surnaturel"],
+    rating: 7.8
+  },
+  {
+    id: "vinland-saga",
+    title: "Vinland Saga",
+    originalTitle: "ヴィンランド・サガ",
+    description: "Dans l'Europe du 11e siècle, pendant l'âge des Vikings, Thorfinn grandit en entendant les histoires de marins expérimentés qui parlent du pays légendaire du Vinland, un territoire chaud et fertile au-delà de l'océan. Quand son père Thors, un ancien guerrier devenu pacifiste, est assassiné par Askeladd, un chef de guerre viking, Thorfinn rejoint la bande de son ennemi juré dans l'espoir de défier Askeladd en duel et venger son père. Mais la vie d'un guerrier est dure, et Thorfinn va découvrir que la vengeance a un prix élevé. Cette épopée historique explore les thèmes de la guerre, de la vengeance, de l'honneur et de la recherche de la paix à travers le parcours d'un jeune homme marqué par la violence.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2019,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Action", "Aventure", "Drame", "Historique", "Seinen", "Vikings", "Guerre"],
+    rating: 9.0
   }
 ];

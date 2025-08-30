@@ -572,7 +572,7 @@ async function loadAllSeasonsForAnime(animeId: string, animeYear?: number): Prom
   const seasons: AnimeSeason[] = [];
   
   // Liste des patterns de dossiers à tester
-  let seasonPatterns = [
+  const seasonPatterns = [
     // Saisons normales (1-5)
     ...Array.from({length: 5}, (_, i) => ({
       folder: `saison${i + 1}`,
@@ -617,43 +617,6 @@ async function loadAllSeasonsForAnime(animeId: string, animeYear?: number): Prom
       title: 'Film'
     }
   ];
-
-  // Fonction pour générer des patterns de films dynamiques
-  const generateFilmPatterns = () => {
-    // Liste de noms de films potentiels à tester automatiquement
-    const potentialFilmNames = [
-      // Noms génériques communs
-      'Movie', 'Film', 'Final', 'Last-Game', 'Zero', 'First', 'Second', 'Third',
-      'Beginning', 'End', 'New', 'Ultimate', 'Super', 'Legend', 'Chronicle',
-      'Revival', 'Awakening', 'Rising', 'Infinity', 'Beyond', 'The-Movie',
-      
-      // One Piece
-      'Red', 'Stampede', 'Strong-World', 'Gold', 'Z',
-      
-      // Demon Slayer
-      'Train-de-lInfini', 'Mugen-Train',
-      
-      // Jujutsu Kaisen
-      'Jujutsu-Kaisen-0',
-      
-      // My Hero Academia  
-      'Heroes-Rising', 'Two-Heroes', 'World-Heroes-Mission',
-      
-      // Autres films populaires
-      'Your-Name', 'Weathering-With-You', 'Suzume', 'Princess-Mononoke',
-      'Spirited-Away', 'Quintessential-Quintuplets', 'Attack-on-Titan-Chronicle',
-      'Violet-Evergarden', 'Promare', 'Ghost-in-Shell'
-    ];
-
-    return potentialFilmNames.map(filmName => ({
-      folder: `Film-${filmName}`,
-      seasonNumber: 'Film',
-      title: filmName.replace(/-/g, ' ')
-    }));
-  };
-
-  // Ajouter tous les patterns de films générés dynamiquement
-  seasonPatterns = seasonPatterns.concat(generateFilmPatterns());
   
   for (const pattern of seasonPatterns) {
     const vostfrPath = `${actualFolderName}/${pattern.folder}/episodes_vostfr.js`;
