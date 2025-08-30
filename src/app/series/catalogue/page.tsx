@@ -30,6 +30,14 @@ const seriesList: CatalogueSeries[] = [
     time: "1 saison"
   },
   {
+    id: "bienvenue-chez-les-ch'tis",
+    title: "Bienvenue chez les Ch'tis",
+    imageUrl: "https://fr.web.img5.acsta.net/medias/nmedia/18/64/74/53/18889951.jpg",
+    type: "Film",
+    language: "VF",
+    time: "1h55"
+  },
+  {
     id: "fight-club",
     title: "Fight Club",
     imageUrl: "https://storage.googleapis.com/pod_public/1300/262697.jpg",

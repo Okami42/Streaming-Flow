@@ -1,33 +1,33 @@
 import { animes, getAnimeById, getAnimesByGenre, Anime } from './animeData';
-import { enrichAnimeWithRealEpisodes, enrichMultipleAnimes } from './realAutoImport';
+import { enrichAnimeWithRealEpisodes, enrichMultipleAnimes, ultraFastEnrichAnime, ultraFastEnrichMultiple } from './realAutoImport';
 
 /**
- * Version enrichie des fonctions animeData avec auto-import
+ * Version enrichie des fonctions animeData avec auto-import ultra-rapide
  */
 
 /**
- * Obtient un anime par ID avec auto-enrichissement des épisodes
+ * Obtient un anime par ID avec auto-enrichissement ultra-rapide
  */
 export async function getEnrichedAnimeById(id: string): Promise<Anime | undefined> {
   const anime = getAnimeById(id);
   if (!anime) return undefined;
   
-  return await enrichAnimeWithRealEpisodes(anime);
+  return await ultraFastEnrichAnime(anime);
 }
 
 /**
- * Obtient tous les animes avec auto-enrichissement (version batch optimisée)
+ * Obtient tous les animes avec auto-enrichissement ultra-rapide
  */
 export async function getAllEnrichedAnimes(): Promise<Anime[]> {
-  return await enrichMultipleAnimes(animes);
+  return await ultraFastEnrichMultiple(animes);
 }
 
 /**
- * Obtient les animes par genre avec auto-enrichissement
+ * Obtient les animes par genre avec auto-enrichissement ultra-rapide
  */
 export async function getEnrichedAnimesByGenre(genre: string): Promise<Anime[]> {
   const genreAnimes = getAnimesByGenre(genre);
-  return await enrichMultipleAnimes(genreAnimes);
+  return await ultraFastEnrichMultiple(genreAnimes);
 }
 
 /**
@@ -80,7 +80,7 @@ export async function preloadPopularAnimes(animeIds: string[]): Promise<Anime[]>
     .map(id => getAnimeById(id))
     .filter((anime): anime is Anime => anime !== undefined);
   
-  const enriched = await enrichMultipleAnimes(animes);
+  const enriched = await ultraFastEnrichMultiple(animes);
   
   console.log(`✅ Pré-chargement terminé`);
   return enriched;

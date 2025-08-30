@@ -68,17 +68,17 @@ export function AnimeCard({
             )}
           </div>
 
-          <div className="p-3 space-y-2 flex-grow flex flex-col justify-between">
+          <div className="p-3 space-y-1 flex-grow flex flex-col justify-between">
             <h3 className="font-bold text-white text-center text-sm sm:text-base line-clamp-2 transition-all duration-300">
               {title}
             </h3>
 
-            <div className="flex flex-col gap-1.5 mt-auto">
+            <div className="flex flex-col gap-1 mt-2">
               <div className="flex items-center justify-center gap-2 text-xs">
-                <span className="inline-flex items-center bg-gradient-to-r from-pink-600/90 to-pink-600/70 text-white text-xs font-semibold px-2.5 py-1 rounded-md">
+                <span className="inline-flex items-center bg-gradient-to-r from-pink-600/90 to-pink-600/70 text-white text-xs font-semibold px-2.5 py-1 rounded-md whitespace-nowrap">
                   {type}
                 </span>
-                <span className="inline-flex items-center bg-gradient-to-r from-blue-600/90 to-blue-600/70 text-white text-xs font-semibold px-2.5 py-1 rounded-md">
+                <span className="inline-flex items-center bg-gradient-to-r from-blue-600/90 to-blue-600/70 text-white text-xs font-semibold px-2.5 py-1 rounded-md whitespace-nowrap">
                   {language}
                 </span>
               </div>

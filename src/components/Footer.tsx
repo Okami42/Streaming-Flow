@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Instagram, Twitter, Github } from "lucide-react";
+import { Github } from "lucide-react";
 import CustomImage from "./ui/custom-image";
 
 export default function Footer() {
@@ -34,7 +34,7 @@ export default function Footer() {
 
           <div className="space-y-4">
             <h3 className="text-white text-lg font-semibold mb-4 relative inline-block">
-              Liens Rapides
+              Navigation
               <span className="absolute -bottom-1 left-0 w-12 h-[2px] bg-gradient-to-r from-pink-500 to-blue-500" />
             </h3>
             <div className="grid grid-cols-2 gap-2">
@@ -47,27 +47,9 @@ export default function Footer() {
 
           <div className="space-y-4">
             <h3 className="text-white text-lg font-semibold mb-4 relative inline-block">
-              Connectez-vous
+              Légal
               <span className="absolute -bottom-1 left-0 w-12 h-[2px] bg-gradient-to-r from-pink-500 to-blue-500" />
             </h3>
-            <div className="flex space-x-4">
-              <a
-                href="https://discord.gg/23cqMGEEqJ"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-[#151a2a] hover:bg-[#1e263f] p-2.5 rounded-full border border-white/5 transition-all duration-300 hover:border-white/20 primary-glow"
-              >
-                <Instagram className="h-5 w-5 text-white" />
-              </a>
-              <a
-                href="https://twitter.com/OkastreamFr"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-[#151a2a] hover:bg-[#1e263f] p-2.5 rounded-full border border-white/5 transition-all duration-300 hover:border-white/20 primary-glow"
-              >
-                <Twitter className="h-5 w-5 text-white" />
-              </a>
-            </div>
             <p className="text-gray-400 text-sm mt-4">
               Okanime n'héberge aucune vidéo sur son site, nous ne faisons que
               référencer des contenus disponibles sur différentes plateformes.

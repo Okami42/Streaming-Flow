@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import AnimeEpisodeCard from "@/components/AnimeEpisodeCard";
 import { Loader2 } from "lucide-react";
+import { getSeasonTitle, getFilmSeasonIndex } from "@/lib/filmTitles";
 
 // Définir le type correct pour les paramètres de page Next.js
 interface PageProps {
@@ -28,6 +29,19 @@ export default function AnimeEpisodesPage({ params }: PageProps) {
     seasonParam ? (isNaN(Number(seasonParam)) ? seasonParam : Number(seasonParam)) : 1
   );
   const [isSeasonMenuOpen, setIsSeasonMenuOpen] = useState<boolean>(false);
+
+  // Effet pour ajuster la saison sélectionnée quand l'anime est chargé
+  useEffect(() => {
+    if (!anime || seasonParam) return; // Ne pas override si saison spécifiée dans l'URL
+    
+    // Vérifier si l'animé n'a qu'une seule saison ET que c'est un film
+    if (anime.seasons && anime.seasons.length === 1) {
+      const onlySeason = anime.seasons[0];
+      if ((String(onlySeason.seasonNumber) === 'Film' || String(onlySeason.title).toLowerCase().includes('film')) && selectedSeason !== 'Film') {
+        setSelectedSeason('Film');
+      }
+    }
+  }, [anime, seasonParam]); // Retiré selectedSeason des dépendances pour éviter la boucle
 
   useEffect(() => {
     const loadAnime = async () => {
@@ -80,10 +94,26 @@ export default function AnimeEpisodesPage({ params }: PageProps) {
 
   // Obtenir le titre de la saison sélectionnée
   const getSelectedSeasonTitle = () => {
-    if (hasMultipleSeasons && anime.seasons) {
+    if (anime.seasons && anime.seasons.length > 0) {
       const season = anime.seasons.find((s: any) => String(s.seasonNumber) === String(selectedSeason));
-      return season ? season.title : `Saison ${selectedSeason}`;
+      if (season) {
+        const seasonIndex = getFilmSeasonIndex(anime?.seasons || [], season);
+        return getSeasonTitle(animeId, season, seasonIndex);
+      }
+      
+      // Si c'est une saison Film mais qu'on ne trouve pas la saison
+      if (String(selectedSeason) === 'Film') {
+        return 'Films';
+      }
+      
+      return `Saison ${selectedSeason}`;
     }
+    
+    // Si pas de saisons définies, vérifier si l'animé ne contient que des films
+    if (String(selectedSeason) === 'Film') {
+      return 'Films';
+    }
+    
     return "Saison 1";
   };
 
