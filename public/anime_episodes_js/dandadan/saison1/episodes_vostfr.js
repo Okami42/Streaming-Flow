@@ -1,26 +1,15 @@
-var eps1 = ['https://video.sibnet.ru/shell.php?videoid=5700630',
-
-'https://video.sibnet.ru/shell.php?videoid=5710658',
-
-'https://video.sibnet.ru/shell.php?videoid=5719157',
-
-'https://video.sibnet.ru/shell.php?videoid=5728387',
-
-'https://video.sibnet.ru/shell.php?videoid=5736965',
-
-'https://video.sibnet.ru/shell.php?videoid=5744163',
-
-'https://video.sibnet.ru/shell.php?videoid=5751426',
-
-'https://video.sibnet.ru/shell.php?videoid=5758230',
-
-'https://oneupload.to/embed-et8ly4toj97d.html',
-
-'https://video.sibnet.ru/shell.php?videoid=5768541',
-
-'https://video.sibnet.ru/shell.php?videoid=5772492',
-
-'https://video.sibnet.ru/shell.php?videoid=5777903',
+var eps1 = ['https://sendvid.com/embed/id61jupd',
+'https://sendvid.com/embed/h1w2hyq3',
+'https://sendvid.com/embed/nanqs79n',
+'https://sendvid.com/embed/y30ts1w2',
+'https://sendvid.com/embed/mfury6fd',
+'https://sendvid.com/embed/dje21slo',
+'https://sendvid.com/embed/3cueehdx',
+'https://sendvid.com/embed/5fo10q0z',
+'https://sendvid.com/embed/nhn8ff13',
+'https://sendvid.com/embed/lo7qb94z',
+'https://sendvid.com/embed/t1ynf9ds',
+'https://sendvid.com/embed/dkxrhgdq',
 
 
 
