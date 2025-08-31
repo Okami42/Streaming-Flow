@@ -29,7 +29,7 @@ export function HistoryProvider({ children }: { children: React.ReactNode }) {
   const [readHistory, setReadHistory] = useState<ReadHistoryItem[]>([]);
   const { isAuthenticated, user } = useAuth();
 
-  // Charger l'historique de l'utilisateur depuis le serveur
+  // Charger l'historique de l'utilisateur depuis le se.rveur
   const loadUserHistory = useCallback(async () => {
     if (!isAuthenticated || !user) return;
 
