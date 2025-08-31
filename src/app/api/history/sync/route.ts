@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyToken, getUserHistory, syncUserHistory } from '@/lib/database';
+import { verifyToken, getUserHistory, syncUserHistory, initializeDatabase } from '@/lib/database';
 import { WatchHistoryItem, ReadHistoryItem } from '@/lib/history';
 
 export async function GET(request: NextRequest) {
   try {
+    // Initialiser la base de données au premier appel
+    await initializeDatabase();
+    
     const authHeader = request.headers.get('authorization');
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -38,6 +41,9 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    // Initialiser la base de données au premier appel
+    await initializeDatabase();
+    
     const authHeader = request.headers.get('authorization');
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {

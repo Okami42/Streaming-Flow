@@ -1,122 +1,131 @@
-import { promises as fs } from 'fs';
-import path from 'path';
+import { sql } from '@vercel/postgres';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { User } from './auth-types';
 import { WatchHistoryItem, ReadHistoryItem } from './history';
 
-// Structure de la base de données
-interface Database {
-  users: (User & { password: string })[];
-  userHistory: {
-    [userId: string]: {
-      watchHistory: WatchHistoryItem[];
-      readHistory: ReadHistoryItem[];
-    };
-  };
-}
-
-const DB_PATH = path.join(process.cwd(), 'data', 'database.json');
 const JWT_SECRET = process.env.JWT_SECRET || 'votre-secret-jwt-super-secret';
 
-// Initialiser la base de données
-async function initializeDatabase(): Promise<void> {
+// Initialiser les tables de la base de données
+export async function initializeDatabase(): Promise<void> {
   try {
-    const dataDir = path.join(process.cwd(), 'data');
-    await fs.mkdir(dataDir, { recursive: true });
-    
-    try {
-      await fs.access(DB_PATH);
-    } catch {
-      // Le fichier n'existe pas, le créer
-      const initialData: Database = {
-        users: [],
-        userHistory: {},
-      };
-      await fs.writeFile(DB_PATH, JSON.stringify(initialData, null, 2));
-    }
+    // Créer la table des utilisateurs
+    await sql`
+      CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(255) UNIQUE NOT NULL,
+        email VARCHAR(255) UNIQUE NOT NULL,
+        password VARCHAR(255) NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `;
+
+    // Créer la table de l'historique de visionnage
+    await sql`
+      CREATE TABLE IF NOT EXISTS watch_history (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+        item_id VARCHAR(255) NOT NULL,
+        title VARCHAR(255) NOT NULL,
+        image_url TEXT,
+        last_watched_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        progress INTEGER DEFAULT 0,
+        duration INTEGER DEFAULT 0,
+        season INTEGER DEFAULT 1,
+        episode INTEGER DEFAULT 1,
+        episode_title VARCHAR(255),
+        content_type VARCHAR(50) DEFAULT 'Anime'
+      )
+    `;
+
+    // Créer la table de l'historique de lecture
+    await sql`
+      CREATE TABLE IF NOT EXISTS read_history (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+        item_id VARCHAR(255) NOT NULL,
+        title VARCHAR(255) NOT NULL,
+        image_url TEXT,
+        last_read_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        chapter INTEGER DEFAULT 1,
+        page INTEGER DEFAULT 1,
+        total_pages INTEGER DEFAULT 1
+      )
+    `;
+
+    console.log('Tables créées avec succès');
   } catch (error) {
     console.error('Erreur lors de l\'initialisation de la base de données:', error);
   }
 }
 
-// Lire la base de données
-async function readDatabase(): Promise<Database> {
+// Fonctions d'authentification
+export async function createUser(username: string, password: string): Promise<User> {
   try {
-    await initializeDatabase();
-    const data = await fs.readFile(DB_PATH, 'utf-8');
-    return JSON.parse(data);
+    // Vérifier si l'utilisateur existe déjà
+    const existingUser = await sql`
+      SELECT id FROM users WHERE username = ${username}
+    `;
+    
+    if (existingUser.rows.length > 0) {
+      throw new Error('Un utilisateur avec ce nom d\'utilisateur existe déjà');
+    }
+    
+    // Hasher le mot de passe
+    const hashedPassword = await bcrypt.hash(password, 12);
+    
+    // Créer le nouvel utilisateur
+    const result = await sql`
+      INSERT INTO users (username, email, password)
+      VALUES (${username}, ${`${username}@okastream.local`}, ${hashedPassword})
+      RETURNING id, username, email, created_at
+    `;
+    
+    const newUser = result.rows[0];
+    
+    return {
+      id: newUser.id.toString(),
+      username: newUser.username,
+      email: newUser.email,
+      createdAt: newUser.created_at,
+    };
   } catch (error) {
-    console.error('Erreur lors de la lecture de la base de données:', error);
-    return { users: [], userHistory: {} };
-  }
-}
-
-// Écrire dans la base de données
-async function writeDatabase(data: Database): Promise<void> {
-  try {
-    await fs.writeFile(DB_PATH, JSON.stringify(data, null, 2));
-  } catch (error) {
-    console.error('Erreur lors de l\'écriture dans la base de données:', error);
+    console.error('Erreur lors de la création de l\'utilisateur:', error);
     throw error;
   }
 }
 
-// Fonctions d'authentification
-export async function createUser(username: string, password: string): Promise<User> {
-  const db = await readDatabase();
-  
-  // Vérifier si l'utilisateur existe déjà
-  const existingUser = db.users.find(u => u.username === username);
-  if (existingUser) {
-    throw new Error('Un utilisateur avec ce nom d\'utilisateur existe déjà');
-  }
-  
-  // Hasher le mot de passe
-  const hashedPassword = await bcrypt.hash(password, 12);
-  
-  // Créer le nouvel utilisateur (email généré automatiquement ou laissé vide)
-  const newUser = {
-    id: Date.now().toString(),
-    email: `${username}@okastream.local`, // Email généré automatiquement
-    username,
-    password: hashedPassword,
-    createdAt: new Date().toISOString(),
-  };
-  
-  db.users.push(newUser);
-  
-  // Initialiser l'historique de l'utilisateur
-  db.userHistory[newUser.id] = {
-    watchHistory: [],
-    readHistory: [],
-  };
-  
-  await writeDatabase(db);
-  
-  // Retourner l'utilisateur sans le mot de passe
-  const { password: _, ...userWithoutPassword } = newUser;
-  return userWithoutPassword;
-}
-
 export async function authenticateUser(username: string, password: string): Promise<User> {
-  const db = await readDatabase();
-  
-  // Trouver l'utilisateur
-  const user = db.users.find(u => u.username === username);
-  if (!user) {
-    throw new Error('Nom d\'utilisateur ou mot de passe incorrect');
+  try {
+    // Trouver l'utilisateur
+    const result = await sql`
+      SELECT id, username, email, password, created_at
+      FROM users 
+      WHERE username = ${username}
+    `;
+    
+    if (result.rows.length === 0) {
+      throw new Error('Nom d\'utilisateur ou mot de passe incorrect');
+    }
+    
+    const user = result.rows[0];
+    
+    // Vérifier le mot de passe
+    const isValid = await bcrypt.compare(password, user.password);
+    if (!isValid) {
+      throw new Error('Nom d\'utilisateur ou mot de passe incorrect');
+    }
+    
+    return {
+      id: user.id.toString(),
+      username: user.username,
+      email: user.email,
+      createdAt: user.created_at,
+    };
+  } catch (error) {
+    console.error('Erreur lors de l\'authentification:', error);
+    throw error;
   }
-  
-  // Vérifier le mot de passe
-  const isValid = await bcrypt.compare(password, user.password);
-  if (!isValid) {
-    throw new Error('Nom d\'utilisateur ou mot de passe incorrect');
-  }
-  
-  // Retourner l'utilisateur sans le mot de passe
-  const { password: _, ...userWithoutPassword } = user;
-  return userWithoutPassword;
 }
 
 export function generateToken(userId: string): string {
@@ -132,12 +141,26 @@ export function verifyToken(token: string): { userId: string } {
 }
 
 export async function getUserById(userId: string): Promise<User | null> {
-  const db = await readDatabase();
-  const user = db.users.find(u => u.id === userId);
-  if (!user) return null;
-  
-  const { password: _, ...userWithoutPassword } = user;
-  return userWithoutPassword;
+  try {
+    const result = await sql`
+      SELECT id, username, email, created_at
+      FROM users 
+      WHERE id = ${userId}
+    `;
+    
+    if (result.rows.length === 0) return null;
+    
+    const user = result.rows[0];
+    return {
+      id: user.id.toString(),
+      username: user.username,
+      email: user.email,
+      createdAt: user.created_at,
+    };
+  } catch (error) {
+    console.error('Erreur lors de la récupération de l\'utilisateur:', error);
+    return null;
+  }
 }
 
 // Fonctions pour l'historique
@@ -145,30 +168,52 @@ export async function getUserHistory(userId: string): Promise<{
   watchHistory: WatchHistoryItem[];
   readHistory: ReadHistoryItem[];
 }> {
-  const db = await readDatabase();
-  return db.userHistory[userId] || { watchHistory: [], readHistory: [] };
-}
+  try {
+    // Récupérer l'historique de visionnage
+    const watchResult = await sql`
+      SELECT * FROM watch_history 
+      WHERE user_id = ${userId}
+      ORDER BY last_watched_at DESC
+    `;
 
-export async function saveUserWatchHistory(userId: string, watchHistory: WatchHistoryItem[]): Promise<void> {
-  const db = await readDatabase();
-  
-  if (!db.userHistory[userId]) {
-    db.userHistory[userId] = { watchHistory: [], readHistory: [] };
-  }
-  
-  db.userHistory[userId].watchHistory = watchHistory;
-  await writeDatabase(db);
-}
+    // Récupérer l'historique de lecture
+    const readResult = await sql`
+      SELECT * FROM read_history 
+      WHERE user_id = ${userId}
+      ORDER BY last_read_at DESC
+    `;
 
-export async function saveUserReadHistory(userId: string, readHistory: ReadHistoryItem[]): Promise<void> {
-  const db = await readDatabase();
-  
-  if (!db.userHistory[userId]) {
-    db.userHistory[userId] = { watchHistory: [], readHistory: [] };
+    const watchHistory: WatchHistoryItem[] = watchResult.rows.map(row => ({
+      id: row.item_id,
+      title: row.title,
+      imageUrl: row.image_url || '',
+      lastWatchedAt: row.last_watched_at,
+      progress: row.progress,
+      duration: row.duration,
+      episodeInfo: {
+        season: row.season,
+        episode: row.episode,
+        title: row.episode_title,
+      },
+      type: row.content_type as any,
+    }));
+
+    const readHistory: ReadHistoryItem[] = readResult.rows.map(row => ({
+      id: row.item_id,
+      title: row.title,
+      imageUrl: row.image_url || '',
+      lastReadAt: row.last_read_at,
+      chapter: row.chapter,
+      page: row.page,
+      totalPages: row.total_pages,
+      type: 'Scans',
+    }));
+
+    return { watchHistory, readHistory };
+  } catch (error) {
+    console.error('Erreur lors de la récupération de l\'historique:', error);
+    return { watchHistory: [], readHistory: [] };
   }
-  
-  db.userHistory[userId].readHistory = readHistory;
-  await writeDatabase(db);
 }
 
 export async function syncUserHistory(
@@ -176,13 +221,40 @@ export async function syncUserHistory(
   watchHistory: WatchHistoryItem[],
   readHistory: ReadHistoryItem[]
 ): Promise<void> {
-  const db = await readDatabase();
-  
-  if (!db.userHistory[userId]) {
-    db.userHistory[userId] = { watchHistory: [], readHistory: [] };
+  try {
+    // Supprimer l'ancien historique
+    await sql`DELETE FROM watch_history WHERE user_id = ${userId}`;
+    await sql`DELETE FROM read_history WHERE user_id = ${userId}`;
+
+    // Insérer le nouvel historique de visionnage
+    for (const item of watchHistory) {
+      await sql`
+        INSERT INTO watch_history (
+          user_id, item_id, title, image_url, last_watched_at, 
+          progress, duration, season, episode, episode_title, content_type
+        ) VALUES (
+          ${userId}, ${item.id}, ${item.title}, ${item.imageUrl}, 
+          ${item.lastWatchedAt}, ${item.progress}, ${item.duration},
+          ${item.episodeInfo.season}, ${item.episodeInfo.episode}, 
+          ${item.episodeInfo.title || ''}, ${item.type}
+        )
+      `;
+    }
+
+    // Insérer le nouvel historique de lecture
+    for (const item of readHistory) {
+      await sql`
+        INSERT INTO read_history (
+          user_id, item_id, title, image_url, last_read_at,
+          chapter, page, total_pages
+        ) VALUES (
+          ${userId}, ${item.id}, ${item.title}, ${item.imageUrl},
+          ${item.lastReadAt}, ${item.chapter}, ${item.page}, ${item.totalPages}
+        )
+      `;
+    }
+  } catch (error) {
+    console.error('Erreur lors de la synchronisation de l\'historique:', error);
+    throw error;
   }
-  
-  db.userHistory[userId].watchHistory = watchHistory;
-  db.userHistory[userId].readHistory = readHistory;
-  await writeDatabase(db);
 }

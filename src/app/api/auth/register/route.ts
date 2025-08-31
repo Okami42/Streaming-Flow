@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createUser, generateToken } from '@/lib/database';
+import { createUser, generateToken, initializeDatabase } from '@/lib/database';
 
 export async function POST(request: NextRequest) {
   try {
+    // Initialiser la base de données au premier appel
+    await initializeDatabase();
+    
     const { username, password } = await request.json();
 
     // Validation basique
