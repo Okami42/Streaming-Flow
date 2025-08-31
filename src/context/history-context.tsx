@@ -12,7 +12,7 @@ interface HistoryContextType {
   addToWatchHistory: (item: WatchHistoryItem) => void;
   addToReadHistory: (item: ReadHistoryItem) => void;
   removeFromHistory: (id: string) => void;
-  clearHistory: () => void;
+  clearHistory: () => Promise<void>;
   updateWatchProgress: (id: string, progress: number) => void;
   updateReadProgress: (id: string, page: number) => void;
   getWatchHistoryItem: (id: string) => WatchHistoryItem | undefined;
@@ -175,9 +175,36 @@ export function HistoryProvider({ children }: { children: React.ReactNode }) {
     setReadHistory(prev => prev.filter(item => item.id !== id));
   };
 
-  const clearHistory = () => {
-    setWatchHistory([]);
-    setReadHistory([]);
+  const clearHistory = async () => {
+    if (isAuthenticated && user) {
+      // Si connecté, supprimer de la base de données
+      try {
+        const token = localStorage.getItem('auth_token');
+        if (token) {
+          const response = await fetch('/api/history/sync', {
+            method: 'DELETE',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+          });
+
+          if (response.ok) {
+            // Supprimer aussi localement
+            setWatchHistory([]);
+            setReadHistory([]);
+          } else {
+            console.error('Erreur lors de la suppression de l\'historique');
+          }
+        }
+      } catch (error) {
+        console.error('Erreur lors de la suppression de l\'historique:', error);
+      }
+    } else {
+      // Si pas connecté, supprimer seulement en local
+      setWatchHistory([]);
+      setReadHistory([]);
+    }
   };
 
   const updateWatchProgress = (id: string, progress: number) => {

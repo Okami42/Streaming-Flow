@@ -258,3 +258,14 @@ export async function syncUserHistory(
     throw error;
   }
 }
+
+// Fonction pour supprimer tout l'historique d'un utilisateur
+export async function clearUserHistory(userId: string): Promise<void> {
+  try {
+    await sql`DELETE FROM watch_history WHERE user_id = ${userId}`;
+    await sql`DELETE FROM read_history WHERE user_id = ${userId}`;
+  } catch (error) {
+    console.error('Erreur lors de la suppression de l\'historique:', error);
+    throw error;
+  }
+}
