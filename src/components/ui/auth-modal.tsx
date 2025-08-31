@@ -128,14 +128,14 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
                 </label>
                 <div className="relative">
                   <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                  <input
-                    type="text"
-                    value={loginForm.username}
-                    onChange={(e) => setLoginForm(prev => ({ ...prev, username: e.target.value }))}
-                    className="w-full pl-10 pr-4 py-3 bg-[#252525] border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors"
-                    placeholder="Votre nom d'utilisateur"
-                    required
-                  />
+                                     <input
+                     type="text"
+                     value={loginForm.username}
+                     onChange={(e) => setLoginForm(prev => ({ ...prev, username: e.target.value }))}
+                     className="w-full pl-10 pr-4 py-3 bg-[#252525] border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 transition-colors"
+                     placeholder="Votre nom d'utilisateur"
+                     required
+                   />
                 </div>
               </div>
 
@@ -145,14 +145,14 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
                 </label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    value={loginForm.password}
-                    onChange={(e) => setLoginForm(prev => ({ ...prev, password: e.target.value }))}
-                    className="w-full pl-10 pr-12 py-3 bg-[#252525] border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors"
-                    placeholder="Votre mot de passe"
-                    required
-                  />
+                                     <input
+                     type={showPassword ? 'text' : 'password'}
+                     value={loginForm.password}
+                     onChange={(e) => setLoginForm(prev => ({ ...prev, password: e.target.value }))}
+                     className="w-full pl-10 pr-12 py-3 bg-[#252525] border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 transition-colors"
+                     placeholder="Votre mot de passe"
+                     required
+                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
@@ -181,14 +181,14 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
                 </label>
                 <div className="relative">
                   <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                  <input
-                    type="text"
-                    value={registerForm.username}
-                    onChange={(e) => setRegisterForm(prev => ({ ...prev, username: e.target.value }))}
-                    className="w-full pl-10 pr-4 py-3 bg-[#252525] border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors"
-                    placeholder="Votre nom d'utilisateur"
-                    required
-                  />
+                                     <input
+                     type="text"
+                     value={registerForm.username}
+                     onChange={(e) => setRegisterForm(prev => ({ ...prev, username: e.target.value }))}
+                     className="w-full pl-10 pr-4 py-3 bg-[#252525] border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 transition-colors"
+                     placeholder="Votre nom d'utilisateur"
+                     required
+                   />
                 </div>
               </div>
 
@@ -198,14 +198,14 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
                 </label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    value={registerForm.password}
-                    onChange={(e) => setRegisterForm(prev => ({ ...prev, password: e.target.value }))}
-                    className="w-full pl-10 pr-12 py-3 bg-[#252525] border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors"
-                    placeholder="Au moins 6 caractères"
-                    required
-                  />
+                                     <input
+                     type={showPassword ? 'text' : 'password'}
+                     value={registerForm.password}
+                     onChange={(e) => setRegisterForm(prev => ({ ...prev, password: e.target.value }))}
+                     className="w-full pl-10 pr-12 py-3 bg-[#252525] border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 transition-colors"
+                     placeholder="Au moins 6 caractères"
+                     required
+                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
@@ -222,14 +222,14 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
                 </label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                  <input
-                    type={showConfirmPassword ? 'text' : 'password'}
-                    value={registerForm.confirmPassword}
-                    onChange={(e) => setRegisterForm(prev => ({ ...prev, confirmPassword: e.target.value }))}
-                    className="w-full pl-10 pr-12 py-3 bg-[#252525] border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors"
-                    placeholder="Confirmez votre mot de passe"
-                    required
-                  />
+                                     <input
+                     type={showConfirmPassword ? 'text' : 'password'}
+                     value={registerForm.confirmPassword}
+                     onChange={(e) => setRegisterForm(prev => ({ ...prev, confirmPassword: e.target.value }))}
+                     className="w-full pl-10 pr-12 py-3 bg-[#252525] border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 transition-colors"
+                     placeholder="Confirmez votre mot de passe"
+                     required
+                   />
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
