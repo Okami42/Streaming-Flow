@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/context/theme-context";
+import { AuthProvider } from "@/context/auth-context";
 import { HistoryProvider } from "@/context/history-context";
 import { FavoritesProvider } from "@/context/favorites-context";
 import { Inter } from 'next/font/google';
@@ -381,11 +382,13 @@ export default function RootLayout({
         <FontOptimizer />
         <ScriptOptimizer />
         <ThemeProvider>
-          <HistoryProvider>
-            <FavoritesProvider>
-              {children}
-            </FavoritesProvider>
-          </HistoryProvider>
+          <AuthProvider>
+            <HistoryProvider>
+              <FavoritesProvider>
+                {children}
+              </FavoritesProvider>
+            </HistoryProvider>
+          </AuthProvider>
         </ThemeProvider>
         
         {/* Script pour optimiser le chargement des images */}

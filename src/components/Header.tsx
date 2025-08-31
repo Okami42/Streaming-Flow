@@ -1,18 +1,22 @@
 "use client";
 
-import { Search, User, History, Star } from "lucide-react";
+import { Search, User, History, Star, LogIn, LogOut } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useState, useRef, useEffect } from "react";
+import { useAuth } from "@/context/auth-context";
+import AuthModal from "@/components/ui/auth-modal";
 
 export default function Header() {
   const pathname = usePathname();
   const isSeriesSection = pathname?.startsWith("/series") || false;
   const [menuOpen, setMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
+  const { isAuthenticated, user, logout } = useAuth();
 
   // Effet de montage pour s'assurer que tout est correctement chargé côté client
   useEffect(() => {
@@ -78,11 +82,12 @@ export default function Header() {
   }
 
   return (
-    <header 
-      ref={headerRef}
-      className="fixed top-0 left-0 right-0 z-50 pt-6 pb-2 bg-gradient-to-b from-[#030711]/90 to-transparent will-change-transform"
-      style={{ WebkitBackfaceVisibility: 'hidden' }}
-    >
+    <>
+      <header 
+        ref={headerRef}
+        className="fixed top-0 left-0 right-0 z-50 pt-6 pb-2 bg-gradient-to-b from-[#030711]/90 to-transparent will-change-transform"
+        style={{ WebkitBackfaceVisibility: 'hidden' }}
+      >
       <div className="container mx-auto flex items-center justify-between px-6">
         {/* Navigation gauche */}
         <div className="flex items-center space-x-6 md:space-x-10">
@@ -126,6 +131,23 @@ export default function Header() {
             <span className="text-white text-base hidden sm:inline ml-2">Rechercher</span>
           </Link>
 
+          {/* Bouton de connexion / Profil utilisateur */}
+          {isAuthenticated && user ? (
+            <div className="flex items-center space-x-2">
+              <span className="text-white text-sm hidden md:inline">
+                {user.username}
+              </span>
+            </div>
+          ) : (
+            <button
+              onClick={() => setAuthModalOpen(true)}
+              className="bg-blue-600 hover:bg-blue-700 rounded-md flex items-center justify-center h-10 px-3 sm:px-4 transition-colors shadow-md"
+            >
+              <LogIn className="h-5 w-5 text-white" />
+              <span className="text-white text-base hidden sm:inline ml-2">Connexion</span>
+            </button>
+          )}
+
           {/* Menu burger avec dropdown */}
           <div className="relative" ref={menuRef}>
             <button 
@@ -167,6 +189,23 @@ export default function Header() {
                     <Star className="h-4 w-4 mr-3 text-white/70" />
                     <span>Favoris</span>
                   </Link>
+                  
+                  {/* Option de déconnexion si connecté */}
+                  {isAuthenticated && user && (
+                    <>
+                      <div className="border-t border-gray-700 my-1"></div>
+                      <button
+                        onClick={() => {
+                          logout();
+                          setMenuOpen(false);
+                        }}
+                        className="flex items-center w-full px-4 py-3 text-sm text-white hover:bg-[#252525] transition-colors"
+                      >
+                        <LogOut className="h-4 w-4 mr-3 text-white/70" />
+                        <span>Déconnexion</span>
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
             )}
@@ -183,7 +222,16 @@ export default function Header() {
           }
         }
       `}</style>
+
     </header>
+    
+      {/* Modal d'authentification - en dehors du header */}
+      <AuthModal 
+        isOpen={authModalOpen}
+        onClose={() => setAuthModalOpen(false)}
+        initialMode="login"
+      />
+    </>
   );
 }
 

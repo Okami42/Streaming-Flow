@@ -1,0 +1,32 @@
+{
+  "users": [
+    {
+      "id": "1756650210062",
+      "email": "Okami02@okastream.local",
+      "username": "Okami02",
+      "password": "$2b$12$59GnszcSuZaw47q1xPz2C.jvIML77ymz1rCkb/OkkqJ6o/v5ChrIW",
+      "createdAt": "2025-08-31T14:23:30.062Z"
+    }
+  ],
+  "userHistory": {
+    "1756650210062": {
+      "watchHistory": [
+        {
+          "id": "frieren-s1e8",
+          "title": "Frieren",
+          "imageUrl": "https://sm.ign.com/ign_fr/screenshot/default/unnamed_qjuy.jpg",
+          "lastWatchedAt": "2025-08-31T14:25:42.213Z",
+          "progress": 0,
+          "duration": 1440,
+          "episodeInfo": {
+            "season": 1,
+            "episode": 8,
+            "title": "Épisode 8"
+          },
+          "type": "Anime"
+        }
+      ],
+      "readHistory": []
+    }
+  }
+}

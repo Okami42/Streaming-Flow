@@ -1,8 +1,9 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { HistoryItem, WatchHistoryItem, ReadHistoryItem } from '@/lib/history';
 import { mockWatchHistory, mockReadHistory } from '@/lib/mock-history';
+import { useAuth } from '@/context/auth-context';
 
 interface HistoryContextType {
   history: HistoryItem[];
@@ -16,6 +17,8 @@ interface HistoryContextType {
   updateReadProgress: (id: string, page: number) => void;
   getWatchHistoryItem: (id: string) => WatchHistoryItem | undefined;
   ensureMovieInHistory: (movieItem: WatchHistoryItem) => void;
+  syncHistory: () => Promise<void>;
+  loadUserHistory: () => Promise<void>;
 }
 
 const HistoryContext = createContext<HistoryContextType | undefined>(undefined);
@@ -24,6 +27,59 @@ export function HistoryProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
   const [watchHistory, setWatchHistory] = useState<WatchHistoryItem[]>([]);
   const [readHistory, setReadHistory] = useState<ReadHistoryItem[]>([]);
+  const { isAuthenticated, user } = useAuth();
+
+  // Charger l'historique de l'utilisateur depuis le serveur
+  const loadUserHistory = useCallback(async () => {
+    if (!isAuthenticated || !user) return;
+
+    try {
+      const token = localStorage.getItem('auth_token');
+      if (!token) return;
+
+      const response = await fetch('/api/history/sync', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          setWatchHistory(data.data.watchHistory || []);
+          setReadHistory(data.data.readHistory || []);
+        }
+      }
+    } catch (error) {
+      console.error('Erreur lors du chargement de l\'historique:', error);
+    }
+  }, [isAuthenticated, user]);
+
+  // Synchroniser l'historique avec le serveur
+  const syncHistory = useCallback(async () => {
+    if (!isAuthenticated || !user) return;
+
+    try {
+      const token = localStorage.getItem('auth_token');
+      if (!token) return;
+
+      await fetch('/api/history/sync', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          watchHistory,
+          readHistory,
+        }),
+      });
+    } catch (error) {
+      console.error('Erreur lors de la synchronisation de l\'historique:', error);
+    }
+  }, [isAuthenticated, user, watchHistory, readHistory]);
 
   // Combine both histories, sorted by most recent
   const history: HistoryItem[] = React.useMemo(() => {
@@ -39,33 +95,49 @@ export function HistoryProvider({ children }: { children: React.ReactNode }) {
   }, [watchHistory, readHistory]);
 
   useEffect(() => {
-    // For demo purposes, use mock data first time
-    const savedWatchHistory = localStorage.getItem('animeWatchHistory');
-    const savedReadHistory = localStorage.getItem('animeReadHistory');
-
-    if (savedWatchHistory) {
-      setWatchHistory(JSON.parse(savedWatchHistory));
+    if (isAuthenticated && user) {
+      // Si l'utilisateur est connecté, charger son historique depuis le serveur
+      loadUserHistory();
     } else {
-      // Ne pas charger les données fictives par défaut
-      setWatchHistory([]);
-    }
+      // Si pas connecté, charger depuis localStorage
+      const savedWatchHistory = localStorage.getItem('animeWatchHistory');
+      const savedReadHistory = localStorage.getItem('animeReadHistory');
 
-    if (savedReadHistory) {
-      setReadHistory(JSON.parse(savedReadHistory));
-    } else {
-      // Ne pas charger les données fictives par défaut
-      setReadHistory([]);
+      if (savedWatchHistory) {
+        setWatchHistory(JSON.parse(savedWatchHistory));
+      } else {
+        setWatchHistory([]);
+      }
+
+      if (savedReadHistory) {
+        setReadHistory(JSON.parse(savedReadHistory));
+      } else {
+        setReadHistory([]);
+      }
     }
 
     setMounted(true);
-  }, []);
+  }, [isAuthenticated, user, loadUserHistory]);
 
   useEffect(() => {
-    if (mounted) {
+    if (mounted && !isAuthenticated) {
+      // Si pas connecté, sauvegarder en local uniquement
       localStorage.setItem('animeWatchHistory', JSON.stringify(watchHistory));
       localStorage.setItem('animeReadHistory', JSON.stringify(readHistory));
     }
-  }, [mounted, watchHistory, readHistory]);
+  }, [mounted, watchHistory, readHistory, isAuthenticated]);
+
+  // Effet séparé pour la synchronisation avec le serveur
+  useEffect(() => {
+    if (mounted && isAuthenticated && user && (watchHistory.length > 0 || readHistory.length > 0)) {
+      // Synchroniser avec le serveur seulement si connecté et qu'il y a des données
+      const timeoutId = setTimeout(() => {
+        syncHistory();
+      }, 1000); // Délai pour éviter les appels trop fréquents
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [mounted, watchHistory, readHistory, isAuthenticated, user, syncHistory]);
 
   const addToWatchHistory = (item: WatchHistoryItem) => {
     setWatchHistory(prev => {
@@ -165,6 +237,8 @@ export function HistoryProvider({ children }: { children: React.ReactNode }) {
     updateReadProgress,
     getWatchHistoryItem,
     ensureMovieInHistory,
+    syncHistory,
+    loadUserHistory,
   };
 
   return (
