@@ -228,6 +228,13 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
     );
   };
 
+  // Forcer VO par défaut au chargement d'un nouvel anime
+  React.useEffect(() => {
+    if (anime && hasVOEpisodes()) {
+      setSelectedLanguage('vo');
+    }
+  }, [anime?.id]); // Se déclenche quand on change d'anime
+
   // S'assurer que la langue sélectionnée est valide
   React.useEffect(() => {
     if (!hasVFEpisodes() && selectedLanguage === 'vf') {
@@ -235,6 +242,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
     }
     if (!hasVOEpisodes() && selectedLanguage === 'vo') {
       setSelectedLanguage('vf');
+
     }
   }, [selectedSeason, selectedLanguage]);
     
