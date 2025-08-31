@@ -252,6 +252,13 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
             </form>
           )}
 
+          {/* Message informatif */}
+          <div className="mt-4 p-3 bg-blue-500/10 border border-blue-500/20 rounded-md">
+            <p className="text-blue-400 text-sm text-center">
+              💡 Créer un compte permet d'avoir le même historique sur tous les appareils
+            </p>
+          </div>
+
           {/* Mode Switch */}
           <div className="mt-6 text-center">
             <p className="text-gray-400">
