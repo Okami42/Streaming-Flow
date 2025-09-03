@@ -230,21 +230,32 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
 
   // Forcer VO par défaut au chargement d'un nouvel anime
   React.useEffect(() => {
-    if (anime && hasVOEpisodes()) {
-      setSelectedLanguage('vo');
+    if (anime) {
+      // Attendre que les épisodes soient chargés avant de définir la langue
+      const timer = setTimeout(() => {
+        console.log('Debug - hasVOEpisodes():', hasVOEpisodes());
+        console.log('Debug - hasVFEpisodes():', hasVFEpisodes());
+        
+        // FORCER VO EN PRIORITÉ ABSOLUE
+        console.log('Force sélection: VO (priorité absolue)');
+        setSelectedLanguage('vo');
+        
+      }, 100); // Petit délai pour s'assurer que les épisodes sont chargés
+      
+      return () => clearTimeout(timer);
     }
-  }, [anime?.id]); // Se déclenche quand on change d'anime
+  }, [anime?.id, selectedSeason]); // Ajouter selectedSeason pour re-vérifier lors des changements
 
-  // S'assurer que la langue sélectionnée est valide
+  // S'assurer que la langue sélectionnée est valide lors des changements de saison uniquement
   React.useEffect(() => {
-    if (!hasVFEpisodes() && selectedLanguage === 'vf') {
-      setSelectedLanguage('vo');
-    }
-    if (!hasVOEpisodes() && selectedLanguage === 'vo') {
-      setSelectedLanguage('vf');
-
-    }
-  }, [selectedSeason, selectedLanguage]);
+    // Temporairement désactivé pour debugging
+    // if (!hasVFEpisodes() && selectedLanguage === 'vf') {
+    //   setSelectedLanguage('vo');
+    // }
+    // if (!hasVOEpisodes() && selectedLanguage === 'vo') {
+    //   setSelectedLanguage('vf');
+    // }
+  }, [selectedSeason]); // Enlever selectedLanguage pour éviter les boucles
     
   // Récupérer l'épisode actuel selon la structure utilisée
   const episode = useSeasonsStructure
