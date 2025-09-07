@@ -169,7 +169,7 @@ export default function AnimePage() {
       "kaiju-n8": "https://4kwallpapers.com/images/wallpapers/kaiju-no-8-anime-series-3840x2160-18663.jpg", 
       "rent-a-girlfriend": "https://m.media-amazon.com/images/S/pv-target-images/4cddabccdb517240ec6ba1ae70b79e980572b00935698aa84173fb88314b16de.jpg",
       "frieren": "https://4kwallpapers.com/images/wallpapers/frieren-beyond-3840x2160-15146.jpg",
-      "one-piece": "https://images.alphacoders.com/103/1031459.jpg"
+      "one-piece": "https://leclaireur.fnac.com/wp-content/uploads/2024/06/one-piece-001.jpg"
     };
 
     return [

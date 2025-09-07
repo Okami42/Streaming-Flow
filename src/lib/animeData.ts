@@ -146,116 +146,7 @@ export const animes: Anime[] = [
     type: "Anime",
     status: "Terminé",
     genres: ["Action", "Shônen", "Historique", "Surnaturel", "Combats", "Adolescence", "Démons", "Famille"],
-    rating: 9.5,
-    episodes: [
-      { number: 1, title: "Cruauté", sibnetVostfrId: "4670053", sibnetVfId: "4745088" },
-      { number: 2, title: "Sabre du démon", sibnetVostfrId: "4670054", sibnetVfId: "4745089" }
-    ],
-    seasons: [
-      {
-        seasonNumber: 1,
-        title: "Saison 1",
-        year: 2019,
-        episodes: [
-          { number: 1, title: "épisode 1", sibnetVostfrId: "4668120", sibnetVfId: "4668241" },
-          { number: 2, title: "épisode 2", sibnetVostfrId: "4668131", sibnetVfId: "4668280" },
-          { number: 3, title: "épisode 3", sibnetVostfrId: "4668135", sibnetVfId: "4668284" },
-          { number: 4, title: "épisode 4", sibnetVostfrId: "4668139", sibnetVfId: "4668287" },
-          { number: 5, title: "épisode 5", sibnetVostfrId: "4668143", sibnetVfId: "4668289" },
-          { number: 6, title: "épisode 6", sibnetVostfrId: "4668146", sibnetVfId: "4668291" },
-          { number: 7, title: "épisode 7", sibnetVostfrId: "4668149", sibnetVfId: "4668293" },
-          { number: 8, title: "épisode 8", sibnetVostfrId: "4668152", sibnetVfId: "4668298" },
-          { number: 9, title: "épisode 9", sibnetVostfrId: "4668154", sibnetVfId: "4668299" },
-          { number: 10, title: "épisode 10", sibnetVostfrId: "4668157", sibnetVfId: "4668304" },
-          { number: 11, title: "épisode 11", sibnetVostfrId: "4668162", sibnetVfId: "4668308" },
-          { number: 12, title: "épisode 12", sibnetVostfrId: "4668168", sibnetVfId: "4668313" },
-          { number: 13, title: "épisode 13", sibnetVostfrId: "4668174", sibnetVfId: "4668320" },
-          { number: 14, title: "épisode 14", sibnetVostfrId: "4668180", sibnetVfId: "4668327" },
-          { number: 15, title: "épisode 15", sibnetVostfrId: "4668185", sibnetVfId: "4668332" },
-          { number: 16, title: "épisode 16", sibnetVostfrId: "4668191", sibnetVfId: "4668339" },
-          { number: 17, title: "épisode 17", sibnetVostfrId: "4668198", sibnetVfId: "4668344" },
-          { number: 18, title: "épisode 18", sibnetVostfrId: "4668203", sibnetVfId: "4668349" },
-          { number: 19, title: "épisode 19", sibnetVostfrId: "4668210", sibnetVfId: "4668358" },
-          { number: 20, title: "épisode 20", sibnetVostfrId: "4668212", sibnetVfId: "4668363" },
-          { number: 21, title: "épisode 21", sibnetVostfrId: "4668216", sibnetVfId: "4668369" },
-          { number: 22, title: "épisode 22", sibnetVostfrId: "4668223", sibnetVfId: "4668375" },
-          { number: 23, title: "épisode 23", sibnetVostfrId: "4668225", sibnetVfId: "4668379" },
-          { number: 24, title: "épisode 24", sibnetVostfrId: "4668227", sibnetVfId: "4668384" },
-          { number: 25, title: "épisode 25", sibnetVostfrId: "4668229", sibnetVfId: "4668387" },
-          { number: 26, title: "épisode 26", sibnetVostfrId: "4668230", sibnetVfId: "4668389" }
-        ]
-      },
-      {
-        seasonNumber: "Film",
-        title: "Film",
-        year: 2021,
-        episodes: [
-          { number: 1, title: "Le train de l'Infini", sibnetVostfrId: "4825545", sibnetVfId: "4708131" }
-        ]
-      },
-      {
-        seasonNumber: "Train de l'Infini",
-        title: "Épisode - Train de l'Infini",
-        year: 2021,
-        episodes: [
-          { number: 1, title: "épisode 1", sibnetVostfrId: "ds3ep1", sibnetVfId: "ds3ep1fr" },
-          { number: 2, title: "épisode 2", sibnetVostfrId: "ds3ep2", sibnetVfId: "ds3ep2fr" },
-          { number: 3, title: "épisode 3", sibnetVostfrId: "ds3ep3", sibnetVfId: "ds3ep3fr" }
-
-        ]
-      },
-      {
-        seasonNumber: 2,
-        title: "Saison 2",
-        year: 2020,
-        episodes: [
-          { number: 1, title: "épisode 1", sibnetVostfrId: "4667143", sibnetVfId: "4699607" },
-          { number: 2, title: "épisode 2", sibnetVostfrId: "4667145", sibnetVfId: "4699609" },
-          { number: 3, title: "épisode 3", sibnetVostfrId: "4667146", sibnetVfId: "4699611" },
-          { number: 4, title: "épisode 4", sibnetVostfrId: "4667148", sibnetVfId: "4699612" },
-          { number: 5, title: "épisode 5", sibnetVostfrId: "4667149", sibnetVfId: "4699613" },
-          { number: 6, title: "épisode 6", sibnetVostfrId: "4667151", sibnetVfId: "4699614" },
-          { number: 7, title: "épisode 7", sibnetVostfrId: "4667153", sibnetVfId: "4699616" },
-          { number: 8, title: "épisode 8", sibnetVostfrId: "4667156", sibnetVfId: "4699618" },
-          { number: 9, title: "épisode 9", sibnetVostfrId: "4667157", sibnetVfId: "4699620" },
-          { number: 10, title: "épisode 10", sibnetVostfrId: "4667164", sibnetVfId: "4699622" },
-          { number: 11, title: "épisode 11", sibnetVostfrId: "4667165", sibnetVfId: "4699625" }
-        ]
-      },
-      {
-        seasonNumber: 3,
-        title: "Saison 3",
-        year: 2022,
-        episodes: [
-          { number: 1, title: "Le Démon, Partie 12", sibnetVostfrId: "5101293", sibnetVfId: "5123652" },
-          { number: 2, title: "Le Démon, Partie 13", sibnetVostfrId: "5107783", sibnetVfId: "5129278" },
-          { number: 3, title: "Le Démon, Partie 14", sibnetVostfrId: "5115500", sibnetVfId: "5139733" },
-          { number: 4, title: "Le Démon, Partie 15", sibnetVostfrId: "5122356", sibnetVfId: "5148655" },
-          { number: 5, title: "Le Démon, Partie 16", sibnetVostfrId: "5129066", sibnetVfId: "5155200" },
-          { number: 6, title: "Le Démon, Partie 17", sibnetVostfrId: "5139273", sibnetVfId: "5162155" },
-          { number: 7, title: "Le Démon, Partie 18", sibnetVostfrId: "5148330", sibnetVfId: "5168755" },
-          { number: 8, title: "Le Démon, Partie 19", sibnetVostfrId: "5155057", sibnetVfId: "5175891" },
-          { number: 9, title: "Le Démon, Partie 20", sibnetVostfrId: "5162019", sibnetVfId: "5181163" },
-          { number: 10, title: "Le Démon, Partie 21", sibnetVostfrId: "5168522", sibnetVfId: "5186530" },
-          { number: 11, title: "Le Démon, Partie 22", sibnetVostfrId: "5175809", sibnetVfId: "5193486" }
-        ]
-      },
-      {
-        seasonNumber: 4,
-        title: "Saison 4",
-        year: 2024,
-        episodes: [
-          { number: 1, title: "Pour vaincre Kibutsuji Muzan", sibnetVostfrId: "5533798", sibnetVfId: "5558735" },
-          { number: 2, title: "La Souffrance de Tomioka Giyû, pilier de l'eau", sibnetVostfrId: "5540224", sibnetVfId: "5565316" },
-          { number: 3, title: "Tanjiro est rétabli et se joint à l'entraînement", sibnetVostfrId: "5546321", sibnetVfId: "5574503" },
-          { number: 4, title: "Souris", sibnetVostfrId: "5552382", sibnetVfId: "5582223" },
-          { number: 5, title: "Manger des démons", sibnetVostfrId: "5558041", sibnetVfId: "5589758" },
-          { number: 6, title: "Le Plus Fort des pourfendeurs", sibnetVostfrId: "5565081", sibnetVfId: "5597263" },
-          { number: 7, title: "Himejima Gyômei, pilier du rocher", sibnetVostfrId: "5573417", sibnetVfId: "5606165" },
-          { number: 8, title: "Rassemblement des piliers", sibnetVostfrId: "5581267", sibnetVfId: "5613056" }
-        ]
-      }
-    ]
+    rating: 9.5
   },
   {
     id: "akudama-drive",
@@ -2657,5 +2548,32 @@ export const animes: Anime[] = [
     status: "Terminé",
     genres: ["Sport", "Tennis", "École", "Romance", "Développement"],
     rating: 8.2
+  },
+  {
+    id: "re-zero",
+    title: "Re:Zero - Starting Life in Another World",
+    originalTitle: "Re:ゼロから始める異世界生活",
+    description: "Subaru Natsuki se retrouve transporté dans un monde de fantasy. Il découvre rapidement qu'il possède l'étrange capacité de 'revenir d'entre les morts' et de reprendre sa vie à un point de sauvegarde spécifique chaque fois qu'il meurt. Avec cette malédiction et cette bénédiction, il doit naviguer dans ce nouveau monde plein de dangers, tenter de sauver ceux qu'il aime et découvrir les mystères de ce pouvoir qui le lie à ce monde.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2016,
+    type: "Anime",
+    status: "En cours",
+    genres: ["Fantasy", "Drame", "Isekai", "Psychologique", "Romance", "Aventure", "Autre monde", "Magie"],
+    rating: 8.8,
+
+  },
+  {
+    id: "tokyo-ghoul",
+    title: "Tokyo Ghoul",
+    originalTitle: "東京喰種トーキョーグール",
+    description: "Ken Kaneki est un étudiant timide qui passe ses journées à lire dans un café. Sa vie bascule quand il rencontre Rize, une mystérieuse jeune femme qui partage sa passion pour la littérature. Mais Rize cache un terrible secret : elle est un goule, une créature qui se nourrit de chair humaine. Après une attaque qui tourne mal, Kaneki se retrouve transformé en demi-goule, coincé entre le monde des humains et celui des goules. Il doit maintenant apprendre à vivre avec sa nouvelle nature tout en cachant son identité.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2014,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Action", "Horreur", "Surnaturel", "Seinen", "Dark Fantasy", "Drame", "Mystère", "Thriller"],
+    rating: 8.7,
   }
 ];

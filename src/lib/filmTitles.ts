@@ -23,6 +23,11 @@ export const filmTitles: Record<string, Record<string, string>> = {
     "1": "Your Name",
     "Film_1": "Your Name"
   },
+
+  "re-zero": {
+    "Film_1": "Memory Snow",
+    "Film_2": "The Frozen Bond"
+  },
   
   // My Hero Academia
   "my-hero-academia": {
