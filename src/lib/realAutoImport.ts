@@ -5,15 +5,18 @@ import { simpleFetch } from './simple-403-fix';
 const SPEED_CONFIG = {
   enableCache: true,
   cacheTimeout: 1800000, // 30 minutes
-  requestTimeout: 1500, // Réduit à 1.5 secondes
-  batchSize: 3, // Réduit pour éviter la détection
-  batchDelay: 300, // Délai entre batches
+  requestTimeout: 800, // Encore plus rapide
+  batchSize: 1, // Un seul à la fois pour éviter surcharge
+  batchDelay: 50, // Délai minimal
   maxRetries: 1, // Une seule tentative
-  enableLogs: false
+  enableLogs: false // LOGS DÉSACTIVÉS pour la performance
 };
 
 // Cache ultra-rapide en mémoire
 const ultraCache = new Map<string, { data: string[], timestamp: number }>();
+
+// Cache des animes enrichis pour éviter les rechargements
+const enrichedAnimeCache = new Map<string, { anime: Anime, timestamp: number }>();
 
 /**
  * Parse ultra-rapide des fichiers d'épisodes avec support Sendvid
@@ -43,7 +46,7 @@ function fastParseEpisodeFile(content: string): { episodes: Array<{type: 'sibnet
       const sendvidMatch = url.match(/sendvid\.com\/embed\/([a-zA-Z0-9]+)/);
       if (sendvidMatch) {
         episodes.push({ type: 'sendvid', id: sendvidMatch[1] });
-        console.log(`🎯 Sendvid détecté: ${sendvidMatch[1]} (URL: ${url})`);
+        // Log désactivé pour la performance
       }
     }
 
@@ -122,7 +125,7 @@ async function ultraFastLoadEpisode(filePath: string): Promise<{ sibnetIds: stri
           ultraCache.set(filePath, { data: sibnetIds, timestamp: Date.now() });
         }
         
-        console.log(`✅ Trouvé dans ${folder} - arrêt de la recherche dans les autres dossiers`);
+        // Log désactivé pour la performance
         return { 
           sibnetIds, 
           sendvidIds, 
@@ -263,14 +266,14 @@ async function loadEpisodeFromSpecificFolder(filePath: string, folder: string): 
       });
       
       if (SPEED_CONFIG.enableLogs && result.episodes.length > 0) {
-        console.log(`✅ Chargé depuis ${folder}: ${result.episodes.length} épisodes dans l'ordre`);
+        // Log désactivé pour la performance
       }
       
       return { sibnetIds, sendvidIds, episodes: result.episodes };
     }
   } catch (error) {
     if (SPEED_CONFIG.enableLogs) {
-      console.log(`❌ Échec de chargement depuis ${folder}:`, error);
+      // Log d'erreur désactivé pour la performance
     }
   }
   
@@ -286,7 +289,7 @@ async function sequentialLoadSeasons(animeId: string, animeYear?: number): Promi
   const seasons: AnimeSeason[] = [];
   
   if (SPEED_CONFIG.enableLogs) {
-    console.log(`🔍 Chargement séquentiel pour ${animeId}...`);
+    // Log désactivé pour la performance
   }
   
   // Chargement séquentiel des saisons (commence par saison 1, 2, 3...)
@@ -299,7 +302,7 @@ async function sequentialLoadSeasons(animeId: string, animeYear?: number): Promi
     const vfPath = `${actualFolderName}/${folder}/episodes_vf.js`;
     
     if (SPEED_CONFIG.enableLogs) {
-      console.log(`🔍 Test saison ${seasonNumber}...`);
+      // Log désactivé pour la performance
     }
     
     // Si on a déjà trouvé l'anime dans un dossier, utiliser une version optimisée
@@ -332,7 +335,7 @@ async function sequentialLoadSeasons(animeId: string, animeYear?: number): Promi
         }
         
         if (SPEED_CONFIG.enableLogs) {
-          console.log(`📁 Anime trouvé dans ${foundInFolder} - les prochaines saisons seront cherchées uniquement ici`);
+          // Log désactivé pour la performance
         }
       }
     }
@@ -340,7 +343,7 @@ async function sequentialLoadSeasons(animeId: string, animeYear?: number): Promi
     // Si aucun fichier trouvé pour cette saison, ARRÊTER immédiatement
     if (vostfrResult.episodes.length === 0 && vfResult.episodes.length === 0) {
       if (SPEED_CONFIG.enableLogs) {
-        console.log(`❌ Saison ${seasonNumber} non trouvée - ARRÊT de la recherche des saisons`);
+        // Log désactivé pour la performance
       }
       break; // Arrêter immédiatement la recherche des saisons
     }
@@ -386,7 +389,7 @@ async function sequentialLoadSeasons(animeId: string, animeYear?: number): Promi
       });
       
       if (SPEED_CONFIG.enableLogs) {
-        console.log(`✅ Saison ${seasonNumber}: ${episodes.length} épisodes`);
+        // Log désactivé pour la performance
       }
     }
     
@@ -456,7 +459,7 @@ async function sequentialLoadSeasons(animeId: string, animeYear?: number): Promi
       });
       
       if (SPEED_CONFIG.enableLogs) {
-        console.log(`🎬 Films: ${filmEpisodes.length} film(s)`);
+        // Log désactivé pour la performance
       }
     }
   }
@@ -592,32 +595,26 @@ async function loadEpisodeFile(filePath: string): Promise<{ sibnetIds: string[],
       // Construire l'URL pour accéder au fichier depuis le dossier public
       const url = `/${folder}/${filePath}`;
       
-      console.log(`🔍 Tentative de chargement: ${url}`);
+      // Logs désactivés pour la performance
       
       const response = await fetch(url);
-      console.log(`📡 Réponse HTTP: ${response.status} ${response.statusText}`);
       
       if (!response.ok) {
-        console.log(`❌ Fichier non trouvé: ${url} (Status: ${response.status})`);
         continue; // Essayer le dossier suivant
       }
       
       const content = await response.text();
-      console.log(`📄 Contenu reçu de ${folder} (${content.length} caractères): ${content.substring(0, 100)}...`);
       
       const result = parseEpisodeFileContent(content);
-      console.log(`🎯 IDs extraits de ${folder}: ${result.sibnetIds.length} Sibnet + ${result.sendvidIds.length} Sendvid`);
-      console.log(`✅ Fichier trouvé dans ${folder} - arrêt de la recherche dans les autres dossiers`);
       
       return result; // ARRÊT immédiat - pas besoin de chercher ailleurs
     } catch (error) {
-      console.error(`❌ Erreur lors du chargement de ${filePath} depuis ${folder}:`, error);
+      // Logs d'erreur désactivés pour la performance
       continue; // Essayer le dossier suivant
     }
   }
   
-  // Si aucun dossier n'a fourni le fichier
-  console.log(`❌ Fichier ${filePath} introuvable dans tous les dossiers d'épisodes`);
+  // Si aucun dossier n'a fourni le fichier - log désactivé pour la performance
   return { sibnetIds: [], sendvidIds: [] };
 }
 
@@ -750,26 +747,18 @@ async function loadAllSeasonsForAnime(animeId: string, animeYear?: number): Prom
  * Fonction principale pour charger automatiquement les épisodes
  */
 export async function autoLoadEpisodes(animeId: string, animeYear?: number): Promise<AnimeSeason[]> {
-  console.log(`🔍 Auto-chargement des épisodes pour: ${animeId} (${animeYear || 'année inconnue'})`);
+  // Logs désactivés pour la performance
   
   try {
     const seasons = await loadAllSeasonsForAnime(animeId, animeYear);
     
     if (seasons.length > 0) {
-      console.log(`🎯 ${seasons.length} saison(s) chargée(s) pour ${animeId}`);
-      
-      // Log détaillé pour debug
-      seasons.forEach(season => {
-        console.log(`  📺 ${season.title}: ${season.episodes.length} épisodes`);
-      });
-      
       return seasons;
     } else {
-      console.log(`⚠️ Aucun épisode trouvé pour ${animeId}`);
       return [];
     }
   } catch (error) {
-    console.error(`❌ Erreur lors de l'auto-chargement pour ${animeId}:`, error);
+    // Log d'erreur désactivé pour la performance
     return [];
   }
 }
@@ -778,9 +767,16 @@ export async function autoLoadEpisodes(animeId: string, animeYear?: number): Pro
  * Enrichit un anime avec les épisodes auto-chargés, en gardant les saisons existantes
  */
 export async function enrichAnimeWithRealEpisodes(anime: Anime): Promise<Anime> {
+  // Vérifier le cache d'abord
+  const cached = enrichedAnimeCache.get(anime.id);
+  if (cached && (Date.now() - cached.timestamp) < SPEED_CONFIG.cacheTimeout) {
+    return cached.anime;
+  }
+  
   // Si l'anime a déjà des saisons ET des épisodes, on les garde
   if (anime.seasons && anime.seasons.length > 0 && anime.seasons[0].episodes.length > 0) {
-    console.log(`📚 ${anime.title} a déjà des épisodes définis manuellement`);
+    // Mettre en cache et retourner
+    enrichedAnimeCache.set(anime.id, { anime, timestamp: Date.now() });
     return anime;
   }
   
@@ -788,15 +784,17 @@ export async function enrichAnimeWithRealEpisodes(anime: Anime): Promise<Anime> 
   const autoSeasons = await autoLoadEpisodes(anime.id, anime.year);
   
   if (autoSeasons.length > 0) {
-    console.log(`🎯 Auto-chargement réussi pour ${anime.title}`);
-    return {
+    const enrichedAnime = {
       ...anime,
       seasons: autoSeasons
     };
+    // Mettre en cache
+    enrichedAnimeCache.set(anime.id, { anime: enrichedAnime, timestamp: Date.now() });
+    return enrichedAnime;
   }
   
-  // Si échec, garder la structure existante
-  console.log(`⚠️ Auto-chargement échoué pour ${anime.title}, conservation des données manuelles`);
+  // Si échec, garder la structure existante et mettre en cache
+  enrichedAnimeCache.set(anime.id, { anime, timestamp: Date.now() });
   return anime;
 }
 
@@ -804,12 +802,12 @@ export async function enrichAnimeWithRealEpisodes(anime: Anime): Promise<Anime> 
  * Version batch pour enrichir plusieurs animes
  */
 export async function enrichMultipleAnimes(animes: Anime[]): Promise<Anime[]> {
-  console.log(`🔄 Enrichissement de ${animes.length} animes...`);
+  // Log désactivé pour la performance
   
   const enrichedAnimes: Anime[] = [];
   
   // Traiter par petits groupes pour éviter de surcharger le serveur
-  const batchSize = 5;
+  const batchSize = 1; // Réduit pour éviter surcharge
   for (let i = 0; i < animes.length; i += batchSize) {
     const batch = animes.slice(i, i + batchSize);
     
@@ -818,13 +816,13 @@ export async function enrichMultipleAnimes(animes: Anime[]): Promise<Anime[]> {
     
     enrichedAnimes.push(...enrichedBatch);
     
-    // Petite pause entre les batches
+    // Petite pause entre les batches - réduite
     if (i + batchSize < animes.length) {
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
     }
   }
   
-  console.log(`✅ Enrichissement terminé`);
+  // Log désactivé pour la performance
   return enrichedAnimes;
 }
 

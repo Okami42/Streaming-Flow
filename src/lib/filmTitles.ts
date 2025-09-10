@@ -48,7 +48,7 @@ export const filmTitles: Record<string, Record<string, string>> = {
     "Film_3": "Dragon Ball Super: Broly"
   },
   
-  // One Piece
+
   "one-piece": {
     "Film_1": "One Piece: Strong World",
     "Film_2": "One Piece: Z",
@@ -57,9 +57,7 @@ export const filmTitles: Record<string, Record<string, string>> = {
     "Film_5": "One Piece: Red"
   },
   
-  // ========== EXEMPLE POUR PLUSIEURS FILMS ==========
-  
-  // Exemple d'animé avec plusieurs films dans des saisons séparées
+
   "attack-on-titan": {
     "Film_1": "L'Attaque des Titans: Partie 1",
     "Film_2": "L'Attaque des Titans: Partie 2",
@@ -74,8 +72,7 @@ export const filmTitles: Record<string, Record<string, string>> = {
     "Film_4": "Evangelion: 3.0+1.0 Thrice Upon a Time"
   },
   
-  // Ajoutez ici d'autres films avec leurs vrais noms
-  // Format: "anime-id": { "episode-key": "Vrai Titre du Film" }
+
 };
 
 /**
