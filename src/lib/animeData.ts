@@ -2772,19 +2772,6 @@ export const animes: Anime[] = [
     rating: 8.4
   },
   {
-    id: "mob-psycho-100",
-    title: "Mob Psycho 100",
-    originalTitle: "モブサイコ100",
-    description: "Shigeo Kageyama, surnommé 'Mob', est un collégien doté de puissants pouvoirs psychiques qu'il essaie de réprimer. Il travaille sous Reigen Arataka, un escroc qui se fait passer pour un exorciste mais qui n'a aucun pouvoir réel. Mob aspire à une vie normale et à devenir populaire, mais ses pouvoirs explosent quand ses émotions atteignent 100%. Entre exorcismes, interactions sociales maladroites et croissance personnelle, Mob apprend que les vrais pouvoirs résident dans les liens humains et la confiance en soi.",
-    imageUrl: "",
-    bannerUrl: "/picture/bassembanniere.png",
-    year: 2016,
-    type: "Anime",
-    status: "Terminé",
-    genres: ["Action", "Comédie", "Surnaturel", "École", "Pouvoirs psychiques", "Adolescence", "Exorcisme"],
-    rating: 9.1
-  },
-  {
     id: "dorohedoro",
     title: "Dorohedoro",
     originalTitle: "ドロヘドロ",
