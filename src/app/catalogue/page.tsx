@@ -19,10 +19,16 @@ export default function CataloguePage() {
   const animesPerPage = 54;
 
   const toggleGenre = (genre: string) => {
+    
+    
     if (selectedGenres.includes(genre)) {
-      setSelectedGenres(selectedGenres.filter(g => g !== genre));
+      const newGenres = selectedGenres.filter(g => g !== genre);
+      ;
+      setSelectedGenres(newGenres);
     } else {
-      setSelectedGenres([...selectedGenres, genre]);
+      const newGenres = [...selectedGenres, genre];
+      
+      setSelectedGenres(newGenres);
     }
   };
 
@@ -157,11 +163,12 @@ export default function CataloguePage() {
                 {genres.map((genre) => (
                   <button
                     key={genre}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors touch-manipulation select-none focus:outline-none ${
                       selectedGenres.includes(genre)
                         ? "bg-blue-500 text-white"
-                        : "bg-[#151a2a] text-gray-300 hover:!bg-blue-500 hover:!text-white"
+                        : "bg-[#151a2a] text-gray-300 [@media(hover:hover)]:hover:bg-blue-500 [@media(hover:hover)]:hover:text-white"
                     }`}
+                    data-selected={selectedGenres.includes(genre).toString()}
                     onClick={() => toggleGenre(genre)}
                   >
                     {genre}
