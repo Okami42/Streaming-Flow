@@ -1021,7 +1021,7 @@ export const animes: CatalogueAnime[] = [
       {
         id: "dorohedoro",
         title: "Dorohedoro",
-        imageUrl: "",
+        imageUrl: "https://m.media-amazon.com/images/M/MV5BYzE2M2I0ZmYtYjMxYS00NzYzLWEzNmEtZjQ4ODhmMDNmN2MyXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
         type: "Anime",
         language: "VF & VO",
         genres: getAnimeGenres("dorohedoro"),
@@ -1029,7 +1029,7 @@ export const animes: CatalogueAnime[] = [
       {
         id: "wonder-egg-priority",
         title: "Wonder Egg Priority",
-        imageUrl: "",
+        imageUrl: "https://fr.web.img3.acsta.net/c_310_420/pictures/20/12/30/12/09/4927238.jpg",
         type: "Anime",
         language: "VO",
         genres: getAnimeGenres("wonder-egg-priority"),

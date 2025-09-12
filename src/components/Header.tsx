@@ -1,21 +1,27 @@
 "use client";
 
-import { Search, User, History, Star, LogIn, LogOut } from "lucide-react";
+import { Search, User, History, Star, LogIn, LogOut, LayoutGrid, X } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useState, useRef, useEffect } from "react";
 import { useAuth } from "@/context/auth-context";
 import AuthModal from "@/components/ui/auth-modal";
+import { animes, getAnimeImage } from "@/lib/catalogue-utils";
 
 export default function Header() {
   const pathname = usePathname();
+  const router = useRouter();
   const isSeriesSection = pathname?.startsWith("/series") || false;
   const [menuOpen, setMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState<any[]>([]);
   const menuRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
+  const searchRef = useRef<HTMLDivElement>(null);
   const { isAuthenticated, user, logout } = useAuth();
 
   // Effet de montage pour s'assurer que tout est correctement chargé côté client
@@ -45,6 +51,11 @@ export default function Header() {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setMenuOpen(false);
       }
+      // Fermer seulement les résultats si on clique en dehors, garder la barre ouverte
+      const searchContainer = document.querySelector('.search-container');
+      if (searchContainer && !searchContainer.contains(event.target as Node)) {
+        setSearchResults([]);
+      }
     }
     
     if (mounted) {
@@ -54,6 +65,51 @@ export default function Header() {
       };
     }
   }, [mounted]);
+
+  // Logique de recherche
+  const performSearch = (term: string) => {
+    if (!term.trim()) {
+      setSearchResults([]);
+      return;
+    }
+
+    // Utiliser les données du catalogue uniquement
+    const filteredAnimes = animes.filter(anime => 
+      anime.title.toLowerCase().includes(term.toLowerCase())
+    ).map(anime => ({
+      id: anime.id,
+      title: anime.title,
+      imageUrl: anime.imageUrl || getAnimeImage(anime.id),
+      type: anime.type,
+      language: anime.language
+    }));
+
+    // Limiter à 8 résultats pour l'affichage
+    setSearchResults(filteredAnimes.slice(0, 8));
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newTerm = e.target.value;
+    setSearchTerm(newTerm);
+    performSearch(newTerm);
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchTerm)}`);
+      setSearchOpen(false);
+      setSearchTerm("");
+      setSearchResults([]);
+    }
+  };
+
+  const handleResultClick = (animeId: string) => {
+    router.push(`/catalogue/${animeId}`);
+    setSearchOpen(false);
+    setSearchTerm("");
+    setSearchResults([]);
+  };
 
   // Gérer la visibilité sur scroll pour mobile
   useEffect(() => {
@@ -109,10 +165,11 @@ export default function Header() {
           >
             Top 10
           </Link>
+          {/* Catalogue visible uniquement sur desktop */}
           <Link 
             href={isSeriesSection ? "/series/catalogue" : "/catalogue"}
             className={cn(
-              "text-white hover:text-white/80 transition-colors text-base md:text-lg font-medium drop-shadow-md",
+              "text-white hover:text-white/80 transition-colors text-base md:text-lg font-medium drop-shadow-md hidden md:inline",
               (isSeriesSection ? pathname === "/series/catalogue" : pathname === "/catalogue") && "text-white"
             )}
           >
@@ -122,14 +179,64 @@ export default function Header() {
 
         {/* Éléments de droite */}
         <div className="flex items-center space-x-4">
-          {/* Bouton de recherche avec cadre */}
-          <Link 
-            href={isSeriesSection ? "/series/catalogue" : "/catalogue"}
-            className="relative bg-black/40 rounded-md flex items-center justify-center h-10 px-3 sm:px-4 hover:bg-black/60 transition-colors shadow-md"
-          >
-            <Search className="h-5 w-5 text-white" />
-            <span className="text-white text-base hidden sm:inline ml-2">Rechercher</span>
-          </Link>
+          {/* Barre de recherche ou bouton */}
+          <div className="relative search-container">
+            {searchOpen ? (
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                  placeholder="Rechercher..."
+                  className="w-48 md:w-80 bg-black/60 border border-blue-500/50 rounded-full pl-10 pr-10 py-2 text-white text-sm placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                  autoFocus
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchOpen(false);
+                    setSearchTerm("");
+                    setSearchResults([]);
+                  }}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+            ) : (
+              <button 
+                onClick={() => setSearchOpen(true)}
+                className="relative bg-black/40 rounded-md flex items-center justify-center h-10 px-3 sm:px-4 hover:bg-black/60 transition-colors shadow-md"
+              >
+                <Search className="h-5 w-5 text-white" />
+                <span className="text-white text-base ml-2">Rechercher</span>
+              </button>
+            )}
+
+            {/* Dropdown des résultats */}
+            {searchOpen && searchTerm.trim() !== "" && searchResults.length > 0 && (
+              <div className="absolute top-full left-0 md:right-0 md:left-auto mt-2 w-80 md:w-96 bg-[#1a1a1a] border border-white/20 rounded-lg shadow-2xl max-h-80 overflow-y-auto z-50">
+                {searchResults.map((anime) => (
+                  <button
+                    key={anime.id}
+                    onClick={() => handleResultClick(anime.id)}
+                    className="w-full flex items-center px-4 py-3 hover:bg-white/10 transition-colors text-left first:rounded-t-lg last:rounded-b-lg"
+                  >
+                    <img
+                      src={anime.imageUrl}
+                      alt={anime.title}
+                      className="w-12 h-16 object-cover rounded mr-3 flex-shrink-0"
+                    />
+                    <div className="flex-grow min-w-0">
+                      <h3 className="text-white font-medium text-sm mb-1">{anime.title}</h3>
+                      <p className="text-gray-400 text-xs">{anime.type} • {anime.language}</p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
 
           {/* Bouton de connexion / Profil utilisateur */}
           {isAuthenticated && user ? (
@@ -172,6 +279,15 @@ export default function Header() {
                   >
                     <User className="h-4 w-4 mr-3 text-white/70" />
                     <span>Profil</span>
+                  </Link>
+                  {/* Catalogue visible uniquement sur mobile */}
+                  <Link 
+                    href={isSeriesSection ? "/series/catalogue" : "/catalogue"}
+                    className="flex items-center px-4 py-3 text-sm text-white hover:bg-[#252525] transition-colors md:hidden"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <LayoutGrid className="h-4 w-4 mr-3 text-white/70" />
+                    <span>Catalogue</span>
                   </Link>
                   <Link 
                     href="/profil?tab=history" 
@@ -224,6 +340,7 @@ export default function Header() {
       `}</style>
 
     </header>
+
     
       {/* Modal d'authentification - en dehors du header */}
       <AuthModal 
