@@ -77,7 +77,7 @@ export const animes: Anime[] = [
     year: 1988,
     type: "Movie",
     status: "Terminé",
-    genres: ["Science-fiction", "Action", "Cyberpunk", "Psychologique", "Combats", "Dystopie", "Technologies", "Futur"],
+    genres: ["Science-fiction", "Action", "Cyberpunk", "Psychologique", "Combats", "Technologies", "Futur"],
     rating: 8.7,
     episodes: [
       { number: 1, title: "Akira", sibnetVostfrId: "4740096", sibnetVfId: "5340708" }
@@ -93,7 +93,7 @@ export const animes: Anime[] = [
     year: 2024,
     type: "Anime",
     status: "En cours",
-    genres: ["Romance", "Comédie", "Slice of Life", "École", "Harem", "Surnaturel", "Tradition"],
+    genres: ["Romance", "Comédie", "Slice of Life", "École", "Harem", "Surnaturel"],
     rating: 7.5
   },
   {
@@ -132,7 +132,7 @@ export const animes: Anime[] = [
     year: 2024,
     type: "Anime",
     status: "Terminé",
-    genres: ["Action", "Fantasy", "Aventure", "Shônen", "Combats", "Autre monde"],
+    genres: ["Action", "Fantasy", "Aventure", "Shônen", "Combats", "Isekai"],
     rating: 9.0
   },
   {
@@ -158,7 +158,7 @@ export const animes: Anime[] = [
     year: 2020,
     type: "Anime",
     status: "Terminé",
-    genres: ["Action", "Science-fiction", "Dystopie", "Combats"],
+    genres: ["Action", "Science-fiction", "Combats"],
     rating: 8.7
   },
   {
@@ -281,7 +281,7 @@ export const animes: Anime[] = [
     year: 2006,
     type: "Anime",
     status: "Terminé",
-    genres: ["Mystère", "Surnaturel", "Thriller", "Psychologique", "Crime", "Supernatural", "Mature"],
+    genres: ["Mystère", "Surnaturel", "Thriller", "Psychologique", "Crime", "Mature"],
     rating: 9.0
   },
   {
@@ -333,7 +333,7 @@ export const animes: Anime[] = [
     year: 2024,
     type: "Anime",
     status: "En cours",
-    genres: ["Aventure", "Fantasy", "Isekai", "Comédie", "Autre monde"],
+    genres: ["Aventure", "Fantasy", "Isekai", "Comédie"],
     rating: 7.0
   },
   {
@@ -372,7 +372,7 @@ export const animes: Anime[] = [
     year: 2019,
     type: "Anime",
     status: "Terminé",
-    genres: ["Action", "Fantasy", "Surnaturel", "Shounen"],
+    genres: ["Action", "Fantasy", "Surnaturel", "Shônen"],
     rating: 8.2
   },
   {
@@ -514,7 +514,7 @@ export const animes: Anime[] = [
     year: 2019,
     type: "Movie",
     status: "Terminé",
-    genres: ["Romance", "Drame", "Surnaturel", "Film"],
+    genres: ["Romance", "Drame", "Surnaturel"],
     rating: 8.9,
     seasons: [
       {
@@ -602,7 +602,7 @@ export const animes: Anime[] = [
     year: 2023,
     type: "Anime",
     status: "Terminé",
-    genres: ["Action", "Drama", "Fantasy", "Dragons", "Voyage temporel"],
+    genres: ["Action", "Drame", "Fantasy", "Monstres", "Voyage temporel"],
     rating: 7.8
   },
   {
@@ -693,7 +693,7 @@ export const animes: Anime[] = [
     year: 2006,
     type: "Anime",
     status: "Terminé",
-    genres: ["Action", "Comedy", "Ecchi", "School", "Shounen", "Sports"],
+    genres: ["Action", "Comédie", "Ecchi", "École", "Shônen", "Sport"],
     rating: 7.4
   },
   {
@@ -706,7 +706,7 @@ export const animes: Anime[] = [
     year: 2022,
     type: "Anime",
     status: "Terminé",
-    genres: ["Comedy", "Romance", "School", "Slice of Life"],
+    genres: ["Comédie", "Romance", "École", "Slice of Life"],
     rating: 7.6
   },
   {
@@ -719,7 +719,7 @@ export const animes: Anime[] = [
     year: 2017,
     type: "Anime",
     status: "Terminé",
-    genres: ["Comedy", "Romance", "School", "Shounen"],
+    genres: ["Comédie", "Romance", "École", "Shônen"],
     rating: 6.9
   },
   {
@@ -732,7 +732,7 @@ export const animes: Anime[] = [
     year: 2014,
     type: "Anime",
     status: "En cours",
-    genres: ["Action", "Adventure", "Comedy", "Drama", "Fantasy", "Romance", "Shoujo"],
+    genres: ["Action", "Aventure", "Comédie", "Drame", "Fantasy", "Romance", "Shôjo"],
     rating: 8.4
   },
   {
@@ -758,7 +758,7 @@ export const animes: Anime[] = [
     year: 2015,
     type: "Anime",
     status: "Terminé",
-    genres: ["Action", "Ecchi", "Harem", "Romance", "School", "Supernatural"],
+    genres: ["Action", "Ecchi", "Harem", "Romance", "École", "Surnaturel"],
     rating: 6.3
   },
   {
@@ -855,7 +855,7 @@ export const animes: Anime[] = [
     year: 2022,
     type: "Anime",
     status: "En cours",
-    genres: ["Comedy", "Romance", "School", "Shounen"],
+    genres: ["Comédie", "Romance", "École", "Shônen"],
     rating: 7.1
   },
   {
@@ -3054,7 +3054,7 @@ export const animes: Anime[] = [
     year: 2021,
     type: "Anime",
     status: "Terminé",
-    genres: ["Jeux de cartes", "Dystopie", "Mystère", "Stratégie", "Amnésie", "Futur"],
+    genres: ["Jeux", "Futur", "Mystère", "Politique", "Maladie"],
     rating: 7.0
   },
   {
@@ -3067,7 +3067,7 @@ export const animes: Anime[] = [
     year: 2023,
     type: "Anime",
     status: "Terminé",
-    genres: ["Action", "Science-fiction", "Esport", "Armes à feu", "Virtuel", "Compétition"],
+    genres: ["Action", "Science-fiction", "Jeux", "Monde virtuel", "Tournois"],
     rating: 7.1
   },
   {
@@ -3080,7 +3080,7 @@ export const animes: Anime[] = [
     year: 2022,
     type: "Anime",
     status: "Terminé",
-    genres: ["Fantastique", "Aventure", "Harem", "Magie", "Bêtes", "Rejet"],
+    genres: ["Fantastique", "Aventure", "Harem", "Magie", "Monstres"],
     rating: 6.9
   },
   {
@@ -3093,7 +3093,7 @@ export const animes: Anime[] = [
     year: 2015,
     type: "Anime",
     status: "Terminé",
-    genres: ["Mystère", "Enquête", "Science", "Ostéologie", "Crime", "Déduction"],
+    genres: ["Mystère", "Enquête", "Scientifique", "Crime"],
     rating: 7.6
   },
   {
@@ -3106,7 +3106,7 @@ export const animes: Anime[] = [
     year: 2023,
     type: "Anime",
     status: "Terminé",
-    genres: ["Action", "Fantastique", "Dark Fantasy", "Pouvoirs", "Évolution", "Absorption"],
+    genres: ["Action", "Fantastique", "Fantasy", "Super pouvoirs", "Magie"],
     rating: 7.3
   },
   {
@@ -3119,7 +3119,7 @@ export const animes: Anime[] = [
     year: 2013,
     type: "Anime",
     status: "Terminé",
-    genres: ["Action", "Surnaturel", "Romance", "Youkai", "École", "Pouvoirs"],
+    genres: ["Action", "Surnaturel", "Romance", "Yokai", "École", "Super pouvoirs"],
     rating: 7.8
   },
   {
@@ -3132,7 +3132,7 @@ export const animes: Anime[] = [
     year: 2014,
     type: "Anime",
     status: "Terminé",
-    genres: ["Action", "Science-fiction", "Post-apocalyptique", "Monstres", "Militaire", "Dystopie"],
+    genres: ["Action", "Science-fiction", "Post-apocalyptique", "Monstres", "Militaire"],
     rating: 7.2
   },
   {
@@ -3145,7 +3145,7 @@ export const animes: Anime[] = [
     year: 2012,
     type: "Anime",
     status: "Terminé",
-    genres: ["Action", "Historique", "Samouraï", "Ninja", "Sengoku", "Mystique"],
+    genres: ["Action", "Historique", "Samouraïs", "Ninjas", "Mystère"],
     rating: 7.4
   },
   {
@@ -3158,7 +3158,7 @@ export const animes: Anime[] = [
     year: 2020,
     type: "Anime",
     status: "Terminé",
-    genres: ["Fantastique", "Littérature", "Magie", "Historique", "Culture", "Bishounen"],
+    genres: ["Fantastique", "Art", "Magie", "Historique", "Société"],
     rating: 6.8
   },
   {
@@ -3171,7 +3171,7 @@ export const animes: Anime[] = [
     year: 2022,
     type: "Anime",
     status: "Terminé",
-    genres: ["Action", "Surnaturel", "Mystère", "Paranormal", "Enquête", "Chine"],
+    genres: ["Action", "Surnaturel", "Mystère", "Paranormal", "Enquête"],
     rating: 7.1
   },
   {
@@ -3184,7 +3184,7 @@ export const animes: Anime[] = [
     year: 2020,
     type: "Movie",
     status: "Terminé",
-    genres: ["Action", "Fantastique", "Magie", "Dragons", "Urbain", "Sorcières"],
+    genres: ["Action", "Fantastique", "Magie", "Monstres"],
     rating: 7.9
   },
   {
@@ -3197,7 +3197,7 @@ export const animes: Anime[] = [
     year: 2017,
     type: "Anime",
     status: "Terminé",
-    genres: ["Action", "École", "Arts martiaux", "Harem", "Épées", "Rébellion"],
+    genres: ["Action", "École", "Arts martiaux", "Harem", "Rébellion"],
     rating: 7.0
   },
   {
@@ -3210,7 +3210,7 @@ export const animes: Anime[] = [
     year: 2023,
     type: "Anime",
     status: "Terminé",
-    genres: ["Drame", "Tranche de vie", "Beauté", "Confiance en soi", "Workplace", "Romance"],
+    genres: ["Drame", "Slice of Life", "Société", "Travail", "Romance"],
     rating: 7.6
   },
   {
@@ -3223,7 +3223,7 @@ export const animes: Anime[] = [
     year: 2020,
     type: "Anime",
     status: "Terminé",
-    genres: ["Fantastique", "Isekai", "Tranche de vie", "Magie", "Slimes", "Réincarnation"],
+    genres: ["Fantastique", "Isekai", "Slice of Life", "Magie", "Monstres", "Réincarnation / Transmigration"],
     rating: 7.3
   },
   {
@@ -3236,7 +3236,7 @@ export const animes: Anime[] = [
     year: 2024,
     type: "Anime",
     status: "En cours",
-    genres: ["Aventure", "Fantastique", "Différence", "Voyage", "Identité", "Anthropomorphe"],
+    genres: ["Aventure", "Fantastique", "Société", "Voyage", "Drame"],
     rating: 7.2
   },
   {
@@ -3249,11 +3249,11 @@ export const animes: Anime[] = [
     year: 2012,
     type: "Anime",
     status: "Terminé",
-    genres: ["Action", "Fantastique", "Mythologie", "Harem", "Pouvoirs divins", "Dieux"],
+    genres: ["Action", "Fantastique", "Harem", "Super pouvoirs", "Religion"],
     rating: 7.1
   },
   {
-    id: "can-a-boy-girl-friendship-survive",
+    id: "more-than-a-married-couple-but-not-lovers",
     title: "More Than a Married Couple, But Not Lovers",
     originalTitle: "夫婦以上、恋人未満。",
     description: "Jiro Yakuin rêve de faire équipe avec son béguin Shiori lors du cours de 'mariage simulé' de son lycée, mais il se retrouve associé à Akari Watanabe, la gyaru la plus populaire de l'école. Ironiquement, Akari veut aussi être avec quelqu'un d'autre. Pour obtenir le droit de changer de partenaire, ils doivent obtenir les meilleures notes en jouant le couple parfait. Ainsi commence leur cohabitation forcée où ils découvrent progressivement les vraies personnalités de chacun, menant à des sentiments inattendus.",
@@ -3262,7 +3262,241 @@ export const animes: Anime[] = [
     year: 2022,
     type: "Anime",
     status: "Terminé",
-    genres: ["Romance", "Comédie", "École", "Mariage simulé", "Gyaru", "Cohabitation"],
+    genres: ["Romance", "Comédie", "École", "Mariage"],
     rating: 7.5
+  },
+  {
+    id: "canaan",
+    title: "Canaan",
+    originalTitle: "カナン",
+    description: "Maria Osawa est une photographe japonaise qui se rend à Shanghai avec son collègue pour couvrir un festival international. Là, elle retrouve Canaan, une mercenaire aux capacités extraordinaires qu'elle avait rencontrée au Moyen-Orient. Canaan possède une condition appelée synesthésie qui lui permet de 'voir' les intentions des gens à travers les couleurs. Quand une organisation terroriste appelée Snake commence à semer le chaos avec un virus mortel, Canaan doit utiliser ses compétences uniques pour protéger Maria et arrêter cette menace.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2009,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Action", "Drame", "Thriller", "Mystère"],
+    rating: 7.6
+  },
+  {
+    id: "candy-candy",
+    title: "Candy Candy",
+    originalTitle: "キャンディ・キャンディ",
+    description: "Candice White Ardlay, surnommée Candy, est une orpheline optimiste et énergique élevée dans un orphelinat américain au début du 20ème siècle. Adoptée par une riche famille aristocratique, elle découvre un monde de privilèges mais aussi de jalousie et de méchanceté. Malgré les épreuves et les tragédies qui jalonnent sa vie, Candy garde toujours son sourire et sa joie de vivre, touchant le cœur de tous ceux qu'elle rencontre. Cette série classique explore les thèmes de l'amour, de l'amitié et de la persévérance.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 1976,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Romance", "Drame", "Historique", "Famille"],
+    rating: 8.1
+  },
+  {
+    id: "cannon-busters",
+    title: "Cannon Busters",
+    originalTitle: "キャノンバスターズ",
+    description: "Dans un monde steampunk où la magie et la technologie coexistent, SAM, un robot de combat amnésique, se réveille dans un désert avec pour seule mission de protéger un prince. Accompagné de Casey Turnbuckle, une androïde optimiste programmée pour être l'amie d'une princesse, et de Philly the Kid, un hors-la-loi immortel, ils voyagent à travers des terres dangereuses. Cette aventure colorée mélange action, comédie et mystère dans un univers unique rempli de robots, de magie et de créatures fantastiques.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2019,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Action", "Aventure", "Technologies", "Comédie", "Science-fiction"],
+    rating: 7.3
+  },
+  {
+    id: "card-captor-sakura",
+    title: "Card Captor Sakura",
+    originalTitle: "カードキャプターさくら",
+    description: "Sakura Kinomoto est une écolière de 10 ans qui découvre accidentellement un livre magique dans la bibliothèque de son père. En l'ouvrant, elle libère involontairement un ensemble de cartes magiques appelées Cartes de Clow. Avec l'aide de Kero, le gardien du livre transformé en petite créature ailée, Sakura doit récupérer toutes les cartes avant qu'elles ne causent des catastrophes. Cette série emblème du genre magical girl combine aventure magique, amitié et romance dans un style artistique magnifique.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 1998,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Magical girl", "Fantastique", "Aventure", "École", "Magie"],
+    rating: 8.7
+  },
+  {
+    id: "carole-tuesday",
+    title: "Carole & Tuesday",
+    originalTitle: "キャロル&チューズデイ",
+    description: "Dans un futur proche sur Mars, la musique est entièrement créée par des IA. Carole, une jeune fille travailleuse qui joue du clavier, rencontre Tuesday, une adolescente issue d'une famille riche qui rêve de devenir musicienne. Malgré leurs origines très différentes, elles décident de former un duo et de créer de la musique avec leurs propres mains et leurs cœurs. Cette série célèbre le pouvoir de la musique humaine et authentique dans un monde dominé par la technologie.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2019,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Musique", "Science-fiction", "Drame", "Amitié", "Futur"],
+    rating: 8.2
+  },
+  {
+    id: "castlevania",
+    title: "Castlevania",
+    originalTitle: "悪魔城ドラキュラ",
+    description: "Inspiré de la série de jeux vidéo, cette adaptation suit Trevor Belmont, le dernier survivant d'une famille de chasseurs de vampires. Quand Dracula déclare la guerre à l'humanité après la mort de sa femme bien-aimée, Trevor doit unir ses forces avec la magicienne Sypha et Alucard, le fils à demi-vampire de Dracula. Ensemble, ils luttent contre les hordes de créatures démoniaques dans une quête épique pour sauver l'humanité de l'apocalypse vampirique.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2017,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Action", "Horreur", "Fantastique", "Vampires"],
+    rating: 8.4
+  },
+  {
+    id: "cats-eye",
+    title: "Cat's Eye",
+    originalTitle: "キャッツ♥アイ",
+    description: "Les trois sœurs Kisugi - Rui, Hitomi et Ai - mènent une double vie. Le jour, elles tiennent un café appelé Cat's Eye, mais la nuit, elles deviennent des voleuses d'art internationales portant le même nom. Leur mission secrète est de récupérer les œuvres d'art de leur père disparu. Hitomi complique les choses en ayant une relation amoureuse avec Toshio, un inspecteur de police chargé d'arrêter Cat's Eye. Cette série mélange action, romance et comédie dans un style rétro des années 80.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 1983,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Action", "Crime", "Romance", "Comédie", "Police"],
+    rating: 7.9
+  },
+  {
+    id: "cautious-hero",
+    title: "Cautious Hero",
+    originalTitle: "この勇者が俺TUEEEくせに慎重すぎる",
+    description: "Ristarte, une déesse novice, invoque Seiya Ryuuguuin pour sauver le monde de Gaeabrande. Cependant, ce héros est extrêmement prudent et paranoïaque - il s'entraîne obsessionnellement, achète des tonnes d'équipement et refuse de prendre le moindre risque. Bien que ses précautions extrêmes frustrent Ristarte et leurs compagnons, elles s'avèrent souvent justifiées face aux dangers imprévisibles de ce monde. Cette parodie du genre isekai subvertit les tropes traditionnels avec un humour intelligent.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2019,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Comédie", "Fantastique", "Isekai", "Aventure"],
+    rating: 7.8
+  },
+  {
+    id: "chaika-the-coffin-princess",
+    title: "Chaika the Coffin Princess",
+    originalTitle: "棺姫のチャイカ",
+    description: "Toru Acura est un ancien saboteur militaire qui peine à s'adapter à la vie en temps de paix après la guerre. Il rencontre Chaika Trabant, une mystérieuse fille aux cheveux blancs qui porte un cercueil géant et prétend être la fille du défunt empereur Arthur Gaz. Chaika recherche les restes dispersés de son père pour lui offrir des funérailles appropriées. Toru et sa sœur adoptive Akari l'aident dans sa quête, mais découvrent que plusieurs autres 'Chaika' existent, chacune ayant ses propres objectifs.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2014,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Action", "Aventure", "Mystère", "Fantastique", "Guerre"],
+    rating: 7.5
+  },
+  {
+    id: "chain-chronicle",
+    title: "Chain Chronicle",
+    originalTitle: "チェインクロニクル",
+    description: "Dans le continent de Yugd, le Roi Noir et son armée de ténèbres menacent de détruire toute vie. Un groupe de héros divers, incluant des guerriers, des mages et des archers, s'unissent pour former une alliance contre cette menace apocalyptique. Yuri, un jeune soldat, devient le leader de cette résistance hétéroclite. Basé sur un jeu mobile populaire, cette série combine fantasy épique, stratégie militaire et liens émotionnels entre les personnages dans leur lutte désespérée pour sauver leur monde.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2017,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Action", "Fantasy", "Aventure", "Guerre", "Magie"],
+    rating: 6.8
+  },
+  {
+    id: "cherry-magic",
+    title: "Cherry Magic",
+    originalTitle: "30歳まで童貞だと魔法使いになれるらしい",
+    description: "Adachi Kiyoshi est un employé de bureau de 30 ans qui a toujours été célibataire. Selon une légende urbaine, les hommes qui restent vierges jusqu'à 30 ans acquièrent des pouvoirs magiques. Adachi découvre qu'il peut maintenant lire dans les pensées des gens en les touchant. Cette capacité révèle que son collègue populaire Kurosawa a des sentiments romantiques pour lui. Cette comédie romantique tendre explore l'amour entre hommes adultes avec humour et sensibilité.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2024,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Romance", "Comédie", "Yaoi", "Travail", "Magie"],
+    rating: 7.6
+  },
+  {
+    id: "chibi-revengers",
+    title: "Chibi Revengers",
+    originalTitle: "ちびリべンジャーズ",
+    description: "Une version chibi adorable et humoristique de Tokyo Revengers. Les personnages de la série principale sont transformés en versions super-déformées mignonnes qui vivent des aventures quotidiennes amusantes. Takemichi et les membres du gang Tokyo Manji sont présentés dans des situations comiques et attendrissantes, loin de la violence de la série originale. Cette série courte est parfaite pour les fans qui veulent voir leurs personnages préférés dans un format plus léger et familial.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2022,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Comédie", "Slice of Life"],
+    rating: 7.2
+  },
+  {
+    id: "chillin-in-another-world-with-level-2-super-cheat-powers",
+    title: "Chillin' in Another World with Level 2 Super Cheat Powers",
+    originalTitle: "Lv2からチートだった元勇者候補のまったり異世界ライフ",
+    description: "Banaza était un candidat héros convoqué dans un autre monde, mais il a été rejeté pour avoir des statistiques trop faibles. Abandonné dans une forêt, il découvre que ses pouvoirs 'faibles' sont en réalité incroyablement puissants une fois qu'il atteint le niveau 2. Maintenant capable de vaincre n'importe quel ennemi sans effort, Banaza choisit de vivre une vie paisible dans la campagne avec sa femme fenrir. Cette série isekai subvertit les tropes traditionnels en montrant un protagoniste qui préfère la tranquillité à l'aventure.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2024,
+    type: "Anime",
+    status: "En cours",
+    genres: ["Fantastique", "Isekai", "Comédie", "Slice of Life"],
+    rating: 7.0
+  },
+  {
+    id: "chillin-in-my-30s-after-getting-fired-from-the-demon-kings-army",
+    title: "Chillin' in My 30s After Getting Fired from the Demon King's Army",
+    originalTitle: "30代で魔王軍から解雇された俺が、のんびり温泉宿を経営する話",
+    description: "Dariel était un membre dévoué de l'armée du Roi Démon pendant plus de dix ans, mais il est soudainement licencié pour manque de talent magique. À plus de 30 ans, il découvre qu'il est en fait humain et non démoniaque. Trouvant refuge dans un petit village humain, Dariel utilise ses compétences militaires pour protéger les habitants et ouvre finalement une auberge de sources chaudes. Cette comédie isekai mature explore les thèmes de la seconde chance et de trouver sa place dans le monde.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2023,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Fantastique", "Comédie", "Slice of Life", "Démons", "Travail"],
+    rating: 7.3
+  },
+  {
+    id: "chobits",
+    title: "Chobits",
+    originalTitle: "ちょびっツ",
+    description: "Hideki Motosuwa est un étudiant qui rêve de posséder un persocom, un ordinateur personnel androïde. Un jour, il trouve Chi, un persocom féminin abandonné qui ne semble avoir aucune donnée ou programme installé. Chi doit tout apprendre depuis le début, y compris comment parler et interagir avec le monde. Alors qu'Hideki lui enseigne, il développe des sentiments pour elle, soulevant des questions sur l'amour, la technologie et ce qui rend quelqu'un humain. Cette romance science-fiction explore les relations entre humains et intelligences artificielles.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2002,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Romance", "Science-fiction", "Drame", "Technologies"],
+    rating: 7.7
+  },
+  {
+    id: "chocolat-et-vanilla",
+    title: "Sugar Sugar Rune",
+    originalTitle: "シュガシュガルーン",
+    description: "Chocolat et Vanilla sont deux jeunes sorcières qui viennent du Royaume Magique pour concourir afin de devenir la prochaine Reine. Leur mission est de collecter les cœurs des humains en les faisant tomber amoureux d'elles. Chocolat est confiante et extravertie tandis que Vanilla est timide et douce. Mais dans le monde humain, leurs personnalités ont des effets inattendus sur leur mission. Cette série magical girl explore l'amitié, la rivalité et la découverte de soi à travers la magie et l'amour.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2005,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Magical girl", "Romance", "Fantastique", "Amitié", "Magie"],
+    rating: 7.4
+  },
+  {
+    id: "citrus",
+    title: "Citrus",
+    originalTitle: "シトラス",
+    description: "Yuzu Aihara est une lycéenne gyaru qui doit changer d'école quand sa mère se remarie. Dans sa nouvelle école stricte pour filles, elle rencontre Mei Aihara, la présidente du conseil étudiant froide et sérieuse qui s'avère être sa nouvelle demi-sœur. Malgré leur relation familiale compliquée et leurs personnalités opposées, Yuzu et Mei développent des sentiments romantiques l'une pour l'autre. Cette série yuri explore les complexités de l'amour interdit, les dynamiques familiales et l'acceptation de soi.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2018,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Romance", "Yuri", "Drame", "École", "Famille"],
+    rating: 6.9
+  },
+  {
+    id: "city-hunter",
+    title: "City Hunter",
+    originalTitle: "シティーハンター",
+    description: "Ryo Saeba est un mercenaire expert tireur d'élite qui travaille dans les bas-fonds de Tokyo. Avec sa partenaire Kaori Makimura, il accepte des contrats pour protéger des clients en danger, généralement des femmes en détresse. Ryo est un tireur d'élite légendaire mais aussi un coureur de jupons incorrigible, ce qui mène à des situations comiques quand Kaori le remet à sa place avec son marteau géant. Cette série d'action des années 80 mélange crime, comédie et romance dans le Tokyo moderne.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 1987,
+    type: "Anime",
+    status: "Terminé",
+    genres: ["Action", "Crime", "Comédie", "Romance", "Police"],
+    rating: 8.3
   }
 ];
