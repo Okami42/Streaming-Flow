@@ -3498,5 +3498,18 @@ export const animes: Anime[] = [
     status: "Terminé",
     genres: ["Action", "Crime", "Comédie", "Romance", "Police"],
     rating: 8.3
+  },
+  {
+    id: "kaoru-hana-wa-rin-to-saku",
+    title: "the fragrant flower blooms with dignity",
+    originalTitle: "薫る花は凛と咲く",
+    description: "L'histoire suit Rintaro Tsumugi, un étudiant de l'école publique Chidori, réputée pour accueillir des garçons considérés comme des délinquants, et Kaoruko Waguri, une étudiante de l'académie privée Kikyo, une école prestigieuse pour jeunes filles. Malgré les rivalités entre leurs établissements, une relation inattendue se développe entre eux après leur rencontre dans la boulangerie familiale de Rintaro. Cette romance scolaire explore les préjugés sociaux et la façon dont l'amour peut transcender les barrières de classe.",
+    imageUrl: "",
+    bannerUrl: "/picture/bassembanniere.png",
+    year: 2025,
+    type: "Anime",
+    status: "En cours",
+    genres: ["Romance", "École", "Drame", "Shoujo", "Comédie"],
+    rating: 8.1
   }
 ];

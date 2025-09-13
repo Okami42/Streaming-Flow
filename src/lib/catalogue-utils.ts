@@ -2033,6 +2033,14 @@ export const animes: CatalogueAnime[] = [
         type: "Anime",
         language: "VF & VO",
         genres: getAnimeGenres("city-hunter"),
+      },
+      {
+        id: "kaoru-hana-wa-rin-to-saku",
+        title: "the fragrant flower blooms with dignity",
+        imageUrl: "https://m.media-amazon.com/images/M/MV5BOWFlYTIxMmQtM2Y0Mi00NThhLWEwOWEtYjA0OTBlMjRkYTViXkEyXkFqcGc@._V1_.jpg",
+        type: "Anime",
+        language: "VF & VO",
+        genres: getAnimeGenres("kaoru-hana-wa-rin-to-saku"),
       }
 ];
 
