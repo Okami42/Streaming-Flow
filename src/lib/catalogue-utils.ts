@@ -203,7 +203,7 @@ export const animes: CatalogueAnime[] = [
       },
       {
         id: "rent-a-girlfriend",
-        title: "Rent-a-Girlfriend",
+        title: "Rent a Girlfriend",
         imageUrl: "https://www.myutaku.com/media/anime/poster/346502.jpg",
         type: "Anime",
         language: "VF & VO",

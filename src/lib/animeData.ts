@@ -101,7 +101,7 @@ export const animes: Anime[] = [
     title: "My Dress-Up Darling",
     originalTitle: "その着せ替え人形は恋をする",
     description: "Wakana Gojo est un lycéen qui rêve de devenir un maître artisan de poupées hina traditionnelles japonaises. Malgré sa passion, il garde son intérêt secret car il a été traumatisé dans son enfance quand un ami s'est moqué de son hobby. Un jour, la très populaire Marin Kitagawa le surprend en train de coudre des vêtements de poupée à l'école. Loin de se moquer de lui, elle révèle sa propre passion secrète : le cosplay. Impressionnée par ses talents de couturier, elle lui demande de l'aider à créer des costumes. Alors que Gojo confectionne des tenues pour Marin, ils se rapprochent et découvrent qu'ils ont plus en commun qu'ils ne le pensaient initialement.",
-    imageUrl: "https://m.media-amazon.com/images/M/MV5BM2ZiZTk1ODgtMTZkNS00NTYxLWIxZTUtNWExZGYwZTRjODViXkEyXkFqcGdeQXVyMTE2MzA3MDM@._V1_.jpg",
+    imageUrl: "",
     bannerUrl: "/picture/bassembanniere.png",
     year: 2022,
     type: "Anime",

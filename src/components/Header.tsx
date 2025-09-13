@@ -188,6 +188,11 @@ export default function Header() {
                   type="text"
                   value={searchTerm}
                   onChange={handleSearchChange}
+                  onFocus={() => {
+                    if (searchTerm.trim()) {
+                      performSearch(searchTerm);
+                    }
+                  }}
                   placeholder="Rechercher..."
                   className="w-48 md:w-80 bg-black/60 border border-blue-500/50 rounded-full pl-10 pr-10 py-2 text-white text-sm placeholder-gray-400 focus:outline-none focus:border-blue-500"
                   autoFocus
