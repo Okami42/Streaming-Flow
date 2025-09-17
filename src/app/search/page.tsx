@@ -30,8 +30,10 @@ export default function SearchPage() {
     }
     
     // Utiliser les données du catalogue uniquement
+    const searchTermLower = term.toLowerCase();
     const filteredAnimes = animes.filter(anime => 
-      anime.title.toLowerCase().includes(term.toLowerCase())
+      anime.title.toLowerCase().includes(searchTermLower) ||
+      anime.id.toLowerCase().includes(searchTermLower)
     ).map(anime => ({
       id: anime.id,
       title: anime.title,
