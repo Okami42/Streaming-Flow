@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/', '/_next/', '/admin/'],
     },
-    sitemap: 'https://www.okastream.fr/sitemap.xml',
-    host: 'https://www.okastream.fr',
+    sitemap: 'https://okastream.fr/sitemap.xml',
+    host: 'https://okastream.fr',
   }
 }
