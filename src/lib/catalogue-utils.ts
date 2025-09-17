@@ -2205,7 +2205,7 @@ export const animes: CatalogueAnime[] = [
       {
         id: "akuyaku-reijou-tensei-ojisan",
         title: "From Bureaucrat to Villainess",
-        imageUrl: "https://m.media-amazon.com/images/M/MV5BNDFiMGNhNDgtOTdhYy00MzQ5LTgwMWEtM2M5NGM3ZjE0Zjg1XkEyXkFqcGc@._V1_QL75_UX190_CR0,2,190,281_.jpg",
+        imageUrl: "https://fr.web.img5.acsta.net/img/91/89/91893e47bcd51c484425bd3e7f58b28f.jpg",
         type: "Anime",
         language: "VO",
         genres: getAnimeGenres("akuyaku-reijou-tensei-ojisan"),
@@ -2213,7 +2213,7 @@ export const animes: CatalogueAnime[] = [
       {
         id: "arafou-otoko-no-isekai-tsuuhan",
         title: "The Middle-Aged Man's Isekai Shopping Life",
-        imageUrl: "https://m.media-amazon.com/images/M/MV5BY2RkNGFlMjktNjc5Zi00YjA3LTlkNDgtOGNmOTZlZjY1ZDc2XkEyXkFqcGc@._V1_QL75_UX140_CR0,1,140,207_.jpg",
+        imageUrl: "https://m.media-amazon.com/images/M/MV5BM2JkN2MxMGQtMzE5NS00NjI1LTk5NjQtODE0YjgzYTljMzNhXkEyXkFqcGc@._V1_.jpg",
         type: "Anime",
         language: "VO",
         genres: getAnimeGenres("arafou-otoko-no-isekai-tsuuhan"),
