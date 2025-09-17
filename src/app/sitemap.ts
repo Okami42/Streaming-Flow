@@ -1,6 +1,5 @@
 import { MetadataRoute } from 'next'
 import { animes } from '@/lib/catalogue-utils'
-import { getAllSeries } from '@/lib/seriesData'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.okastream.fr'
@@ -71,19 +70,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }))
 
-  // Pages de séries dynamiques
-  let seriesPages: MetadataRoute.Sitemap = []
-  try {
-    const series = getAllSeries()
-    seriesPages = series.map((serie) => ({
-      url: `${baseUrl}/series/${serie.id}`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    }))
-  } catch (error) {
-    console.warn('Erreur lors de la récupération des séries pour le sitemap:', error)
-  }
-
-  return [...staticPages, ...animePages, ...seriesPages]
+  return [...staticPages, ...animePages]
 }
