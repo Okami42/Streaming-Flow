@@ -6,8 +6,16 @@ import { WatchHistoryItem, ReadHistoryItem } from './history';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'votre-secret-jwt-super-secret';
 
+// Variable pour éviter les initialisations multiples
+let isInitialized = false;
+
 // Initialiser les tables de la base de données
 export async function initializeDatabase(): Promise<void> {
+  // Éviter l'initialisation multiple
+  if (isInitialized) {
+    return;
+  }
+
   try {
     // Créer la table des utilisateurs
     await sql`
@@ -53,6 +61,7 @@ export async function initializeDatabase(): Promise<void> {
       )
     `;
 
+    isInitialized = true;
     console.log('Tables créées avec succès');
   } catch (error) {
     console.error('Erreur lors de l\'initialisation de la base de données:', error);
