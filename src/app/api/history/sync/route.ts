@@ -4,9 +4,6 @@ import { WatchHistoryItem, ReadHistoryItem } from '@/lib/history';
 
 export async function GET(request: NextRequest) {
   try {
-    // Initialiser la base de données au premier appel
-    await initializeDatabase();
-    
     const authHeader = request.headers.get('authorization');
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -41,9 +38,6 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    // Initialiser la base de données au premier appel
-    await initializeDatabase();
-    
     const authHeader = request.headers.get('authorization');
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -83,9 +77,6 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
-    // Initialiser la base de données au premier appel
-    await initializeDatabase();
-    
     const authHeader = request.headers.get('authorization');
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {

@@ -71,6 +71,9 @@ export async function initializeDatabase(): Promise<void> {
 // Fonctions d'authentification
 export async function createUser(username: string, password: string): Promise<User> {
   try {
+    // Initialiser la DB seulement quand on en a vraiment besoin
+    await initializeDatabase();
+    
     // Vérifier si l'utilisateur existe déjà
     const existingUser = await sql`
       SELECT id FROM users WHERE username = ${username}
@@ -106,6 +109,9 @@ export async function createUser(username: string, password: string): Promise<Us
 
 export async function authenticateUser(username: string, password: string): Promise<User> {
   try {
+    // Initialiser la DB seulement quand on en a vraiment besoin
+    await initializeDatabase();
+    
     // Trouver l'utilisateur
     const result = await sql`
       SELECT id, username, email, password, created_at
@@ -151,6 +157,9 @@ export function verifyToken(token: string): { userId: string } {
 
 export async function getUserById(userId: string): Promise<User | null> {
   try {
+    // Initialiser la DB seulement quand on en a vraiment besoin
+    await initializeDatabase();
+    
     const result = await sql`
       SELECT id, username, email, created_at
       FROM users 

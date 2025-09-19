@@ -3,9 +3,6 @@ import { authenticateUser, generateToken, initializeDatabase } from '@/lib/datab
 
 export async function POST(request: NextRequest) {
   try {
-    // Initialiser la base de données au premier appel
-    await initializeDatabase();
-    
     const { username, password } = await request.json();
 
     // Validation basique
