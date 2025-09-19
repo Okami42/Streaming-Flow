@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://okastream.fr/sitemap.xml 
+Sitemap: https://www.okastream.fr/sitemap.xml 
