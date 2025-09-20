@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useState, useRef, useEffect } from "react";
 import { useAuth } from "@/context/auth-context";
+import PlanningNotifications from "./PlanningNotifications";
 import AuthModal from "@/components/ui/auth-modal";
 import { animes, getAnimeImage } from "@/lib/catalogue-utils";
 
@@ -159,13 +160,13 @@ export default function Header() {
             Accueil
           </Link>
           <Link 
-            href={isSeriesSection ? "/series/top-10" : "/top-10"}
+            href={isSeriesSection ? "/series/planning" : "/planning"}
             className={cn(
               "text-white hover:text-white/80 transition-colors text-base md:text-lg font-medium hidden sm:inline drop-shadow-md",
-              (isSeriesSection ? pathname === "/series/top-10" : pathname === "/top-10") && "text-white"
+              (isSeriesSection ? pathname === "/series/planning" : pathname === "/planning") && "text-white"
             )}
           >
-            Top 10
+            Planning
           </Link>
           {/* Catalogue visible uniquement sur desktop */}
           <Link 
@@ -246,6 +247,9 @@ export default function Header() {
           </div>
 
           {/* Bouton de connexion / Profil utilisateur */}
+          {/* Notifications du planning */}
+          <PlanningNotifications />
+
           {isAuthenticated && user ? (
             <div className="flex items-center space-x-2">
               <span className="text-white text-sm hidden md:inline">
