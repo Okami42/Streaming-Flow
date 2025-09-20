@@ -82,9 +82,7 @@ const getAnimeImage = (historyId: string): string => {
   
   // Sinon, utiliser l'image du catalogue comme fallback
   if (animeId) {
-    console.log(`🔍 Tentative de récupération image catalogue pour: ${animeId}`);
     const catalogueImage = getCatalogueImage(animeId);
-    console.log(`🔍 Image catalogue trouvée: ${catalogueImage}`);
     if (catalogueImage) {
       return catalogueImage;
     }
@@ -99,8 +97,6 @@ const getAnimeIdFromHistoryId = (historyId: string): string => {
   // Format typique: "anime-id-s1e1" ou "anime-id-e1"
   // On doit extraire uniquement l'ID de l'anime, pas le numéro d'épisode
   
-  console.log(`🔍 getAnimeIdFromHistoryId - historyId: ${historyId}`);
-  
   // Vérifier si l'ID contient un indicateur d'épisode
   const seasonEpisodePattern = /-s\d+e\d+$/;
   const episodePattern = /-e\d+$/;
@@ -110,17 +106,13 @@ const getAnimeIdFromHistoryId = (historyId: string): string => {
   // Supprimer le pattern de saison et d'épisode s'il existe
   if (seasonEpisodePattern.test(historyId)) {
     baseId = historyId.replace(seasonEpisodePattern, '');
-    console.log(`🔍 getAnimeIdFromHistoryId - pattern saison détecté, baseId: ${baseId}`);
   } else if (episodePattern.test(historyId)) {
     baseId = historyId.replace(episodePattern, '');
-    console.log(`🔍 getAnimeIdFromHistoryId - pattern épisode détecté, baseId: ${baseId}`);
   }
   
   // PRIORITÉ 1: Vérifier si l'ID existe dans le catalogue (plus fiable)
   const catalogueImage = getCatalogueImage(baseId);
-  console.log(`🔍 Vérification catalogue pour ${baseId}: ${catalogueImage}`);
   if (catalogueImage && catalogueImage !== "https://m.media-amazon.com/images/M/MV5BM2ZiZTk1ODgtMTZkNS00NTYxLWIxZTUtNWExZGYwZTRjODViXkEyXkFqcGdeQXVyMTE2MzA3MDM@._V1_.jpg") {
-    console.log(`✅ ID catalogue trouvé: ${baseId}`);
     return baseId;
   }
   
@@ -152,7 +144,6 @@ const getAnimeIdFromHistoryId = (historyId: string): string => {
     }
   }
   
-  console.log(`❌ getAnimeIdFromHistoryId - aucun anime trouvé, retourne: ${baseId}`);
   // Par défaut, retourner l'ID de base
   return baseId;
 };

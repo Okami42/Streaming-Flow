@@ -31,12 +31,20 @@ export function HistoryProvider({ children }: { children: React.ReactNode }) {
 
   // Charger l'historique de l'utilisateur depuis le serveur
   const loadUserHistory = useCallback(async () => {
-    if (!isAuthenticated || !user) return;
+    // Protection renforcée : vérifier TOUS les critères
+    if (!isAuthenticated || !user) {
+      console.log('loadUserHistory: Utilisateur non connecté, pas d\'appel DB');
+      return;
+    }
 
     try {
       const token = localStorage.getItem('auth_token');
-      if (!token) return;
+      if (!token) {
+        console.log('loadUserHistory: Pas de token, pas d\'appel DB');
+        return;
+      }
 
+      console.log('loadUserHistory: Appel DB autorisé pour utilisateur connecté');
       const response = await fetch('/api/history/sync', {
         method: 'GET',
         headers: {
@@ -95,11 +103,15 @@ export function HistoryProvider({ children }: { children: React.ReactNode }) {
   }, [watchHistory, readHistory]);
 
   useEffect(() => {
+    console.log('History useEffect déclenché:', { isAuthenticated, user: !!user, mounted });
+    
     if (isAuthenticated && user) {
       // Si l'utilisateur est connecté, charger son historique depuis le serveur
+      console.log('Chargement historique depuis serveur pour utilisateur connecté');
       loadUserHistory();
     } else {
       // Si pas connecté, charger depuis localStorage
+      console.log('Chargement historique depuis localStorage (pas d\'appel DB)');
       const savedWatchHistory = localStorage.getItem('animeWatchHistory');
       const savedReadHistory = localStorage.getItem('animeReadHistory');
 
