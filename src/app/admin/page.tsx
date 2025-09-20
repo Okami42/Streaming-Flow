@@ -83,7 +83,7 @@ export default function AdminPage() {
     }
 
     try {
-      const response = await fetch('/api/admin/real-episodes', {
+      const response = await fetch('/api/admin/github-episodes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -97,21 +97,16 @@ export default function AdminPage() {
 
       if (response.ok) {
         const result = await response.json();
-        alert(`Épisode ajouté avec succès ! (${result.episodeCount} épisodes au total)`);
+        alert(`✅ ${result.message}\n\n📊 Total épisodes: ${result.episodeCount}\n🔗 Fichier: ${result.filePath}\n💾 ${result.commitMessage}`);
         setNewEpisodeUrl('');
-        // Recharger les données
+        // Recharger les données pour voir les changements
         await loadAllAnimes();
-        // Remettre l'anime sélectionné
-        const updatedAnime = allAnimes.find(a => a.animeId === selectedAnime.animeId);
-        if (updatedAnime) {
-          setSelectedAnime(updatedAnime);
-        }
       } else {
         const error = await response.json();
-        alert(`Erreur: ${error.error}`);
+        alert(`❌ Erreur: ${error.error}\n\n${error.note ? `📝 ${error.note}` : ''}\n${error.details ? `🔍 Détails: ${error.details}` : ''}`);
       }
     } catch (error) {
-      alert('Erreur de connexion');
+      alert('❌ Erreur de connexion au serveur');
     }
   };
 
@@ -330,10 +325,21 @@ export default function AdminPage() {
 
           {/* Configuration */}
           <div className="bg-slate-900/80 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
-            <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+            <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
               <Plus className="h-6 w-6 text-blue-400" />
               Ajouter un épisode
             </h2>
+
+            {/* Information GitHub */}
+            <div className="bg-blue-500/20 border border-blue-500/50 rounded-lg p-3 mb-4">
+              <div className="flex items-center gap-2 text-blue-400 text-sm">
+                <span>🔗</span>
+                <strong>GitHub Integration:</strong>
+              </div>
+              <p className="text-blue-300 text-xs mt-1">
+                Les épisodes seront ajoutés directement dans votre repository GitHub. Assurez-vous que les variables d'environnement GitHub sont configurées.
+              </p>
+            </div>
 
             {selectedAnime ? (
               <div className="space-y-4">

@@ -135,7 +135,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST - Ajouter un épisode à un fichier existant
+// POST - Ajouter un épisode (stockage local en attendant GitHub)
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -150,46 +150,51 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Données manquantes' }, { status: 400 });
     }
 
-    // Trouver l'anime
-    const allAnimes = scanAllAnimes();
-    const anime = allAnimes.find(a => a.animeId === animeId);
+    // Pour l'instant, on va stocker dans un fichier local temporaire
+    // TODO: Implémenter l'API GitHub pour modifier les vrais fichiers
     
-    if (!anime) {
-      return NextResponse.json({ error: 'Anime non trouvé' }, { status: 404 });
+    const tempFile = path.join(process.cwd(), 'data', 'temp-episodes.json');
+    
+    // Créer le dossier data s'il n'existe pas
+    const dataDir = path.dirname(tempFile);
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true });
     }
 
-    // Construire le chemin du fichier
-    const fileName = language === 'vf' ? 'episodes_vf.js' : 'episodes_vostfr.js';
-    const filePath = path.join(
-      process.cwd(), 
-      'public', 
-      anime.folder, 
-      animeId, 
-      season, 
-      fileName
-    );
-
-    // Lire les épisodes existants
-    let existingEpisodes: string[] = [];
-    if (fs.existsSync(filePath)) {
-      const content = fs.readFileSync(filePath, 'utf-8');
-      existingEpisodes = extractEpisodesFromJS(content);
+    // Lire les épisodes temporaires existants
+    let tempEpisodes: any = {};
+    if (fs.existsSync(tempFile)) {
+      const content = fs.readFileSync(tempFile, 'utf-8');
+      tempEpisodes = JSON.parse(content);
     }
+
+    // Structure: tempEpisodes[animeId][season][language] = [urls...]
+    if (!tempEpisodes[animeId]) tempEpisodes[animeId] = {};
+    if (!tempEpisodes[animeId][season]) tempEpisodes[animeId][season] = {};
+    if (!tempEpisodes[animeId][season][language]) tempEpisodes[animeId][season][language] = [];
 
     // Ajouter le nouvel épisode
-    existingEpisodes.push(episodeUrl);
+    tempEpisodes[animeId][season][language].push({
+      url: episodeUrl,
+      addedAt: new Date().toISOString(),
+      addedBy: 'admin'
+    });
 
-    // Écrire le fichier mis à jour
-    writeEpisodesToJS(existingEpisodes, filePath);
+    // Sauvegarder
+    fs.writeFileSync(tempFile, JSON.stringify(tempEpisodes, null, 2));
 
     return NextResponse.json({ 
       success: true, 
-      episodeCount: existingEpisodes.length,
-      filePath: filePath.replace(process.cwd(), '')
+      message: 'Épisode ajouté temporairement (en attente sync GitHub)',
+      episodeCount: tempEpisodes[animeId][season][language].length,
+      note: 'Les fichiers GitHub ne peuvent pas être modifiés directement depuis le serveur'
     });
   } catch (error) {
     console.error('Erreur POST:', error);
-    return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
+    return NextResponse.json({ 
+      error: 'Erreur serveur',
+      note: 'Les fichiers d\'épisodes sont sur GitHub et ne peuvent pas être modifiés directement'
+    }, { status: 500 });
   }
 }
 
