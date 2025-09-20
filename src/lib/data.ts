@@ -133,41 +133,6 @@ export const classics = [
     type: "Anime",
     language: "VOSTFR",
   },
-  {
-    id: "kuroko-no-basket",
-    title: "Kuroko no Basket",
-    imageUrl: "https://images.justwatch.com/poster/181383869/s166/kuroko-no-basket.avif",
-    type: "Anime",
-    language: "VOSTFR",
-  },
-  {
-    id: "frieren",
-    title: "Frieren",
-    imageUrl: "https://fr.web.img6.acsta.net/pictures/23/09/11/15/28/0344154.jpg",
-    type: "Anime",
-    language: "VOSTFR",
-  },
-  {
-    id: "16bit-sensation-another-layer",
-    title: "16bit Sensation: Another Layer",
-    imageUrl: "https://cdn.myanimelist.net/images/anime/1137/139313.jpg",
-    type: "Anime",
-    language: "VOSTFR",
-  },
-  {
-    id: "a-galaxy-next-door",
-    title: "A Galaxy Next Door",
-    imageUrl: "https://fr.web.img2.acsta.net/pictures/23/03/22/17/03/3586652.jpg",
-    type: "Anime",
-    language: "VOSTFR",
-  },
-  {
-    id: "7th-time-loop-the-villainess-enjoys-a-carefree-life-married-to-her-worst-enemy",
-    title: "7th Time Loop",
-    imageUrl: "https://cdn.myanimelist.net/images/anime/1063/140226.jpg",
-    type: "Anime",
-    language: "VOSTFR",
-  },
 ];
 
 // Films classiques
@@ -183,13 +148,6 @@ export const classicMovies = classicFilms.map(film => {
 }).filter(Boolean);
 
 export const hidden = [
-  {
-    id: "gachiakuta",
-    title: "Gachiakuta",
-    imageUrl: "https://m.media-amazon.com/images/M/MV5BZTg5YzFjNjYtODgxNi00YTUwLWI0MmMtOGJmZTU0Yzk1NDM0XkEyXkFqcGdeQXVyMzgxODM4NjM@._V1_.jpg",
-    type: "Anime",
-    language: "VOSTFR",
-  },
   {
     id: "akudama-drive",
     title: "Akudama Drive",
