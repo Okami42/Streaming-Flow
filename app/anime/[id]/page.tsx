@@ -11,7 +11,6 @@ import Header from "@/components/Header";
 import CustomImage from "@/components/ui/custom-image";
 import { useFavorites } from "@/context/favorites-context";
 import { extractSeriesId } from "@/lib/utils";
-import AnimeEpisodesMenu from "@/components/AnimeEpisodesMenu";
 
 // Définir le type correct pour les paramètres de page Next.js
 interface PageProps {
@@ -159,10 +158,6 @@ export default function AnimePage({ params }: PageProps) {
           <Heart className={`h-6 w-6 ${isAnimeFavorite ? 'fill-white' : ''}`} />
         </button>
 
-        {/* Menu des épisodes disponibles */}
-        <div className="container mx-auto px-4 py-8">
-          <AnimeEpisodesMenu animeId={anime.id} animeTitle={anime.title} />
-        </div>
       </main>
 
       <Footer />
