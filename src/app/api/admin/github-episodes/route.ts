@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GITHUB_CONFIG, encodeBase64, decodeBase64 } from '@/lib/github-config';
+import { GITHUB_CONFIG, encodeBase64, decodeBase64, isGitHubConfigured, getConfigErrors } from '@/lib/github-config';
 
 interface GitHubFileResponse {
   content: string;
@@ -127,10 +127,18 @@ export async function POST(request: NextRequest) {
     }
 
     // Vérifier la configuration GitHub
-    if (!GITHUB_CONFIG.token || GITHUB_CONFIG.token === '') {
+    if (!isGitHubConfigured()) {
+      const errors = getConfigErrors();
       return NextResponse.json({ 
-        error: 'Configuration GitHub manquante',
-        note: 'Veuillez configurer GITHUB_TOKEN dans les variables d\'environnement'
+        error: 'Configuration GitHub incomplète',
+        details: errors.join(', '),
+        note: 'Vérifiez que toutes les variables GitHub sont configurées',
+        config: {
+          token: GITHUB_CONFIG.token ? '✅ Configuré' : '❌ Manquant',
+          owner: GITHUB_CONFIG.owner || '❌ Manquant',
+          repo: GITHUB_CONFIG.repo || '❌ Manquant',
+          branch: GITHUB_CONFIG.branch
+        }
       }, { status: 500 });
     }
 

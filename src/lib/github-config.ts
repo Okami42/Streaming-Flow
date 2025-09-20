@@ -6,6 +6,20 @@ export const GITHUB_CONFIG = {
   branch: process.env.GITHUB_BRANCH || 'main'
 };
 
+// Fonction pour vérifier la configuration
+export function isGitHubConfigured(): boolean {
+  return !!(GITHUB_CONFIG.token && GITHUB_CONFIG.owner && GITHUB_CONFIG.repo);
+}
+
+// Fonction pour obtenir les erreurs de configuration
+export function getConfigErrors(): string[] {
+  const errors: string[] = [];
+  if (!GITHUB_CONFIG.token) errors.push('GITHUB_TOKEN manquant');
+  if (!GITHUB_CONFIG.owner) errors.push('GITHUB_OWNER manquant');
+  if (!GITHUB_CONFIG.repo) errors.push('GITHUB_REPO manquant');
+  return errors;
+}
+
 // Interface pour les fichiers GitHub
 export interface GitHubFile {
   path: string;
