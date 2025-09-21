@@ -7,6 +7,7 @@ import FavoritesList from "@/components/FavoritesList";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useHistory } from "@/context/history-context";
 import { useFavorites } from "@/context/favorites-context";
+import { useAuth } from "@/context/auth-context";
 import { Button } from "@/components/ui/button";
 import { Pencil, User } from "lucide-react";
 import { useSearchParams } from "next/navigation";
@@ -15,6 +16,7 @@ import { useEffect, useState } from "react";
 export default function ProfilePage() {
   const { clearHistory } = useHistory();
   const { favorites, clearFavorites } = useFavorites();
+  const { user, isAuthenticated } = useAuth();
   const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState("history");
   
@@ -41,8 +43,12 @@ export default function ProfilePage() {
                     <User className="h-8 w-8 text-gray-400" />
                   </div>
                   <div>
-                    <h2 className="text-lg font-semibold text-white">Utilisateur</h2>
-                    <p className="text-xs text-gray-400">Membre depuis 2024</p>
+                    <h2 className="text-lg font-semibold text-white">
+                      {isAuthenticated && user ? user.username : "Utilisateur"}
+                    </h2>
+                    <p className="text-xs text-gray-400">
+                      Membre depuis {user?.createdAt ? new Date(user.createdAt).getFullYear() : 2024}
+                    </p>
                   </div>
                 </div>
 
