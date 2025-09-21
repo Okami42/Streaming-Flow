@@ -20,6 +20,7 @@ import { useHistory } from "@/context/history-context";
 import { calculateProgress, getRelativeTime, formatTimeExtended } from "@/lib/history";
 import { getAnimeById, animes as allAnimes } from "@/lib/animeData";
 import { getAnimeImage as getCatalogueImage } from "@/lib/catalogue-utils";
+import SEOContent from "@/components/SEOContent";
 
 <meta name="google-site-verification" content="JXUG7kpK-JLc6mNdI8pFXnTQPnJA4Z-TKV4iefh1aAg" />
 
@@ -741,6 +742,9 @@ export default function Home() {
           </div>
         </div>
       </main>
+
+      {/* Contenu SEO pour le référencement */}
+      <SEOContent />
 
       <Footer />
     </div>

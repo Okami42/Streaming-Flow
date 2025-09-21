@@ -19,10 +19,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Okastream | Anime & Scans ET Films & Séries",
-  description: "Site de référencement et de visionnage de contenus d'animation japonaise et Films & Séries. Regardez vos anime et séries préférés en streaming gratuit sur Okastream.",
-  keywords: "Okastream, anime, manga, séries, films, streaming, gratuit, vostfr, Breaking Bad, One Piece, Naruto, Attack on Titan",
-  metadataBase: new URL("https://www.okastream.fr"),
+  title: "Okastream - Streaming Anime, Manga & Séries Gratuit en VOSTFR et VF",
+  description: "Okastream : Le meilleur site de streaming gratuit pour regarder des animes, lire des mangas et voir des séries en VOSTFR et VF. Découvrez One Piece, Naruto, Attack on Titan et plus encore sur Okastream !",
+  keywords: "Okastream, okastream.fr, anime streaming, manga lecture, séries streaming, VOSTFR, VF, gratuit, One Piece, Naruto, Attack on Titan, Dragon Ball, streaming anime gratuit, okastream streaming",
+  metadataBase: new URL("https://okastream.fr"),
   alternates: {
     canonical: "/"
   },
@@ -30,9 +30,9 @@ export const metadata: Metadata = {
     google: "JXUG7kpK-JLc6mNdI8pFXnTQPnJA4Z-TKV4iefh1aAg",
   },
   openGraph: {
-    title: "Okastream | Anime & Scans ET Films & Séries",
-    description: "Site de référencement et de visionnage de contenus d'animation japonaise et Films & Séries",
-    url: "https://www.okastream.fr",
+    title: "Okastream - Streaming Anime, Manga & Séries Gratuit en VOSTFR et VF",
+    description: "Okastream : Le meilleur site de streaming gratuit pour regarder des animes, lire des mangas et voir des séries en VOSTFR et VF. Découvrez One Piece, Naruto, Attack on Titan et plus encore !",
+    url: "https://okastream.fr",
     siteName: "Okastream",
     locale: "fr_FR",
     type: "website",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
         url: "/picture/logookaviolet.png",
         width: 1200,
         height: 630,
-        alt: "Okastream"
+        alt: "Okastream - Streaming Anime Gratuit"
       }
     ]
   },
