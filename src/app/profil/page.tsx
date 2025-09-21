@@ -16,9 +16,26 @@ import { useEffect, useState } from "react";
 export default function ProfilePage() {
   const { clearHistory } = useHistory();
   const { favorites, clearFavorites } = useFavorites();
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, loading } = useAuth();
   const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState("history");
+
+  // Debug: afficher l'état de l'authentification
+  useEffect(() => {
+    console.log("=== DEBUG PROFIL ===");
+    console.log("État auth:", { isAuthenticated, user, loading });
+    console.log("localStorage auth_token:", localStorage.getItem('auth_token'));
+    console.log("localStorage user_data:", localStorage.getItem('user_data'));
+    if (localStorage.getItem('user_data')) {
+      try {
+        const userData = JSON.parse(localStorage.getItem('user_data') || '{}');
+        console.log("User data parsé:", userData);
+      } catch (e) {
+        console.error("Erreur parsing user_data:", e);
+      }
+    }
+    console.log("==================");
+  }, [isAuthenticated, user, loading]);
   
   // Récupérer l'onglet depuis l'URL
   useEffect(() => {
@@ -48,6 +65,10 @@ export default function ProfilePage() {
                     </h2>
                     <p className="text-xs text-gray-400">
                       Membre depuis {user?.createdAt ? new Date(user.createdAt).getFullYear() : 2024}
+                    </p>
+                    {/* Debug temporaire */}
+                    <p className="text-xs text-red-400">
+                      DEBUG: Auth={isAuthenticated ? "✓" : "✗"} | User={user ? "✓" : "✗"} | Loading={loading ? "✓" : "✗"}
                     </p>
                   </div>
                 </div>
