@@ -247,8 +247,10 @@ export default function Header() {
           </div>
 
           {/* Bouton de connexion / Profil utilisateur */}
-          {/* Notifications du planning */}
-          <PlanningNotifications />
+          {/* Notifications du planning - Visible seulement sur PC */}
+          <div className="hidden md:block">
+            <PlanningNotifications />
+          </div>
 
           {isAuthenticated && user ? (
             <div className="flex items-center space-x-2">
