@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Calendar, ChevronLeft, ChevronRight, Filter, Clock } from 'lucide-react';
 import { WeeklyPlanning, PlanningDay, PlanningEpisode } from '@/lib/planning-data';
@@ -17,6 +17,44 @@ type FilterLanguage = 'all' | 'VO' | 'VF' | 'VF & VO';
 export default function PlanningWeekView({ weekPlanning, className = "" }: PlanningWeekViewProps) {
   const [filterType, setFilterType] = useState<FilterType>('all');
   const [filterLanguage, setFilterLanguage] = useState<FilterLanguage>('all');
+  const [currentDate, setCurrentDate] = useState(new Date());
+
+  // Mettre à jour la date actuelle pour la détection du jour courant
+  useEffect(() => {
+    const updateCurrentDate = () => {
+      setCurrentDate(new Date());
+    };
+
+    // Mettre à jour immédiatement
+    updateCurrentDate();
+
+    // Calculer le temps jusqu'à minuit
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(now.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
+    const timeUntilMidnight = tomorrow.getTime() - now.getTime();
+
+    // Timer pour la première mise à jour à minuit
+    const midnightTimer = setTimeout(() => {
+      updateCurrentDate();
+      
+      // Puis mettre à jour toutes les 24 heures
+      const dailyInterval = setInterval(updateCurrentDate, 24 * 60 * 60 * 1000);
+      
+      return () => clearInterval(dailyInterval);
+    }, timeUntilMidnight);
+
+    return () => {
+      clearTimeout(midnightTimer);
+    };
+  }, []);
+
+  // Recalculer isToday pour chaque jour en fonction de la date actuelle
+  const updatedDays = weekPlanning.days.map(day => ({
+    ...day,
+    isToday: day.date === currentDate.toISOString().split('T')[0]
+  }));
 
   // Filtrer les épisodes selon les critères sélectionnés
   const filterEpisodes = (episodes: PlanningEpisode[]): PlanningEpisode[] => {
@@ -29,7 +67,7 @@ export default function PlanningWeekView({ weekPlanning, className = "" }: Plann
 
   // Obtenir les statistiques de la semaine
   const getWeekStats = () => {
-    const allEpisodes = weekPlanning.days.flatMap(day => day.episodes);
+    const allEpisodes = updatedDays.flatMap(day => day.episodes);
     const totalEpisodes = allEpisodes.length;
     const animeCount = allEpisodes.filter(ep => ep.type === 'Anime').length;
     const scansCount = allEpisodes.filter(ep => ep.type === 'Scans').length;
@@ -152,9 +190,11 @@ export default function PlanningWeekView({ weekPlanning, className = "" }: Plann
         </button>
       </div>
 
-      {/* Planning en grille comme anime-sama */}
-      <div className="grid grid-cols-7 gap-4">
-        {weekPlanning.days.map((day: PlanningDay) => {
+      {/* Planning responsive - Desktop et Mobile */}
+      
+      {/* Version Desktop (lg et plus) */}
+      <div className="hidden lg:grid lg:grid-cols-7 gap-4">
+        {updatedDays.map((day: PlanningDay) => {
           const filteredEpisodes = filterEpisodes(day.episodes);
           
           return (
@@ -176,7 +216,11 @@ export default function PlanningWeekView({ weekPlanning, className = "" }: Plann
                     href={`/catalogue/${episode.animeId}`}
                     className="block"
                   >
-                    <div className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 rounded-xl overflow-hidden border border-slate-600/30 hover:border-blue-400/50 transition-all duration-300 hover:scale-105 backdrop-blur-sm shadow-lg hover:shadow-xl cursor-pointer">
+                    <div className={`bg-gradient-to-br from-slate-800/90 to-slate-900/90 rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 backdrop-blur-sm shadow-lg hover:shadow-xl cursor-pointer ${
+                      day.isToday 
+                        ? 'border-2 border-blue-400 shadow-blue-400/25' 
+                        : 'border border-slate-600/30 hover:border-blue-400/50'
+                    }`}>
                     {/* Image avec overlay moderne */}
                     <div className="relative h-32 overflow-hidden">
                       <img
@@ -234,6 +278,100 @@ export default function PlanningWeekView({ weekPlanning, className = "" }: Plann
             </div>
           );
         })}
+      </div>
+
+      {/* Version Mobile (lg et moins) - Scroll horizontal */}
+      <div className="lg:hidden">
+        {/* Scroll horizontal des jours */}
+        <div className="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory scrollbar-hide" style={{
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none'
+        }}>
+          {updatedDays.map((day: PlanningDay) => {
+            const filteredEpisodes = filterEpisodes(day.episodes);
+            
+            return (
+              <div key={day.date} className="flex-shrink-0 w-80 snap-start">
+                {/* En-tête du jour */}
+                <div className={`text-center py-3 rounded-lg border-2 mb-4 ${
+                  day.isToday 
+                    ? 'bg-blue-600 border-blue-500 text-white' 
+                    : 'bg-slate-800/50 border-slate-700 text-slate-300'
+                }`}>
+                  <h3 className="font-bold text-lg">{day.dayName.toUpperCase()}</h3>
+                </div>
+
+                {/* Liste des animes verticale */}
+                <div className="space-y-3 min-h-[600px] max-h-none">
+                  {filteredEpisodes.map((episode) => (
+                    <Link 
+                      key={episode.id} 
+                      href={`/catalogue/${episode.animeId}`}
+                      className="block"
+                    >
+                      <div className={`bg-gradient-to-br from-slate-800/90 to-slate-900/90 rounded-xl overflow-hidden transition-all duration-300 backdrop-blur-sm shadow-lg cursor-pointer ${
+                        day.isToday 
+                          ? 'border-2 border-blue-400 shadow-blue-400/25' 
+                          : 'border border-slate-600/30'
+                      }`}>
+                      {/* Image avec overlay moderne */}
+                      <div className="relative h-40 overflow-hidden">
+                        <img
+                          src={episode.imageUrl}
+                          alt={episode.animeTitle}
+                          className="w-full h-full object-cover"
+                        />
+                        
+                        {/* Badges en top-left */}
+                        <div className="absolute top-2 left-2 flex gap-1">
+                          <span className={`px-2 py-1 rounded-md text-xs font-semibold backdrop-blur-sm ${
+                            episode.type === 'Anime' 
+                              ? 'bg-blue-500/90 text-white' 
+                              : 'bg-gray-500/90 text-white'
+                          }`}>
+                            {episode.type}
+                          </span>
+                          
+                          <span className={`px-2 py-1 rounded-md text-xs font-semibold backdrop-blur-sm ${
+                            episode.language === 'VO' 
+                              ? 'bg-red-500/90 text-white'
+                              : episode.language === 'VF'
+                              ? 'bg-green-500/90 text-white' 
+                              : 'bg-purple-500/90 text-white'
+                          }`}>
+                            {episode.language}
+                          </span>
+                        </div>
+                      </div>
+                      
+                      {/* Section infos en bas */}
+                      <div className="p-4 bg-gradient-to-r from-slate-800/50 to-slate-900/50">
+                        {/* Titre de l'anime */}
+                        <h4 className="font-bold text-white text-base mb-2 line-clamp-2 leading-tight">
+                          {episode.animeTitle.toUpperCase()}
+                        </h4>
+                        
+                        {/* Heure avec format h */}
+                        <p className="text-yellow-400 text-sm font-semibold">
+                          {episode.releaseTime.slice(0, 5).replace(':', 'h')}
+                        </p>
+                      </div>
+                    </div>
+                    </Link>
+                  ))}
+                  
+                  {/* Message si pas d'épisodes */}
+                  {filteredEpisodes.length === 0 && (
+                    <div className="text-center py-12 text-slate-500">
+                      <div className="text-3xl mb-3">📭</div>
+                      <p className="text-base">Aucune sortie</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
