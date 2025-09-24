@@ -65,17 +65,6 @@ export default function PlanningWeekView({ weekPlanning, className = "" }: Plann
     });
   };
 
-  // Obtenir les statistiques de la semaine
-  const getWeekStats = () => {
-    const allEpisodes = updatedDays.flatMap(day => day.episodes);
-    const totalEpisodes = allEpisodes.length;
-    const animeCount = allEpisodes.filter(ep => ep.type === 'Anime').length;
-    const scansCount = allEpisodes.filter(ep => ep.type === 'Scans').length;
-    
-    return { totalEpisodes, animeCount, scansCount };
-  };
-
-  const stats = getWeekStats();
 
   return (
     <div className={`space-y-6 ${className}`}>
@@ -92,17 +81,6 @@ export default function PlanningWeekView({ weekPlanning, className = "" }: Plann
             </div>
           </div>
           
-          {/* Statistiques */}
-          <div className="flex gap-4 text-center">
-            <div className="bg-blue-500/20 rounded-lg px-4 py-3 border border-blue-500/30">
-              <div className="text-blue-300 font-bold text-2xl">{stats.animeCount}</div>
-              <div className="text-blue-400 text-sm font-medium">Animes</div>
-            </div>
-            <div className="bg-pink-500/20 rounded-lg px-4 py-3 border border-pink-500/30">
-              <div className="text-pink-300 font-bold text-2xl">{stats.scansCount}</div>
-              <div className="text-pink-400 text-sm font-medium">Scans</div>
-            </div>
-          </div>
         </div>
       </div>
 
