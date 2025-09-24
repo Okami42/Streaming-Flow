@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import PlanningWeekView from "@/components/PlanningWeekView";
 import { usePlanningUpdater } from "@/hooks/usePlanningUpdater";
 import { usePlanningUpdaterDev } from "@/hooks/usePlanningUpdater.dev";
-import { CalendarDays, RefreshCw } from "lucide-react";
+import { CalendarDays } from "lucide-react";
 
 export default function PlanningPage() {
   // Utiliser la version dev si en développement
@@ -44,13 +44,6 @@ export default function PlanningPage() {
               <h1 className="text-4xl font-bold text-white">
                 Planning des Sorties
               </h1>
-              <button
-                onClick={refreshPlanning}
-                className="ml-4 p-2 rounded-lg bg-blue-600 hover:bg-blue-700 transition-colors"
-                title="Actualiser le planning"
-              >
-                <RefreshCw className="h-5 w-5 text-white" />
-              </button>
             </div>
             <p className="text-slate-300 text-lg max-w-2xl mx-auto">
               Découvrez toutes les nouvelles sorties d'animes, et scans de la semaine. 
