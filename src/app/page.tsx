@@ -744,7 +744,9 @@ export default function Home() {
       </main>
 
       {/* Contenu SEO pour le référencement */}
-      <SEOContent />
+      <div className="hidden">
+        <SEOContent />
+      </div>
 
       <Footer />
     </div>
