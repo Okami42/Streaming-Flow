@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     canonical: "/"
   },
   verification: {
-    google: "JXUG7kpK-JLc6mNdI8pFXnTQPnJA4Z-TKV4iefh1aAg",
+    google: "rKNH9kNMrDDh5zM-jzGRD6j1ji4czTHFHhWy95TuKgY",
   },
   openGraph: {
     title: "Okastream - Streaming Anime, Manga & Séries Gratuit en VOSTFR et VF",
