@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { animes } from '@/lib/catalogue-utils'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://okastream.fr'
+  const baseUrl = 'https://okastream.com'
   
   // Pages statiques
   const staticPages: MetadataRoute.Sitemap = [
@@ -62,3 +62,4 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [...staticPages, ...animePages]
 }
+
