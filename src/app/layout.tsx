@@ -19,7 +19,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Okastream - Streaming Anime, Manga & Séries Gratuit en VOSTFR et VF",
+  title: "Okastream - Streaming Anime, Manga & Scans",
   description: "Okastream : Le meilleur site de streaming gratuit pour regarder des animes, lire des mangas et voir des séries en VOSTFR et VF. Découvrez One Piece, Naruto, Attack on Titan et plus encore sur Okastream !",
   keywords: "Okastream, okastream.fr, anime streaming, manga lecture, séries streaming, VOSTFR, VF, gratuit, One Piece, Naruto, Attack on Titan, Dragon Ball, streaming anime gratuit, okastream streaming",
   metadataBase: new URL("https://okastream.fr"),
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     google: "rKNH9kNMrDDh5zM-jzGRD6j1ji4czTHFHhWy95TuKgY",
   },
   openGraph: {
-    title: "Okastream - Streaming Anime, Manga & Séries Gratuit en VOSTFR et VF",
+    title: "Okastream - Streaming Anime, Manga & Scans",
     description: "Okastream : Le meilleur site de streaming gratuit pour regarder des animes, lire des mangas et voir des séries en VOSTFR et VF. Découvrez One Piece, Naruto, Attack on Titan et plus encore !",
     url: "https://okastream.fr",
     siteName: "Okastream",
@@ -50,11 +50,8 @@ export const metadata: Metadata = {
     follow: true
   },
   icons: {
-    icon: [
-      { url: '/favicon.ico', sizes: '128x128' },
-      { url: '/icon_logo_okami.png', sizes: '192x192' }
-    ],
-    apple: { url: '/icon_logo_okami.png', sizes: '180x180' }
+    icon: '/favicon.ico',
+    apple: '/icon_logo_okami.png'
   }
 };
 
