@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: '/favicon.ico',
-    apple: '/icon_logo_okami.png'
+    apple: '/picture/logookaviolet.png'
   }
 };
 
