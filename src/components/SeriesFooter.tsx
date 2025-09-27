@@ -19,9 +19,9 @@ export default function SeriesFooter() {
               <span className="absolute -bottom-1 left-0 w-12 h-[2px] bg-gradient-to-r from-blue-500 to-purple-500" />
             </h3>
             <p className="text-gray-400 text-sm leading-relaxed">
-              Okastream est un site de référencement et de visionnage de films et séries,
-              créé par des passionnés du divertissement sans but lucratif. 
-              Nous vous proposons un large catalogue de contenus populaires et incontournables.
+              Okanime est un site de référencement et de visionnage de contenus
+              de l'animation japonaise les moins accessibles possibles, créé par des
+              passionnés, de l'animation et du divertissement sans but lucratif.
             </p>
             <CustomImage
               src="/picture/logookaviolet.png"
