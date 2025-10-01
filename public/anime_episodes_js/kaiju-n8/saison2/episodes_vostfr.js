@@ -15,6 +15,8 @@ var eps3 = [
 'https://video.sibnet.ru/shell.php?videoid=6002033',
 'https://video.sibnet.ru/shell.php?videoid=6011153',
 'https://video.sibnet.ru/shell.php?videoid=6012353',
+'https://video.sibnet.ru/shell.php?videoid=6017038',
+'https://video.sibnet.ru/shell.php?videoid=6021767',
 
 
 ];
