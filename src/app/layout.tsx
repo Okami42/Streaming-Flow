@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     canonical: "/"
   },
   verification: {
-    google: "rKNH9kNMrDDh5zM-jzGRD6j1ji4czTHFHhWy95TuKgY",
+    google: "JXUG7kpK-JLc6mNdI8pFXnTQPnJA4Z-TKV4iefh1aAg",
   },
   openGraph: {
     title: "Okastream - Streaming Anime, Manga & Scans",
