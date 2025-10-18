@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
     const response = await fetch(url, {
       method: 'GET',
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'Referer': 'https://proxy.afterdark.click/',
         'Origin': 'https://proxy.afterdark.click',
         'Accept': '*/*',
@@ -35,14 +35,27 @@ export async function GET(request: NextRequest) {
         'Sec-Fetch-Mode': 'cors',
         'Sec-Fetch-Site': 'same-origin',
         'Cache-Control': 'no-cache',
-        'Pragma': 'no-cache'
+        'Pragma': 'no-cache',
+        'DNT': '1',
+        'Upgrade-Insecure-Requests': '1'
       },
+      // Ajouter des options pour Vercel
+      signal: AbortSignal.timeout(30000), // 30 secondes timeout
+      redirect: 'follow'
     });
     
     if (!response.ok) {
-      console.error(`Afterdark proxy error: ${response.status} ${response.statusText}`);
+      console.error(`Afterdark proxy error: ${response.status} ${response.statusText} for URL: ${url}`);
+      console.error(`Response headers:`, Object.fromEntries(response.headers.entries()));
+      
+      // Retourner une réponse plus détaillée pour le debug
       return NextResponse.json(
-        { error: `Failed to fetch: ${response.status} ${response.statusText}` },
+        { 
+          error: `Failed to fetch: ${response.status} ${response.statusText}`,
+          url: url,
+          status: response.status,
+          statusText: response.statusText
+        },
         { status: response.status }
       );
     }
@@ -108,8 +121,29 @@ export async function GET(request: NextRequest) {
     
   } catch (error) {
     console.error('Afterdark proxy error:', error);
+    
+    // Gestion spécifique des erreurs de timeout
+    if (error instanceof Error && error.name === 'AbortError') {
+      return NextResponse.json(
+        { error: 'Request timeout - the server took too long to respond' },
+        { status: 408 }
+      );
+    }
+    
+    // Gestion des erreurs de réseau
+    if (error instanceof TypeError && error.message.includes('fetch')) {
+      return NextResponse.json(
+        { error: 'Network error - unable to connect to the server' },
+        { status: 502 }
+      );
+    }
+    
     return NextResponse.json(
-      { error: 'An unexpected error occurred', details: error instanceof Error ? error.message : 'Unknown error' },
+      { 
+        error: 'An unexpected error occurred', 
+        details: error instanceof Error ? error.message : 'Unknown error',
+        type: error instanceof Error ? error.name : 'Unknown'
+      },
       { status: 500 }
     );
   }
