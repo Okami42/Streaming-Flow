@@ -22,7 +22,7 @@ import { getAnimeById, animes as allAnimes } from "@/lib/animeData";
 import { getAnimeImage as getCatalogueImage } from "@/lib/catalogue-utils";
 import SEOContent from "@/components/SEOContent";
 
-<meta name="google-site-verification" content="JXUG7kpK-JLc6mNdI8pFXnTQPnJA4Z-TKV4iefh1aAg" />
+<meta name="google-site-verification" content="rKNH9kNMrDDh5zM-jzGRD6j1ji4czTHFHhWy95TuKgY" />
 
 // Définir un type pour les éléments intrinsèques personnalisés
 interface CustomElements {

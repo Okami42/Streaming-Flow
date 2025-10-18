@@ -1331,27 +1331,26 @@ export const seriesData: Content[] = [
   },
   {
     id: "a-contre-sens-3",
-    title: "À contre-sens 3",
-    description: "Le mariage de Jenna et Lion ouvre la voie aux retrouvailles tant attendues entre Noah et Nick, quelque temps après leur rupture. L'incapacité de Nick à pardonner à Noah crée une barrière apparemment insurmontable entre eux. Lui, désormais héritier de l'empire commercial de son grand-père, et elle, qui commence à peine sa carrière, résistent à l'envie de raviver une flamme qui couve encore en eux. Mais alors que leurs chemins se croisent à nouveau, l'amour sera-t-il plus fort que la rancune ?",
-    imageUrl: "https://fr.web.img2.acsta.net/img/41/58/41587368a43ba82a028239ec7eda5cf4.jpg",
-    bannerUrl: "https://fr.web.img2.acsta.net/img/41/58/41587368a43ba82a028239ec7eda5cf4.jpg",
+    title: "À contre sens 3",
+    description: "Troisième volet de la série À contre sens, une série française captivante qui explore les complexités de la vie moderne à travers des histoires entrelacées.",
+    imageUrl: "https://images.unsplash.com/photo-1489599808412-4a4b3b3b3b3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    bannerUrl: "https://images.unsplash.com/photo-1489599808412-4a4b3b3b3b3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80",
     episodes: [
-      { id: 1, title: "À contre-sens 3 (Film complet)", videoUrl: "/api/proxy/afterdark-bypass?url=https%3A%2F%2Fproxy.afterdark.click%2F1156594%2Fplaylist.m3u8", duration: 113 * 60, imageUrl: "https://fr.web.img2.acsta.net/img/41/58/41587368a43ba82a028239ec7eda5cf4.jpg" }
+      { id: 1, title: "À contre sens 3", videoUrl: "/api/proxy/afterdark?url=https%3A%2F%2Fproxy.afterdark.click%2F1156594%2Fplaylist.m3u8", duration: 90 * 60, imageUrl: "https://images.unsplash.com/photo-1489599808412-4a4b3b3b3b3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" }
     ],
-    status: "Terminé",
-    year: 2025,
-    studio: "Prime Video",
+    status: "Disponible",
+    year: 2024,
+    studio: "Production française",
     type: "Film",
-    genres: ["Romance", "Drame"],
-    rating: 2.6,
-    language: "VF/VOSTFR",
-    runtime: "1h53"
+    genres: ["Drame", "Thriller"],
+    rating: 7.5,
+    language: "VF",
+    runtime: "1h30"
   }
 ];
 
 // Films récents
 export const recentFilms = [
-  seriesData.find(item => item.id === "a-contre-sens-3"),
   seriesData.find(item => item.id === "blade-runner-2049"),
   seriesData.find(item => item.id === "dune"),
   seriesData.find(item => item.id === "pulp-fiction"),
