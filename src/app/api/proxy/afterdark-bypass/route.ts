@@ -29,8 +29,8 @@ export async function GET(request: NextRequest) {
       'https://api.codetabs.com/v1/proxy?quest='
     ];
     
-    let response;
-    let lastError;
+    let response: Response | undefined;
+    let lastError: Response | Error | undefined;
     
     // Essayer avec les services de proxy
     for (let i = 0; i < proxyServices.length; i++) {
@@ -60,7 +60,7 @@ export async function GET(request: NextRequest) {
         }
       } catch (error) {
         console.log(`Erreur proxy ${i + 1}:`, error);
-        lastError = error;
+        lastError = error instanceof Error ? error : new Error('Unknown error');
       }
     }
     
@@ -94,12 +94,24 @@ export async function GET(request: NextRequest) {
         }
       } catch (error) {
         console.log('Erreur avec User-Agent Googlebot:', error);
-        lastError = error;
+        lastError = error instanceof Error ? error : new Error('Unknown error');
       }
     }
     
     if (!response || !response.ok) {
-      response = lastError;
+      response = lastError as Response;
+    }
+    
+    // Vérifier que response est bien une Response
+    if (!response || !(response instanceof Response)) {
+      return NextResponse.json(
+        { 
+          error: 'No valid response received',
+          url: url,
+          message: 'All proxy attempts failed'
+        },
+        { status: 502 }
+      );
     }
     
     if (!response.ok) {

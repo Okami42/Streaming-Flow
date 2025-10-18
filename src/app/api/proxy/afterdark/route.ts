@@ -36,8 +36,8 @@ export async function GET(request: NextRequest) {
       'https://stream.afterdark.click/'
     ];
     
-    let response;
-    let lastError;
+    let response: Response | undefined;
+    let lastError: Response | Error | undefined;
     
     // Essayer avec différents User-Agents et Referers
     for (let i = 0; i < userAgents.length; i++) {
@@ -79,12 +79,24 @@ export async function GET(request: NextRequest) {
         }
       } catch (error) {
         console.log(`Erreur tentative ${i + 1}:`, error);
-        lastError = error;
+        lastError = error instanceof Error ? error : new Error('Unknown error');
       }
     }
     
     if (!response || !response.ok) {
-      response = lastError;
+      response = lastError as Response;
+    }
+    
+    // Vérifier que response est bien une Response
+    if (!response || !(response instanceof Response)) {
+      return NextResponse.json(
+        { 
+          error: 'No valid response received',
+          url: url,
+          message: 'All proxy attempts failed'
+        },
+        { status: 502 }
+      );
     }
     
     if (!response.ok) {
