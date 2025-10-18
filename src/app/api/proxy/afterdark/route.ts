@@ -161,4 +161,5 @@ export async function OPTIONS(request: NextRequest) {
 }
 
 export const dynamic = 'force-dynamic';
+export const maxDuration = 30;
 

@@ -88,6 +88,10 @@ const nextConfig = {
   optimizeFonts: true,
   // Compression des pages
   compress: true,
+  // Configuration des fonctions pour Vercel
+  experimental: {
+    serverComponentsExternalPackages: ['hls.js']
+  },
   // Headers pour CORS et optimisations
   async headers() {
     return [
