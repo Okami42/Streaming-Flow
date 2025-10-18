@@ -1336,7 +1336,7 @@ export const seriesData: Content[] = [
     imageUrl: "https://fr.web.img2.acsta.net/img/41/58/41587368a43ba82a028239ec7eda5cf4.jpg",
     bannerUrl: "https://fr.web.img2.acsta.net/img/41/58/41587368a43ba82a028239ec7eda5cf4.jpg",
     episodes: [
-      { id: 1, title: "À contre-sens 3 (Film complet)", videoUrl: "/api/proxy/afterdark?url=https%3A%2F%2Fproxy.afterdark.click%2F1156594%2Fplaylist.m3u8", duration: 113 * 60, imageUrl: "https://fr.web.img2.acsta.net/img/41/58/41587368a43ba82a028239ec7eda5cf4.jpg" }
+      { id: 1, title: "À contre-sens 3 (Film complet)", videoUrl: "/api/proxy/afterdark-bypass?url=https%3A%2F%2Fproxy.afterdark.click%2F1156594%2Fplaylist.m3u8", duration: 113 * 60, imageUrl: "https://fr.web.img2.acsta.net/img/41/58/41587368a43ba82a028239ec7eda5cf4.jpg" }
     ],
     status: "Terminé",
     year: 2025,

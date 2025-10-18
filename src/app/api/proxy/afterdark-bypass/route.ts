@@ -20,65 +20,80 @@ export async function GET(request: NextRequest) {
       );
     }
     
-    // Essayer plusieurs stratégies pour contourner le blocage
-    const userAgents = [
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-      'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/121.0',
-      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/121.0'
-    ];
+    console.log('Tentative de contournement du blocage afterdark...');
     
-    const referers = [
-      'https://proxy.afterdark.click/',
-      'https://afterdark.click/',
-      'https://www.afterdark.click/',
-      'https://stream.afterdark.click/'
+    // Stratégie 1: Utiliser un proxy externe
+    const proxyServices = [
+      'https://api.allorigins.win/raw?url=',
+      'https://cors-anywhere.herokuapp.com/',
+      'https://api.codetabs.com/v1/proxy?quest='
     ];
     
     let response;
     let lastError;
     
-    // Essayer avec différents User-Agents et Referers
-    for (let i = 0; i < userAgents.length; i++) {
+    // Essayer avec les services de proxy
+    for (let i = 0; i < proxyServices.length; i++) {
       try {
-        console.log(`Tentative ${i + 1} avec User-Agent: ${userAgents[i].substring(0, 50)}...`);
+        const proxyUrl = proxyServices[i] + encodeURIComponent(url);
+        console.log(`Tentative proxy ${i + 1}: ${proxyServices[i]}`);
         
-        response = await fetch(url, {
+        response = await fetch(proxyUrl, {
           method: 'GET',
           headers: {
-            'User-Agent': userAgents[i],
-            'Referer': referers[i % referers.length],
-            'Origin': referers[i % referers.length].replace(/\/$/, ''),
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
             'Accept': '*/*',
             'Accept-Language': 'fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7',
-            'Accept-Encoding': 'gzip, deflate, br',
-            'Connection': 'keep-alive',
-            'Sec-Fetch-Dest': 'empty',
-            'Sec-Fetch-Mode': 'cors',
-            'Sec-Fetch-Site': 'same-origin',
             'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache',
-            'DNT': '1',
-            'Upgrade-Insecure-Requests': '1',
-            // Ajouter des headers pour masquer l'origine Vercel
-            'X-Forwarded-For': '127.0.0.1',
-            'X-Real-IP': '127.0.0.1',
-            'CF-Connecting-IP': '127.0.0.1'
+            'Pragma': 'no-cache'
           },
           signal: AbortSignal.timeout(30000),
           redirect: 'follow'
         });
         
         if (response.ok) {
-          console.log(`Succès avec la tentative ${i + 1}`);
+          console.log(`Succès avec le proxy ${i + 1}`);
           break;
         } else {
-          console.log(`Échec tentative ${i + 1}: ${response.status} ${response.statusText}`);
+          console.log(`Échec proxy ${i + 1}: ${response.status} ${response.statusText}`);
           lastError = response;
         }
       } catch (error) {
-        console.log(`Erreur tentative ${i + 1}:`, error);
+        console.log(`Erreur proxy ${i + 1}:`, error);
+        lastError = error;
+      }
+    }
+    
+    // Si les proxies externes échouent, essayer une requête directe avec des headers différents
+    if (!response || !response.ok) {
+      console.log('Tentative de requête directe avec headers modifiés...');
+      
+      try {
+        response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+            'Accept': '*/*',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Connection': 'keep-alive',
+            'Upgrade-Insecure-Requests': '1',
+            'Sec-Fetch-Dest': 'document',
+            'Sec-Fetch-Mode': 'navigate',
+            'Sec-Fetch-Site': 'none',
+            'Cache-Control': 'max-age=0'
+          },
+          signal: AbortSignal.timeout(30000),
+          redirect: 'follow'
+        });
+        
+        if (response.ok) {
+          console.log('Succès avec User-Agent Googlebot');
+        } else {
+          lastError = response;
+        }
+      } catch (error) {
+        console.log('Erreur avec User-Agent Googlebot:', error);
         lastError = error;
       }
     }
@@ -88,16 +103,16 @@ export async function GET(request: NextRequest) {
     }
     
     if (!response.ok) {
-      console.error(`Afterdark proxy error: ${response.status} ${response.statusText} for URL: ${url}`);
+      console.error(`Afterdark bypass error: ${response.status} ${response.statusText} for URL: ${url}`);
       console.error(`Response headers:`, Object.fromEntries(response.headers.entries()));
       
-      // Retourner une réponse plus détaillée pour le debug
       return NextResponse.json(
         { 
           error: `Failed to fetch: ${response.status} ${response.statusText}`,
           url: url,
           status: response.status,
-          statusText: response.statusText
+          statusText: response.statusText,
+          message: 'Afterdark servers are blocking requests from Vercel/Cloudflare'
         },
         { status: response.status }
       );
@@ -127,12 +142,12 @@ export async function GET(request: NextRequest) {
         if (line.includes('.ts') || line.includes('.m3u8')) {
           // Si c'est déjà une URL absolue
           if (line.startsWith('http://') || line.startsWith('https://')) {
-            return `/api/proxy/afterdark?url=${encodeURIComponent(line)}`;
+            return `/api/proxy/afterdark-bypass?url=${encodeURIComponent(line)}`;
           }
           
           // Construire l'URL absolue pour les chemins relatifs
           const absoluteUrl = new URL(line, baseUrl).toString();
-          return `/api/proxy/afterdark?url=${encodeURIComponent(absoluteUrl)}`;
+          return `/api/proxy/afterdark-bypass?url=${encodeURIComponent(absoluteUrl)}`;
         }
         
         return line;
@@ -163,7 +178,7 @@ export async function GET(request: NextRequest) {
     });
     
   } catch (error) {
-    console.error('Afterdark proxy error:', error);
+    console.error('Afterdark bypass error:', error);
     
     // Gestion spécifique des erreurs de timeout
     if (error instanceof Error && error.name === 'AbortError') {
@@ -205,4 +220,3 @@ export async function OPTIONS(request: NextRequest) {
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 30;
-
