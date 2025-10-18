@@ -1328,11 +1328,30 @@ export const seriesData: Content[] = [
     rating: 7.0,
     language: "VF/VOSTFR",
     runtime: "1h56"
+  },
+  {
+    id: "a-contre-sens-3",
+    title: "À contre-sens 3",
+    description: "Le mariage de Jenna et Lion ouvre la voie aux retrouvailles tant attendues entre Noah et Nick, quelque temps après leur rupture. L'incapacité de Nick à pardonner à Noah crée une barrière apparemment insurmontable entre eux. Lui, désormais héritier de l'empire commercial de son grand-père, et elle, qui commence à peine sa carrière, résistent à l'envie de raviver une flamme qui couve encore en eux. Mais alors que leurs chemins se croisent à nouveau, l'amour sera-t-il plus fort que la rancune ?",
+    imageUrl: "https://fr.web.img2.acsta.net/img/41/58/41587368a43ba82a028239ec7eda5cf4.jpg",
+    bannerUrl: "https://fr.web.img2.acsta.net/img/41/58/41587368a43ba82a028239ec7eda5cf4.jpg",
+    episodes: [
+      { id: 1, title: "À contre-sens 3 (Film complet)", videoUrl: "/api/proxy/afterdark?url=https%3A%2F%2Fproxy.afterdark.click%2F1156594%2Fplaylist.m3u8", duration: 113 * 60, imageUrl: "https://fr.web.img2.acsta.net/img/41/58/41587368a43ba82a028239ec7eda5cf4.jpg" }
+    ],
+    status: "Terminé",
+    year: 2025,
+    studio: "Prime Video",
+    type: "Film",
+    genres: ["Romance", "Drame"],
+    rating: 2.6,
+    language: "VF/VOSTFR",
+    runtime: "1h53"
   }
 ];
 
 // Films récents
 export const recentFilms = [
+  seriesData.find(item => item.id === "a-contre-sens-3"),
   seriesData.find(item => item.id === "blade-runner-2049"),
   seriesData.find(item => item.id === "dune"),
   seriesData.find(item => item.id === "pulp-fiction"),

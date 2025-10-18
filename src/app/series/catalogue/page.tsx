@@ -22,6 +22,14 @@ interface CatalogueSeries {
 
 const seriesList: CatalogueSeries[] = [
   {
+    id: "a-contre-sens-3",
+    title: "À contre-sens 3",
+    imageUrl: "https://fr.web.img2.acsta.net/img/41/58/41587368a43ba82a028239ec7eda5cf4.jpg",
+    type: "Film",
+    language: "VF",
+    time: "1h53"
+  },
+  {
     id: "motorheads",
     title: "Motorheads",
     imageUrl: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",

@@ -4,8 +4,6 @@ import React from "react";
 import Link from "next/link";
 import CustomImage from "@/components/ui/custom-image";
 
-<meta name="google-site-verification" content="rKNH9kNMrDDh5zM-jzGRD6j1ji4czTHFHhWy95TuKgY" />
-
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-[#030711] text-white">
@@ -84,4 +82,5 @@ export default function Home() {
     </div>
   );
 }
+
 

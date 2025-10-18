@@ -24,7 +24,9 @@ export async function GET(request: NextRequest) {
         'streaming20.animedigitalnetwork.fr',
         'streaming19.animedigitalnetwork.fr',
         'test-streams.mux.dev',
-        'bitdash-a.akamaihd.net'
+        'bitdash-a.akamaihd.net',
+        'proxy.afterdark.click',
+        'afterdark.click'
       ];
       
       if (!allowedDomains.some(domain => parsedUrl.hostname.endsWith(domain))) {
@@ -40,13 +42,27 @@ export async function GET(request: NextRequest) {
       );
     }
     
+    // Déterminer le Referer approprié selon le domaine
+    const parsedTargetUrl = new URL(url);
+    let referer = 'https://animedigitalnetwork.fr/';
+    let origin = 'https://animedigitalnetwork.fr';
+
+    if (parsedTargetUrl.hostname.includes('afterdark.click')) {
+      referer = 'https://proxy.afterdark.click/';
+      origin = 'https://proxy.afterdark.click';
+    }
+
     // Récupérer le contenu depuis l'URL cible
     const response = await fetch(url, {
       method: 'GET',
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-        'Referer': 'https://animedigitalnetwork.fr/',
-        'Origin': 'https://animedigitalnetwork.fr'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
+        'Referer': referer,
+        'Origin': origin,
+        'Accept': '*/*',
+        'Accept-Language': 'fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7',
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache'
       },
     });
     

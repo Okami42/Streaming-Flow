@@ -589,11 +589,11 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
     <div className="flex flex-col min-h-screen bg-[#030711]">
       <Head>
         <link rel="preconnect" href="https://www.hlsplayer.org" />
-        {episode.videoUrl.includes('http') && (
+        {episode.videoUrl.includes('http') && episode.videoUrl.startsWith('http') && (
           <link rel="preconnect" href={new URL(episode.videoUrl).origin} />
         )}
         <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/hls.js@latest" />
-        {episode.videoUrl.endsWith('.m3u8') || episode.videoUrl.includes('master.m3u8') ? (
+        {episode.videoUrl.endsWith('.m3u8') || episode.videoUrl.includes('master.m3u8') || episode.videoUrl.includes('/api/proxy') ? (
           <meta name="referrer" content="no-referrer" />
         ) : null}
       </Head>
@@ -774,7 +774,7 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
                       style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
                     ></iframe>
                   </div>
-                ) : episode.videoUrl.endsWith('.m3u8') || episode.videoUrl.includes('master.m3u8') ? (
+                ) : episode.videoUrl.endsWith('.m3u8') || episode.videoUrl.includes('master.m3u8') || episode.videoUrl.includes('/api/proxy') ? (
                   <div className="relative w-full h-full">
                     <div className="absolute inset-0 flex items-center justify-center z-10 bg-black/80 loading-overlay transition-opacity duration-500">
                       <div className="text-center">
@@ -784,8 +784,8 @@ export default function SeriesWatchPage({ params, searchParams: queryParams }: P
                         <p className="text-blue-400 text-sm mt-3">Cela prend entre 5 à 10 secondes</p>
                       </div>
                     </div>
-                    <iframe 
-                      src={`https://www.hlsplayer.org/play?url=${encodeURIComponent(episode.videoUrl)}&autoplay=true&preload=auto&poster=${encodeURIComponent(episode.imageUrl || '')}&muted=false&loop=false&playsinline=true&quality=auto&startPosition=${currentTime}&lowLatency=true&enableWorker=true&debug=false&captions=false&audioTrack=fr&defaultAudioTrack=fr`}
+                    <iframe
+                      src={`https://www.hlsplayer.org/play?url=${encodeURIComponent(episode.videoUrl.startsWith('/') ? `${typeof window !== 'undefined' ? window.location.origin : ''}${episode.videoUrl}` : episode.videoUrl)}&autoplay=true&preload=auto&poster=${encodeURIComponent(episode.imageUrl || '')}&muted=false&loop=false&playsinline=true&quality=auto&startPosition=${currentTime}&lowLatency=true&enableWorker=true&debug=false&captions=false&audioTrack=fr&defaultAudioTrack=fr`}
                       className="w-full h-full" 
                       frameBorder="0" 
                       scrolling="no" 
