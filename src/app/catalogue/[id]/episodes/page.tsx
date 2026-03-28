@@ -47,8 +47,8 @@ export default async function AnimeEpisodesPage({ params, searchParams }: PagePr
     }
   }
 
-  // Déterminer si l'anime a plusieurs saisons
-  const hasMultipleSeasons = anime.seasons && anime.seasons.length > 1;
+  // Déterminer si l'anime a plusieurs saisons (s'assurer que c'est un booléen strict)
+  const hasMultipleSeasons = !!(anime.seasons && anime.seasons.length > 1);
 
   return (
     <div className="flex flex-col min-h-screen bg-[#030711]">
