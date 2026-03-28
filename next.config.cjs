@@ -3,10 +3,10 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: [
-      'ext.same-assets.com', 
-      'storage-anime.com', 
-      'video.sibnet.ru', 
-      'sibnet.ru', 
+      'ext.same-assets.com',
+      'storage-anime.com',
+      'video.sibnet.ru',
+      'sibnet.ru',
       'embed.sibnet.ru',
       'i.ytimg.com',
       'i0.wp.com',
@@ -101,6 +101,11 @@ const nextConfig = {
           {
             key: 'Cross-Origin-Resource-Policy',
             value: 'cross-origin'
+          },
+          // Autoriser le pleidn écran pour les iframes (Vidmoly/JWPlayer)
+          {
+            key: 'Permissions-Policy',
+            value: 'fullscreen=*, autoplay=*, picture-in-picture=*, encrypted-media=*'
           },
           // Ajout de headers pour les optimisations de cache
           {
