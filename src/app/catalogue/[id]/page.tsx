@@ -82,15 +82,10 @@ export default async function CataloguePage({ params }: CataloguePageProps) {
     anime = { ...anime, imageUrl: catalogueImage };
   }
 
-  // 1. Essayer de charger depuis les fichiers JS publics (priorité) avec enrichAnime
-  try {
-    const enrichedAnime = await ultraFastEnrichAnime(anime);
-    if (enrichedAnime && enrichedAnime.seasons && enrichedAnime.seasons.length > 0) {
-      anime = { ...enrichedAnime, imageUrl: anime.imageUrl };
-    }
-  } catch (error) {
-    // Si ça rate, ça garde l'anime de base (qui vient potentiellement de la DB)
-  }
+  // 1. Essayer de charger depuis les fichiers JS publics avec auto-import en arrière-plan
+  // On ne le fait pas côté serveur directement pour éviter de bloquer le rendu
+  // et éviter les erreurs de chemin sur Vercel
+  // Le client s'en chargera via AnimePageClient et le cache local
 
   return <AnimePageClient anime={anime} />;
 }

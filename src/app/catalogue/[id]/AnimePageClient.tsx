@@ -68,6 +68,10 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
   const [isFollowing, setIsFollowing] = useState(false);
   const [isSeasonMenuOpen, setIsSeasonMenuOpen] = useState<boolean>(false);
   
+  // Déclarer clientAnime tôt car il est utilisé dans plusieurs useEffects
+  const [clientAnime, setClientAnime] = useState<Anime | undefined>(anime);
+  const [renderKey, setRenderKey] = useState(0);
+  
   // Récupérer les paramètres d'URL
   const searchParams = useSearchParams();
   
@@ -111,23 +115,23 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
 
   // Effet pour forcer la re-sélection de l'épisode quand les données d'auto-import arrivent
   useEffect(() => {
-    if (!anime) return;
+    if (!clientAnime) return;
     
     // Vérifier si l'anime a maintenant des saisons/épisodes (après auto-import)
-    const hasEpisodes = anime.seasons && anime.seasons.length > 0 && anime.seasons[0].episodes.length > 0;
+    const hasEpisodes = clientAnime.seasons && clientAnime.seasons.length > 0 && clientAnime.seasons[0].episodes.length > 0;
     
     if (hasEpisodes) {
       // Vérifier si l'épisode actuellement sélectionné existe dans les nouvelles données
-      const currentSeason = anime.seasons?.find(s => String(s.seasonNumber) === String(selectedSeason));
-      const currentEpisode = currentSeason?.episodes.find(ep => ep.number === selectedEpisode);
+      const currentSeasonObj = clientAnime.seasons?.find(s => String(s.seasonNumber) === String(selectedSeason));
+      const currentEpisodeObj = currentSeasonObj?.episodes.find(ep => ep.number === selectedEpisode);
       
       // Si l'épisode n'existe pas (typique après auto-import), forcer la sélection de l'épisode 1
-      if (!currentEpisode && currentSeason && currentSeason.episodes.length > 0) {
+      if (!currentEpisodeObj && currentSeasonObj && currentSeasonObj.episodes.length > 0) {
         console.log("🔄 Auto-import détecté: re-sélection de l'épisode 1");
         setSelectedEpisode(1);
       }
     }
-  }, [anime?.seasons, selectedSeason, selectedEpisode]);
+  }, [clientAnime?.seasons, selectedSeason, selectedEpisode]);
   
   // Récupérer les fonctions du hook useHistory
   const { addToWatchHistory, updateWatchProgress, watchHistory } = useHistory();
@@ -147,8 +151,41 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
   const intervalRef = React.useRef<NodeJS.Timeout | null>(null);
   const timeDisplayRef = React.useRef("00:00");
   
-  // État UI pour forcer le rendu uniquement quand nécessaire
-  const [renderKey, setRenderKey] = useState(0);
+  // (clientAnime et renderKey déclarés plus haut)
+  
+  // Effet pour enrichir l'anime côté client (évite les problèmes Vercel)
+  useEffect(() => {
+    if (!anime) return;
+    
+    // Toujours essayer de charger les épisodes depuis les fichiers public (priorité sur la DB)
+    // Les fichiers public contiennent les IDs Sibnet/Sendvid pour le streaming
+    const enrichClientSide = async () => {
+      try {
+        const { ultraFastEnrichAnime } = await import("@/lib/realAutoImport");
+        const enrichedAnime = await ultraFastEnrichAnime(anime);
+        
+        if (enrichedAnime && enrichedAnime.seasons && enrichedAnime.seasons.length > 0) {
+          // Les fichiers public ont des épisodes : utiliser la version enrichie
+          setClientAnime(enrichedAnime);
+          console.log("✅ Épisodes chargés depuis les fichiers public:", enrichedAnime.seasons.length, "saison(s)");
+        } else if (anime.seasons && anime.seasons.length > 0 && anime.seasons[0].episodes.length > 0) {
+          // Fallback : utiliser les données de la DB si les fichiers public ne donnent rien
+          setClientAnime(anime);
+          console.log("📦 Épisodes chargés depuis la base de données");
+        } else {
+          // Aucun épisode trouvé, utiliser l'anime tel quel
+          setClientAnime(anime);
+          console.log("⚠️ Aucun épisode trouvé pour:", anime.id);
+        }
+      } catch (e) {
+        console.error("Erreur d'enrichissement client:", e);
+        // En cas d'erreur, utiliser les données existantes
+        setClientAnime(anime);
+      }
+    };
+    
+    enrichClientSide();
+  }, [anime]);
   const sibnetOverlayRef = React.useRef<HTMLDivElement>(null);
   
   // État pour afficher l'en-tête de section
@@ -160,71 +197,79 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
     : selectedSeason;
   
   // Déterminer si nous utilisons la structure de saisons
-  const useSeasonsStructure = anime?.seasons && anime.seasons.length > 0;
+  const useSeasonsStructure = clientAnime?.seasons && clientAnime.seasons.length > 0;
   
   // Récupérer la saison actuelle si disponible
   const currentSeason = useSeasonsStructure 
-    ? anime?.seasons?.find(s => String(s.seasonNumber) === String(selectedSeason))
+    ? clientAnime?.seasons?.find(s => String(s.seasonNumber) === String(selectedSeason))
     : null;
     
   // Fonction pour récupérer les épisodes selon la structure
   const getEpisodes = (seasonNumber: number | string) => {
-    if (!anime || !anime.seasons) return [];
+    if (!clientAnime || !clientAnime.seasons) return [];
     
-    const season = anime.seasons.find(s => String(s.seasonNumber) === String(seasonNumber));
+    const season = clientAnime.seasons.find(s => String(s.seasonNumber) === String(seasonNumber));
     if (!season) return [];
     
     // Filter episodes for VF tab
     if (selectedLanguage === 'vf') {
       // Solo Leveling saison 2 : seulement les 9 premiers épisodes
-      if (anime.id === 'solo-leveling-2') {
+      if (clientAnime.id === 'solo-leveling-2') {
         return season.episodes.filter(ep => ep.number <= 9);
       }
       // Solo Leveling saison 1 : tous les épisodes (jusqu'à 12)
-      if (anime.id === 'solo-leveling' && seasonNumber === 1) {
+      if (clientAnime.id === 'solo-leveling' && seasonNumber === 1) {
         return season.episodes.filter(ep => ep.number <= 12);
       }
     }
     
     // VOSTFR ou autres animes: tous les épisodes
-    return season.episodes;
+    return season.episodes || [];
   };
 
   // Fonction pour vérifier si la saison actuelle a des épisodes en VF
   const hasVFEpisodes = () => {
-    if (!anime) return false;
+    if (!clientAnime) return false;
     
     const episodes = useSeasonsStructure 
       ? getEpisodes(String(selectedSeason))
-      : (anime.episodes || []);
+      : (clientAnime.episodes || []);
+      
+    if (!episodes || episodes.length === 0) return false;
     
     // Vérifier si au moins un épisode a des sources VF
     return episodes.some(episode => 
-      episode.sibnetVfId || 
-      episode.vidmolyVfId || 
-      episode.vidmolyVfUrl || 
-      episode.movearnVfUrl ||
-      episode.mp4VfUrl ||
-      episode.sendvidVfId
+      episode && (
+        episode.sibnetVfId || 
+        episode.vidmolyVfId || 
+        episode.vidmolyVfUrl || 
+        episode.movearnVfUrl ||
+        episode.mp4VfUrl ||
+        episode.sendvidVfId
+      )
     );
   };
 
   // Fonction pour vérifier si la saison actuelle a des épisodes en VO
   const hasVOEpisodes = () => {
-    if (!anime) return false;
+    if (!clientAnime) return false;
     
     const episodes = useSeasonsStructure 
       ? getEpisodes(String(selectedSeason))
-      : (anime.episodes || []);
+      : (clientAnime.episodes || []);
+      
+    if (!episodes || episodes.length === 0) return false;
     
     // Vérifier si au moins un épisode a des sources VO
     return episodes.some(episode => 
-      episode.sibnetVostfrId || 
-      episode.vidmolyId || 
-      episode.vidmolyUrl || 
-      episode.movearnUrl ||
-      episode.mp4Url ||
-      episode.sendvidId
+      episode && (
+        episode.sibnetVostfrId || 
+        episode.vidmolyId || 
+        episode.vidmolyUrl || 
+        episode.movearnUrl ||
+        episode.mp4Url ||
+        episode.sendvidId
+      )
     );
   };
 
@@ -258,9 +303,10 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
   }, [selectedSeason]); // Enlever selectedLanguage pour éviter les boucles
     
   // Récupérer l'épisode actuel selon la structure utilisée
+  // IMPORTANT: utiliser clientAnime (enrichi depuis fichiers public) et non anime (données brutes DB)
   const episode = useSeasonsStructure
-    ? anime?.seasons?.find(s => String(s.seasonNumber) === String(selectedSeason))?.episodes.find(ep => ep.number === selectedEpisode)
-    : anime?.episodes?.find(ep => ep.number === selectedEpisode);
+    ? clientAnime?.seasons?.find(s => String(s.seasonNumber) === String(selectedSeason))?.episodes.find(ep => ep.number === selectedEpisode)
+    : clientAnime?.episodes?.find(ep => ep.number === selectedEpisode);
 
   // Effet pour forcer le re-render quand la langue change
   React.useEffect(() => {

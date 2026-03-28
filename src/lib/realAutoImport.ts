@@ -21,10 +21,25 @@ const enrichedAnimeCache = new Map<string, { anime: Anime, timestamp: number }>(
 // Helper function to get base URL
 function getBaseUrl() {
   if (typeof window !== 'undefined') return ''; // Browser should use relative url
-  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
-  return 'http://localhost:3000';
+  
+  // URL de production fixe pour être 100% sûr d'atteindre le bon domaine sur Vercel
+  // et éviter les erreurs "Failed to parse URL" ou les boucles locales
+  return 'https://okastream.fr';
 }
+
+// Fonction utilitaire pour s'assurer que fetch n'utilise pas le cache en production
+const fetchNoCache = async (url: string, options: RequestInit = {}) => {
+  return fetch(url, {
+    ...options,
+    cache: 'no-store', // Éviter le cache Next.js agressif
+    headers: {
+      ...options.headers,
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    }
+  });
+};
 
 /**
  * Parse ultra-rapide des fichiers d'épisodes avec support Sendvid
@@ -85,48 +100,7 @@ async function ultraFastLoadEpisode(filePath: string): Promise<{ sibnetIds: stri
     }
   }
   
-  // Si on est côté serveur en local, utiliser le système de fichiers (plus rapide)
-  // Sur Vercel, on préfère utiliser l'URL car le dossier public n'est pas toujours accessible via fs de la même façon
-  if (typeof window === 'undefined' && !process.env.VERCEL) {
-    const fs = await import('fs/promises');
-    const path = await import('path');
-    
-    for (const folder of folders) {
-      const fullPath = path.join(process.cwd(), 'public', folder, filePath);
-      try {
-        const content = await fs.readFile(fullPath, 'utf-8');
-        const result = fastParseEpisodeFile(content);
-        
-        // Convertir pour la compatibilité avec l'ancienne interface
-        const sibnetIds: string[] = [];
-        const sendvidIds: string[] = [];
-        
-        result.episodes.forEach(episode => {
-          if (episode.type === 'sibnet') {
-            sibnetIds.push(episode.id);
-          } else if (episode.type === 'sendvid') {
-            sendvidIds.push(episode.id);
-          }
-        });
-        
-        if (result.episodes.length > 0) {
-          // Cache ultra-rapide (stocker les IDs Sibnet pour compatibilité)
-          if (SPEED_CONFIG.enableCache) {
-            ultraCache.set(filePath, { data: sibnetIds, timestamp: Date.now() });
-          }
-          return { sibnetIds, sendvidIds, episodes: result.episodes };
-        }
-      } catch (e) {
-        // Fichier non trouvé dans ce dossier, on essaie le suivant
-        continue;
-      }
-    }
-    
-    // Si on arrive ici, le fichier n'a été trouvé dans aucun dossier
-    return { sibnetIds: [], sendvidIds: [], episodes: [] };
-  }
-
-  // Fallback pour le côté client (avec délai et headers pour éviter le ban)
+  // Délai aléatoire simple pour éviter la détection
   const randomDelay = Math.random() * 200 + 100; // 100-300ms
   await new Promise(resolve => setTimeout(resolve, randomDelay));
   
@@ -139,14 +113,13 @@ async function ultraFastLoadEpisode(filePath: string): Promise<{ sibnetIds: stri
     'Pragma': 'no-cache'
   };
   
-    // Requêtes séquentielles pour éviter la surcharge
-  const baseUrl = getBaseUrl();
+  // Requêtes séquentielles pour éviter la surcharge
   for (const folder of folders) {
     try {
       const controller = new AbortController();
       setTimeout(() => controller.abort(), SPEED_CONFIG.requestTimeout);
       
-      const response = await simpleFetch(`${baseUrl}/${folder}/${filePath}`, { 
+      const response = await simpleFetch(`/${folder}/${filePath}`, { 
         signal: controller.signal,
         headers: headers,
         method: 'GET'
@@ -296,38 +269,7 @@ async function ultraFastLoadAllSeasons(animeId: string, animeYear?: number): Pro
  */
 async function loadEpisodeFromSpecificFolder(filePath: string, folder: string): Promise<{ sibnetIds: string[], sendvidIds: string[], episodes: Array<{type: 'sibnet' | 'sendvid', id: string}> }> {
   try {
-    // Si on est côté serveur en local, utiliser le système de fichiers pour plus de rapidité et de fiabilité
-    if (typeof window === 'undefined' && !process.env.VERCEL) {
-      const fs = await import('fs/promises');
-      const path = await import('path');
-      const fullPath = path.join(process.cwd(), 'public', folder, filePath);
-      
-      try {
-        const content = await fs.readFile(fullPath, 'utf-8');
-        const result = fastParseEpisodeFile(content);
-        
-        // Convertir pour la compatibilité avec l'ancienne interface
-        const sibnetIds: string[] = [];
-        const sendvidIds: string[] = [];
-        
-        result.episodes.forEach(episode => {
-          if (episode.type === 'sibnet') {
-            sibnetIds.push(episode.id);
-          } else if (episode.type === 'sendvid') {
-            sendvidIds.push(episode.id);
-          }
-        });
-        
-        return { sibnetIds, sendvidIds, episodes: result.episodes };
-      } catch (err) {
-        // Fichier non trouvé ou erreur de lecture
-        return { sibnetIds: [], sendvidIds: [], episodes: [] };
-      }
-    }
-
-    // Fallback pour le côté client ou Vercel
-    const baseUrl = getBaseUrl();
-    const url = `${baseUrl}/${folder}/${filePath}`;
+    const url = `/${folder}/${filePath}`;
     const response = await fetch(url);
     
     if (response.ok) {
@@ -406,7 +348,7 @@ async function sequentialLoadSeasons(animeId: string, animeYear?: number): Promi
         try {
           const baseUrl = getBaseUrl();
           const testUrl1 = `${baseUrl}/anime_episodes_js/${vostfrPath}`;
-          const testResponse1 = await fetch(testUrl1, { method: 'HEAD' });
+          const testResponse1 = await fetchNoCache(testUrl1, { method: 'HEAD' });
           if (testResponse1.ok) {
             foundInFolder = 'anime_episodes_js';
           } else {
@@ -566,16 +508,22 @@ export async function ultraFastAutoLoad(animeId: string, animeYear?: number): Pr
 
 /**
  * Version ultra-rapide de l'enrichissement
+ * IMPORTANT: On essaie TOUJOURS les fichiers public en priorité.
+ * Les fichiers public contiennent les vrais IDs Sibnet pour le streaming.
+ * Les données DB peuvent avoir des saisons mais sans les IDs de streaming.
  */
 export async function ultraFastEnrichAnime(anime: Anime): Promise<Anime> {
-  if (anime.seasons && anime.seasons.length > 0 && anime.seasons[0].episodes.length > 0) {
-    return anime;
-  }
-  
+  // Toujours essayer d'abord les fichiers public (ils ont les IDs Sibnet/Sendvid)
   const autoSeasons = await ultraFastAutoLoad(anime.id, anime.year);
   
   if (autoSeasons.length > 0) {
+    // Les fichiers public ont des épisodes : priorité absolue
     return { ...anime, seasons: autoSeasons };
+  }
+  
+  // Fallback : si les fichiers public n'ont rien, garder les données DB
+  if (anime.seasons && anime.seasons.length > 0 && anime.seasons[0].episodes.length > 0) {
+    return anime;
   }
   
   return anime;
@@ -672,31 +620,10 @@ function parseEpisodeFileContent(content: string): { sibnetIds: string[], sendvi
 async function loadEpisodeFile(filePath: string): Promise<{ sibnetIds: string[], sendvidIds: string[] }> {
   const folders = ['anime_episodes_js', 'anime_episodes_js_2'];
   
-  if (typeof window === 'undefined' && !process.env.VERCEL) {
-    const fs = await import('fs/promises');
-    const path = await import('path');
-    
-    for (const folder of folders) {
-      const fullPath = path.join(process.cwd(), 'public', folder, filePath);
-      try {
-        const content = await fs.readFile(fullPath, 'utf-8');
-        const result = parseEpisodeFileContent(content);
-        if (result.sibnetIds.length > 0 || result.sendvidIds.length > 0) {
-          return result;
-        }
-      } catch (e) {
-        continue;
-      }
-    }
-    return { sibnetIds: [], sendvidIds: [] };
-  }
-
-  const baseUrl = getBaseUrl();
   for (const folder of folders) {
     try {
       // Construire l'URL pour accéder au fichier depuis le dossier public
-      const url = `${baseUrl}/${folder}/${filePath}`;
-
+      const url = `/${folder}/${filePath}`;
       
       // Logs désactivés pour la performance
       
@@ -952,33 +879,11 @@ export async function checkEpisodesAvailability(animeId: string): Promise<boolea
   const folders = ['anime_episodes_js', 'anime_episodes_js_2'];
   
   try {
-    if (typeof window === 'undefined' && !process.env.VERCEL) {
-      const fs = await import('fs/promises');
-      const path = await import('path');
-      
-      // Tester chaque pattern dans chaque dossier en parallèle (filesystem)
-      const results = await Promise.all(
-        folders.flatMap(folder =>
-          testPaths.map(async (testPath) => {
-            const fullPath = path.join(process.cwd(), 'public', folder, testPath);
-            try {
-              await fs.access(fullPath);
-              return true;
-            } catch {
-              return false;
-            }
-          })
-        )
-      );
-      return results.some(result => result);
-    }
-
-    // Tester chaque pattern dans chaque dossier en parallèle (client ou Vercel)
-    const baseUrl = getBaseUrl();
+    // Tester chaque pattern dans chaque dossier en parallèle
     const results = await Promise.all(
       folders.flatMap(folder =>
         testPaths.map(async (testPath) => {
-          const url = `${baseUrl}/${folder}/${testPath}`;
+          const url = `/${folder}/${testPath}`;
           try {
             const response = await fetch(url, { method: 'HEAD' });
             return response.ok;
