@@ -47,10 +47,14 @@ export interface Anime {
   episodes?: AnimeEpisode[]; // Garder le support pour l'ancienne structure
 }
 
-// Fonction pour récupérer un anime par son ID (modifiée pour être asynchrone et vérifier la DB d'abord)
+// Fonction pour récupérer un anime par son ID (modifiée pour être asynchrone et vérifier la DB)
 export async function getAnimeByIdAsync(id: string): Promise<Anime | undefined> {
+  // 1. Essayer de récupérer le fichier local (priorité sur la DB si on ne modifie que les infos de base)
+  const localAnime = animes.find(anime => anime.id === id);
+  
   try {
-    // 1. Essayer de récupérer depuis la base de données Vercel Postgres
+    // 2. Essayer de récupérer depuis la base de données Vercel Postgres
+    // Si on a des données dans la DB, on va privilégier ces données car ce sont celles modifiées dans l'admin
     const dbAnime = await getAnimeFromDb(id);
     if (dbAnime) {
       return dbAnime;
@@ -59,8 +63,8 @@ export async function getAnimeByIdAsync(id: string): Promise<Anime | undefined> 
     console.log("Erreur DB ou DB non initialisée, fallback local", e);
   }
   
-  // 2. Fallback sur le fichier local si non trouvé dans la DB
-  return animes.find(anime => anime.id === id);
+  // 3. Fallback sur le fichier local si non trouvé dans la DB
+  return localAnime;
 }
 
 // L'ancienne fonction synchrone pour la rétrocompatibilité (utilise uniquement les données locales)
@@ -2466,7 +2470,470 @@ export const animes: Anime[] = [
       "Surnaturel",
       "Shônen"
     ],
-    "rating": 8.2
+    "rating": 8.2,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Saison 1",
+        "year": 2026,
+        "episodes": [
+          {
+            "number": 1,
+            "title": "Épisode 1",
+            "sibnetVostfrId": "4670182",
+            "sibnetVfId": "4799682"
+          },
+          {
+            "number": 2,
+            "title": "Épisode 2",
+            "sibnetVostfrId": "4670183",
+            "sibnetVfId": "4799686"
+          },
+          {
+            "number": 3,
+            "title": "Épisode 3",
+            "sibnetVostfrId": "4670184",
+            "sibnetVfId": "4799688"
+          },
+          {
+            "number": 4,
+            "title": "Épisode 4",
+            "sibnetVostfrId": "4670186",
+            "sibnetVfId": "4799689"
+          },
+          {
+            "number": 5,
+            "title": "Épisode 5",
+            "sibnetVostfrId": "4670187",
+            "sibnetVfId": "4799691"
+          },
+          {
+            "number": 6,
+            "title": "Épisode 6",
+            "sibnetVostfrId": "4670189",
+            "sibnetVfId": "4799693"
+          },
+          {
+            "number": 7,
+            "title": "Épisode 7",
+            "sibnetVostfrId": "4670190",
+            "sibnetVfId": "4799696"
+          },
+          {
+            "number": 8,
+            "title": "Épisode 8",
+            "sibnetVostfrId": "4670192",
+            "sibnetVfId": "4799697"
+          },
+          {
+            "number": 9,
+            "title": "Épisode 9",
+            "sibnetVostfrId": "4670193",
+            "sibnetVfId": "4799699"
+          },
+          {
+            "number": 10,
+            "title": "Épisode 10",
+            "sibnetVostfrId": "4670194",
+            "sibnetVfId": "4799700"
+          },
+          {
+            "number": 11,
+            "title": "Épisode 11",
+            "sibnetVostfrId": "4670196",
+            "sibnetVfId": "4799701"
+          },
+          {
+            "number": 12,
+            "title": "Épisode 12",
+            "sibnetVostfrId": "4670197",
+            "sibnetVfId": "4799702"
+          },
+          {
+            "number": 13,
+            "title": "Épisode 13",
+            "sibnetVostfrId": "4670198",
+            "sibnetVfId": "4799704"
+          },
+          {
+            "number": 14,
+            "title": "Épisode 14",
+            "sibnetVostfrId": "4670199",
+            "sibnetVfId": "4799707"
+          },
+          {
+            "number": 15,
+            "title": "Épisode 15",
+            "sibnetVostfrId": "4670201",
+            "sibnetVfId": "4799708"
+          },
+          {
+            "number": 16,
+            "title": "Épisode 16",
+            "sibnetVostfrId": "4670202",
+            "sibnetVfId": "4799709"
+          },
+          {
+            "number": 17,
+            "title": "Épisode 17",
+            "sibnetVostfrId": "4670204",
+            "sibnetVfId": "4799710"
+          },
+          {
+            "number": 18,
+            "title": "Épisode 18",
+            "sibnetVostfrId": "4670205",
+            "sibnetVfId": "4799712"
+          },
+          {
+            "number": 19,
+            "title": "Épisode 19",
+            "sibnetVostfrId": "4670207",
+            "sibnetVfId": "4799713"
+          },
+          {
+            "number": 20,
+            "title": "Épisode 20",
+            "sibnetVostfrId": "4670208",
+            "sibnetVfId": "4799715"
+          },
+          {
+            "number": 21,
+            "title": "Épisode 21",
+            "sibnetVostfrId": "4670210",
+            "sibnetVfId": "4799716"
+          },
+          {
+            "number": 22,
+            "title": "Épisode 22",
+            "sibnetVostfrId": "4670212",
+            "sibnetVfId": "4799717"
+          },
+          {
+            "number": 23,
+            "title": "Épisode 23",
+            "sibnetVostfrId": "4670213",
+            "sibnetVfId": "4799719"
+          },
+          {
+            "number": 24,
+            "title": "Épisode 24",
+            "sibnetVostfrId": "4670214",
+            "sibnetVfId": "4799721"
+          }
+        ]
+      },
+      {
+        "seasonNumber": 2,
+        "title": "Saison 2",
+        "year": 2026,
+        "episodes": [
+          {
+            "number": 1,
+            "title": "Épisode 1",
+            "sibnetVostfrId": "4670217",
+            "sibnetVfId": "4696734"
+          },
+          {
+            "number": 2,
+            "title": "Épisode 2",
+            "sibnetVostfrId": "4670219",
+            "sibnetVfId": "4696737"
+          },
+          {
+            "number": 3,
+            "title": "Épisode 3",
+            "sibnetVostfrId": "4670220",
+            "sibnetVfId": "4696740"
+          },
+          {
+            "number": 4,
+            "title": "Épisode 4",
+            "sibnetVostfrId": "4670222",
+            "sibnetVfId": "4696743"
+          },
+          {
+            "number": 5,
+            "title": "Épisode 5",
+            "sibnetVostfrId": "4670228",
+            "sibnetVfId": "4696745"
+          },
+          {
+            "number": 6,
+            "title": "Épisode 6",
+            "sibnetVostfrId": "4670230",
+            "sibnetVfId": "4696748"
+          },
+          {
+            "number": 7,
+            "title": "Épisode 7",
+            "sibnetVostfrId": "4670232",
+            "sibnetVfId": "4696751"
+          },
+          {
+            "number": 8,
+            "title": "Épisode 8",
+            "sibnetVostfrId": "4670234",
+            "sibnetVfId": "4696753"
+          },
+          {
+            "number": 9,
+            "title": "Épisode 9",
+            "sibnetVostfrId": "4670236",
+            "sibnetVfId": "4696755"
+          },
+          {
+            "number": 10,
+            "title": "Épisode 10",
+            "sibnetVostfrId": "4670239",
+            "sibnetVfId": "4696758"
+          },
+          {
+            "number": 11,
+            "title": "Épisode 11",
+            "sibnetVostfrId": "4670241",
+            "sibnetVfId": "4696762"
+          },
+          {
+            "number": 12,
+            "title": "Épisode 12",
+            "sibnetVostfrId": "4670243",
+            "sibnetVfId": "4696766"
+          },
+          {
+            "number": 13,
+            "title": "Épisode 13",
+            "sibnetVostfrId": "4670245",
+            "sibnetVfId": "4696769"
+          },
+          {
+            "number": 14,
+            "title": "Épisode 14",
+            "sibnetVostfrId": "4670247",
+            "sibnetVfId": "4696770"
+          },
+          {
+            "number": 15,
+            "title": "Épisode 15",
+            "sibnetVostfrId": "4670248",
+            "sibnetVfId": "4696772"
+          },
+          {
+            "number": 16,
+            "title": "Épisode 16",
+            "sibnetVostfrId": "4670250",
+            "sibnetVfId": "4696774"
+          },
+          {
+            "number": 17,
+            "title": "Épisode 17",
+            "sibnetVostfrId": "4670253",
+            "sibnetVfId": "4696776"
+          },
+          {
+            "number": 18,
+            "title": "Épisode 18",
+            "sibnetVostfrId": "4670255",
+            "sibnetVfId": "4696780"
+          },
+          {
+            "number": 19,
+            "title": "Épisode 19",
+            "sibnetVostfrId": "4670257",
+            "sibnetVfId": "4696782"
+          },
+          {
+            "number": 20,
+            "title": "Épisode 20",
+            "sibnetVostfrId": "4670259",
+            "sibnetVfId": "4696784"
+          },
+          {
+            "number": 21,
+            "title": "Épisode 21",
+            "sibnetVostfrId": "4670262",
+            "sibnetVfId": "4696786"
+          },
+          {
+            "number": 22,
+            "title": "Épisode 22",
+            "sibnetVostfrId": "4670263",
+            "sibnetVfId": "4696789"
+          },
+          {
+            "number": 23,
+            "title": "Épisode 23",
+            "sibnetVostfrId": "4670266",
+            "sibnetVfId": "4696791"
+          },
+          {
+            "number": 24,
+            "title": "Épisode 24",
+            "sibnetVostfrId": "4670271",
+            "sibnetVfId": "4696796"
+          }
+        ]
+      },
+      {
+        "seasonNumber": 3,
+        "title": "Saison 3 Partie 1",
+        "year": 2026,
+        "episodes": [
+          {
+            "number": 1,
+            "title": "Épisode 1",
+            "sibnetVostfrId": "5869295",
+            "sibnetVfId": "5892668"
+          },
+          {
+            "number": 2,
+            "title": "Épisode 2",
+            "sibnetVostfrId": "5875856",
+            "sibnetVfId": "5899606"
+          },
+          {
+            "number": 3,
+            "title": "Épisode 3",
+            "sibnetVostfrId": "5884206",
+            "sibnetVfId": "5906897"
+          },
+          {
+            "number": 4,
+            "title": "Épisode 4",
+            "sibnetVostfrId": "5891938",
+            "sibnetVfId": "5913866"
+          },
+          {
+            "number": 5,
+            "title": "Épisode 5",
+            "sibnetVostfrId": "5899250",
+            "sibnetVfId": "5920282"
+          },
+          {
+            "number": 6,
+            "title": "Épisode 6",
+            "sibnetVostfrId": "5906673",
+            "sibnetVfId": "5925932"
+          },
+          {
+            "number": 7,
+            "title": "Épisode 7",
+            "sibnetVostfrId": "5913356",
+            "sibnetVfId": "5931026"
+          },
+          {
+            "number": 8,
+            "title": "Épisode 8",
+            "sibnetVostfrId": "5919836",
+            "sibnetVfId": "5936587"
+          },
+          {
+            "number": 9,
+            "title": "Épisode 9",
+            "sibnetVostfrId": "5925648",
+            "sibnetVfId": "5941940"
+          },
+          {
+            "number": 10,
+            "title": "Épisode 10",
+            "sibnetVostfrId": "5930601",
+            "sibnetVfId": "5947856"
+          },
+          {
+            "number": 11,
+            "title": "Épisode 11",
+            "sibnetVostfrId": "5935916",
+            "sibnetVfId": "5953737"
+          },
+          {
+            "number": 12,
+            "title": "Épisode 12",
+            "sibnetVostfrId": "5941304",
+            "sibnetVfId": "5961614"
+          }
+        ]
+      },
+      {
+        "seasonNumber": 4,
+        "title": "Saison 3 Partie 2",
+        "year": 2026,
+        "episodes": [
+          {
+            "number": 1,
+            "title": "Épisode 1",
+            "sibnetVostfrId": "6095746",
+            "sibnetVfId": "6095760"
+          },
+          {
+            "number": 2,
+            "title": "Épisode 2",
+            "sibnetVostfrId": "6100460",
+            "sibnetVfId": "6100496"
+          },
+          {
+            "number": 3,
+            "title": "Épisode 3",
+            "sibnetVostfrId": "6105800",
+            "sibnetVfId": "6105842"
+          },
+          {
+            "number": 4,
+            "title": "Épisode 4",
+            "sibnetVostfrId": "6111426",
+            "sibnetVfId": "6111441"
+          },
+          {
+            "number": 5,
+            "title": "Épisode 5",
+            "sibnetVostfrId": "6117338",
+            "sibnetVfId": "6117349"
+          },
+          {
+            "number": 6,
+            "title": "Épisode 6",
+            "sibnetVostfrId": "6122407",
+            "sibnetVfId": "6122422"
+          },
+          {
+            "number": 7,
+            "title": "Épisode 7",
+            "sibnetVostfrId": "6129834",
+            "sibnetVfId": "6129840"
+          },
+          {
+            "number": 8,
+            "title": "Épisode 8",
+            "sibnetVostfrId": "6135272",
+            "sibnetVfId": "6135286"
+          },
+          {
+            "number": 9,
+            "title": "Épisode 9",
+            "sibnetVostfrId": "6140577",
+            "sibnetVfId": "6140591"
+          },
+          {
+            "number": 10,
+            "title": "Épisode 10",
+            "sibnetVostfrId": "6146080",
+            "sibnetVfId": "6146091"
+          },
+          {
+            "number": 11,
+            "title": "Épisode 11",
+            "sibnetVostfrId": "6151644",
+            "vidmolyVfUrl": "https://vidmoly.biz/embed-m5ojcbeh0y1b.html"
+          },
+          {
+            "number": 12,
+            "title": "Épisode 12",
+            "sibnetVostfrId": "6158180",
+            "sibnetVfId": "6158215"
+          }
+        ]
+      }
+    ],
+    "episodes": []
   },
   {
     "id": "yofukashi-no-uta",

@@ -77,7 +77,47 @@ async function ultraFastLoadEpisode(filePath: string): Promise<{ sibnetIds: stri
     }
   }
   
-  // Délai aléatoire simple pour éviter la détection
+  // Si on est côté serveur, utiliser le système de fichiers pour lire directement
+  if (typeof window === 'undefined') {
+    const fs = await import('fs/promises');
+    const path = await import('path');
+    
+    for (const folder of folders) {
+      const fullPath = path.join(process.cwd(), 'public', folder, filePath);
+      try {
+        const content = await fs.readFile(fullPath, 'utf-8');
+        const result = fastParseEpisodeFile(content);
+        
+        // Convertir pour la compatibilité avec l'ancienne interface
+        const sibnetIds: string[] = [];
+        const sendvidIds: string[] = [];
+        
+        result.episodes.forEach(episode => {
+          if (episode.type === 'sibnet') {
+            sibnetIds.push(episode.id);
+          } else if (episode.type === 'sendvid') {
+            sendvidIds.push(episode.id);
+          }
+        });
+        
+        if (result.episodes.length > 0) {
+          // Cache ultra-rapide (stocker les IDs Sibnet pour compatibilité)
+          if (SPEED_CONFIG.enableCache) {
+            ultraCache.set(filePath, { data: sibnetIds, timestamp: Date.now() });
+          }
+          return { sibnetIds, sendvidIds, episodes: result.episodes };
+        }
+      } catch (e) {
+        // Fichier non trouvé dans ce dossier, on essaie le suivant
+        continue;
+      }
+    }
+    
+    // Si on arrive ici, le fichier n'a été trouvé dans aucun dossier
+    return { sibnetIds: [], sendvidIds: [], episodes: [] };
+  }
+
+  // Fallback pour le côté client (avec délai et headers pour éviter le ban)
   const randomDelay = Math.random() * 200 + 100; // 100-300ms
   await new Promise(resolve => setTimeout(resolve, randomDelay));
   
@@ -246,6 +286,36 @@ async function ultraFastLoadAllSeasons(animeId: string, animeYear?: number): Pro
  */
 async function loadEpisodeFromSpecificFolder(filePath: string, folder: string): Promise<{ sibnetIds: string[], sendvidIds: string[], episodes: Array<{type: 'sibnet' | 'sendvid', id: string}> }> {
   try {
+    // Si on est côté serveur, utiliser le système de fichiers pour plus de rapidité et de fiabilité
+    if (typeof window === 'undefined') {
+      const fs = await import('fs/promises');
+      const path = await import('path');
+      const fullPath = path.join(process.cwd(), 'public', folder, filePath);
+      
+      try {
+        const content = await fs.readFile(fullPath, 'utf-8');
+        const result = fastParseEpisodeFile(content);
+        
+        // Convertir pour la compatibilité avec l'ancienne interface
+        const sibnetIds: string[] = [];
+        const sendvidIds: string[] = [];
+        
+        result.episodes.forEach(episode => {
+          if (episode.type === 'sibnet') {
+            sibnetIds.push(episode.id);
+          } else if (episode.type === 'sendvid') {
+            sendvidIds.push(episode.id);
+          }
+        });
+        
+        return { sibnetIds, sendvidIds, episodes: result.episodes };
+      } catch (err) {
+        // Fichier non trouvé ou erreur de lecture
+        return { sibnetIds: [], sendvidIds: [], episodes: [] };
+      }
+    }
+
+    // Fallback pour le côté client
     const url = `/${folder}/${filePath}`;
     const response = await fetch(url);
     
@@ -590,6 +660,25 @@ function parseEpisodeFileContent(content: string): { sibnetIds: string[], sendvi
 async function loadEpisodeFile(filePath: string): Promise<{ sibnetIds: string[], sendvidIds: string[] }> {
   const folders = ['anime_episodes_js', 'anime_episodes_js_2'];
   
+  if (typeof window === 'undefined') {
+    const fs = await import('fs/promises');
+    const path = await import('path');
+    
+    for (const folder of folders) {
+      const fullPath = path.join(process.cwd(), 'public', folder, filePath);
+      try {
+        const content = await fs.readFile(fullPath, 'utf-8');
+        const result = parseEpisodeFileContent(content);
+        if (result.sibnetIds.length > 0 || result.sendvidIds.length > 0) {
+          return result;
+        }
+      } catch (e) {
+        continue;
+      }
+    }
+    return { sibnetIds: [], sendvidIds: [] };
+  }
+
   for (const folder of folders) {
     try {
       // Construire l'URL pour accéder au fichier depuis le dossier public
@@ -849,7 +938,28 @@ export async function checkEpisodesAvailability(animeId: string): Promise<boolea
   const folders = ['anime_episodes_js', 'anime_episodes_js_2'];
   
   try {
-    // Tester chaque pattern dans chaque dossier en parallèle
+    if (typeof window === 'undefined') {
+      const fs = await import('fs/promises');
+      const path = await import('path');
+      
+      // Tester chaque pattern dans chaque dossier en parallèle (filesystem)
+      const results = await Promise.all(
+        folders.flatMap(folder =>
+          testPaths.map(async (testPath) => {
+            const fullPath = path.join(process.cwd(), 'public', folder, testPath);
+            try {
+              await fs.access(fullPath);
+              return true;
+            } catch {
+              return false;
+            }
+          })
+        )
+      );
+      return results.some(result => result);
+    }
+
+    // Tester chaque pattern dans chaque dossier en parallèle (client)
     const results = await Promise.all(
       folders.flatMap(folder =>
         testPaths.map(async (testPath) => {

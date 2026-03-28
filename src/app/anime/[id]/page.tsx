@@ -24,10 +24,21 @@ export default async function AnimePage({ params }: PageProps) {
   const animeId = extractSeriesId(rawAnimeId);
   
   // Utilisation de la fonction asynchrone qui interroge la base de données
-  const anime = await getAnimeByIdAsync(animeId);
+  let anime = await getAnimeByIdAsync(animeId);
 
   if (!anime) {
     notFound();
+  }
+
+  // Essayer d'enrichir avec les données des fichiers publics d'abord
+  try {
+    const { ultraFastEnrichAnime } = await import("@/lib/realAutoImport");
+    const enrichedAnime = await ultraFastEnrichAnime(anime);
+    if (enrichedAnime && enrichedAnime.seasons && enrichedAnime.seasons.length > 0) {
+      anime = { ...enrichedAnime, imageUrl: anime.imageUrl };
+    }
+  } catch (error) {
+    console.error("Erreur lors de l'enrichissement de l'anime:", error);
   }
 
   return (
