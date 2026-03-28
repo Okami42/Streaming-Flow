@@ -102,7 +102,7 @@ const nextConfig = {
             key: 'Cross-Origin-Resource-Policy',
             value: 'cross-origin'
           },
-          // Autoriser le pleidn écran pour les iframes (Vidmoly/JWPlayer)
+          // Autoriser le pleidng écran pour les iframes (Vidmoly/JWPlayer)
           {
             key: 'Permissions-Policy',
             value: 'fullscreen=*, autoplay=*, picture-in-picture=*, encrypted-media=*'
