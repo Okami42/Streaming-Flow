@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Loader2, Play } from "lucide-react";
+import { Loader2, Maximize2, Play } from "lucide-react";
 import HLSPlayer from "../../../hls-player";
 import MovearnPlayer from "./movearn-player";
 
@@ -218,15 +218,15 @@ export default function VideoPlayer({
       
       {/* Lecteur Vidmoly (iframe direct) */}
       {finalVidmolyUrl && !sibnetId && !movearnUrl && !movearnVfUrl && (
-        <div className="relative w-full h-full">
-        <iframe 
-          ref={iframeRef}
-          src={finalVidmolyUrl}
-          width="100%" 
-          height="100%" 
-          frameBorder="0" 
-          scrolling="no" 
-          allowFullScreen 
+        <div className="relative w-full h-full" ref={(el) => { if (el) (el as any)._vidmolyContainer = true; }} id="vidmoly-container-vo">
+          <iframe 
+            ref={iframeRef}
+            src={finalVidmolyUrl}
+            width="100%" 
+            height="100%" 
+            frameBorder="0" 
+            scrolling="no" 
+            allowFullScreen 
             allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
             className="absolute inset-0 w-full h-full"
             onLoad={handleIframeLoad}
@@ -234,18 +234,41 @@ export default function VideoPlayer({
             key={finalVidmolyUrl}
             style={{ border: 'none' }}
           />
-          {/* Bloqueurs de popup (sauf centre pour laisser le bouton play) */}
+          {/* Bloqueurs de popup - bas droit laissé libre pour le bouton plein écran Vidmoly */}
           <div className="absolute top-0 right-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto' }} />
           <div className="absolute top-0 left-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto' }} />
           <div className="absolute bottom-0 left-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto' }} />
           <div className="absolute top-1/2 right-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto', transform: 'translateY(-50%)' }} />
           <div className="absolute top-1/2 left-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto', transform: 'translateY(-50%)' }} />
+          {/* Bouton plein écran natif en overlay - s'assure que le fullscreen fonctionne */}
+          <button
+            onClick={() => {
+              const container = document.getElementById('vidmoly-container-vo');
+              if (container) {
+                if (document.fullscreenElement) {
+                  document.exitFullscreen();
+                } else {
+                  container.requestFullscreen().catch(() => {
+                    // Fallback: essayer sur l'iframe directement
+                    if (iframeRef.current?.requestFullscreen) {
+                      iframeRef.current.requestFullscreen();
+                    }
+                  });
+                }
+              }
+            }}
+            title="Plein écran"
+            className="absolute bottom-2 right-2 z-30 p-1.5 bg-black/60 hover:bg-black/80 text-white rounded transition-opacity opacity-0 hover:opacity-100"
+            style={{ pointerEvents: 'auto' }}
+          >
+            <Maximize2 className="h-4 w-4" />
+          </button>
         </div>
       )}
 
       {/* Lecteur Vidmoly VF (iframe direct) */}
       {finalVidmolyVfUrl && !sibnetId && !movearnUrl && !movearnVfUrl && (
-        <div className="relative w-full h-full">
+        <div className="relative w-full h-full" id="vidmoly-container-vf">
           <iframe 
             ref={iframeRef}
             src={finalVidmolyVfUrl}
@@ -256,17 +279,39 @@ export default function VideoPlayer({
             allowFullScreen 
             allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
             className="absolute inset-0 w-full h-full"
-          onLoad={handleIframeLoad}
-          onError={handleIframeError}
+            onLoad={handleIframeLoad}
+            onError={handleIframeError}
             key={finalVidmolyVfUrl}
             style={{ border: 'none' }}
           />
-          {/* Bloqueurs de popup (sauf centre pour laisser le bouton play) */}
+          {/* Bloqueurs de popup - bas droit laissé libre pour le bouton plein écran Vidmoly */}
           <div className="absolute top-0 right-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto' }} />
           <div className="absolute top-0 left-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto' }} />
           <div className="absolute bottom-0 left-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto' }} />
           <div className="absolute top-1/2 right-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto', transform: 'translateY(-50%)' }} />
           <div className="absolute top-1/2 left-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto', transform: 'translateY(-50%)' }} />
+          {/* Bouton plein écran natif en overlay */}
+          <button
+            onClick={() => {
+              const container = document.getElementById('vidmoly-container-vf');
+              if (container) {
+                if (document.fullscreenElement) {
+                  document.exitFullscreen();
+                } else {
+                  container.requestFullscreen().catch(() => {
+                    if (iframeRef.current?.requestFullscreen) {
+                      iframeRef.current.requestFullscreen();
+                    }
+                  });
+                }
+              }
+            }}
+            title="Plein écran"
+            className="absolute bottom-2 right-2 z-30 p-1.5 bg-black/60 hover:bg-black/80 text-white rounded transition-opacity opacity-0 hover:opacity-100"
+            style={{ pointerEvents: 'auto' }}
+          >
+            <Maximize2 className="h-4 w-4" />
+          </button>
         </div>
       )}
       
