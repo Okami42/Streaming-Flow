@@ -236,7 +236,7 @@ export default function VideoPlayer({
       )}
       
       {/* Lecteur Vidmoly VO (iframe direct) */}
-      {finalVidmolyUrl && !sibnetId && !movearnUrl && !movearnVfUrl && (
+      {finalVidmolyUrl && !mp4UrlToUse && !isM3U8Link && !sibnetId && !movearnUrl && !movearnVfUrl && (
         <div
           className="relative w-full h-full group"
           id="vidmoly-container-vo"
@@ -300,7 +300,7 @@ export default function VideoPlayer({
       )}
 
       {/* Lecteur Vidmoly VF (iframe direct) */}
-      {finalVidmolyVfUrl && !sibnetId && !movearnUrl && !movearnVfUrl && (
+      {finalVidmolyVfUrl && !mp4UrlToUse && !isM3U8Link && !sibnetId && !movearnUrl && !movearnVfUrl && (
         <div
           className="relative w-full h-full group"
           id="vidmoly-container-vf"
@@ -358,17 +358,17 @@ export default function VideoPlayer({
       )}
       
       {/* Lecteur Movearnpre (iframe direct) */}
-      {movearnUrl && !sibnetId && (
+      {movearnUrl && !mp4UrlToUse && !isM3U8Link && !sibnetId && !finalVidmolyUrl && !finalVidmolyVfUrl && (
         <MovearnPlayer src={movearnUrl} />
       )}
 
       {/* Lecteur Movearnpre VF (iframe direct) */}
-      {movearnVfUrl && !sibnetId && (
+      {movearnVfUrl && !mp4UrlToUse && !isM3U8Link && !sibnetId && !finalVidmolyUrl && !finalVidmolyVfUrl && (
         <MovearnPlayer src={movearnVfUrl} />
       )}
       
       {/* Lecteur Sendvid (natif) avec support plein écran et bloqueurs de popup (sauf bas droit) */}
-      {sendvidId && !sibnetId && !finalVidmolyUrl && !finalVidmolyVfUrl && !movearnUrl && !movearnVfUrl && (
+      {sendvidId && !mp4UrlToUse && !isM3U8Link && !sibnetId && !finalVidmolyUrl && !finalVidmolyVfUrl && !movearnUrl && !movearnVfUrl && (
         <div className="relative w-full h-full">
         <iframe 
           ref={iframeRef}
@@ -384,8 +384,8 @@ export default function VideoPlayer({
           style={{ 
             display: isLoading ? 'none' : 'block',
             position: 'absolute',
-              left: '0',
-              width: '100%',
+            left: '0',
+            width: '100%',
             height: '100%'
           }}
             allow="fullscreen; autoplay; picture-in-picture; screen-wake-lock; accelerometer; gyroscope; clipboard-write; web-share"
@@ -401,7 +401,7 @@ export default function VideoPlayer({
       )}
       
       {/* Lecteur Beerscloud */}
-      {beerscloudUrl && !sibnetId && !finalVidmolyUrl && !finalVidmolyVfUrl && !movearnUrl && !movearnVfUrl && !sendvidId && (
+      {beerscloudUrl && !mp4UrlToUse && !isM3U8Link && !sibnetId && !finalVidmolyUrl && !finalVidmolyVfUrl && !movearnUrl && !movearnVfUrl && !sendvidId && (
         <iframe 
           ref={iframeRef}
           src={beerscloudUrl}

@@ -1329,46 +1329,24 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                 {episode && (
                   <>
                     {/* Vidéo */}
-                    {selectedLanguage === "vo" && (episode?.vidmolyUrl || episode?.vidmolyId) ? (
-                      <iframe
-                        src={episode?.vidmolyUrl || `https://vidmoly.net/embed-${episode?.vidmolyId}.html`}
-                        width="100%"
-                        height="100%"
-                        frameBorder="0"
-                        scrolling="no"
-                        allowFullScreen
-                        allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-                        className="w-full h-full"
-                        style={{ border: 'none' }}
-                      />
-                    ) : selectedLanguage === "vf" && (episode?.vidmolyVfId || episode?.vidmolyVfUrl) ? (
-                      <iframe
-                        src={episode.vidmolyVfUrl || `https://vidmoly.net/embed-${episode.vidmolyVfId}.html`}
-                        width="100%"
-                        height="100%"
-                        frameBorder="0"
-                        scrolling="no"
-                        allowFullScreen
-                        allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-                        className="w-full h-full"
-                        style={{ border: 'none' }}
-                      />
-                    ) : episode?.movearnUrl ? (
-                      <MovearnPlayer src={episode.movearnUrl} />
-                    ) : (
-                      <VideoPlayer 
-                        sendvidId={selectedLanguage === "vf" ? episode?.sendvidVfId : episode?.sendvidId}
-                        sibnetId={
-                          selectedLanguage === "vf" 
-                            ? (episode?.sendvidVfId ? undefined : episode?.sibnetVfId)
-                            : (episode?.sendvidId ? undefined : videoId)
-                        }
-                        mp4Url={selectedLanguage === "vf" ? episode?.mp4VfUrl : episode?.mp4Url}
-                        movearnUrl={selectedLanguage === "vf" ? episode?.movearnVfUrl : episode?.movearnUrl}
-                        className="w-full h-full"
-                        key={`lecteur1-${selectedLanguage}-${selectedEpisode}-${selectedSeason}`}
-                      />
-                    )}
+                    <VideoPlayer 
+                      // Vidmoly
+                      vidmolyId={selectedLanguage === "vo" ? episode?.vidmolyId : undefined}
+                      vidmolyUrl={selectedLanguage === "vo" ? episode?.vidmolyUrl : undefined}
+                      vidmolyVfId={selectedLanguage === "vf" ? episode?.vidmolyVfId : undefined}
+                      vidmolyVfUrl={selectedLanguage === "vf" ? episode?.vidmolyVfUrl : undefined}
+                      // Autres
+                      sendvidId={selectedLanguage === "vf" ? episode?.sendvidVfId : episode?.sendvidId}
+                      sibnetId={
+                        selectedLanguage === "vf" 
+                          ? (episode?.sendvidVfId ? undefined : episode?.sibnetVfId)
+                          : (episode?.sendvidId ? undefined : videoId)
+                      }
+                      mp4Url={selectedLanguage === "vf" ? episode?.mp4VfUrl : episode?.mp4Url}
+                      movearnUrl={selectedLanguage === "vf" ? episode?.movearnVfUrl : episode?.movearnUrl}
+                      className="w-full h-full"
+                      key={`lecteur1-${selectedLanguage}-${selectedEpisode}-${selectedSeason}`}
+                    />
                   </>
                 )}
               </div>
