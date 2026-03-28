@@ -16,7 +16,9 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
 
     // 1. D'abord, on sauvegarde dans la base de données (pour Vercel / Production)
     try {
-      await saveAnimeToDb(updatedAnime);
+      if (process.env.POSTGRES_URL) {
+        await saveAnimeToDb(updatedAnime);
+      }
     } catch (dbError: any) {
       console.error('Erreur DB PUT anime:', dbError);
       // On continue car on veut aussi essayer de sauvegarder en local si on est en développement
@@ -74,7 +76,9 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
 
     // 1. Supprimer de la base de données (pour Vercel / Production)
     try {
-      await deleteAnimeFromDb(id);
+      if (process.env.POSTGRES_URL) {
+        await deleteAnimeFromDb(id);
+      }
     } catch (dbError: any) {
       console.error('Erreur DB DELETE anime:', dbError);
     }

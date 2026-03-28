@@ -25393,7 +25393,7 @@ export const animes: Anime[] = [
     "id": "zombie-land-saga",
     "title": "Zombie Land Saga",
     "originalTitle": "Zombie Land Saga",
-    "description": "Sept filles mortes à différentes époques sont transformées en zombies par un certain K?tar? Tatsumi. La mission de Sakura Minamoto, qui souhaitait devenir chanteuse avant son accident, et de ses consœurs : constituer un groupe d'idoles dans la préfecture de Saga !",
+    "description": "Sept filles mortes à différentes époques sont transformées en zombies par un certain K?tar? Tatsumi. La mission de Sakura Minamoto, qui souhaitait devenir chanteuse avant son accident, et de ses consœurs : constituer un groupe d'idoles dans la préfecture de Saga !!",
     "imageUrl": "https://cdn.statically.io/gh/Anime-Sama/IMG/img/contenu/zombie-land-saga.jpg",
     "bannerUrl": "/picture/bassembanniere.png",
     "year": 2024,
@@ -25408,6 +25408,143 @@ export const animes: Anime[] = [
       "Musique"
     ],
     "rating": 8,
-    "language": "VO"
+    "language": "VO",
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Saison 1",
+        "year": 2024,
+        "episodes": [
+          {
+            "number": 1,
+            "title": "Épisode 1",
+            "sibnetVostfrId": "4756806"
+          },
+          {
+            "number": 2,
+            "title": "Épisode 2",
+            "sibnetVostfrId": "4756808"
+          },
+          {
+            "number": 3,
+            "title": "Épisode 3",
+            "sibnetVostfrId": "4756811"
+          },
+          {
+            "number": 4,
+            "title": "Épisode 4",
+            "sibnetVostfrId": "4756812"
+          },
+          {
+            "number": 5,
+            "title": "Épisode 5",
+            "sibnetVostfrId": "4756814"
+          },
+          {
+            "number": 6,
+            "title": "Épisode 6",
+            "sibnetVostfrId": "4756816"
+          },
+          {
+            "number": 7,
+            "title": "Épisode 7",
+            "sibnetVostfrId": "4756819"
+          },
+          {
+            "number": 8,
+            "title": "Épisode 8",
+            "sibnetVostfrId": "4756821"
+          },
+          {
+            "number": 9,
+            "title": "Épisode 9",
+            "sibnetVostfrId": "4756822"
+          },
+          {
+            "number": 10,
+            "title": "Épisode 10",
+            "sibnetVostfrId": "4756824"
+          },
+          {
+            "number": 11,
+            "title": "Épisode 11",
+            "sibnetVostfrId": "4756826"
+          },
+          {
+            "number": 12,
+            "title": "Épisode 12",
+            "sibnetVostfrId": "4756829"
+          }
+        ]
+      },
+      {
+        "seasonNumber": 2,
+        "title": "Saison 2",
+        "year": 2025,
+        "episodes": [
+          {
+            "number": 1,
+            "title": "Épisode 1",
+            "sibnetVostfrId": "4756899"
+          },
+          {
+            "number": 2,
+            "title": "Épisode 2",
+            "sibnetVostfrId": "4756902"
+          },
+          {
+            "number": 3,
+            "title": "Épisode 3",
+            "sibnetVostfrId": "4756905"
+          },
+          {
+            "number": 4,
+            "title": "Épisode 4",
+            "sibnetVostfrId": "4756908"
+          },
+          {
+            "number": 5,
+            "title": "Épisode 5",
+            "sibnetVostfrId": "4756910"
+          },
+          {
+            "number": 6,
+            "title": "Épisode 6",
+            "sibnetVostfrId": "4756911"
+          },
+          {
+            "number": 7,
+            "title": "Épisode 7",
+            "sibnetVostfrId": "4756912"
+          },
+          {
+            "number": 8,
+            "title": "Épisode 8",
+            "sibnetVostfrId": "4756915"
+          },
+          {
+            "number": 9,
+            "title": "Épisode 9",
+            "sibnetVostfrId": "4756916"
+          },
+          {
+            "number": 10,
+            "title": "Épisode 10",
+            "sibnetVostfrId": "4756918"
+          },
+          {
+            "number": 11,
+            "title": "Épisode 11",
+            "sibnetVostfrId": "4756919"
+          },
+          {
+            "number": 12,
+            "title": "Épisode 12",
+            "sibnetVostfrId": "4756920"
+          }
+        ]
+      }
+    ],
+    "episodes": []
   }
 ];

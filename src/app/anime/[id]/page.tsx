@@ -1,65 +1,34 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
 import { notFound } from "next/navigation";
-import { getAnimeById } from "@/lib/animeData";
-import { Button } from "@/components/ui/button";
-import { Clock, Calendar, Star, Building, Film, Tag, ChevronDown, Heart } from "lucide-react";
+import { getAnimeByIdAsync } from "@/lib/animeData";
+import { Calendar, Star, Building, Film, Play } from "lucide-react";
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import CustomImage from "@/components/ui/custom-image";
-import { useFavorites } from "@/context/favorites-context";
 import { extractSeriesId } from "@/lib/utils";
+import FavoriteButton from "./FavoriteButton";
 
 // Définir le type correct pour les paramètres de page Next.js
 interface PageProps {
-  params: any;
-  searchParams?: any;
+  params: Promise<{ id: string }>;
+  searchParams?: Promise<any>;
 }
 
-interface RouteParams {
-  id: string;
-}
-
-export default function AnimePage({ params }: PageProps) {
-  // Utiliser React.use() pour accéder aux paramètres
-  const unwrappedParams = React.use(params) as RouteParams;
-  const rawAnimeId = unwrappedParams.id;
+export default async function AnimePage({ params }: PageProps) {
+  // Attendre la résolution des paramètres
+  const resolvedParams = await params;
+  const rawAnimeId = resolvedParams.id;
   
   // Utiliser extractSeriesId pour s'assurer que l'ID est correctement extrait
   const animeId = extractSeriesId(rawAnimeId);
-  const anime = getAnimeById(animeId);
+  
+  // Utilisation de la fonction asynchrone qui interroge la base de données
+  const anime = await getAnimeByIdAsync(animeId);
 
   if (!anime) {
     notFound();
   }
-
-  // État pour gérer la saison sélectionnée
-  const [selectedSeason, setSelectedSeason] = useState<number>(1);
-  const [isSeasonMenuOpen, setIsSeasonMenuOpen] = useState<boolean>(false);
-  
-  // Récupérer le hook des favoris
-  const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
-  
-  // Pour vérifier si l'anime est dans les favoris
-  const animeFavoriteId = `anime-${anime.id}`;
-  const isAnimeFavorite = isFavorite(animeFavoriteId);
-
-  // Fonction pour ajouter/retirer des favoris
-  const handleFavoriteToggle = () => {
-    if (isAnimeFavorite) {
-      removeFromFavorites(animeFavoriteId);
-    } else {
-      addToFavorites({
-        id: animeFavoriteId,
-        title: anime.title,
-        imageUrl: anime.imageUrl,
-        type: "Anime",
-        seriesId: anime.id
-      });
-    }
-  };
 
   return (
     <div className="flex flex-col min-h-screen bg-[#030711]">
@@ -70,7 +39,7 @@ export default function AnimePage({ params }: PageProps) {
         <div className="relative h-[50vh] w-full overflow-hidden">
           <div className="absolute inset-0">
             <CustomImage
-              src={anime.bannerUrl}
+              src={anime.bannerUrl || anime.imageUrl}
               alt={`Bannière ${anime.title}`}
               fill={true}
               className="object-cover"
@@ -95,7 +64,7 @@ export default function AnimePage({ params }: PageProps) {
                     {anime.title}
                   </h1>
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {anime.genres.map((genre: string) => (
+                    {anime.genres?.map((genre: string) => (
                       <span
                         key={genre}
                         className="inline-block px-2 py-1 text-xs bg-blue-500/10 text-blue-400 rounded-md"
@@ -130,15 +99,21 @@ export default function AnimePage({ params }: PageProps) {
                       </span>
                     </div>
                   </div>
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    onClick={handleFavoriteToggle}
-                    className={`mt-2 ${isAnimeFavorite ? 'bg-red-500/10 border-red-500/30 text-red-400 hover:bg-red-500/20' : 'bg-transparent border-gray-700 text-gray-300 hover:bg-gray-800/50'}`}
-                  >
-                    <Heart className={`h-4 w-4 mr-2 ${isAnimeFavorite ? 'fill-red-500' : ''}`} />
-                    {isAnimeFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'}
-                  </Button>
+                  
+                  <div className="flex gap-4 mt-4">
+                    <Link href={`/catalogue/${anime.id}`}>
+                      <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm transition-colors">
+                        <Play className="h-4 w-4" />
+                        Regarder
+                      </button>
+                    </Link>
+                    
+                    <FavoriteButton 
+                      animeId={anime.id} 
+                      title={anime.title} 
+                      imageUrl={anime.imageUrl} 
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -146,22 +121,16 @@ export default function AnimePage({ params }: PageProps) {
         </div>
 
         {/* Bouton de favoris flottant */}
-        <button
-          onClick={handleFavoriteToggle}
-          className={`fixed bottom-8 right-8 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 transform hover:scale-110 ${
-            isAnimeFavorite 
-            ? 'bg-red-500 text-white' 
-            : 'bg-white/10 backdrop-blur-md text-white hover:bg-white/20'
-          }`}
-          aria-label={isAnimeFavorite ? "Retirer des favoris" : "Ajouter aux favoris"}
-        >
-          <Heart className={`h-6 w-6 ${isAnimeFavorite ? 'fill-white' : ''}`} />
-        </button>
+        <FavoriteButton 
+          animeId={anime.id} 
+          title={anime.title} 
+          imageUrl={anime.imageUrl} 
+          floating={true} 
+        />
 
       </main>
 
       <Footer />
     </div>
   );
-
 } 
