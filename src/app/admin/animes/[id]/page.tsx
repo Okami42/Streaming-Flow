@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { Anime, getAnimeById } from '@/lib/animeData';
+import { Anime, getAnimeByIdAsync } from '@/lib/animeData';
 import { ultraFastEnrichAnime } from '@/lib/realAutoImport';
 import EditAnimeForm from '@/components/admin/EditAnimeForm';
 import { ArrowLeft, Loader2, Trash2 } from 'lucide-react';
@@ -35,32 +35,24 @@ export default function EditAnimePage() {
   };
 
   useEffect(() => {
-    async function loadData() {
-      if (!id) return;
-      
-      // 1. Charger l'anime de base depuis la DB locale
-      const basicAnime = getAnimeById(id);
-      
-      if (!basicAnime) {
-        setLoading(false);
-        return;
-      }
-
-      // 2. Tenter d'enrichir avec ultraFastEnrichAnime pour récupérer les épisodes
-      // qui étaient stockés dans les fichiers JS séparés (legacy system),
-      // et les fusionner dans l'objet Anime en mémoire.
+    const fetchAnime = async () => {
       try {
-        const enriched = await ultraFastEnrichAnime(basicAnime);
-        setAnime(enriched);
-      } catch (err) {
-        // En cas d'erreur de réseau/scraping local, on fallback sur la DB en dur
-        setAnime(basicAnime);
+        const foundAnime = await getAnimeByIdAsync(id as string);
+        if (foundAnime) {
+          // Enrichir rapidement l'anime avec les données d'épisodes s'il manque des saisons
+          const enriched = await ultraFastEnrichAnime(foundAnime);
+          setAnime(enriched);
+        }
+      } catch (e) {
+        console.error("Erreur chargement anime:", e);
       } finally {
         setLoading(false);
       }
+    };
+    
+    if (id) {
+      fetchAnime();
     }
-
-    loadData();
   }, [id]);
 
   if (loading) {

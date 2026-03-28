@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { User } from './auth-types';
 import { WatchHistoryItem, ReadHistoryItem } from './history';
+import { Anime } from './animeData';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'votre-secret-jwt-super-secret';
 
@@ -58,6 +59,28 @@ export async function initializeDatabase(): Promise<void> {
         chapter INTEGER DEFAULT 1,
         page INTEGER DEFAULT 1,
         total_pages INTEGER DEFAULT 1
+      )
+    `;
+
+    // Créer la table des animes (pour le catalogue global)
+    await sql`
+      CREATE TABLE IF NOT EXISTS animes (
+        id VARCHAR(255) PRIMARY KEY,
+        title VARCHAR(255) NOT NULL,
+        original_title VARCHAR(255),
+        description TEXT,
+        image_url TEXT,
+        banner_url TEXT,
+        year INTEGER,
+        type VARCHAR(50),
+        status VARCHAR(50),
+        genres JSONB,
+        rating FLOAT,
+        language VARCHAR(50),
+        seasons JSONB,
+        episodes JSONB,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `;
 
@@ -287,3 +310,116 @@ export async function clearUserHistory(userId: string): Promise<void> {
     throw error;
   }
 }
+
+// ----------------------------------------------------------------------
+// GESTION DU CATALOGUE (ANIMES)
+// ----------------------------------------------------------------------
+
+export async function getAnimeFromDb(id: string): Promise<Anime | null> {
+  try {
+    await initializeDatabase();
+    const result = await sql`SELECT * FROM animes WHERE id = ${id}`;
+    if (result.rows.length === 0) return null;
+    
+    const row = result.rows[0];
+    return {
+      id: row.id,
+      title: row.title,
+      originalTitle: row.original_title,
+      description: row.description,
+      imageUrl: row.image_url,
+      bannerUrl: row.banner_url,
+      year: row.year,
+      type: row.type,
+      status: row.status,
+      genres: row.genres || [],
+      rating: row.rating,
+      language: row.language,
+      seasons: row.seasons || [],
+      episodes: row.episodes || []
+    };
+  } catch (error) {
+    console.error('Erreur getAnimeFromDb:', error);
+    return null;
+  }
+}
+
+export async function getAllAnimesFromDb(): Promise<Anime[]> {
+  try {
+    await initializeDatabase();
+    const result = await sql`SELECT * FROM animes ORDER BY updated_at DESC`;
+    
+    return result.rows.map(row => ({
+      id: row.id,
+      title: row.title,
+      originalTitle: row.original_title,
+      description: row.description,
+      imageUrl: row.image_url,
+      bannerUrl: row.banner_url,
+      year: row.year,
+      type: row.type,
+      status: row.status,
+      genres: row.genres || [],
+      rating: row.rating,
+      language: row.language,
+      seasons: row.seasons || [],
+      episodes: row.episodes || []
+    }));
+  } catch (error) {
+    console.error('Erreur getAllAnimesFromDb:', error);
+    return [];
+  }
+}
+
+export async function saveAnimeToDb(anime: Anime): Promise<void> {
+  try {
+    await initializeDatabase();
+    
+    // Convert arrays/objects to JSON for storage
+    const genresJson = JSON.stringify(anime.genres || []);
+    const seasonsJson = JSON.stringify(anime.seasons || []);
+    const episodesJson = JSON.stringify(anime.episodes || []);
+    
+    // Upsert (Insert or Update)
+    await sql`
+      INSERT INTO animes (
+        id, title, original_title, description, image_url, banner_url,
+        year, type, status, genres, rating, language, seasons, episodes, updated_at
+      ) VALUES (
+        ${anime.id}, ${anime.title}, ${anime.originalTitle || null}, ${anime.description}, 
+        ${anime.imageUrl}, ${anime.bannerUrl || null}, ${anime.year}, ${anime.type}, 
+        ${anime.status}, ${genresJson}::jsonb, ${anime.rating}, ${anime.language}, 
+        ${seasonsJson}::jsonb, ${episodesJson}::jsonb, CURRENT_TIMESTAMP
+      )
+      ON CONFLICT (id) DO UPDATE SET
+        title = EXCLUDED.title,
+        original_title = EXCLUDED.original_title,
+        description = EXCLUDED.description,
+        image_url = EXCLUDED.image_url,
+        banner_url = EXCLUDED.banner_url,
+        year = EXCLUDED.year,
+        type = EXCLUDED.type,
+        status = EXCLUDED.status,
+        genres = EXCLUDED.genres,
+        rating = EXCLUDED.rating,
+        language = EXCLUDED.language,
+        seasons = EXCLUDED.seasons,
+        episodes = EXCLUDED.episodes,
+        updated_at = CURRENT_TIMESTAMP
+    `;
+  } catch (error) {
+    console.error('Erreur saveAnimeToDb:', error);
+    throw error;
+  }
+}
+
+export async function deleteAnimeFromDb(id: string): Promise<void> {
+  try {
+    await initializeDatabase();
+    await sql`DELETE FROM animes WHERE id = ${id}`;
+  } catch (error) {
+    console.error('Erreur deleteAnimeFromDb:', error);
+    throw error;
+  }
+}
+

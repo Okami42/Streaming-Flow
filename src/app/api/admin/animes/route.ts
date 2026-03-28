@@ -2,58 +2,58 @@ import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
 import { Anime } from '@/lib/animeData';
+import { saveAnimeToDb } from '@/lib/database';
 
 export async function POST(req: Request) {
   try {
     const newAnime: Anime = await req.json();
 
-    // Vérifier les champs obligatoires (simplifié)
     if (!newAnime.id || !newAnime.title) {
       return NextResponse.json({ error: 'Champs obligatoires manquants (id, title)' }, { status: 400 });
     }
 
-    // Chemin absolu vers le fichier animeData.ts
-    // process.cwd() donne la racine du projet (Streaming-Flow-main)
-    const filePath = path.join(process.cwd(), 'src', 'lib', 'animeData.ts');
-
-    // Lire le contenu du fichier
-    let fileContent = await fs.readFile(filePath, 'utf-8');
-
-    // On cherche la fin du tableau `];`
-    const arrayEndIndex = fileContent.lastIndexOf('];');
-
-    if (arrayEndIndex === -1) {
-      return NextResponse.json({ error: 'Impossible de trouver la fin du tableau dans animeData.ts' }, { status: 500 });
+    // 1. Sauvegarder dans la base de données PostgreSQL (pour la production sur Vercel)
+    try {
+      await saveAnimeToDb(newAnime);
+    } catch (dbError: any) {
+      console.error('Erreur DB POST anime:', dbError);
     }
 
-    // Formater le nouvel anime en JavaScript lisible (indenté avec 2 espaces)
-    // JSON.stringify génère des clés avec guillemets ce qui est valide en TypeScript
-    const formattedAnime = JSON.stringify(newAnime, null, 2)
-      // On indente toutes les lignes de 2 espaces supplémentaires pour correspondre au fichier existant
-      .split('\n')
-      .map((line, index) => index === 0 ? `  ${line}` : `  ${line}`)
-      .join('\n');
+    // 2. Sauvegarder dans le fichier local (pour le développement local)
+    try {
+      if (process.env.VERCEL) {
+        throw new Error("Sur Vercel, on ne modifie pas les fichiers locaux.");
+      }
+      
+      const filePath = path.join(process.cwd(), 'src', 'lib', 'animeData.ts');
+      let fileContent = await fs.readFile(filePath, 'utf-8');
 
-    // S'assurer qu'il y a une virgule sur l'élément précédent si nécessaire
-    // On va simplement insérer `, \n\n` + le nouvel objet juste avant le `];`
-    
-    // Pour être sûr, on vérifie ce qu'il y a juste avant le `];`
-    const contentBefore = fileContent.substring(0, arrayEndIndex).trimRight();
-    const hasComma = contentBefore.endsWith(',');
-    
-    const separator = hasComma ? '\n\n' : ',\n\n';
+      const arrayEndIndex = fileContent.lastIndexOf('];');
 
-    const newContent = contentBefore + separator + formattedAnime + '\n\n];\n';
+      if (arrayEndIndex !== -1) {
+        const formattedAnime = JSON.stringify(newAnime, null, 2)
+          .split('\n')
+          .map((line, index) => index === 0 ? `  ${line}` : `  ${line}`)
+          .join('\n');
+        
+        const contentBefore = fileContent.substring(0, arrayEndIndex).trimRight();
+        const hasComma = contentBefore.endsWith(',');
+        const separator = hasComma ? '\n\n' : ',\n\n';
 
-    // Réécrire le fichier complet
-    await fs.writeFile(filePath, newContent, 'utf-8');
+        const newContent = contentBefore + separator + formattedAnime + '\n\n];\n';
+
+        await fs.writeFile(filePath, newContent, 'utf-8');
+      }
+    } catch (fsError: any) {
+      console.log('Mode production détecté, fichier local non modifié.');
+    }
 
     return NextResponse.json({ success: true, message: 'Anime ajouté avec succès !' });
 
-  } catch (error) {
-    console.error('Erreur lors de l\'ajout de l\'anime :', error);
+  } catch (error: any) {
+    console.error('Erreur globale ajout anime :', error);
     return NextResponse.json(
-      { error: 'Erreur serveur lors de la modification du fichier' },
+      { error: 'Erreur serveur lors de la modification', details: error.message },
       { status: 500 }
     );
   }

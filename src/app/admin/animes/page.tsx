@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Anime } from '@/lib/animeData';
-import { getAllAnimes } from '@/lib/animeData';
+import { getAllAnimesAsync } from '@/lib/animeData';
 import { getAnimeImage } from '@/lib/catalogue-utils';
 import AddAnimeForm from '@/components/admin/AddAnimeForm';
 import { Button } from '@/components/ui/button';
@@ -14,9 +14,23 @@ export default function AdminAnimesPage() {
   const [isAdding, setIsAdding] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [animes, setAnimes] = useState<Anime[]>([]);
+  const [loading, setLoading] = useState(true);
   const itemsPerPage = 24;
   
-  const animes = getAllAnimes();
+  React.useEffect(() => {
+    const fetchAnimes = async () => {
+      try {
+        const data = await getAllAnimesAsync();
+        setAnimes(data);
+      } catch (e) {
+        console.error("Erreur de chargement des animes", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAnimes();
+  }, []);
 
   const filteredAnimes = animes.filter(anime => {
     const query = searchQuery.toLowerCase();
@@ -65,7 +79,11 @@ export default function AdminAnimesPage() {
         </div>
 
         {/* Contenu principal */}
-        {isAdding ? (
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+          </div>
+        ) : isAdding ? (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
             <AddAnimeForm 
               onSuccess={() => {

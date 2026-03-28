@@ -1,3 +1,5 @@
+import { getAnimeFromDb, getAllAnimesFromDb } from './database';
+
 // Types pour les données d'anime
 // Import supprimé - utiliser realAutoImport.ts pour l'auto-chargement
 
@@ -45,12 +47,59 @@ export interface Anime {
   episodes?: AnimeEpisode[]; // Garder le support pour l'ancienne structure
 }
 
-// Fonction pour récupérer un anime par son ID
+// Fonction pour récupérer un anime par son ID (modifiée pour être asynchrone et vérifier la DB d'abord)
+export async function getAnimeByIdAsync(id: string): Promise<Anime | undefined> {
+  try {
+    // 1. Essayer de récupérer depuis la base de données Vercel Postgres
+    const dbAnime = await getAnimeFromDb(id);
+    if (dbAnime) {
+      return dbAnime;
+    }
+  } catch (e) {
+    console.log("Erreur DB ou DB non initialisée, fallback local", e);
+  }
+  
+  // 2. Fallback sur le fichier local si non trouvé dans la DB
+  return animes.find(anime => anime.id === id);
+}
+
+// L'ancienne fonction synchrone pour la rétrocompatibilité (utilise uniquement les données locales)
 export function getAnimeById(id: string): Anime | undefined {
   return animes.find(anime => anime.id === id);
 }
 
-// Fonction pour récupérer tous les animes
+// Fonction pour récupérer tous les animes (fusion DB + local)
+export async function getAllAnimesAsync(): Promise<Anime[]> {
+  try {
+    // Récupérer les animes modifiés/ajoutés dans la DB
+    const dbAnimes = await getAllAnimesFromDb();
+    
+    // Créer une map pour remplacer facilement les animes locaux par ceux de la DB
+    const dbAnimesMap = new Map(dbAnimes.map(a => [a.id, a]));
+    
+    // Fusionner
+    const mergedAnimes = animes.map(localAnime => {
+      if (dbAnimesMap.has(localAnime.id)) {
+        // L'anime a été modifié dans la DB, on prend la version DB
+        const updatedAnime = dbAnimesMap.get(localAnime.id)!;
+        dbAnimesMap.delete(localAnime.id); // On l'enlève de la map pour trouver les nouveaux
+        return updatedAnime;
+      }
+      return localAnime;
+    });
+    
+    // Ajouter les animes qui sont SEULEMENT dans la DB (les petits nouveaux)
+    const newAnimesFromDb = Array.from(dbAnimesMap.values());
+    
+    return [...newAnimesFromDb, ...mergedAnimes];
+    
+  } catch (e) {
+    console.log("Erreur DB getAllAnimesAsync, fallback local", e);
+    return animes;
+  }
+}
+
+// Ancienne fonction synchrone pour la rétrocompatibilité
 export function getAllAnimes() {
   return animes;
 }
