@@ -2,6 +2,23 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Loader2, Maximize2, Play } from "lucide-react";
+
+// CSS pour le mode plein écran Vidmoly
+const VIDMOLY_FULLSCREEN_STYLE = `
+  #vidmoly-container-vo:fullscreen,
+  #vidmoly-container-vf:fullscreen {
+    width: 100vw !important;
+    height: 100vh !important;
+    background: #000;
+  }
+  #vidmoly-container-vo:fullscreen iframe,
+  #vidmoly-container-vf:fullscreen iframe {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+  }
+`;
 import HLSPlayer from "../../../hls-player";
 import MovearnPlayer from "./movearn-player";
 
@@ -139,7 +156,9 @@ export default function VideoPlayer({
   }, [sibnetId, vidmolyId, vidmolyUrl, vidmolyVfId, vidmolyVfUrl, movearnUrl, movearnVfUrl, sendvidId, beerscloudId, mp4Url, mp4VfUrl]);
   
   return (
-    <div className={`w-full h-full relative ${className}`} style={{ overflow: 'hidden' }} key={uniqueKey}>      
+    <div className={`w-full h-full relative ${className}`} style={{ overflow: 'hidden' }} key={uniqueKey}>
+      {/* CSS fullscreen pour Vidmoly */}
+      <style dangerouslySetInnerHTML={{ __html: VIDMOLY_FULLSCREEN_STYLE }} />
       {/* Afficher un loader pendant le chargement */}
       {isLoading && !isM3U8Link && !mp4UrlToUse && (
         <div className="absolute inset-0 flex items-center justify-center bg-black z-10">
@@ -216,9 +235,12 @@ export default function VideoPlayer({
         />
       )}
       
-      {/* Lecteur Vidmoly (iframe direct) */}
+      {/* Lecteur Vidmoly VO (iframe direct) */}
       {finalVidmolyUrl && !sibnetId && !movearnUrl && !movearnVfUrl && (
-        <div className="relative w-full h-full" ref={(el) => { if (el) (el as any)._vidmolyContainer = true; }} id="vidmoly-container-vo">
+        <div
+          className="relative w-full h-full group"
+          id="vidmoly-container-vo"
+        >
           <iframe 
             ref={iframeRef}
             src={finalVidmolyUrl}
@@ -232,43 +254,57 @@ export default function VideoPlayer({
             onLoad={handleIframeLoad}
             onError={handleIframeError}
             key={finalVidmolyUrl}
-            style={{ border: 'none' }}
+            style={{ border: 'none', zIndex: 1 }}
           />
-          {/* Bloqueurs de popup - bas droit laissé libre pour le bouton plein écran Vidmoly */}
+          {/* Bloqueurs de popup */}
           <div className="absolute top-0 right-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto' }} />
           <div className="absolute top-0 left-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto' }} />
           <div className="absolute bottom-0 left-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto' }} />
           <div className="absolute top-1/2 right-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto', transform: 'translateY(-50%)' }} />
           <div className="absolute top-1/2 left-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto', transform: 'translateY(-50%)' }} />
-          {/* Bouton plein écran natif en overlay - s'assure que le fullscreen fonctionne */}
-          <button
-            onClick={() => {
+          {/*
+            INTERCEPTEUR DE FULLSCREEN :
+            Zone transparente couvrant le coin bas-droit où JWPlayer place son bouton fullscreen.
+            Capture le clic AVANT qu'il atteigne l'iframe, et appelle requestFullscreen()
+            depuis notre contexte DOM parent (pas de Permissions Policy restriction).
+          */}
+          <div
+            className="absolute bottom-0 right-0 z-40"
+            style={{
+              width: '120px',
+              height: '48px',
+              background: 'transparent',
+              cursor: 'pointer',
+              pointerEvents: 'auto',
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
               const container = document.getElementById('vidmoly-container-vo');
               if (container) {
                 if (document.fullscreenElement) {
                   document.exitFullscreen();
                 } else {
-                  container.requestFullscreen().catch(() => {
-                    // Fallback: essayer sur l'iframe directement
-                    if (iframeRef.current?.requestFullscreen) {
-                      iframeRef.current.requestFullscreen();
-                    }
-                  });
+                  container.requestFullscreen();
                 }
               }
             }}
-            title="Plein écran"
-            className="absolute bottom-2 right-2 z-30 p-1.5 bg-black/60 hover:bg-black/80 text-white rounded transition-opacity opacity-0 hover:opacity-100"
-            style={{ pointerEvents: 'auto' }}
+          />
+          {/* Icône fullscreen visible au survol */}
+          <div
+            className="absolute bottom-0 right-0 z-50 flex items-center justify-end px-2 pointer-events-none"
+            style={{ width: '120px', height: '48px' }}
           >
-            <Maximize2 className="h-4 w-4" />
-          </button>
+            <Maximize2 className="h-4 w-4 text-white opacity-0 group-hover:opacity-60" />
+          </div>
         </div>
       )}
 
       {/* Lecteur Vidmoly VF (iframe direct) */}
       {finalVidmolyVfUrl && !sibnetId && !movearnUrl && !movearnVfUrl && (
-        <div className="relative w-full h-full" id="vidmoly-container-vf">
+        <div
+          className="relative w-full h-full group"
+          id="vidmoly-container-vf"
+        >
           <iframe 
             ref={iframeRef}
             src={finalVidmolyVfUrl}
@@ -282,36 +318,42 @@ export default function VideoPlayer({
             onLoad={handleIframeLoad}
             onError={handleIframeError}
             key={finalVidmolyVfUrl}
-            style={{ border: 'none' }}
+            style={{ border: 'none', zIndex: 1 }}
           />
-          {/* Bloqueurs de popup - bas droit laissé libre pour le bouton plein écran Vidmoly */}
+          {/* Bloqueurs de popup */}
           <div className="absolute top-0 right-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto' }} />
           <div className="absolute top-0 left-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto' }} />
           <div className="absolute bottom-0 left-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto' }} />
           <div className="absolute top-1/2 right-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto', transform: 'translateY(-50%)' }} />
           <div className="absolute top-1/2 left-0 w-20 h-20 z-20" style={{ background: 'transparent', pointerEvents: 'auto', transform: 'translateY(-50%)' }} />
-          {/* Bouton plein écran natif en overlay */}
-          <button
-            onClick={() => {
+          {/* INTERCEPTEUR DE FULLSCREEN - même logique que VO */}
+          <div
+            className="absolute bottom-0 right-0 z-40"
+            style={{
+              width: '120px',
+              height: '48px',
+              background: 'transparent',
+              cursor: 'pointer',
+              pointerEvents: 'auto',
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
               const container = document.getElementById('vidmoly-container-vf');
               if (container) {
                 if (document.fullscreenElement) {
                   document.exitFullscreen();
                 } else {
-                  container.requestFullscreen().catch(() => {
-                    if (iframeRef.current?.requestFullscreen) {
-                      iframeRef.current.requestFullscreen();
-                    }
-                  });
+                  container.requestFullscreen();
                 }
               }
             }}
-            title="Plein écran"
-            className="absolute bottom-2 right-2 z-30 p-1.5 bg-black/60 hover:bg-black/80 text-white rounded transition-opacity opacity-0 hover:opacity-100"
-            style={{ pointerEvents: 'auto' }}
+          />
+          <div
+            className="absolute bottom-0 right-0 z-50 flex items-center justify-end px-2 pointer-events-none"
+            style={{ width: '120px', height: '48px' }}
           >
-            <Maximize2 className="h-4 w-4" />
-          </button>
+            <Maximize2 className="h-4 w-4 text-white opacity-0 group-hover:opacity-60" />
+          </div>
         </div>
       )}
       
