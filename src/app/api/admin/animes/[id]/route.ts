@@ -3,10 +3,11 @@ import fs from 'fs/promises';
 import path from 'path';
 import { Anime, getAllAnimes } from '@/lib/animeData';
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const updatedAnime: Anime = await req.json();
-    const id = params.id;
+    const resolvedParams = await params;
+    const id = resolvedParams.id;
 
     if (!updatedAnime || updatedAnime.id !== id) {
       return NextResponse.json({ error: 'Données invalides : L\'ID ne correspond pas.' }, { status: 400 });
@@ -55,9 +56,10 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const id = params.id;
+    const resolvedParams = await params;
+    const id = resolvedParams.id;
 
     const filePath = path.join(process.cwd(), 'src', 'lib', 'animeData.ts');
     const fileContent = await fs.readFile(filePath, 'utf-8');
