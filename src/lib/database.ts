@@ -17,6 +17,12 @@ export async function initializeDatabase(): Promise<void> {
     return;
   }
 
+  // Check if postgres is configured
+  if (!process.env.POSTGRES_URL) {
+    console.warn("POSTGRES_URL non définie. Base de données désactivée.");
+    return;
+  }
+
   try {
     // Créer la table des utilisateurs
     await sql`
@@ -316,6 +322,8 @@ export async function clearUserHistory(userId: string): Promise<void> {
 // ----------------------------------------------------------------------
 
 export async function getAnimeFromDb(id: string): Promise<Anime | null> {
+  if (!process.env.POSTGRES_URL) return null;
+  
   try {
     await initializeDatabase();
     const result = await sql`SELECT * FROM animes WHERE id = ${id}`;
@@ -345,6 +353,8 @@ export async function getAnimeFromDb(id: string): Promise<Anime | null> {
 }
 
 export async function getAllAnimesFromDb(): Promise<Anime[]> {
+  if (!process.env.POSTGRES_URL) return [];
+  
   try {
     await initializeDatabase();
     const result = await sql`SELECT * FROM animes ORDER BY updated_at DESC`;
@@ -372,6 +382,8 @@ export async function getAllAnimesFromDb(): Promise<Anime[]> {
 }
 
 export async function saveAnimeToDb(anime: Anime): Promise<void> {
+  if (!process.env.POSTGRES_URL) return;
+  
   try {
     await initializeDatabase();
     
@@ -414,6 +426,8 @@ export async function saveAnimeToDb(anime: Anime): Promise<void> {
 }
 
 export async function deleteAnimeFromDb(id: string): Promise<void> {
+  if (!process.env.POSTGRES_URL) return;
+  
   try {
     await initializeDatabase();
     await sql`DELETE FROM animes WHERE id = ${id}`;
