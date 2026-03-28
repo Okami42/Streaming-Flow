@@ -1075,24 +1075,25 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       onClick={() => setIsSeasonMenuOpen(!isSeasonMenuOpen)}
                     >
                       {(() => {
+                        // Utiliser clientAnime qui contient TOUTES les saisons (chargées depuis public)
+                        const seasonsSource = clientAnime || anime;
+                        
                         // Si c'est un film (Movie) sans structure seasons
-                        if (anime.type === "Movie" && (!anime.seasons || anime.seasons.length === 0)) {
+                        if (anime.type === "Movie" && (!seasonsSource.seasons || seasonsSource.seasons.length === 0)) {
                           return "Film";
                         }
                         
-                        // Trouver la saison sélectionnée
-                        const currentSeason = anime.seasons?.find(s => String(s.seasonNumber) === String(selectedSeason));
+                        // Trouver la saison sélectionnée dans clientAnime
+                        const currentSeason = seasonsSource.seasons?.find(s => String(s.seasonNumber) === String(selectedSeason));
 
                         if (currentSeason) {
-                          // Si c'est une saison Film, toujours afficher "Film" dans le sélecteur de saison
                           if (String(currentSeason.seasonNumber) === 'Film' || String(currentSeason.title).toLowerCase() === 'film') {
                             return 'Film';
                           }
-                          const seasonIndex = getFilmSeasonIndex(anime.seasons || [], currentSeason);
+                          const seasonIndex = getFilmSeasonIndex(seasonsSource.seasons || [], currentSeason);
                           return getSeasonTitle(anime.id, currentSeason, seasonIndex);
                         }
                         
-                        // Si c'est une saison Film mais qu'on ne trouve pas la saison
                         if (String(selectedSeason) === 'Film') {
                           return 'Film';
                         }
@@ -1102,9 +1103,9 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       <ChevronDown className="h-4 w-4" />
                     </button>
                     
-                    {isSeasonMenuOpen && anime.seasons && anime.seasons.length > 0 && (
+                    {isSeasonMenuOpen && clientAnime?.seasons && clientAnime.seasons.length > 0 && (
                       <div className="absolute z-10 mt-1 w-full bg-[#1a1f35] rounded-md shadow-lg py-1 border border-white/10">
-                        {anime.seasons?.map((season) => {
+                        {clientAnime.seasons.map((season) => {
                           return (
                             <button
                               key={season.seasonNumber}
@@ -1117,19 +1118,10 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                             >
                               {String(season.seasonNumber) === 'Film' || String(season.title).toLowerCase() === 'film' 
                                 ? 'Film' 
-                                : getSeasonTitle(anime.id, season, getFilmSeasonIndex(anime.seasons || [], season))}
+                                : getSeasonTitle(anime.id, season, getFilmSeasonIndex(clientAnime.seasons || [], season))}
                             </button>
                           );
-                        }) || (
-                          <button
-                            className="block w-full text-left px-4 py-2 text-sm text-gray-200 hover:bg-blue-600/20"
-                            onClick={() => {
-                              setIsSeasonMenuOpen(false);
-                            }}
-                          >
-                            Saison 1
-                          </button>
-                        )}
+                        })}
                       </div>
                     )}
                   </div>
@@ -1209,24 +1201,25 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                     >
                       <span>
                         {(() => {
+                          // Utiliser clientAnime qui contient TOUTES les saisons (chargées depuis public)
+                          const seasonsSource = clientAnime || anime;
+                          
                           // Si c'est un film (Movie) sans structure seasons
-                          if (anime.type === "Movie" && (!anime.seasons || anime.seasons.length === 0)) {
+                          if (anime.type === "Movie" && (!seasonsSource.seasons || seasonsSource.seasons.length === 0)) {
                             return "Film";
                           }
                           
-                          if (useSeasonsStructure && anime.seasons) {
-                            const currentSeason = anime.seasons.find(s => String(s.seasonNumber) === String(selectedSeason));
+                          if (useSeasonsStructure && seasonsSource.seasons) {
+                            const currentSeason = seasonsSource.seasons.find(s => String(s.seasonNumber) === String(selectedSeason));
                             if (currentSeason) {
-                              // Si c'est une saison Film, toujours afficher "Film" dans le sélecteur de saison
                               if (String(currentSeason.seasonNumber) === 'Film' || String(currentSeason.title).toLowerCase() === 'film') {
                                 return 'Film';
                               }
-                              const seasonIndex = getFilmSeasonIndex(anime.seasons || [], currentSeason);
+                              const seasonIndex = getFilmSeasonIndex(seasonsSource.seasons || [], currentSeason);
                               return getSeasonTitle(anime.id, currentSeason, seasonIndex);
                             }
                           }
                           
-                          // Si c'est une saison Film mais qu'on ne trouve pas la saison
                           if (String(selectedSeason) === 'Film') {
                             return 'Film';
                           }
@@ -1237,9 +1230,9 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                       <ChevronDown className="h-4 w-4 ml-1" />
                     </button>
                     
-                    {isSeasonMenuOpen && anime.seasons && anime.seasons.length > 0 && (
+                    {isSeasonMenuOpen && clientAnime?.seasons && clientAnime.seasons.length > 0 && (
                       <div className="absolute z-10 mt-1 w-full bg-[#11141f] rounded-md shadow-lg py-1 border border-white/10">
-                        {anime.seasons?.map((season) => (
+                        {clientAnime.seasons.map((season) => (
                           <button
                             key={season.seasonNumber}
                             className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-blue-600/20"
@@ -1253,16 +1246,7 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
                               ? 'Film' 
                               : season.title}
                           </button>
-                        )) || (
-                          <button
-                            className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-blue-600/20"
-                            onClick={() => {
-                              setIsSeasonMenuOpen(false);
-                            }}
-                          >
-                            Saison 1
-                          </button>
-                        )}
+                        ))}
                       </div>
                     )}
                   </div>

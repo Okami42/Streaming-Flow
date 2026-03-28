@@ -328,22 +328,32 @@ async function sequentialLoadSeasons(animeId: string, animeYear?: number): Promi
       // Log désactivé pour la performance
     }
     
-    // Si on a déjà trouvé l'anime dans un dossier, utiliser une version optimisée
+    // Chargement des fichiers de saison
     let vostfrResult, vfResult;
     if (foundInFolder) {
-      // Charger directement depuis le dossier connu
+      // Charger depuis le dossier connu en priorité
       vostfrResult = await loadEpisodeFromSpecificFolder(vostfrPath, foundInFolder);
       vfResult = await loadEpisodeFromSpecificFolder(vfPath, foundInFolder);
+      
+      // Si rien trouvé dans le dossier connu pour cette saison,
+      // essayer les autres dossiers (l'anime peut être split entre dossiers)
+      if (vostfrResult.episodes.length === 0 && vfResult.episodes.length === 0) {
+        const fallbackResults = await Promise.all([
+          ultraFastLoadEpisode(vostfrPath),
+          ultraFastLoadEpisode(vfPath)
+        ]);
+        vostfrResult = fallbackResults[0];
+        vfResult = fallbackResults[1];
+      }
     } else {
-      // Première recherche - tester les dossiers
+      // Première recherche - tester tous les dossiers
       [vostfrResult, vfResult] = await Promise.all([
         ultraFastLoadEpisode(vostfrPath),
         ultraFastLoadEpisode(vfPath)
       ]);
       
-      // Déterminer dans quel dossier on a trouvé l'anime en testant directement
+      // Déterminer dans quel dossier on a trouvé l'anime
       if (vostfrResult.episodes.length > 0 || vfResult.episodes.length > 0) {
-        
         // Tester quel dossier contient vraiment les fichiers
         try {
           const baseUrl = getBaseUrl();
@@ -355,11 +365,8 @@ async function sequentialLoadSeasons(animeId: string, animeYear?: number): Promi
             foundInFolder = 'anime_episodes_js_2';
           }
         } catch {
-          foundInFolder = 'anime_episodes_js_2';
-        }
-        
-        if (SPEED_CONFIG.enableLogs) {
-          // Log désactivé pour la performance
+          // En cas d'erreur, ne pas définir foundInFolder pour continuer à chercher dans tous les dossiers
+          // foundInFolder reste null
         }
       }
     }
