@@ -3,7 +3,7 @@ import AnimePageClient from "./AnimePageClient";
 import { ErrorBoundary } from 'react-error-boundary';
 import React from "react";
 
-// Type pour l'anime
+// Type pour l'anime.
 interface Anime {
   id: string;
   title: string;
