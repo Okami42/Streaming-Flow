@@ -227,7 +227,7 @@ export default function VideoPlayer({
             frameBorder="0" 
             scrolling="no" 
             allowFullScreen 
-            allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+            allow="autoplay; encrypted-media; fullscreen *; picture-in-picture"
             className="absolute inset-0 w-full h-full"
             onLoad={handleIframeLoad}
             onError={handleIframeError}
@@ -277,7 +277,7 @@ export default function VideoPlayer({
             frameBorder="0" 
             scrolling="no" 
             allowFullScreen 
-            allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+            allow="autoplay; encrypted-media; fullscreen *; picture-in-picture"
             className="absolute inset-0 w-full h-full"
             onLoad={handleIframeLoad}
             onError={handleIframeError}
