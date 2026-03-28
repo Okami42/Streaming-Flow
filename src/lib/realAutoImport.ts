@@ -18,6 +18,14 @@ const ultraCache = new Map<string, { data: string[], timestamp: number }>();
 // Cache des animes enrichis pour éviter les rechargements
 const enrichedAnimeCache = new Map<string, { anime: Anime, timestamp: number }>();
 
+// Helper function to get base URL
+function getBaseUrl() {
+  if (typeof window !== 'undefined') return ''; // Browser should use relative url
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+  return 'http://localhost:3000';
+}
+
 /**
  * Parse ultra-rapide des fichiers d'épisodes avec support Sendvid
  * Garde l'ordre d'apparition dans le fichier
@@ -77,8 +85,9 @@ async function ultraFastLoadEpisode(filePath: string): Promise<{ sibnetIds: stri
     }
   }
   
-  // Si on est côté serveur, utiliser le système de fichiers pour lire directement
-  if (typeof window === 'undefined') {
+  // Si on est côté serveur en local, utiliser le système de fichiers (plus rapide)
+  // Sur Vercel, on préfère utiliser l'URL car le dossier public n'est pas toujours accessible via fs de la même façon
+  if (typeof window === 'undefined' && !process.env.VERCEL) {
     const fs = await import('fs/promises');
     const path = await import('path');
     
@@ -130,13 +139,14 @@ async function ultraFastLoadEpisode(filePath: string): Promise<{ sibnetIds: stri
     'Pragma': 'no-cache'
   };
   
-  // Requêtes séquentielles pour éviter la surcharge
+    // Requêtes séquentielles pour éviter la surcharge
+  const baseUrl = getBaseUrl();
   for (const folder of folders) {
     try {
       const controller = new AbortController();
       setTimeout(() => controller.abort(), SPEED_CONFIG.requestTimeout);
       
-      const response = await simpleFetch(`/${folder}/${filePath}`, { 
+      const response = await simpleFetch(`${baseUrl}/${folder}/${filePath}`, { 
         signal: controller.signal,
         headers: headers,
         method: 'GET'
@@ -286,8 +296,8 @@ async function ultraFastLoadAllSeasons(animeId: string, animeYear?: number): Pro
  */
 async function loadEpisodeFromSpecificFolder(filePath: string, folder: string): Promise<{ sibnetIds: string[], sendvidIds: string[], episodes: Array<{type: 'sibnet' | 'sendvid', id: string}> }> {
   try {
-    // Si on est côté serveur, utiliser le système de fichiers pour plus de rapidité et de fiabilité
-    if (typeof window === 'undefined') {
+    // Si on est côté serveur en local, utiliser le système de fichiers pour plus de rapidité et de fiabilité
+    if (typeof window === 'undefined' && !process.env.VERCEL) {
       const fs = await import('fs/promises');
       const path = await import('path');
       const fullPath = path.join(process.cwd(), 'public', folder, filePath);
@@ -315,8 +325,9 @@ async function loadEpisodeFromSpecificFolder(filePath: string, folder: string): 
       }
     }
 
-    // Fallback pour le côté client
-    const url = `/${folder}/${filePath}`;
+    // Fallback pour le côté client ou Vercel
+    const baseUrl = getBaseUrl();
+    const url = `${baseUrl}/${folder}/${filePath}`;
     const response = await fetch(url);
     
     if (response.ok) {
@@ -393,7 +404,8 @@ async function sequentialLoadSeasons(animeId: string, animeYear?: number): Promi
         
         // Tester quel dossier contient vraiment les fichiers
         try {
-          const testUrl1 = `/anime_episodes_js/${vostfrPath}`;
+          const baseUrl = getBaseUrl();
+          const testUrl1 = `${baseUrl}/anime_episodes_js/${vostfrPath}`;
           const testResponse1 = await fetch(testUrl1, { method: 'HEAD' });
           if (testResponse1.ok) {
             foundInFolder = 'anime_episodes_js';
@@ -660,7 +672,7 @@ function parseEpisodeFileContent(content: string): { sibnetIds: string[], sendvi
 async function loadEpisodeFile(filePath: string): Promise<{ sibnetIds: string[], sendvidIds: string[] }> {
   const folders = ['anime_episodes_js', 'anime_episodes_js_2'];
   
-  if (typeof window === 'undefined') {
+  if (typeof window === 'undefined' && !process.env.VERCEL) {
     const fs = await import('fs/promises');
     const path = await import('path');
     
@@ -679,10 +691,12 @@ async function loadEpisodeFile(filePath: string): Promise<{ sibnetIds: string[],
     return { sibnetIds: [], sendvidIds: [] };
   }
 
+  const baseUrl = getBaseUrl();
   for (const folder of folders) {
     try {
       // Construire l'URL pour accéder au fichier depuis le dossier public
-      const url = `/${folder}/${filePath}`;
+      const url = `${baseUrl}/${folder}/${filePath}`;
+
       
       // Logs désactivés pour la performance
       
@@ -938,7 +952,7 @@ export async function checkEpisodesAvailability(animeId: string): Promise<boolea
   const folders = ['anime_episodes_js', 'anime_episodes_js_2'];
   
   try {
-    if (typeof window === 'undefined') {
+    if (typeof window === 'undefined' && !process.env.VERCEL) {
       const fs = await import('fs/promises');
       const path = await import('path');
       
@@ -959,11 +973,12 @@ export async function checkEpisodesAvailability(animeId: string): Promise<boolea
       return results.some(result => result);
     }
 
-    // Tester chaque pattern dans chaque dossier en parallèle (client)
+    // Tester chaque pattern dans chaque dossier en parallèle (client ou Vercel)
+    const baseUrl = getBaseUrl();
     const results = await Promise.all(
       folders.flatMap(folder =>
         testPaths.map(async (testPath) => {
-          const url = `/${folder}/${testPath}`;
+          const url = `${baseUrl}/${folder}/${testPath}`;
           try {
             const response = await fetch(url, { method: 'HEAD' });
             return response.ok;
