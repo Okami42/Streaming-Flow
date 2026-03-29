@@ -157,10 +157,30 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
   useEffect(() => {
     if (!anime) return;
     
-    // Toujours essayer de charger les épisodes depuis les fichiers public (priorité sur la DB)
-    // Les fichiers public contiennent les IDs Sibnet/Sendvid pour le streaming
     const enrichClientSide = async () => {
       try {
+        // PRIORITÉ 1 : Si l'anime a des épisodes en DB (modifié via l'admin), les utiliser directement
+        // On détecte ça en vérifiant que anime a des saisons avec des épisodes ET que ces épisodes
+        // ont des liens vidéo (sibnetVostfrId, vidmolyUrl, etc.) → c'est une entrée DB enrichie
+        const dbHasEpisodes = anime.seasons && 
+          anime.seasons.length > 0 && 
+          anime.seasons.some(s => s.episodes && s.episodes.length > 0 && 
+            s.episodes.some(ep => 
+              ep.sibnetVostfrId || ep.sibnetVfId || ep.vidmolyUrl || ep.vidmolyVfUrl || 
+              ep.m3u8Url || ep.m3u8VfUrl || ep.movearnUrl || ep.movearnVfUrl || 
+              ep.sendvidId || ep.sendvidVfId || ep.mp4Url || ep.mp4VfUrl
+            )
+          );
+        
+        if (dbHasEpisodes) {
+          // L'anime a été configuré dans l'admin avec des épisodes → priorité absolue sur les fichiers public
+          setClientAnime(anime);
+          console.log("📦 Épisodes chargés depuis la base de données (admin):", anime.seasons!.length, "saison(s)");
+          return;
+        }
+        
+        // PRIORITÉ 2 : Essayer de charger les épisodes depuis les fichiers public
+        // uniquement si la DB n'a pas d'épisodes configurés pour cet anime
         const { ultraFastEnrichAnime } = await import("@/lib/realAutoImport");
         const enrichedAnime = await ultraFastEnrichAnime(anime);
         
@@ -168,10 +188,10 @@ export default function AnimePageClient({ anime }: { anime: Anime | undefined })
           // Les fichiers public ont des épisodes : utiliser la version enrichie
           setClientAnime(enrichedAnime);
           console.log("✅ Épisodes chargés depuis les fichiers public:", enrichedAnime.seasons.length, "saison(s)");
-        } else if (anime.seasons && anime.seasons.length > 0 && anime.seasons[0].episodes.length > 0) {
-          // Fallback : utiliser les données de la DB si les fichiers public ne donnent rien
+        } else if (anime.seasons && anime.seasons.length > 0) {
+          // Fallback : utiliser les données de la DB même sans épisodes vidéo
           setClientAnime(anime);
-          console.log("📦 Épisodes chargés depuis la base de données");
+          console.log("📦 Épisodes (sans liens) chargés depuis la base de données");
         } else {
           // Aucun épisode trouvé, utiliser l'anime tel quel
           setClientAnime(anime);
