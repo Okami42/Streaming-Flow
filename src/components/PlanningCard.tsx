@@ -11,13 +11,15 @@ interface PlanningCardProps {
 }
 
 export default function PlanningCard({ episode, showDate = false, className = "" }: PlanningCardProps) {
-  const releaseDateTime = new Date(`${episode.releaseDate}T${episode.releaseTime}`);
+  const isTimeUnknown = episode.releaseTime === '?';
+  const releaseDateTime = isTimeUnknown ? new Date(NaN) : new Date(`${episode.releaseDate}T${episode.releaseTime}`);
   const now = new Date();
-  const isReleased = releaseDateTime <= now;
-  const timeUntilRelease = releaseDateTime.getTime() - now.getTime();
+  const isReleased = !isTimeUnknown && !isNaN(releaseDateTime.getTime()) && releaseDateTime <= now;
+  const timeUntilRelease = !isTimeUnknown && !isNaN(releaseDateTime.getTime()) ? releaseDateTime.getTime() - now.getTime() : 0;
   
   // Calcul du temps restant
   const getTimeRemaining = () => {
+    if (isTimeUnknown) return "Heure inconnue";
     if (isReleased) return "Disponible maintenant";
     
     const hours = Math.floor(timeUntilRelease / (1000 * 60 * 60));
@@ -76,7 +78,7 @@ export default function PlanningCard({ episode, showDate = false, className = ""
         </div>
 
         {/* Image principale */}
-        <div className="relative h-48 overflow-hidden">
+        <div className="relative aspect-[160/115] overflow-hidden">
           <CustomImage
             src={episode.imageUrl}
             alt={episode.animeTitle}

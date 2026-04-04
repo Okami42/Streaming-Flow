@@ -145,7 +145,7 @@ export default function PlanningGridView({ weekPlanning, className = "" }: Plann
                   <Link key={episode.id} href={`/catalogue/${episode.animeId}`}>
                     <div className="group bg-slate-900/80 rounded-lg overflow-hidden border border-slate-700/50 hover:border-blue-500/50 transition-all duration-200 hover:scale-105">
                       {/* Image */}
-                      <div className="relative h-40 overflow-hidden">
+                      <div className="relative aspect-[160/115] overflow-hidden">
                         <CustomImage
                           src={episode.imageUrl}
                           alt={episode.animeTitle}
