@@ -1,0 +1,103 @@
+import { WatchHistoryItem, ReadHistoryItem } from './history';
+
+export const mockWatchHistory: WatchHistoryItem[] = [
+  {
+    id: 'squid-game-s1e9',
+    title: 'Squid Game',
+    imageUrl: 'https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/2meX1nMdScFOoV4370rqHWKmXhY.jpg',
+    lastWatchedAt: new Date(Date.now() - 1000 * 60 * 30).toISOString(), // 30 minutes ago
+    progress: 843, // 14:03
+    duration: 1440, // 24:00
+    episodeInfo: {
+      season: 1,
+      episode: 9,
+      title: 'Finale',
+    },
+    type: 'Série',
+  },
+  {
+    id: 'breaking-bad-s1e3',
+    title: 'Breaking Bad',
+    imageUrl: 'https://fr.web.img5.acsta.net/pictures/19/06/18/12/11/3956503.jpg',
+    lastWatchedAt: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(), // 2 hours ago
+    progress: 720, // 12:00
+    duration: 1440, // 24:00
+    episodeInfo: {
+      season: 1,
+      episode: 3,
+      title: 'Le sac est dans la rivière',
+    },
+    type: 'Série',
+  },
+  {
+    id: 'game-of-thrones-s1e10',
+    title: 'Game of Thrones',
+    imageUrl: 'https://fr.web.img5.acsta.net/pictures/23/01/03/14/13/0717778.jpg',
+    lastWatchedAt: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(), // 1 day ago
+    progress: 1200, // 20:00
+    duration: 1500, // 25:00
+    episodeInfo: {
+      season: 1,
+      episode: 10,
+      title: 'De feu et de sang',
+    },
+    type: 'Série',
+  },
+  {
+    id: 'adventure-time-s1e5',
+    title: 'Adventure Time',
+    imageUrl: 'https://m.media-amazon.com/images/M/MV5BMjE2MzE1MDI2M15BMl5BanBnXkFtZTgwNzUyODQxMDE@._V1_.jpg',
+    lastWatchedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3).toISOString(), // 3 days ago
+    progress: 600, // 10:00
+    duration: 1380, // 23:00
+    episodeInfo: {
+      season: 1,
+      episode: 5,
+      title: 'Le roi muet',
+    },
+    type: 'Anime',
+  },
+  {
+    id: 'the-boys-s1e1',
+    title: 'The Boys',
+    imageUrl: 'https://preview.redd.it/2kzjj8l0om391.jpg?width=1080&crop=smart&auto=webp&s=ed395a06a8e56d954a7d9d0904db51064b01bcd9',
+    lastWatchedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2).toISOString(), // 2 days ago
+    progress: 500, // 8:20
+    duration: 1500, // 25:00
+    episodeInfo: {
+      season: 1,
+      episode: 1,
+      title: 'Premier épisode',
+    },
+    type: 'Série',
+  },
+];
+
+export const mockReadHistory: ReadHistoryItem[] = [
+  {
+    id: 'priest-of-corruption-c45',
+    title: 'The Priest of Corruption',
+    imageUrl: 'https://ext.same-assets.com/2961408211/1841763537.jpeg',
+    lastReadAt: new Date(Date.now() - 1000 * 60 * 120).toISOString(), // 2 hours ago
+    chapter: 45,
+    page: 18,
+    totalPages: 25,
+    type: 'Scans',
+  },
+  {
+    id: 'novels-extra-c78',
+    title: 'The Novel\'s Extra',
+    imageUrl: 'https://ext.same-assets.com/290343418/911444686.jpeg',
+    lastReadAt: new Date(Date.now() - 1000 * 60 * 60 * 5).toISOString(), // 5 hours ago
+    chapter: 78,
+    page: 35,
+    totalPages: 42,
+    type: 'Scans',
+  },
+];
+
+export const combinedHistory = [...mockWatchHistory, ...mockReadHistory].sort((a, b) => {
+  const dateA = new Date('lastWatchedAt' in a ? a.lastWatchedAt : a.lastReadAt);
+  const dateB = new Date('lastWatchedAt' in b ? b.lastWatchedAt : b.lastReadAt);
+  return dateB.getTime() - dateA.getTime(); // Sort by most recent
+});
