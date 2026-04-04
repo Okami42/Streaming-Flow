@@ -7,7 +7,7 @@ import { getAnimeImage } from '@/lib/catalogue-utils';
 import AddAnimeForm from '@/components/admin/AddAnimeForm';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { PlusCircle, List, ArrowLeft, Settings, Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { PlusCircle, List, ArrowLeft, Settings, Search, ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
 import Link from 'next/link';
 
 export default function AdminAnimesPage() {
@@ -70,12 +70,19 @@ export default function AdminAnimesPage() {
             </p>
           </div>
           
-          <Button 
-            onClick={() => setIsAdding(!isAdding)}
-            className={`${isAdding ? 'bg-gray-700 hover:bg-gray-600' : 'bg-blue-600 hover:bg-blue-700'} text-white flex items-center gap-2 transition-colors`}
-          >
-            {isAdding ? 'Voir la liste' : <><PlusCircle size={18} /> Ajouter un Anime</>}
-          </Button>
+          <div className="flex items-center gap-2">
+            <Link href="/admin/planning">
+              <Button variant="outline" className="border-indigo-500/40 text-indigo-400 hover:bg-indigo-500/10 flex items-center gap-2">
+                <Calendar size={18} /> Planning
+              </Button>
+            </Link>
+            <Button 
+              onClick={() => setIsAdding(!isAdding)}
+              className={`${isAdding ? 'bg-gray-700 hover:bg-gray-600' : 'bg-blue-600 hover:bg-blue-700'} text-white flex items-center gap-2 transition-colors`}
+            >
+              {isAdding ? 'Voir la liste' : <><PlusCircle size={18} /> Ajouter un Anime</>}
+            </Button>
+          </div>
         </div>
 
         {/* Contenu principal */}
