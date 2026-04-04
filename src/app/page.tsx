@@ -159,19 +159,19 @@ export default function Home() {
   // Featured animes for the carousel with custom banner images
   const featuredAnimes = React.useMemo(() => {
     const carouselBanners = {
-      "dandadan": "https://4kwallpapers.com/images/wallpapers/dandadan-key-art-1920x1080-19468.jpg",
-      "kaiju-n8": "https://4kwallpapers.com/images/wallpapers/kaiju-no-8-anime-series-3840x2160-18663.jpg",
-      "rent-a-girlfriend": "https://m.media-amazon.com/images/S/pv-target-images/4cddabccdb517240ec6ba1ae70b79e980572b00935698aa84173fb88314b16de.jpg",
-      "frieren": "https://4kwallpapers.com/images/wallpapers/frieren-beyond-3840x2160-15146.jpg",
-      "one-piece": "https://leclaireur.fnac.com/wp-content/uploads/2024/06/one-piece-001.jpg"
+      "re-zero": "https://adala-news.fr/wp-content/uploads/2025/03/ReZERO-Saison-4-image1.jpg",
+      "classroom-of-the-elite": "https://res.cloudinary.com/jerrick/image/upload/v1618170549/607352b5b9f7e7001d255bd8.jpg",
+      "dr-stone": "https://tohoanimationstore.us/cdn/shop/files/Hero-1200x800-Blog_Banner_Dr.STONE_Final_Season_Part_3.jpg?v=1775248394&width=1920",
+      "tensei-shitara-slime-datta-ken": "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=94,width=1350/CurationAssets/That%20Time%20I%20Got%20Reincarnated%20as%20a%20Slime/SEASON%204/ULTRA-WIDE/ThatTimeIGotReincarnatedAsASlime-S4-Character-UW-LTR.png",
+      "welcome-demon-school-teacher": "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=94,width=1350/CurationAssets/Welcome%20to%20Demon%20School%20Iruma-kun/SEASON%204/ULTRA-WIDE/WelcomeToDemonSchoolIrumaKun-S4-KV1-UW-LTR.png"
     };
 
     return [
-      allAnimes.find(anime => anime.id === "dandadan"),
-      allAnimes.find(anime => anime.id === "kaiju-n8"),
-      allAnimes.find(anime => anime.id === "rent-a-girlfriend"),
-      allAnimes.find(anime => anime.id === "frieren"),
-      allAnimes.find(anime => anime.id === "one-piece")
+      allAnimes.find(anime => anime.id === "re-zero"),
+      allAnimes.find(anime => anime.id === "classroom-of-the-elite"),
+      allAnimes.find(anime => anime.id === "dr-stone"),
+      allAnimes.find(anime => anime.id === "tensei-shitara-slime-datta-ken"),
+      allAnimes.find(anime => anime.id === "welcome-demon-school-teacher")
     ].filter((anime): anime is NonNullable<typeof anime> => Boolean(anime))
       .map(anime => ({
         ...anime,
