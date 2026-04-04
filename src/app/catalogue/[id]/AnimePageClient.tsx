@@ -13,11 +13,13 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import React from "react";
 import { Anime, AnimeEpisode, getAllAnimes } from "@/lib/animeData";
-import VideoPlayer from "@/components/ui/video-player";
-import HLSPlayer from '@/components/ui/hls-player';
+import dynamic from "next/dynamic";
+
+const VideoPlayer = dynamic(() => import("@/components/ui/video-player"), { ssr: false });
+const HLSPlayer = dynamic(() => import("@/components/ui/hls-player"), { ssr: false });
+const MovearnPlayer = dynamic(() => import("@/components/ui/movearn-player"), { ssr: false });
 import { getProxiedStreamUrl } from "@/lib/utils";
 import { WatchHistoryItem } from "@/lib/history";
-import MovearnPlayer from "@/components/ui/movearn-player";
 import AnimeEpisodeCard from "@/components/AnimeEpisodeCard";
 import { getSeasonTitle, getFilmTitle, getFilmSeasonIndex } from "@/lib/filmTitles";
 
