@@ -1,7 +1,7 @@
 "use client";
 
 import { useHistory } from "@/context/history-context";
-import { calculateProgress, formatTime, getRelativeTime } from "@/lib/history";
+import { calculateProgress, getRelativeTime } from "@/lib/history";
 import { extractSeriesId } from "@/lib/utils";
 import { Trash2, Play } from "lucide-react";
 import CustomImage from "./ui/custom-image";
@@ -105,10 +105,10 @@ export default function HistoryList({ limit = 5 }: { limit?: number }) {
                     </div>
                   </div>
                   
-                  {/* Temps de visionnage en bas à droite */}
-                  {'progress' in item && (
-                    <div className="absolute bottom-2 right-2 text-xs font-bold text-white bg-black/70 px-2 py-1 rounded">
-                      {formatTime(item.progress)} / {formatTime(item.duration)}
+                  {/* Barre de progression en bas de l'image */}
+                  {'progress' in item && progressPercentage > 0 && (
+                    <div className="absolute bottom-0 left-0 w-full h-1 bg-black/50">
+                      <div className="h-full bg-gradient-to-r from-pink-500 to-blue-500 rounded-r-full" style={{ width: `${progressPercentage}%` }} />
                     </div>
                   )}
                 </div>

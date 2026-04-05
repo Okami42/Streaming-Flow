@@ -19,7 +19,7 @@ export default function Footer() {
               <span className="absolute -bottom-1 left-0 w-12 h-[2px] bg-gradient-to-r from-pink-500 to-blue-500" />
             </h3>
             <p className="text-gray-400 text-sm leading-relaxed">
-              Okanime est un site de référencement et de visionnage de contenus
+              Okastream est un site de référencement et de visionnage de contenus
               de l'animation japonaise les moins accessibles possibles, créé par des
               passionnés, de l'animation et du divertissement sans but lucratif.
             </p>
@@ -51,7 +51,7 @@ export default function Footer() {
               <span className="absolute -bottom-1 left-0 w-12 h-[2px] bg-gradient-to-r from-pink-500 to-blue-500" />
             </h3>
             <p className="text-gray-400 text-sm mt-4">
-              Okanime n'héberge aucune vidéo sur son site, nous ne faisons que
+              Okastream n'héberge aucune vidéo sur son site, nous ne faisons que
               référencer des contenus disponibles sur différentes plateformes.
             </p>
           </div>
@@ -59,7 +59,7 @@ export default function Footer() {
 
         <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between">
           <p className="text-sm text-gray-400 mb-4 md:mb-0">
-            © 2025 Okanime - Tous droits réservés.
+            © 2025-2026 Okastream - Tous droits réservés.
           </p>
           <div className="flex items-center space-x-4">
             <span className="text-xs text-gray-500">
