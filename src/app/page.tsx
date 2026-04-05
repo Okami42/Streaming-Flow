@@ -159,7 +159,7 @@ export default function Home() {
   // Featured animes for the carousel with custom banner images
   const featuredAnimes = React.useMemo(() => {
     const carouselBanners = {
-      "re-zero": "https://adala-news.fr/wp-content/uploads/2025/03/ReZERO-Saison-4-image1.jpg",
+      "tsue-to-tsurugi-no-wistoria": "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=94,width=1920/CurationAssets/Wistoria%20Wand%20and%20Sword/SEASON%202/ULTRA-WIDE/WistoriaWandAndSword-S2-KV1-UW-LTR.png",
       "classroom-of-the-elite": "https://res.cloudinary.com/jerrick/image/upload/v1618170549/607352b5b9f7e7001d255bd8.jpg",
       "dr-stone": "https://tohoanimationstore.us/cdn/shop/files/Hero-1200x800-Blog_Banner_Dr.STONE_Final_Season_Part_3.jpg?v=1775248394&width=1920",
       "tensei-shitara-slime-datta-ken": "https://imgsrv.crunchyroll.com/cdn-cgi/image/fit=contain,format=auto,quality=94,width=1350/CurationAssets/That%20Time%20I%20Got%20Reincarnated%20as%20a%20Slime/SEASON%204/ULTRA-WIDE/ThatTimeIGotReincarnatedAsASlime-S4-Character-UW-LTR.png",
@@ -167,7 +167,7 @@ export default function Home() {
     };
 
     return [
-      allAnimes.find(anime => anime.id === "re-zero"),
+      allAnimes.find(anime => anime.id === "tsue-to-tsurugi-no-wistoria"),
       allAnimes.find(anime => anime.id === "classroom-of-the-elite"),
       allAnimes.find(anime => anime.id === "dr-stone"),
       allAnimes.find(anime => anime.id === "tensei-shitara-slime-datta-ken"),

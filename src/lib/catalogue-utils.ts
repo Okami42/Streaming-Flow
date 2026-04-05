@@ -9125,7 +9125,7 @@ export const animes: CatalogueAnime[] = [
   {
     id: "tsue-to-tsurugi-no-wistoria",
     title: "Tsue To Tsurugi No Wistoria",
-    imageUrl: "https://cdn.statically.io/gh/Anime-Sama/IMG/img/contenu/tsue-to-tsurugi-no-wistoria.jpg",
+    imageUrl: "https://m.media-amazon.com/images/M/MV5BNWU1OTgxYTMtZTViMy00MmU0LTg2ZGMtZDVkYTNlYzI4NWRjXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
     type: "Anime",
     language: "VF & VO",
     genres: getAnimeGenres("tsue-to-tsurugi-no-wistoria"),

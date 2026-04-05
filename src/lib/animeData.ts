@@ -23860,7 +23860,7 @@ export const animes: Anime[] = [
     "title": "Tsue To Tsurugi No Wistoria",
     "originalTitle": "Tsue To Tsurugi No Wistoria",
     "description": "Cherchant à tenir la promesse faite à un ami d'enfance, Will Serfort intègre l'Académie magique de Regarden dans le but de se hisser au sommet du monde magique. Mais il y a un problème : il ne sait pas utiliser la magie ! Ses compétences à l'épée seront-elles la clé qui lui permettra de révéler son véritable potentiel ?",
-    "imageUrl": "https://cdn.statically.io/gh/Anime-Sama/IMG/img/contenu/tsue-to-tsurugi-no-wistoria.jpg",
+    "imageUrl": "https://m.media-amazon.com/images/M/MV5BNWU1OTgxYTMtZTViMy00MmU0LTg2ZGMtZDVkYTNlYzI4NWRjXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
     "bannerUrl": "/picture/bassembanniere.png",
     "year": 2024,
     "type": "Anime",
