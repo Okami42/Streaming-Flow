@@ -2433,7 +2433,286 @@ export const animes: Anime[] = [
       "Adolescence",
       "School Life"
     ],
-    "rating": 8.5
+    "rating": 8.5,
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Saison 1",
+        "year": 2026,
+        "episodes": [
+          {
+            "number": 1,
+            "title": "Épisode 1",
+            "sibnetVostfrId": "4668080",
+            "sibnetVfId": "4799425"
+          },
+          {
+            "number": 2,
+            "title": "Épisode 2",
+            "sibnetVostfrId": "4668082",
+            "sibnetVfId": "4801518"
+          },
+          {
+            "number": 3,
+            "title": "Épisode 3",
+            "sibnetVostfrId": "4668083",
+            "sibnetVfId": "4810031"
+          },
+          {
+            "number": 4,
+            "title": "Épisode 4",
+            "sibnetVostfrId": "4668085",
+            "sibnetVfId": "4818237"
+          },
+          {
+            "number": 5,
+            "title": "Épisode 5",
+            "sibnetVostfrId": "4668087",
+            "sibnetVfId": "4829160"
+          },
+          {
+            "number": 6,
+            "title": "Épisode 6",
+            "sibnetVostfrId": "4668088",
+            "sibnetVfId": "5412534"
+          },
+          {
+            "number": 7,
+            "title": "Épisode 7",
+            "sibnetVostfrId": "4668090",
+            "sibnetVfId": "4859838"
+          },
+          {
+            "number": 8,
+            "title": "Épisode 8",
+            "sibnetVostfrId": "4668091",
+            "sibnetVfId": "4877616"
+          },
+          {
+            "number": 9,
+            "title": "Épisode 9",
+            "sibnetVostfrId": "4668094",
+            "sibnetVfId": "4885368"
+          },
+          {
+            "number": 10,
+            "title": "Épisode 10",
+            "sibnetVostfrId": "4668095",
+            "sibnetVfId": "4905085"
+          },
+          {
+            "number": 11,
+            "title": "Épisode 11",
+            "sibnetVostfrId": "4668098",
+            "sibnetVfId": "4914202"
+          },
+          {
+            "number": 12,
+            "title": "Épisode 12",
+            "sibnetVostfrId": "4668106",
+            "sibnetVfId": "4923056"
+          }
+        ]
+      },
+      {
+        "seasonNumber": 2,
+        "title": "Saison 2",
+        "year": 2026,
+        "episodes": [
+          {
+            "number": 1,
+            "title": "Épisode 1",
+            "sibnetVostfrId": "4777568",
+            "sibnetVfId": "4798438"
+          },
+          {
+            "number": 2,
+            "title": "Épisode 2",
+            "sibnetVostfrId": "4785592",
+            "sibnetVfId": "4801519"
+          },
+          {
+            "number": 3,
+            "title": "Épisode 3",
+            "sibnetVostfrId": "4796430",
+            "sibnetVfId": "4810035"
+          },
+          {
+            "number": 4,
+            "title": "Épisode 4",
+            "sibnetVostfrId": "4801138",
+            "sibnetVfId": "4818231"
+          },
+          {
+            "number": 5,
+            "title": "Épisode 5",
+            "sibnetVostfrId": "4809651",
+            "sibnetVfId": "4829170"
+          },
+          {
+            "number": 6,
+            "title": "Épisode 6",
+            "sibnetVostfrId": "4817808",
+            "sibnetVfId": "4840252"
+          },
+          {
+            "number": 7,
+            "title": "Épisode 7",
+            "sibnetVostfrId": "4827084",
+            "sibnetVfId": "4859840"
+          },
+          {
+            "number": 8,
+            "title": "Épisode 8",
+            "sibnetVostfrId": "4839805",
+            "sibnetVfId": "4877610"
+          },
+          {
+            "number": 9,
+            "title": "Épisode 9",
+            "sibnetVostfrId": "4850225",
+            "sibnetVfId": "4885371"
+          },
+          {
+            "number": 10,
+            "title": "Épisode 10",
+            "sibnetVostfrId": "4859398",
+            "sibnetVfId": "4905107"
+          },
+          {
+            "number": 11,
+            "title": "Épisode 11",
+            "sibnetVostfrId": "4867782",
+            "sibnetVfId": "4914194"
+          },
+          {
+            "number": 12,
+            "title": "Épisode 12",
+            "sibnetVostfrId": "4877110",
+            "sibnetVfId": "4923064"
+          },
+          {
+            "number": 13,
+            "title": "Épisode 13",
+            "sibnetVostfrId": "4885041",
+            "sibnetVfId": "4936443"
+          }
+        ]
+      },
+      {
+        "seasonNumber": 3,
+        "title": "Saison 3",
+        "year": 2026,
+        "episodes": [
+          {
+            "number": 1,
+            "title": "Épisode 1",
+            "sibnetVostfrId": "5385344",
+            "sendvidVfId": "heirqvk3"
+          },
+          {
+            "number": 2,
+            "title": "Épisode 2",
+            "sibnetVostfrId": "5394000",
+            "sendvidVfId": "sh3q0243"
+          },
+          {
+            "number": 3,
+            "title": "Épisode 3",
+            "sibnetVostfrId": "5402994",
+            "sendvidVfId": "yidzf1z0"
+          },
+          {
+            "number": 4,
+            "title": "Épisode 4",
+            "sibnetVostfrId": "5411124",
+            "sendvidVfId": "y8xz9mbh"
+          },
+          {
+            "number": 5,
+            "title": "Épisode 5",
+            "sibnetVostfrId": "5418962",
+            "sendvidVfId": "ctsk3yyu"
+          },
+          {
+            "number": 6,
+            "title": "Épisode 6",
+            "sibnetVostfrId": "5425218",
+            "sendvidVfId": "90s0ree6"
+          },
+          {
+            "number": 7,
+            "title": "Épisode 7",
+            "sibnetVostfrId": "5431981",
+            "sendvidVfId": "gemystrv"
+          },
+          {
+            "number": 8,
+            "title": "Épisode 8",
+            "sibnetVostfrId": "5440248",
+            "sendvidVfId": "7dz4chd3"
+          },
+          {
+            "number": 9,
+            "title": "Épisode 9",
+            "sibnetVostfrId": "5449806",
+            "sibnetVfId": "5475846"
+          },
+          {
+            "number": 10,
+            "title": "Épisode 10",
+            "sibnetVostfrId": "5457931",
+            "sendvidVfId": "ed3r81rj"
+          },
+          {
+            "number": 11,
+            "title": "Épisode 11",
+            "sibnetVostfrId": "5466856",
+            "sendvidVfId": "dgwmkjuc"
+          },
+          {
+            "number": 12,
+            "title": "Épisode 12",
+            "sibnetVostfrId": "5475128",
+            "sendvidVfId": "nntdo56g"
+          },
+          {
+            "number": 13,
+            "title": "Épisode 13",
+            "sibnetVostfrId": "5484154",
+            "sendvidVfId": "cafq6c1o"
+          }
+        ]
+      },
+      {
+        "seasonNumber": 4,
+        "title": "Saison 4",
+        "year": 2026,
+        "episodes": [
+          {
+            "number": 1,
+            "title": "Épisode 1",
+            "sibnetVostfrId": "6161261"
+          },
+          {
+            "number": 2,
+            "title": "Épisode 2",
+            "sibnetVostfrId": "6161294"
+          },
+          {
+            "number": 3,
+            "title": "Épisode 3",
+            "sibnetVostfrId": "6161331"
+          },
+          {
+            "number": 4,
+            "title": "Épisode 4",
+            "sibnetVostfrId": "6161357"
+          }
+        ]
+      }
+    ],
+    "episodes": []
   },
   {
     "id": "horimiya",
@@ -10802,7 +11081,101 @@ export const animes: Anime[] = [
       "Harem"
     ],
     "rating": 8,
-    "language": "VF & VO"
+    "language": "VF & VO",
+    "seasons": [
+      {
+        "seasonNumber": 1,
+        "title": "Saison 1",
+        "year": 2026,
+        "episodes": [
+          {
+            "number": 1,
+            "title": "Épisode 1",
+            "sibnetVostfrId": "4999672",
+            "sibnetVfId": "5609090"
+          },
+          {
+            "number": 2,
+            "title": "Épisode 2",
+            "sibnetVostfrId": "5008031",
+            "sibnetVfId": "5609091"
+          },
+          {
+            "number": 3,
+            "title": "Épisode 3",
+            "sibnetVostfrId": "5014548",
+            "sibnetVfId": "5609093"
+          },
+          {
+            "number": 4,
+            "title": "Épisode 4",
+            "sibnetVostfrId": "5023355",
+            "sibnetVfId": "5609094"
+          },
+          {
+            "number": 5,
+            "title": "Épisode 5",
+            "sibnetVostfrId": "5030261",
+            "sibnetVfId": "5609095"
+          },
+          {
+            "number": 6,
+            "title": "Épisode 6",
+            "sibnetVostfrId": "5037976",
+            "sibnetVfId": "5609096"
+          },
+          {
+            "number": 7,
+            "title": "Épisode 7",
+            "sibnetVostfrId": "5047312",
+            "sibnetVfId": "5609097"
+          },
+          {
+            "number": 8,
+            "title": "Épisode 8",
+            "sibnetVostfrId": "5057176",
+            "sibnetVfId": "5609098"
+          },
+          {
+            "number": 9,
+            "title": "Épisode 9",
+            "sibnetVostfrId": "5065984",
+            "sibnetVfId": "5609099"
+          },
+          {
+            "number": 10,
+            "title": "Épisode 10",
+            "sibnetVostfrId": "5072015",
+            "sibnetVfId": "5609100"
+          },
+          {
+            "number": 11,
+            "title": "Épisode 11",
+            "sibnetVostfrId": "5078374",
+            "sibnetVfId": "5609101"
+          },
+          {
+            "number": 12,
+            "title": "Épisode 12",
+            "sibnetVostfrId": "5086010",
+            "sibnetVfId": "5609102"
+          }
+        ]
+      },
+      {
+        "seasonNumber": 2,
+        "title": "Saison 2",
+        "year": 2026,
+        "episodes": [
+          {
+            "number": 1,
+            "title": "Épisode 1",
+            "sibnetVostfrId": "6165296"
+          }
+        ]
+      }
+    ],
+    "episodes": []
   },
   {
     "id": "fate",

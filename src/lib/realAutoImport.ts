@@ -520,17 +520,49 @@ export async function ultraFastAutoLoad(animeId: string, animeYear?: number): Pr
  * Les données DB peuvent avoir des saisons mais sans les IDs de streaming.
  */
 export async function ultraFastEnrichAnime(anime: Anime): Promise<Anime> {
-  // Toujours essayer d'abord les fichiers public (ils ont les IDs Sibnet/Sendvid)
   const autoSeasons = await ultraFastAutoLoad(anime.id, anime.year);
   
-  if (autoSeasons.length > 0) {
-    // Les fichiers public ont des épisodes : priorité absolue
-    return { ...anime, seasons: autoSeasons };
+  const mergedSeasons: AnimeSeason[] = [];
+  
+  // Create a map of DB seasons
+  const dbSeasonsMap = new Map<number | string, AnimeSeason>();
+  if (anime.seasons && anime.seasons.length > 0) {
+    anime.seasons.forEach(s => dbSeasonsMap.set(s.seasonNumber, s));
   }
   
-  // Fallback : si les fichiers public n'ont rien, garder les données DB
-  if (anime.seasons && anime.seasons.length > 0 && anime.seasons[0].episodes.length > 0) {
-    return anime;
+  // Create a map of Auto seasons
+  const autoSeasonsMap = new Map<number | string, AnimeSeason>();
+  if (autoSeasons && autoSeasons.length > 0) {
+    autoSeasons.forEach(s => autoSeasonsMap.set(s.seasonNumber, s));
+  }
+  
+  // Combine all season numbers
+  const allSeasonNumbers = new Set<string | number>([
+    ...Array.from(dbSeasonsMap.keys()),
+    ...Array.from(autoSeasonsMap.keys())
+  ]);
+  
+  // Build the merged seasons array. DB takes precedence!
+  Array.from(allSeasonNumbers).forEach(seasonNum => {
+    if (dbSeasonsMap.has(seasonNum)) {
+      mergedSeasons.push(dbSeasonsMap.get(seasonNum)!);
+    } else if (autoSeasonsMap.has(seasonNum)) {
+      mergedSeasons.push(autoSeasonsMap.get(seasonNum)!);
+    }
+  });
+  
+  // Sort seasons: Numbers first, then Strings (like 'Film')
+  mergedSeasons.sort((a, b) => {
+    if (typeof a.seasonNumber === 'number' && typeof b.seasonNumber === 'number') {
+      return a.seasonNumber - b.seasonNumber;
+    }
+    if (typeof a.seasonNumber === 'number') return -1;
+    if (typeof b.seasonNumber === 'number') return 1;
+    return String(a.seasonNumber).localeCompare(String(b.seasonNumber));
+  });
+
+  if (mergedSeasons.length > 0) {
+    return { ...anime, seasons: mergedSeasons };
   }
   
   return anime;
